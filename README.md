@@ -1,4 +1,4 @@
-Japanese-IME
+WanaKana
 ============
 
-Javascript IME for Hiragana &lt;--> Katakana &lt;--> Romaji
+Javascript library for transliterating Hiragana &lt;--> Katakana &lt;--> Romaji
