@@ -1,13 +1,14 @@
 module("Dependencies");
 
 test("require wanakana.js", function() {
-	return ok (wanakana, "wanakana.js is loaded.");
+	ok (wanakana, "wanakana.js is loaded.");
+	ok (testTable, "transliteration table is loaded.");
 });
 
 module("Syntax");
 
 test("Ignore case", function() {
-	return equal (wanakana.toHiragana("aiueo"), wanakana.toHiragana("AIUEO"), "cAse DoEsn'T MatTER");
+	equal (wanakana.toHiragana("aiueo"), wanakana.toHiragana("AIUEO"), "cAse DoEsn'T MatTER");
 });
 
 test ("Test every character", function () {

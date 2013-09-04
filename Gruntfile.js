@@ -35,6 +35,10 @@ module.exports = function(grunt) {
         }
     },
 
+    jshint: {
+      all: ['<%=generatedJSPath%>']
+    },
+
     uglify: {
       deploy: {
         files: [{
@@ -58,13 +62,15 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-coffee');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-shell');
 
-  grunt.registerTask('default', ['coffee:dev', 'qunit']);
-  grunt.registerTask('test', ['coffee:dev', 'shell:openTestsInBrowser']);
-  grunt.registerTask('deploy', ['clean', 'coffee:deploy', 'uglify:deploy', 'qunit']);
+  grunt.registerTask('default', ['coffee:dev', 'lint', 'qunit']);
+  grunt.registerTask('lint', ['coffee:dev', 'jshint']);
+  grunt.registerTask('test', ['coffee:dev', 'lint', 'shell:openTestsInBrowser']);
+  grunt.registerTask('deploy', ['clean', 'coffee:deploy', 'lint', 'uglify:deploy', 'qunit']);
 };
