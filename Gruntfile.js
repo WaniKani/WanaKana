@@ -40,6 +40,10 @@ module.exports = function(grunt) {
 		},
 
 		coffeelint: {
+			options: {
+				"max_line_length": {'value':120 },
+				"no_trailing_whitespace" : {'level': 'warn'}
+			},
 			all: ['<%=coffeeSrcPath%>*.coffee']
 		},
 
@@ -63,6 +67,13 @@ module.exports = function(grunt) {
 			openTestsInBrowser: {
 				command: 'open <%=testPath%>index.html'
 			}
+		},
+
+		watch: {
+			coffee: {
+				files: '<%=coffeeSrcPath%>**/*.coffee',
+				tasks: ['coffee:dev', 'lint'],
+			}
 		}
 	});
 
@@ -71,6 +82,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-coffeelint');
 	grunt.loadNpmTasks('grunt-shell');
 
