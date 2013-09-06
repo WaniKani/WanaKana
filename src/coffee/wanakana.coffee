@@ -47,17 +47,28 @@ wanakana.isKana = (input) ->
   wanakana._allTrue( chars, (char) -> (wanakana.isHiragana char) or (wanakana.isKatakana char) )
 
 wanakana.isRomaji = (input) ->
-  input
+  chars = input.split("")
+  wanakana._allTrue( chars, (char) -> (not wanakana.isHiragana char) and (not wanakana.isKatakana char) )
 
 wanakana._katakanaToHiragana = (kata) ->
-  # Shift charcode down.
-  hira = ""
-  hira
+  hira = []
+  for kataChar in kata.split ""
+    code = kataChar.charCodeAt 0
+    # Shift charcode.
+    code += wanakana.HIRAGANA_START - wanakana.KATAKANA_START
+    hiraChar = String.fromCharCode code
+    hira.push hiraChar
+  hira.join ""
 
 wanakana._hiraganaToKatakana = (hira) ->
-  # Shift charcode up.
-  kata = ""
-  kata
+  kata = []
+  for hiraChar in hira.split ""
+    code = hiraChar.charCodeAt 0
+    # Shift charcode.
+    code += wanakana.KATAKANA_START - wanakana.HIRAGANA_START
+    kataChar = String.fromCharCode code
+    kata.push kataChar
+  kata.join ""
 
 wanakana._hiraganaToRomaji = (hira) ->
   # Transliterate
@@ -71,13 +82,16 @@ wanakana._romajiToHiragana = (roma) ->
 
 wanakana.toHiragana = (input) ->
   # wanakana._romajiToHiragana(input) if isRomaji(input)
-  # wanakana._katakanaToHiragana(input) if isKatakana(input)
+  if wanakana.isKatakana(input)
+    input = wanakana._katakanaToHiragana(input)
   # otherwise
   input
 
 wanakana.toKatakana = (input) ->
   # wanakana._romajiToHiragana(input) if isRomaji(input)
   # wanakana._hiraganaToKatakana(input) if isHiragana(input)
+  if wanakana.isHiragana(input)
+    input = wanakana._hiraganaToKatakana(input)
   #otherwise
   input
 
