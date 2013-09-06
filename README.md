@@ -1,7 +1,8 @@
-WanaKana
-============
+ワナカナ <- WanaKana -> わなかな
+===============================
+_ver. 0.1.0_
 
-Javascript library for transliterating Hiragana &lt;--> Katakana &lt;--> Romaji
+Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--> Katakana &lt;--> Romaji.
 
 
 ## Build using Grunt
@@ -12,3 +13,4 @@ Javascript library for transliterating Hiragana &lt;--> Katakana &lt;--> Romaji
 	- General development `grunt default` or just `grunt`
 	- Open test suite (Mac only) `grunt test`
 	- Deploy `grunt deploy`
+	- Full list of tasks `grunt --help`
