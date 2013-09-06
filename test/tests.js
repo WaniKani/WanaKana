@@ -47,11 +47,7 @@ test("isRomaji()", function () {
 
 module("Character conversion");
 
-test("Ignore case", function() {
-	equal (wanakana.toHiragana("aiueo"), wanakana.toHiragana("AIUEO"), "cAse DoEsn'T MatTER");
-});
-
-test("Test every character", function () {
+test("Test every character with toHiragana() and toKatakana()", function () {
 	for (var i in testTable) {
 		var map = testTable[i];
 		var romaji = map[0];
@@ -62,28 +58,32 @@ test("Test every character", function () {
 	}
 });
 
-test("ゐ and ゑ", function () {
-	equal (wanakana.toHiragana('wi'), 'ゐ', "wi = ゐ");
-	equal (wanakana.toHiragana('we'), 'ゑ', "we = ゑ");
-	equal (wanakana.toKatakana('wi'), 'ヰ', "WI = ヰ");
-	equal (wanakana.toKatakana('we'), 'ヱ', "WE = ヱ");
-});
 
 test("Quick Brown Fox", function () {
 	// thanks to Yuki http://www.yesjapan.com/YJ6/question/1099/is-there-a-group-of-sentences-that-uses-every-hiragana
-	equal( wanakana.toHiragana("IROHANIHOHETO"), "いろはにほへと", "Even the colorful fregrant flowers");
-	equal( wanakana.toHiragana("CHIRINURUO"), "ちりぬるを", "Die sooner or later");
-	equal( wanakana.toHiragana("WAKAYOTARESO"), "わかよたれそ", "Us who live in this world");
-	equal( wanakana.toHiragana("TSUNENARAMU"), "つねならむ", "Cannot live forever, either.");
-	equal( wanakana.toHiragana("UWINOOKUYAMA"), "うゐのおくやま", "This transient mountain with shifts and changes,)");
-	equal( wanakana.toHiragana("KEFUKOETE"), "けふこえて", "Today we are going to overcome, and reach the world of enlightenment.");
-	equal( wanakana.toHiragana("ASAKIYUMEMISHI"), "あさきゆめみし", "We are not going to have meaningless dreams");
-	equal( wanakana.toHiragana("WEHIMOSESUN"), "ゑひもせすん", "nor become intoxicated with the fake world anymore");
+	var opts = { useObseleteKana: true };
+	equal( wanakana.toHiragana("IROHANIHOHETO", opts), "いろはにほへと", "Even the colorful fregrant flowers");
+	equal( wanakana.toHiragana("CHIRINURUO", opts), "ちりぬるを", "Die sooner or later");
+	equal( wanakana.toHiragana("WAKAYOTARESO", opts), "わかよたれそ", "Us who live in this world");
+	equal( wanakana.toHiragana("TSUNENARAMU", opts), "つねならむ", "Cannot live forever, either.");
+	equal( wanakana.toHiragana("UWINOOKUYAMA", opts), "うゐのおくやま", "This transient mountain with shifts and changes,)");
+	equal( wanakana.toHiragana("KEFUKOETE", opts), "けふこえて", "Today we are going to overcome, and reach the world of enlightenment.");
+	equal( wanakana.toHiragana("ASAKIYUMEMISHI", opts), "あさきゆめみし", "We are not going to have meaningless dreams");
+	equal( wanakana.toHiragana("WEHIMOSESUN", opts), "ゑひもせすん", "nor become intoxicated with the fake world anymore");
 });
 
-test("Mixed case uses the first character for each sylable.", function () {
-	equal (wanakana.toKana("WaniKani"), "ワにカに", "WaniKani -> ワにカに");
+test("toKana()", function () {
+	equal (wanakana.toHiragana("onaji"), wanakana.toKana("onaji"), "Lowercase characters are transliterated to hiragana.");
+	equal (wanakana.toKatakana("onaji"), wanakana.toKana("ONAJI"), "Uppercase characters are transliterated to katakana.");
+	equal (wanakana.toKana("WaniKani"), "ワにカに", "WaniKani -> ワにカに - Mixed case uses the first character for each sylable.");
 });
+
+test("Case sensitivity", function() {
+	equal (wanakana.toHiragana("aiueo"), wanakana.toHiragana("AIUEO"), "cAse DoEsn'T MatTER for toHiragana()");
+	equal (wanakana.toKatakana("aiueo"), wanakana.toKatakana("AIUEO"), "cAse DoEsn'T MatTER for toKatakana()");
+	notEqual (wanakana.toKana("aiueo"), wanakana.toKana("AIUEO"), "Case DOES matter for toKana()");
+});
+
 
 test("N edge cases", function () {
 	equal( wanakana.toKana("n"), "ん", "Solo N");
@@ -96,11 +96,39 @@ test("N edge cases", function () {
 	equal( wanakana.toKana("nnyann"), "んやん", "nnya -> んや");
 });
 
+module("Options");
+
+test("useObseleteKana", function () {
+	var opts = {useObseleteKana: true};
+	equal (wanakana.toHiragana('wi', opts), 'ゐ', "wi = ゐ (when useObseleteKana is true)");
+	equal (wanakana.toHiragana('we', opts), 'ゑ', "we = ゑ");
+	equal (wanakana.toKatakana('wi', opts), 'ヰ', "WI = ヰ");
+	equal (wanakana.toKatakana('we', opts), 'ヱ', "WE = ヱ");
+
+	opts.useObseleteKana = false;
+	equal (wanakana.toHiragana('wi', opts), 'うぃ', "wi = うぃ when useObseleteKana is false");
+});
+
+test("useMacrons", function() {
+	var opts = {useMacrons: false};
+	equal (wanakana.toRomaji('とうきょう', opts), "toukyou" , "とうきょう = toukyou (when useMacrons is false)");
+	opts.useMacrons = true;
+	equal (wanakana.toRomaji('とうきょう', opts), "tōkyō" , "とうきょう = tōkyō (when useMacrons is true)");
+});
+
+test("useApostrophes", function() {
+	var opts = {useApostrophes: false};
+	equal (wanakana.toRomaji('おんよみ', opts), "onyomi", "おんよみ = onyomi (when useApostrophes is false)");
+	opts.useApostrophes = true;
+	equal (wanakana.toRomaji('おんよみ', opts), "on'yomi" , "おんよみ = on'yomi (when useApostrophes is true)");
+});
+
 module("Performance");
 
 test("Speed", function () {
 	var startTime = new Date().getTime();
 	wanakana.toKana ("aiueosashisusesonaninunenokakikukeko");
 	var endTime = new Date().getTime();
-	ok (endTime-startTime < 30, "Dang, that's fast!");
+	var elapsedTime = endTime-startTime;
+	ok (elapsedTime < 30, "Dang, that's fast! Romaji -> Kana in " + elapsedTime + "ms");
 });
