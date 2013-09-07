@@ -72,7 +72,7 @@ module.exports = function(grunt) {
 		watch: {
 			coffee: {
 				files: '<%=coffeeSrcPath%>**/*.coffee',
-				tasks: ['coffee:dev', 'lint'],
+				tasks: ['lint', 'coffee:dev'],
 			}
 		}
 	});
@@ -86,8 +86,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-coffeelint');
 	grunt.loadNpmTasks('grunt-shell');
 
-	grunt.registerTask('default', ['coffee:dev', 'lint', 'qunit']);
-	grunt.registerTask('lint', ['coffeelint', 'jshint']);
-	grunt.registerTask('test', ['coffee:dev', 'lint', 'shell:openTestsInBrowser']);
-	grunt.registerTask('deploy', ['clean', 'coffee:deploy', 'lint', 'uglify:deploy', 'qunit']);
+	grunt.registerTask('default', ['lint', 'coffee:dev', 'qunit']);
+	grunt.registerTask('lint', ['coffeelint']);
+	grunt.registerTask('test', ['lint', 'coffee:dev', 'shell:openTestsInBrowser']);
+	grunt.registerTask('deploy', ['clean', 'lint', 'coffee:deploy', 'uglify:deploy', 'qunit']);
 };

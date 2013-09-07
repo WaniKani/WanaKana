@@ -47,23 +47,11 @@ test("isRomaji()", function () {
 
 module("Character conversion");
 
-test("Test every character with toHiragana() and toKatakana()", function () {
-	for (var i in testTable) {
-		var map = testTable[i];
-		var romaji = map[0];
-		var hiragana = map[1];
-		var katakana = map[2];
-		equal (wanakana.toHiragana(romaji), hiragana, romaji + " = " + hiragana);
-		equal (wanakana.toKatakana(romaji), katakana, romaji.toUpperCase() + " = " + katakana);
-	}
-});
-
-
 test("Quick Brown Fox", function () {
 	// thanks to Yuki http://www.yesjapan.com/YJ6/question/1099/is-there-a-group-of-sentences-that-uses-every-hiragana
 	var opts = { useObseleteKana: true };
 	equal( wanakana.toHiragana("IROHANIHOHETO", opts), "いろはにほへと", "Even the colorful fregrant flowers");
-	equal( wanakana.toHiragana("CHIRINURUO", opts), "ちりぬるを", "Die sooner or later");
+	equal( wanakana.toHiragana("CHIRINURUWO", opts), "ちりぬるを", "Die sooner or later");
 	equal( wanakana.toHiragana("WAKAYOTARESO", opts), "わかよたれそ", "Us who live in this world");
 	equal( wanakana.toHiragana("TSUNENARAMU", opts), "つねならむ", "Cannot live forever, either.");
 	equal( wanakana.toHiragana("UWINOOKUYAMA", opts), "うゐのおくやま", "This transient mountain with shifts and changes,)");
@@ -72,9 +60,21 @@ test("Quick Brown Fox", function () {
 	equal( wanakana.toHiragana("WEHIMOSESUN", opts), "ゑひもせすん", "nor become intoxicated with the fake world anymore");
 });
 
+test("Test every character with toHiragana() and toKatakana()", function () {
+	for (var i in testTable) {
+		var map = testTable[i];
+		var romaji = map[0];
+		var hiragana = map[1];
+		var katakana = map[2];
+		var options = { useKatakanaVU: true };
+		equal (wanakana.toHiragana(romaji, options), hiragana, romaji + " = " + hiragana);
+		equal (wanakana.toKatakana(romaji, options), katakana, romaji.toUpperCase() + " = " + katakana);
+	}
+});
+
 test("toKana()", function () {
-	equal (wanakana.toHiragana("onaji"), wanakana.toKana("onaji"), "Lowercase characters are transliterated to hiragana.");
-	equal (wanakana.toKatakana("onaji"), wanakana.toKana("ONAJI"), "Uppercase characters are transliterated to katakana.");
+	equal (wanakana.toKana("onaji"), wanakana.toHiragana("onaji"), "Lowercase characters are transliterated to hiragana.");
+	equal (wanakana.toKana("ONAJI"), wanakana.toKatakana("onaji"), "Uppercase characters are transliterated to katakana.");
 	equal (wanakana.toKana("WaniKani"), "ワにカに", "WaniKani -> ワにカに - Mixed case uses the first character for each sylable.");
 });
 
@@ -95,6 +95,7 @@ test("N edge cases", function () {
 	equal( wanakana.toKana("onn"), "おん", "double N");
 	equal( wanakana.toKana("onna"), "おんな", "N followed by N* syllable");
 	equal( wanakana.toKana("nnn"), "んん", "Triple N");
+	equal( wanakana.toKana("onnna"), "おんな", "Triple N followed by N* syllable");
 	equal( wanakana.toKana("nnnn"), "んん", "Quadruple N");
 
 	equal( wanakana.toKana("nyan"), "にゃん", "nya -> にゃ");
@@ -102,6 +103,14 @@ test("N edge cases", function () {
 });
 
 module("Options");
+
+test("useKatakanaVU", function () {
+	var opts = {useKatakanaVU: true};
+	equal (wanakana.toHiragana('vu', opts), 'ヴ', "vu = ヴ (when useKatakanaVU is true)");
+	opts.useKatakanaVU = false;
+	equal (wanakana.toHiragana('vu', opts), 'ゔ', "vu = ゔ (when useKatakanaVU is false)");
+	equal (wanakana.toHiragana('vu'), 'ゔ', "useKatakanaVU is false by defualt");
+});
 
 test("useObseleteKana", function () {
 	var opts = {useObseleteKana: true};
@@ -112,6 +121,7 @@ test("useObseleteKana", function () {
 
 	opts.useObseleteKana = false;
 	equal (wanakana.toHiragana('wi', opts), 'うぃ', "wi = うぃ when useObseleteKana is false");
+	equal (wanakana.toHiragana('wi'), 'うぃ', "useObseleteKana is false by default");
 });
 
 test("useMacrons", function() {
