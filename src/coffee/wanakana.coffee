@@ -23,11 +23,18 @@ wanakana.defaultOptions =
   # Use a katakana ヴ for hiragana 'vu'
   useKatakanaVU: no
 
+###*
+ * Takes an array of values and a function. The funciton is called with each value.
+ * If the function returns true every time, the result will be true. Otherwise, false.
+###
 wanakana._allTrue = (arr, func) ->
   for val in arr
     if func(val) is false then return false
   true
 
+###*
+ * Takes a character and a unicode range. Returns true if the char is in the range.
+###
 wanakana._isCharInRange = (char, start, end) ->
   code = char.charCodeAt 0
   return start <= code <= end
@@ -36,6 +43,114 @@ wanakana._isCharKatakana = (char) ->
   wanakana._isCharInRange(char, wanakana.KATAKANA_START, wanakana.KATAKANA_END)
 wanakana._isCharHiragana = (char) ->
   wanakana._isCharInRange(char, wanakana.HIRAGANA_START, wanakana.HIRAGANA_END)
+wanakana._isCharNotKana = (char) ->
+  not wanakana._isCharHiragana(char) and not wanakana._isCharKatakana(char)
+
+wanakana._katakanaToHiragana = (kata) ->
+  hira = []
+  for kataChar in kata.split ""
+    if wanakana._isCharKatakana(kataChar)
+      code = kataChar.charCodeAt 0
+      # Shift charcode.
+      code += wanakana.HIRAGANA_START - wanakana.KATAKANA_START
+      hiraChar = String.fromCharCode code
+      hira.push hiraChar
+    else
+      # pass non katakana chars through
+      hira.push kataChar
+  hira.join ""
+
+wanakana._hiraganaToKatakana = (hira) ->
+  kata = []
+  for hiraChar in hira.split ""
+    if wanakana._isCharHiragana(hiraChar)
+      code = hiraChar.charCodeAt 0
+      # Shift charcode.
+      code += wanakana.KATAKANA_START - wanakana.HIRAGANA_START
+      kataChar = String.fromCharCode code
+      kata.push kataChar
+    else
+      # pass non hiragana chars through
+      kata.push hiraChar
+  kata.join ""
+
+#wanakana._hiraganaToRomaji = (hira) ->
+  # Transliterate
+#  roma = ""
+#  roma
+
+wanakana._romajiToHiragana = (roma, options) -> wanakana._romajiToKana(roma, options, true)
+wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
+  len = roma.length
+  # Final output array
+  kana = []
+  # Position in the string that is being evaluated
+  cursor = 0
+  # Maximum size of the chunk of characters to evaluate at one time
+  maxChunk = 3
+
+  # Pulls a chunk of characters based on the cursor position and chunkSize
+  getChunk = () -> roma.substr(cursor, chunkSize)
+  # Checks if the character is uppercase
+  isCharUpperCase = (char) ->
+    wanakana._isCharInRange(char, wanakana.UPPERCASE_START, wanakana.UPPERCASE_END)
+
+  # Steps through the string pulling out chunks of characters. Each chunk will be evaluated
+  # against the romaji to kana table. If there is no match, the last character in the chunk
+  # is dropped and the chunk is reevaluated. If nothing matches, the character is assumed
+  # to be invalid or puncuation or other and gets passed through.
+  while cursor < len
+    # Don't pick a chunk that is bigger than the remaining characters.
+    chunkSize = Math.min(maxChunk, len-cursor)
+    while chunkSize > 0
+      chunk = getChunk()
+      chunkLC = chunk.toLowerCase()
+
+      # Handle super-rare edge case with a 4 char chunk for 'ltsu'
+      if chunkLC is "lts" and (len-cursor) >= 4
+        chunkSize++
+        chunk = getChunk()
+        chunkLC = chunk.toLowerCase()
+
+      # Handle edge case of n followed by n* (like 'onna')
+      if chunkLC.charAt(0) is "n" and chunkLC?.charAt(1) is "n" and chunkLC?.charAt(2).search(/[aeiouy]/) != -1
+        chunkSize = 1
+        chunk = getChunk()
+        chunkLC = chunk.toLowerCase()
+
+      kanaChar = wanakana.R_to_J[chunkLC]
+      # DEBUG
+      console.log (cursor + "x" + chunkSize + ":" + chunk + " => " + kanaChar )
+      break if kanaChar?
+      chunkSize--
+
+    unless kanaChar?
+      chunk = wanakana._convertPunctuation(chunk)
+      console.log("Couldn't find " + chunk + ". Passing through.")
+      # Passthrough undefined values
+      kanaChar = chunk
+
+    # Handle special cases.
+    options = wanakana.defaultOptions unless options?
+    if options.useKatakanaVU and kanaChar.charAt(0) is "ゔ"
+      kanaChar = "ヴ" + kanaChar.slice(1)
+    if options.useObseleteKana
+      if chunkLC is "wi" then kanaChar = "ゐ"
+      if chunkLC is "we" then kanaChar = "ゑ"
+
+    # Use katakana if first letter is uppercase
+    unless ignoreCase
+      if isCharUpperCase(chunk.charAt(0))
+        kanaChar = wanakana._hiraganaToKatakana(kanaChar)
+
+    kana.push kanaChar
+    cursor += chunkSize or 1
+  kana.join("")
+
+wanakana._convertPunctuation = (input, options) ->
+  if input is '-' then return 'ー'
+  input
+
 
 ###*
 * Returns true if input is entirely hiragana.
@@ -57,87 +172,6 @@ wanakana.isRomaji = (input) ->
   wanakana._allTrue( chars, (char) -> (not wanakana.isHiragana char) and (not wanakana.isKatakana char) )
 
 
-wanakana._katakanaToHiragana = (kata) ->
-  hira = []
-  for kataChar in kata.split ""
-    code = kataChar.charCodeAt 0
-    # Shift charcode.
-    code += wanakana.HIRAGANA_START - wanakana.KATAKANA_START
-    hiraChar = String.fromCharCode code
-    hira.push hiraChar
-  hira.join ""
-
-wanakana._hiraganaToKatakana = (hira) ->
-  kata = []
-  for hiraChar in hira.split ""
-    if wanakana._isCharKatakana(hiraChar)
-      kataChar = hiraChar
-    else
-      code = hiraChar.charCodeAt 0
-      # Shift charcode.
-      code += wanakana.KATAKANA_START - wanakana.HIRAGANA_START
-      kataChar = String.fromCharCode code
-    kata.push kataChar
-  kata.join ""
-
-wanakana._hiraganaToRomaji = (hira) ->
-  # Transliterate
-  roma = ""
-  roma
-
-wanakana._romajiToHiragana = (roma, options) -> wanakana._romajiToKana(roma, options, true)
-wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
-  kana = []
-  l = roma.length
-  cursor = 0
-  maxChunk = 3
-  getChunk = () -> roma.substr(cursor, chunkSize)
-  isCharUpperCase = (input) ->
-    wanakana._isCharInRange(input, wanakana.UPPERCASE_START, wanakana.UPPERCASE_END)
-
-  while cursor < l
-    chunkSize = Math.min(maxChunk, l-cursor)
-    while chunkSize > 0
-      chunk = getChunk()
-      if (chunk == "lts" && l-cursor >= 4)
-        # Super rare edge case with 4 chars for 'ltsu'
-        chunkSize++
-        chunk = getChunk()
-      chunkLC = chunk.toLowerCase()
-      kanaChar = wanakana.R_to_J[chunkLC]
-      # DEBUG
-      # console.log (cursor + "x" + chunkSize + ":" + chunk + " => " + kanaChar )
-      break if kanaChar?
-      chunkSize--
-
-    if not kanaChar?
-      chunk = wanakana._convertPunctuation(chunk)
-      # Passthrough undefined values
-      kana.push(chunk)
-      cursor += chunkSize
-      break
-
-    # Handle special cases.
-    options = wanakana.defaultOptions unless options?
-    if options.useKatakanaVU and kanaChar.charAt(0) is "ゔ"
-      kanaChar = "ヴ" + kanaChar.slice(1)
-    if options.useObseleteKana
-      if chunkLC is "wi" then kanaChar = "ゐ"
-      if chunkLC is "we" then kanaChar = "ゑ"
-
-    # Use katakana if first letter is uppercase
-    unless ignoreCase
-      if isCharUpperCase(chunk.charAt(0))
-        kanaChar = wanakana._hiraganaToKatakana(kanaChar)
-
-    kana.push (kanaChar)
-    cursor += chunkSize or 1
-  kana.join ""
-
-wanakana._convertPunctuation = (input, options) ->
-  if input is '-' then return 'ー'
-  input
-
 wanakana.toHiragana = (input, options) ->
   if wanakana.isRomaji(input)
     return input = wanakana._romajiToHiragana(input, options)
@@ -156,10 +190,10 @@ wanakana.toKatakana = (input, options) ->
   input
 
 wanakana.toKana = (input, options) ->
-  if wanakana.isRomaji(input)
-    return input = wanakana._romajiToKana(input, options)
+  # if wanakana.isRomaji(input)
+  return input = wanakana._romajiToKana(input, options)
   #otherwise
-  input
+  # input
 
 wanakana.toRomaji = (input, options) ->
   # if isKatakana(input)
