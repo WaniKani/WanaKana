@@ -120,13 +120,13 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
 
       kanaChar = wanakana.R_to_J[chunkLC]
       # DEBUG
-      console.log (cursor + "x" + chunkSize + ":" + chunk + " => " + kanaChar )
+      # console.log (cursor + "x" + chunkSize + ":" + chunk + " => " + kanaChar )
       break if kanaChar?
       chunkSize--
 
     unless kanaChar?
       chunk = wanakana._convertPunctuation(chunk)
-      console.log("Couldn't find " + chunk + ". Passing through.")
+      # console.log("Couldn't find " + chunk + ". Passing through.")
       # Passthrough undefined values
       kanaChar = chunk
 
