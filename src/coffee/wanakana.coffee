@@ -138,7 +138,7 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
       if chunkLC is "wi" then kanaChar = "ゐ"
       if chunkLC is "we" then kanaChar = "ゑ"
 
-    # Use katakana if first letter is uppercase
+    # Use katakana if first letter in chunk is uppercase
     unless ignoreCase
       if isCharUpperCase(chunk.charAt(0))
         kanaChar = wanakana._hiraganaToKatakana(kanaChar)
