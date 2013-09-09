@@ -104,6 +104,14 @@ test("N edge cases", function () {
   equal( wanakana.toKana("nnnyannn"), "んにゃんん", "nnnya -> んにゃ");
 });
 
+// module("Kana to Romaji");
+
+// test("toRomaji()", function () {
+//   equal( wanakana.toRomaji("ワニカニ　ハ　スゴイ　ダ"), "wanikani ha sugoi da", "Convert katakana to romaji");
+//   equal( wanakana.toRomaji("わにかに　は　すごい　だ"), "wanikani ha sugoi da", "Convert hiragana to romaji");
+//   equal( wanakana.toRomaji("ワニカニ　は　すごい　だ"), "wanikani ha sugoi da", "Convert mixed kana to romaji");
+// });
+
 module("Options");
 
 test("useKatakanaVU", function () {
