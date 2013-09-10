@@ -1,0 +1,19 @@
+{
+  "name": "WanaKana",
+  "version": "0.1.0",
+  "homepage": "https://github.com/dotfold/WanaKana",
+  "authors": [
+    "dotfold <jamesmcnamee@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.0.0"
+  }
+}
