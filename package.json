@@ -11,7 +11,6 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-coffeelint": "~0.0.7",
     "grunt-shell": "~0.3.1",
-    "bower": "~1.2.6",
     "grunt-contrib-copy": "~0.4.1"
   }
 }
