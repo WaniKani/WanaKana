@@ -5,7 +5,6 @@ module.exports = function(grunt) {
 		coffeeSrcPath: 'src/coffee/',
 		externalJSPath: 'src/libs/',
 		htmlPath: 'src/html/',
-		vendorPath: 'src/vendor/',
 		deployPath: 'deploy/',
 		testPath: 'test/',
 
@@ -62,14 +61,6 @@ module.exports = function(grunt) {
 		},
 
 		copy: {
-			assets: {
-				files: [{
-					src: [ 'bootstrap.min.css' ],
-					dest: '<%= deployPath %>/demo/css/',
-					cwd: '<%= vendorPath %>/bootstrap/dist/css',
-					expand: true
-				}]
-			},
 			html: {
 				files: [{ 
                     src: [ '**/*.html' ],
@@ -116,5 +107,5 @@ module.exports = function(grunt) {
 	grunt.registerTask('test', ['lint', 'coffee:dev', 'shell:openTestsInBrowser']);
 	grunt.registerTask('deploy', ['clean', 'lint', 'coffee:deploy', 'uglify:deploy', 'qunit']);
 
-	grunt.registerTask('demo', ['deploy', 'copy:assets', 'copy:html', 'shell:openDemo']);
+	grunt.registerTask('demo', ['deploy', 'copy:html', 'shell:openDemo']);
 };
