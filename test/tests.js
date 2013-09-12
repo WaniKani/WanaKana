@@ -72,6 +72,34 @@ test("Test every character with toHiragana() and toKatakana()", function () {
   }
 });
 
+test ("Double consonants transliterate to glottal stops (small tsu)", function () {
+  equal (wanakana.toHiragana("babba"),   "ばっば", "double B");
+  equal (wanakana.toHiragana("cacca"),   "かっか", "double C");
+  equal (wanakana.toHiragana("chaccha"), "ちゃっちゃ", "double Ch");
+  equal (wanakana.toHiragana("dadda"),   "だっだ", "double D");
+  equal (wanakana.toHiragana("fuffu"),   "ふっふ", "double F");
+  equal (wanakana.toHiragana("gagga"),   "がっが", "double G");
+  equal (wanakana.toHiragana("hahha"),   "はっは", "double H");
+  equal (wanakana.toHiragana("jajja"),   "じゃっじゃ", "double J");
+  equal (wanakana.toHiragana("kakka"),   "かっか", "double K");
+  equal (wanakana.toHiragana("lalla"),   "らっら", "double L");
+  equal (wanakana.toHiragana("mamma"),   "まっま", "double M");
+  equal (wanakana.toHiragana("nanna"),   "なんな", "double N");
+  equal (wanakana.toHiragana("nanna", {IMEMode:true}),   "なんあ", "double N (IME mode)");
+  equal (wanakana.toHiragana("pappa"),   "ぱっぱ", "double P");
+  equal (wanakana.toHiragana("qaqqa"),   "くぁっくぁ", "double Q");
+  equal (wanakana.toHiragana("rarra"),   "らっら", "double R");
+  equal (wanakana.toHiragana("sassa"),   "さっさ", "double S");
+  equal (wanakana.toHiragana("shassha"), "しゃっしゃ", "double Sh");
+  equal (wanakana.toHiragana("tatta"),   "たった", "double T");
+  equal (wanakana.toHiragana("tsuttsu"), "つっつ", "double Ts");
+  equal (wanakana.toHiragana("vavva"),   "ゔぁっゔぁ", "double V");
+  equal (wanakana.toHiragana("wawwa"),   "わっわ", "double W");
+  equal (wanakana.toHiragana("yayya"),   "やっや", "double X");
+  equal (wanakana.toHiragana("zazza"),   "ざっざ", "double Z");
+
+});
+
 test("toKana()", function () {
   equal (wanakana.toKana("onaji"), wanakana.toHiragana("onaji"), "Lowercase characters are transliterated to hiragana.");
   equal (wanakana.toKana("ONAJI"), wanakana.toKatakana("onaji"), "Uppercase characters are transliterated to katakana.");
@@ -107,9 +135,9 @@ test("N edge cases", function () {
 // module("Kana to Romaji");
 
 // test("toRomaji()", function () {
-//   equal( wanakana.toRomaji("ワニカニ　ハ　スゴイ　ダ"), "wanikani ha sugoi da", "Convert katakana to romaji");
-//   equal( wanakana.toRomaji("わにかに　は　すごい　だ"), "wanikani ha sugoi da", "Convert hiragana to romaji");
-//   equal( wanakana.toRomaji("ワニカニ　は　すごい　だ"), "wanikani ha sugoi da", "Convert mixed kana to romaji");
+//   equal( wanakana.toRomaji("ワニカニ　ガ　スゴイ　ダ"), "wanikani ga sugoi da", "Convert katakana to romaji");
+//   equal( wanakana.toRomaji("わにかに　が　すごい　だ"), "wanikani ga sugoi da", "Convert hiragana to romaji");
+//   equal( wanakana.toRomaji("ワニカニ　が　すごい　だ"), "wanikani ga sugoi da", "Convert mixed kana to romaji");
 // });
 
 module("Options");
@@ -143,6 +171,10 @@ test ("IMEMode", function () {
   equal (wanakana.toHiragana("n", opts), "n", "With IME mode, solo n's are not transliterated.");
   equal (wanakana.toHiragana("nn", opts), "ん", "With IME mode, double n's are transliterated.");
   equal (wanakana.toHiragana("n ", opts), "ん ", "With IME mode, n + space are transliterated.");
+
+  equal (wanakana.toHiragana("kan", opts), "かn", "kan");
+  equal (wanakana.toHiragana("kanp", opts), "かんp", "kanp");
+  equal (wanakana.toHiragana("kanpai", opts), "かんぱい", "kanpai!");
 });
 
 // test("useMacrons", function() {
@@ -157,6 +189,11 @@ test ("IMEMode", function () {
 //   equal (wanakana.toRomaji('おんよみ', opts), "onyomi", "おんよみ = onyomi (when useApostrophes is false)");
 //   opts.useApostrophes = true;
 //   equal (wanakana.toRomaji('おんよみ', opts), "on'yomi" , "おんよみ = on'yomi (when useApostrophes is true)");
+// });
+
+// test("Options use defaultOptions by default", function () {
+//   var opts = {useApostrophes: false};
+//   equal (wanakana.toRomaji('とうきょう んや', opts), "tōkyō nya" , "use macrons is still true even though it's not specifically defined in the options object.");
 // });
 
 module("Performance");
