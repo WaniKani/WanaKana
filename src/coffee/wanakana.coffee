@@ -22,6 +22,8 @@ wanakana.defaultOptions =
   useApostrophes: yes
   # Use a katakana ヴ for hiragana 'vu'
   useKatakanaVU: no
+  # Special mode for handling input from a text input that is transliterated on the fly.
+  IMEMode: off
 
 ###*
  * Takes an array of values and a function. The funciton is called with each value.
@@ -132,11 +134,14 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
 
     # Handle special cases.
     options = wanakana.defaultOptions unless options?
-    if options.useKatakanaVU and kanaChar.charAt(0) is "ゔ"
+    if options?.useKatakanaVU and kanaChar.charAt(0) is "ゔ"
       kanaChar = "ヴ" + kanaChar.slice(1)
-    if options.useObseleteKana
+    if options?.useObseleteKana
       if chunkLC is "wi" then kanaChar = "ゐ"
       if chunkLC is "we" then kanaChar = "ゑ"
+    if options?.IMEMode and chunkLC.charAt(0) is "n" and chunkSize is 1
+      # Don't transliterate this yet.
+      kanaChar = chunk
 
     # Use katakana if first letter in chunk is uppercase
     unless ignoreCase
@@ -214,6 +219,7 @@ wanakana.R_to_J =
   wu: 'う'
   whu: 'う'
   vu: 'ゔ'
+  la: 'ぁ'
   li: 'ぃ'
   lu: 'ぅ'
   le: 'ぇ'
@@ -479,6 +485,7 @@ wanakana.R_to_J =
   xwa: 'ゎ'
   n: 'ん'
   nn: 'ん'
+  'n ': 'ん' # n + space
   xn: 'ん'
   ltsu: 'っ'
 

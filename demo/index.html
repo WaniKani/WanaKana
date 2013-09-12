@@ -90,7 +90,7 @@
 	
             </div>
 
-		<script type="text/javascript" src="../wanakana.min.js"></script>		
+		<script type="text/javascript" src="../deploy/wanakana.min.js"></script>		
 		<script type="text/javascript">
 
 			(function(wk) {
@@ -98,7 +98,7 @@
 				var textInput = document.getElementById('input');
 
 				function inputChanged (e) {
-					textInput.value = (wk.toKana(textInput.value));
+					textInput.value = (wk.toKana(textInput.value, {IMEMode: true}));
 				}
 				
 				textInput.addEventListener('input', inputChanged);

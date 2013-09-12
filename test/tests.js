@@ -134,6 +134,17 @@ test("useObseleteKana", function () {
   equal (wanakana.toHiragana('wi'), 'うぃ', "useObseleteKana is false by default");
 });
 
+test ("IMEMode", function () {
+  var opts;
+  opts = {IMEMode: false};
+  equal (wanakana.toHiragana("n", opts), "ん", "Without IME mode, solo n's are transliterated.");
+  equal (wanakana.toHiragana("nn", opts), "ん", "Without IME mode, double n's are transliterated.");
+  opts = {IMEMode: true};
+  equal (wanakana.toHiragana("n", opts), "n", "With IME mode, solo n's are not transliterated.");
+  equal (wanakana.toHiragana("nn", opts), "ん", "With IME mode, double n's are transliterated.");
+  equal (wanakana.toHiragana("n ", opts), "ん", "With IME mode, n + space are transliterated.");
+});
+
 // test("useMacrons", function() {
 //  var opts = {useMacrons: false};
 //  equal (wanakana.toRomaji('とうきょう', opts), "toukyou" , "とうきょう = toukyou (when useMacrons is false)");
