@@ -142,7 +142,7 @@ test ("IMEMode", function () {
   opts = {IMEMode: true};
   equal (wanakana.toHiragana("n", opts), "n", "With IME mode, solo n's are not transliterated.");
   equal (wanakana.toHiragana("nn", opts), "ん", "With IME mode, double n's are transliterated.");
-  equal (wanakana.toHiragana("n ", opts), "ん", "With IME mode, n + space are transliterated.");
+  equal (wanakana.toHiragana("n ", opts), "ん ", "With IME mode, n + space are transliterated.");
 });
 
 // test("useMacrons", function() {

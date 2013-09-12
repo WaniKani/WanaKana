@@ -485,7 +485,7 @@ wanakana.R_to_J =
   xwa: 'ゎ'
   n: 'ん'
   nn: 'ん'
-  'n ': 'ん' # n + space
+  'n ': 'ん ' # n + space
   xn: 'ん'
   ltsu: 'っ'
 
