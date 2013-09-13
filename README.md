@@ -5,8 +5,8 @@ Javascript library that provides utilities for detecting and transliterating Hir
 
 ## Contributors
 
-	- [Mims H. Wright](http://github.com/mimshwright)	Author
-	- [James McNamee](http://github.com/dotfold)		Contributor
+- [Mims H. Wright](http://github.com/mimshwright)	Author
+- [James McNamee](http://github.com/dotfold)		Contributor
 
 ## Build using Grunt
 
