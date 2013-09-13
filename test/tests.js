@@ -160,12 +160,12 @@ test ("IMEMode", function () {
   function testTyping (str, opts) {
     var pos = 1;
     var l = str.length;
-    console.log("--" + str + "--");
+    // console.log("--" + str + "--");
     while (pos <= l) {
       var buffer = str.substr(0, pos);
       var rest = str.substr(pos);
       buffer = wanakana.toKana(buffer, opts);
-      console.log(pos + ":" + buffer + " <-" + rest);
+      // console.log(pos + ":" + buffer + " <-" + rest);
       str =  buffer + rest;
       pos++;
     }

@@ -1,12 +1,13 @@
 {
   "name": "WanaKana",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "JS library that transliterates between japanese kana and roman letters.",
   "repository": "https://github.com/WaniKani/WanaKana/",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-copy": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-contrib-qunit": "~0.2.2",
     "grunt-contrib-uglify": "~0.2.4",
