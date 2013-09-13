@@ -217,13 +217,13 @@ wanakana.toKana = (input, options) ->
   #otherwise
   # input
 
-wanakana.toRomaji = (input, options) ->
+# wanakana.toRomaji = (input, options) ->
   # if isKatakana(input)
   #  wanakana._katakanaToHiragana(input)
   # if isHiragana(input)
   #  wanakana._hiraganaToRomaji(input)
   #otherwise
-  input
+  # input
 
 
 wanakana.R_to_J =
