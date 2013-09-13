@@ -155,20 +155,45 @@ test("useObseleteKana", function () {
 
 test ("IMEMode", function () {
   var opts;
+
+  /** Simulate real typing by calling the funciton on every character in sequence */
+  function testTyping (str, opts) {
+    var pos = 1;
+    var l = str.length;
+    console.log("--" + str + "--");
+    while (pos <= l) {
+      var buffer = str.substr(0, pos);
+      var rest = str.substr(pos);
+      buffer = wanakana.toKana(buffer, opts);
+      console.log(pos + ":" + buffer + " <-" + rest);
+      str =  buffer + rest;
+      pos++;
+    }
+    return str;
+  }
+
   opts = {IMEMode: false};
-  equal (wanakana.toHiragana("n", opts), "ん", "Without IME mode, solo n's are transliterated.");
-  equal (wanakana.toHiragana("nn", opts), "ん", "Without IME mode, double n's are transliterated.");
+  equal (wanakana.toKana("n", opts), "ん", "Without IME mode, solo n's are transliterated.");
+  equal (wanakana.toKana("nn", opts), "ん", "Without IME mode, double n's are transliterated.");
   opts = {IMEMode: true};
-  equal (wanakana.toHiragana("n", opts), "n", "With IME mode, solo n's are not transliterated.");
-  equal (wanakana.toHiragana("nn", opts), "ん", "With IME mode, double n's are transliterated.");
-  equal (wanakana.toHiragana("n ", opts), "ん", "With IME mode, n + space are transliterated.");
+  equal (testTyping("n", opts), "n", "With IME mode, solo n's are not transliterated.");
+  equal (testTyping("nn", opts), "ん", "With IME mode, double n's are transliterated.");
+  equal (testTyping("n ", opts), "ん", "With IME mode, n + space are transliterated.");
+  equal (testTyping("ni", opts), "に", "With IME mode, ni.");
 
-  equal (wanakana.toHiragana("kan", opts), "かn", "kan");
-  equal (wanakana.toHiragana("kanp", opts), "かんp", "kanp");
-  equal (wanakana.toHiragana("kanpai", opts), "かんぱい", "kanpai!");
+  equal (testTyping("kan", opts), "かn", "kan");
+  equal (testTyping("kanp", opts), "かんp", "kanp");
+  equal (testTyping("kanpai", opts), "かんぱい", "kanpai!");
+  equal (testTyping("nihongo", opts), "にほんご", "nihongo");
 
-  equal (wanakana.toHiragana("ny", opts), "ny", "y doesn't count as a consonant for IME");
-  equal (wanakana.toHiragana("nya", opts), "にゃ", "nya works as expected");
+  equal (testTyping("ny", opts), "ny", "y doesn't count as a consonant for IME");
+  equal (testTyping("nya", opts), "にゃ", "nya works as expected");
+
+  equal (testTyping("N", opts), "N", "With IME mode, solo N's are not transliterated - katakana.");
+  equal (testTyping("NN", opts), "ン", "With IME mode, double N's are transliterated - katakana.");
+  equal (testTyping("NI", opts), "ニ", "NI - katakana.");
+  equal (testTyping("KAN", opts), "カN", "KAN - katakana");
+  equal (testTyping("NIHONGO", opts), "ニホンゴ", "NIHONGO - katakana");
 });
 
 // test("useMacrons", function() {

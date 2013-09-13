@@ -112,7 +112,7 @@
 
 				<h2>Transliterate Mode</h2>
 				<input id="input-translit" autofocus="true" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Type here please" type="text" lang="ja">
-				<div id="output">「空」</div>
+				<div id="output">「期待」</div>
             </div>
 
 		<script type="text/javascript" src="../deploy/wanakana.min.js"></script>
@@ -137,7 +137,7 @@
 				function inputChangedTranslit (e) {
 					output.innerHTML = (wk.toKana(inputTranslit.value));
 					if (output.innerHTML == "") {
-						output.innerHTML = "「空」";
+						output.innerHTML = "「期待」";
 					}
 				}
 				inputTranslit.addEventListener('input', inputChangedTranslit);
