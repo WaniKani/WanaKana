@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 		coffeeSrcPath: 'src/coffee/',
 		externalJSPath: 'src/libs/',
 		htmlPath: 'src/html/',
-		deployPath: 'deploy/',
+		deployPath: 'lib/',
 		testPath: 'test/',
 		demoPath: 'demo/',
 
@@ -65,6 +65,18 @@ module.exports = function(grunt) {
 				files: ['<%=testPath%>**/*.html']
 		},
 
+		copy: {
+			deploy: {
+				files: [{
+					src: ['**/*.js'],
+					dest: '<%=deployPath%>',
+					cwd: '<%=generatedJSPath%>',
+					filter: 'isFile',
+					expand: true
+				}]
+			}
+		},
+
 		open: {
             test : {
               path: '<%=testPath%>/index.html',
@@ -100,6 +112,7 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-coffee');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -113,6 +126,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('lint', ['coffeelint']);
 	grunt.registerTask('test', ['lint', 'coffee:dev', 'open:test']);
 	grunt.registerTask('demo', ['deploy', 'open:demo']);
-	grunt.registerTask('deploy', ['clean', 'lint', 'coffee:deploy', 'uglify:deploy', 'qunit']);
+	grunt.registerTask('deploy', ['clean', 'lint', 'coffee:deploy', 'uglify:deploy', 'copy:deploy', 'qunit']);
 
 };
