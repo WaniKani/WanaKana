@@ -156,9 +156,10 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
       if chunkLC is "wi" then kanaChar = "ゐ"
       if chunkLC is "we" then kanaChar = "ゑ"
     if options?.IMEMode and chunkLC.charAt(0) is "n"
-      if (roma.charAt(cursor+1).toLowerCase() is "y" and cursor is (len-2)) or cursor is (len-1)
+      if (roma.charAt(cursor+1).toLowerCase() is "y" and cursor is (len-2)) or
+      cursor is (len-1)
         # Don't transliterate this yet.
-        kanaChar = chunkLC.charAt(0)
+        kanaChar = chunk.charAt(0)
 
     # Use katakana if first letter in chunk is uppercase
     unless ignoreCase
