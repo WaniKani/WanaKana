@@ -1,3 +1,9 @@
+try {
+  wanakana;
+} catch (e) {
+  alert("WanaKana not found. Try running `grunt test`");
+}
+
 module("Dependencies");
 
 test("require wanakana.js", function() {
