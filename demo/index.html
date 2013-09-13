@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>WanaKana Demo</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		
+		<style type="text/css">
+			html body {
+				margin: 0px;
+				padding: 0px;
+			}
+
+			body {
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+				font-size: 14px;
+  				line-height: 20px;
+  				background-color: #eee;
+			}
+
+			input {
+				border: none;
+				display: inline-block;
+				color: #555555;
+				
+				vertical-align: middle;
+				font-size: 1.2em;
+				line-height: 20px;
+				font-weight: 300;
+				overflow: auto;
+			}
+
+			input:focus {
+				outline: none;
+			}
+
+			.wk-site-header {
+				display: block;
+				color: #e5e5e5;
+				background-color: #383838;
+				border-bottom: 1px solid #1a1a1a;
+				width: auto;
+				height: 40px;
+				padding: 0px;
+				font-size: 1.2em;
+				-webkit-appearance: none;
+				-webkit-box-shadow: 0px 2px 0 #e5e5e5;
+				-moz-box-shadow: 0px 2px 0 #e5e5e5;
+				box-shadow: 0px 2px 0 #e5e5e5;
+			}
+
+			.wk-site-name {
+				margin-left: 15px;
+				padding-top: 10px;
+				text-decoration: none;
+			}
+
+			.wk-content {
+				padding: 15px 15px 10px 15px;
+			}
+
+			.wk-input {
+				display: block;
+				width: 100%;
+				height: 3em;
+				text-align: center;
+		
+				-webkit-appearance: none;
+				-webkit-box-shadow: 3px 3px 0 #e1e1e1;
+				-moz-box-shadow: 3px 3px 0 #e1e1e1;
+				box-shadow: 3px 3px 0 #e1e1e1;
+			}
+
+		</style>
+
+	</head>
+	
+	<body>
+
+		<div>
+
+			<div class="wk-site-header">
+				<div class="wk-site-name">WanaKana</div>
+            </div>
+
+			<div class="wk-content">
+            	
+				<input id="input" class="wk-input bordered" autofocus="true" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="書いてください" type="text" lang="ja">
+	
+            </div>
+
+		<script type="text/javascript" src="../deploy/wanakana.min.js"></script>		
+		<script type="text/javascript">
+
+			(function(wk) {
+
+				var textInput = document.getElementById('input');
+
+				function inputChanged (e) {
+					textInput.value = (wk.toKana(textInput.value, {IMEMode: true}));
+				}
+				
+				textInput.addEventListener('input', inputChanged);
+
+			})(window.wanakana);
+
+		</script>
+
+	</body>
+
+</html>
