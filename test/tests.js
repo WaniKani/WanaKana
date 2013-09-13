@@ -74,7 +74,7 @@ test("Test every character with toHiragana() and toKatakana()", function () {
 
 test ("Double consonants transliterate to glottal stops (small tsu)", function () {
   equal (wanakana.toHiragana("babba"),   "ばっば", "double B");
-  equal (wanakana.toHiragana("cacca"),   "かっか", "double C");
+  equal (wanakana.toHiragana("cacca"),   "cあっcあ", "double C");
   equal (wanakana.toHiragana("chaccha"), "ちゃっちゃ", "double Ch");
   equal (wanakana.toHiragana("dadda"),   "だっだ", "double D");
   equal (wanakana.toHiragana("fuffu"),   "ふっふ", "double F");
@@ -85,7 +85,6 @@ test ("Double consonants transliterate to glottal stops (small tsu)", function (
   equal (wanakana.toHiragana("lalla"),   "らっら", "double L");
   equal (wanakana.toHiragana("mamma"),   "まっま", "double M");
   equal (wanakana.toHiragana("nanna"),   "なんな", "double N");
-  equal (wanakana.toHiragana("nanna", {IMEMode:true}),   "なんあ", "double N (IME mode)");
   equal (wanakana.toHiragana("pappa"),   "ぱっぱ", "double P");
   equal (wanakana.toHiragana("qaqqa"),   "くぁっくぁ", "double Q");
   equal (wanakana.toHiragana("rarra"),   "らっら", "double R");
@@ -170,11 +169,14 @@ test ("IMEMode", function () {
   opts = {IMEMode: true};
   equal (wanakana.toHiragana("n", opts), "n", "With IME mode, solo n's are not transliterated.");
   equal (wanakana.toHiragana("nn", opts), "ん", "With IME mode, double n's are transliterated.");
-  equal (wanakana.toHiragana("n ", opts), "ん ", "With IME mode, n + space are transliterated.");
+  equal (wanakana.toHiragana("n ", opts), "ん", "With IME mode, n + space are transliterated.");
 
   equal (wanakana.toHiragana("kan", opts), "かn", "kan");
   equal (wanakana.toHiragana("kanp", opts), "かんp", "kanp");
   equal (wanakana.toHiragana("kanpai", opts), "かんぱい", "kanpai!");
+
+  equal (wanakana.toHiragana("ny", opts), "ny", "y doesn't count as a consonant for IME");
+  equal (wanakana.toHiragana("nya", opts), "にゃ", "nya works as expected");
 });
 
 // test("useMacrons", function() {

@@ -41,10 +41,19 @@ wanakana._isCharInRange = (char, start, end) ->
   code = char.charCodeAt 0
   return start <= code <= end
 
+wanakana._isCharVowel = (char, includeY = yes) ->
+  regexp = if includeY then /[aeiouy]/ else /[aeiou]/
+  return char.toLowerCase().charAt(0).search(regexp) isnt -1
+wanakana._isCharConsonant = (char, includeY = yes) ->
+  regexp = if includeY then /[bcdfghjklmnpqrstvwxyz]/ else /[bcdfghjklmnpqrstvwxz]/
+  return char.toLowerCase().charAt(0).search(regexp) isnt -1
+
 wanakana._isCharKatakana = (char) ->
   wanakana._isCharInRange(char, wanakana.KATAKANA_START, wanakana.KATAKANA_END)
 wanakana._isCharHiragana = (char) ->
   wanakana._isCharInRange(char, wanakana.HIRAGANA_START, wanakana.HIRAGANA_END)
+wanakana._isCharKana = (char) ->
+  wanakana._isCharHiragana(char) or wanakana._isCharKatakana(char)
 wanakana._isCharNotKana = (char) ->
   not wanakana._isCharHiragana(char) and not wanakana._isCharKatakana(char)
 
@@ -107,6 +116,7 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
     while chunkSize > 0
       chunk = getChunk()
       chunkLC = chunk.toLowerCase()
+      # nEdgeCase = false
 
       # Handle super-rare edge case with a 4 char chunk for 'ltsu'
       if chunkLC is "lts" and (len-cursor) >= 4
@@ -114,11 +124,21 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
         chunk = getChunk()
         chunkLC = chunk.toLowerCase()
 
-      # Handle edge case of n followed by n* (like 'onna')
-      if chunkLC.charAt(0) is "n" and chunkLC?.charAt(1) is "n" and chunkLC?.charAt(2).search(/[aeiouy]/) != -1
+      # Handle edge case of n followed by consonant
+
+      if chunkLC.charAt(0) is "n"
+        # Handle edge case of n followed by n and vowel
+        if wanakana._isCharConsonant(chunkLC.charAt(1), no) and wanakana._isCharVowel(chunkLC.charAt(2))
+          chunkSize = 1
+          chunk = getChunk()
+          chunkLC = chunk.toLowerCase()
+
+      # Handle case of double consonants
+      if chunkLC.charAt(0) isnt "n" and
+      wanakana._isCharConsonant(chunkLC.charAt(0)) and
+      chunk.charAt(0) == chunk.charAt(1)
         chunkSize = 1
-        chunk = getChunk()
-        chunkLC = chunk.toLowerCase()
+        chunkLC = chunk = "っ"
 
       kanaChar = wanakana.R_to_J[chunkLC]
       # DEBUG
@@ -139,9 +159,10 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
     if options?.useObseleteKana
       if chunkLC is "wi" then kanaChar = "ゐ"
       if chunkLC is "we" then kanaChar = "ゑ"
-    if options?.IMEMode and chunkLC.charAt(0) is "n" and chunkSize is 1
-      # Don't transliterate this yet.
-      kanaChar = chunk
+    if options?.IMEMode and chunkLC.charAt(0) is "n"
+      if (roma.charAt(cursor+1).toLowerCase() is "y" and cursor is (len-2)) or cursor is (len-1)
+        # Don't transliterate this yet.
+        kanaChar = chunkLC.charAt(0)
 
     # Use katakana if first letter in chunk is uppercase
     unless ignoreCase
@@ -219,19 +240,12 @@ wanakana.R_to_J =
   wu: 'う'
   whu: 'う'
   vu: 'ゔ'
-  la: 'ぁ'
-  li: 'ぃ'
-  lu: 'ぅ'
-  le: 'ぇ'
-  lo: 'ぉ'
   xa: 'ぁ'
   xi: 'ぃ'
   xu: 'ぅ'
   xe: 'ぇ'
   xo: 'ぉ'
-  lyi: 'ぃ'
   xyi: 'ぃ'
-  lye: 'ぇ'
   xye: 'ぇ'
   ye: 'いぇ'
   wha: 'うぁ'
@@ -254,9 +268,6 @@ wanakana.R_to_J =
   ku: 'く'
   ke: 'け'
   ko: 'こ'
-  ca: 'か'
-  cu: 'く'
-  co: 'こ'
   lka: 'ヵ'
   lke: 'ヶ'
   xka: 'ヵ'
@@ -298,12 +309,10 @@ wanakana.R_to_J =
   gwo: 'ぐぉ'
   sa: 'さ'
   si: 'し'
+  shi: 'し'
   su: 'す'
   se: 'せ'
   so: 'そ'
-  ci: 'し'
-  ce: 'せ'
-  shi: 'し'
   za: 'ざ'
   zi: 'じ'
   zu: 'ず'
@@ -463,9 +472,6 @@ wanakana.R_to_J =
   ya: 'や'
   yu: 'ゆ'
   yo: 'よ'
-  lya: 'ゃ'
-  lyu: 'ゅ'
-  lyo: 'ょ'
   xya: 'ゃ'
   xyu: 'ゅ'
   xyo: 'ょ'
@@ -479,13 +485,23 @@ wanakana.R_to_J =
   ryu: 'りゅ'
   rye: 'りぇ'
   ryo: 'りょ'
+  la: 'ら'
+  li: 'り'
+  lu: 'る'
+  le: 'れ'
+  lo: 'ろ'
+  lya: 'りゃ'
+  lyi: 'りぃ'
+  lyu: 'りゅ'
+  lye: 'りぇ'
+  lyo: 'りょ'
   wa: 'わ'
   wo: 'を'
   lwe: 'ゎ'
   xwa: 'ゎ'
   n: 'ん'
   nn: 'ん'
-  'n ': 'ん ' # n + space
+  'n ': 'ん' # n + space
   xn: 'ん'
   ltsu: 'っ'
 
@@ -689,10 +705,10 @@ J_to_R =
   ふゅ: 'fyu'
   ふょ: 'fyo'
 #  Small Characters (normally not transliterated alone)
-#  ゎ: 'xwa'
-#  ゃ: 'lya''xya'
-#  ゅ: 'lyu''xyu'
-#  ょ: 'lyo''xyo'
-#  っ: 'ltu''xtu''ltsu'
-#  ヵ: 'lka''xka'
-#  ヶ: 'lke''xke'
+  ゎ: 'xwa'
+  ゃ: 'xya'
+  ゅ: 'xyu'
+  ょ: 'xyo'
+  っ: 'xtu'
+  ヵ: 'xka'
+  ヶ: 'xke'
