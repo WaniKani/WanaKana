@@ -4,6 +4,10 @@ _ver. 0.1.0_
 
 Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--> Katakana &lt;--> Romaji.
 
+## Contributors
+
+[Mims H. Wright](http://github.com/mimshwright)	Author
+[James McNamee](http://github.com/dotfold)		Contributor
 
 ## Build using Grunt
 

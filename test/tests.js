@@ -141,14 +141,6 @@ test("N edge cases", function () {
 
 module("Options");
 
-test("useKatakanaVU", function () {
-  var opts = {useKatakanaVU: true};
-  equal (wanakana.toHiragana('vu', opts), 'ヴ', "vu = ヴ (when useKatakanaVU is true)");
-  opts.useKatakanaVU = false;
-  equal (wanakana.toHiragana('vu', opts), 'ゔ', "vu = ゔ (when useKatakanaVU is false)");
-  equal (wanakana.toHiragana('vu'), 'ゔ', "useKatakanaVU is false by defualt");
-});
-
 test("useObseleteKana", function () {
   var opts = {useObseleteKana: true};
   equal (wanakana.toHiragana('wi', opts), 'ゐ', "wi = ゐ (when useObseleteKana is true)");

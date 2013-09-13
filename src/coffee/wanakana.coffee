@@ -17,11 +17,9 @@ wanakana.defaultOptions =
   # Transliterates wi and we to ゐ and ゑ
   useObseleteKana: no
   # Use revised Hepburn macrons (e.g. tōkyō)
-  useMacrons: yes
+  # useMacrons: yes
   # Use revised Hepburn apostrophes (e.g. on'yomi)
-  useApostrophes: yes
-  # Use a katakana ヴ for hiragana 'vu'
-  useKatakanaVU: no
+  # useApostrophes: yes
   # Special mode for handling input from a text input that is transliterated on the fly.
   IMEMode: off
 
@@ -154,8 +152,6 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
 
     # Handle special cases.
     options = wanakana.defaultOptions unless options?
-    if options?.useKatakanaVU and kanaChar.charAt(0) is "ゔ"
-      kanaChar = "ヴ" + kanaChar.slice(1)
     if options?.useObseleteKana
       if chunkLC is "wi" then kanaChar = "ゐ"
       if chunkLC is "we" then kanaChar = "ゑ"
@@ -239,7 +235,6 @@ wanakana.R_to_J =
   yi: 'い'
   wu: 'う'
   whu: 'う'
-  vu: 'ゔ'
   xa: 'ぁ'
   xi: 'ぃ'
   xu: 'ぅ'
@@ -256,12 +251,13 @@ wanakana.R_to_J =
   we: 'うぇ'
   va: 'ゔぁ'
   vi: 'ゔぃ'
+  vu: 'ゔ'
   ve: 'ゔぇ'
   vo: 'ゔぉ'
-  vyi: 'ゔぃ'
-  vye: 'ゔぇ'
   vya: 'ゔゃ'
+  vyi: 'ゔぃ'
   vyu: 'ゔゅ'
+  vye: 'ゔぇ'
   vyo: 'ゔょ'
   ka: 'か'
   ki: 'き'
@@ -505,6 +501,7 @@ wanakana.R_to_J =
   xn: 'ん'
   ltsu: 'っ'
 
+###
 J_to_R =
   あ: 'a'
   い: 'i'
@@ -712,3 +709,4 @@ J_to_R =
   っ: 'xtu'
   ヵ: 'xka'
   ヶ: 'xke'
+###
