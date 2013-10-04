@@ -144,6 +144,7 @@ test("toRomaji()", function () {
   equal( wanakana.toRomaji("ワニカニ　ガ　スゴイ　ダ"), "wanikani ga sugoi da", "Convert katakana to romaji");
   equal( wanakana.toRomaji("わにかに　が　すごい　だ"), "wanikani ga sugoi da", "Convert hiragana to romaji");
   equal( wanakana.toRomaji("ワニカニ　が　すごい　だ"), "wanikani ga sugoi da", "Convert mixed kana to romaji");
+  notEqual( wanakana.toRomaji("わにかにがすごいだ"), "wanikani ga sugoi da", "Spaces must be manually entered");
 });
 
 test("Quick Brown Fox", function () {
