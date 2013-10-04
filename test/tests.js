@@ -159,7 +159,7 @@ test("Quick Brown Fox", function () {
 
 test ("double n's and double consonants", function () {
   equal ( wanakana.toRomaji("きんにくまん"), "kinnikuman", "Double and single n");
-  equal ( wanakana.toRomaji("んんにんにんにゃんやん"), "nnninninnyanyan", "N extravaganza");
+  equal ( wanakana.toRomaji("んんにんにんにゃんやん"), "nnninninnyan'yan", "N extravaganza");
   equal ( wanakana.toRomaji("かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ"), "kappa tatta shusshu chaccha yattsu", "Double consonants");
 });
 
@@ -235,15 +235,12 @@ test ("IMEMode", function () {
   equal (testTyping("NIHONGO", opts), "ニホンゴ", "NIHONGO - katakana");
 });
 
-// test("useApostrophes", function() {
-//   var opts = {useApostrophes: false};
-//   equal (wanakana.toRomaji('おんよみ', opts), "onyomi", "おんよみ = onyomi (when useApostrophes is false)");
-//   opts.useApostrophes = true;
-//   equal (wanakana.toRomaji('おんよみ', opts), "on'yomi" , "おんよみ = on'yomi (when useApostrophes is true)");
-// });
+test("Apostrophes for vague consonant vowel combos", function() {
+  equal (wanakana.toRomaji('おんよみ'), "on'yomi" , "おんよみ = on'yomi");
+  equal (wanakana.toRomaji('んよ んあ　んゆ'), "n'yo n'a n'yu" , "Checking other combinations");
+});
 
 // test("Options use defaultOptions by default", function () {
-//   var opts = {useApostrophes: false};
 //   equal (wanakana.toRomaji('とうきょう んや', opts), "tōkyō nya" , "use macrons is still true even though it's not specifically defined in the options object.");
 // });
 

@@ -16,8 +16,6 @@ wanakana.KATAKANA_END    = 0x30FA
 wanakana.defaultOptions =
   # Transliterates wi and we to ゐ and ゑ
   useObseleteKana: no
-  # Use revised Hepburn apostrophes (e.g. on'yomi)
-  # useApostrophes: yes
   # Special mode for handling input from a text input that is transliterated on the fly.
   IMEMode: off
 
@@ -748,3 +746,12 @@ wanakana.J_to_R =
   ゎ: 'wa'
 # Punctuation
   '　': ' '
+# Ambiguous consonant vowel pairs
+  んあ: 'n\'a'
+  んい: 'n\'i'
+  んう: 'n\'u'
+  んえ: 'n\'e'
+  んお: 'n\'o'
+  んや: 'n\'ya'
+  んゆ: 'n\'yu'
+  んよ: 'n\'yo'
