@@ -1,6 +1,6 @@
 {
   "name": "WanaKana",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "JS library that transliterates between japanese kana and roman letters.",
   "repository": "https://github.com/WaniKani/WanaKana/",
   "devDependencies": {
