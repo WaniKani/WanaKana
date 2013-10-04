@@ -137,13 +137,46 @@ test("N edge cases", function () {
   equal( wanakana.toKana("nnnyannn"), "んにゃんん", "nnnya -> んにゃ");
 });
 
-// module("Kana to Romaji");
 
-// test("toRomaji()", function () {
-//   equal( wanakana.toRomaji("ワニカニ　ガ　スゴイ　ダ"), "wanikani ga sugoi da", "Convert katakana to romaji");
-//   equal( wanakana.toRomaji("わにかに　が　すごい　だ"), "wanikani ga sugoi da", "Convert hiragana to romaji");
-//   equal( wanakana.toRomaji("ワニカニ　が　すごい　だ"), "wanikani ga sugoi da", "Convert mixed kana to romaji");
-// });
+module("Kana to Romaji");
+
+test("toRomaji()", function () {
+  equal( wanakana.toRomaji("ワニカニ　ガ　スゴイ　ダ"), "wanikani ga sugoi da", "Convert katakana to romaji");
+  equal( wanakana.toRomaji("わにかに　が　すごい　だ"), "wanikani ga sugoi da", "Convert hiragana to romaji");
+  equal( wanakana.toRomaji("ワニカニ　が　すごい　だ"), "wanikani ga sugoi da", "Convert mixed kana to romaji");
+});
+
+test("Quick Brown Fox", function () {
+  equal( wanakana.toRomaji("いろはにほへと"), "irohanihoheto", "Even the colorful fregrant flowers");
+  equal( wanakana.toRomaji("ちりぬるを"), "chirinuruwo", "Die sooner or later");
+  equal( wanakana.toRomaji("わかよたれそ"), "wakayotareso", "Us who live in this world");
+  equal( wanakana.toRomaji("つねならむ"), "tsunenaramu", "Cannot live forever, either.");
+  equal( wanakana.toRomaji("うゐのおくやま"), "uwinookuyama", "This transient mountain with shifts and changes,)");
+  equal( wanakana.toRomaji("けふこえて"), "kefukoete", "Today we are going to overcome, and reach the world of enlightenment.");
+  equal( wanakana.toRomaji("あさきゆめみし"), "asakiyumemishi", "We are not going to have meaningless dreams");
+  equal( wanakana.toRomaji("ゑひもせすん"), "wehimosesun", "nor become intoxicated with the fake world anymore");
+});
+
+test ("double n's and double consonants", function () {
+  equal ( wanakana.toRomaji("きんにくまん"), "kinnikuman", "Double and single n");
+  equal ( wanakana.toRomaji("んんにんにんにゃんやん"), "nnninninnyanyan", "N extravaganza");
+  equal ( wanakana.toRomaji("かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ"), "kappa tatta shusshu chaccha yattsu", "Double consonants");
+});
+
+test ("Small kana", function () {
+  equal ( wanakana.toRomaji("っ"), "", "Small tsu doesn't transliterate");
+  equal ( wanakana.toRomaji("ゃ"), "ya", "Small ya");
+  equal ( wanakana.toRomaji("ゅ"), "yu", "Small yu");
+  equal ( wanakana.toRomaji("ょ"), "yo", "Small yo");
+  equal ( wanakana.toRomaji("ぁ"), "a", "Small a");
+  equal ( wanakana.toRomaji("ぃ"), "i", "Small i");
+  equal ( wanakana.toRomaji("ぅ"), "u", "Small u");
+  equal ( wanakana.toRomaji("ぇ"), "e", "Small e");
+  equal ( wanakana.toRomaji("ぉ"), "o", "Small o");
+  equal ( wanakana.toRomaji("ヶ"), "ka", "Small ke (ka)");
+  equal ( wanakana.toRomaji("ヵ"), "ka", "Small ka");
+  equal ( wanakana.toRomaji("ゎ"), "wa", "Small wa");
+});
 
 module("Options");
 
@@ -201,13 +234,6 @@ test ("IMEMode", function () {
   equal (testTyping("KAN", opts), "カN", "KAN - katakana");
   equal (testTyping("NIHONGO", opts), "ニホンゴ", "NIHONGO - katakana");
 });
-
-// test("useMacrons", function() {
-//  var opts = {useMacrons: false};
-//  equal (wanakana.toRomaji('とうきょう', opts), "toukyou" , "とうきょう = toukyou (when useMacrons is false)");
-//  opts.useMacrons = true;
-//  equal (wanakana.toRomaji('とうきょう', opts), "tōkyō" , "とうきょう = tōkyō (when useMacrons is true)");
-// });
 
 // test("useApostrophes", function() {
 //   var opts = {useApostrophes: false};

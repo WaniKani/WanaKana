@@ -16,8 +16,6 @@ wanakana.KATAKANA_END    = 0x30FA
 wanakana.defaultOptions =
   # Transliterates wi and we to ゐ and ゑ
   useObseleteKana: no
-  # Use revised Hepburn macrons (e.g. tōkyō)
-  # useMacrons: yes
   # Use revised Hepburn apostrophes (e.g. on'yomi)
   # useApostrophes: yes
   # Special mode for handling input from a text input that is transliterated on the fly.
@@ -83,10 +81,51 @@ wanakana._hiraganaToKatakana = (hira) ->
       kata.push hiraChar
   kata.join ""
 
-#wanakana._hiraganaToRomaji = (hira) ->
-  # Transliterate
-#  roma = ""
-#  roma
+wanakana._hiraganaToRomaji = (hira) ->
+  len = hira.length
+  roma = []
+  cursor = 0
+  chunkSize = 0
+  maxChunk = 2
+  getChunk = () -> hira.substr(cursor, chunkSize)
+  # Don't pick a chunk that is bigger than the remaining characters.
+  resetChunkSize = () -> chunkSize = Math.min(maxChunk, len-cursor)
+
+  while cursor < len
+    resetChunkSize()
+    while chunkSize > 0
+      chunk = getChunk()
+      if wanakana.isKatakana(chunk)
+        chunk = wanakana._katakanaToHiragana(chunk)
+
+
+      # special case for small tsus
+      if chunk.charAt(0) is "っ" and chunkSize is 1 and cursor < (len-1)
+        nextCharIsDoubleConsonant = true
+        romaChar = ""
+        break
+
+      romaChar = wanakana.J_to_R[chunk]
+
+      if romaChar? and nextCharIsDoubleConsonant
+        romaChar = romaChar.charAt(0).concat(romaChar)
+        nextCharIsDoubleConsonant = false
+
+      # DEBUG
+      # console.log (cursor + "x" + chunkSize + ":" + chunk + " => " + romaChar )
+      break if romaChar?
+      chunkSize--
+
+    unless romaChar?
+      # console.log("Couldn't find " + chunk + ". Passing through.")
+      # Passthrough undefined values
+      romaChar = chunk
+
+    # Handle special cases.
+    options = wanakana.defaultOptions unless options?
+    roma.push romaChar
+    cursor += chunkSize or 1
+  roma.join("")
 
 wanakana._romajiToHiragana = (roma, options) -> wanakana._romajiToKana(roma, options, true)
 wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
@@ -171,6 +210,7 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
   kana.join("")
 
 wanakana._convertPunctuation = (input, options) ->
+  if input is '　' then return ' '
   if input is '-' then return 'ー'
   input
 
@@ -213,18 +253,10 @@ wanakana.toKatakana = (input, options) ->
   input
 
 wanakana.toKana = (input, options) ->
-  # if wanakana.isRomaji(input)
   return input = wanakana._romajiToKana(input, options)
-  #otherwise
-  # input
 
-# wanakana.toRomaji = (input, options) ->
-  # if isKatakana(input)
-  #  wanakana._katakanaToHiragana(input)
-  # if isHiragana(input)
-  #  wanakana._hiraganaToRomaji(input)
-  #otherwise
-  # input
+wanakana.toRomaji = (input, options) ->
+  return input = wanakana._hiraganaToRomaji(input)
 
 
 wanakana.R_to_J =
@@ -502,8 +534,7 @@ wanakana.R_to_J =
   xn: 'ん'
   ltsu: 'っ'
 
-###
-J_to_R =
+wanakana.J_to_R =
   あ: 'a'
   い: 'i'
   う: 'u'
@@ -703,11 +734,17 @@ J_to_R =
   ふゅ: 'fyu'
   ふょ: 'fyo'
 #  Small Characters (normally not transliterated alone)
-  ゎ: 'xwa'
-  ゃ: 'xya'
-  ゅ: 'xyu'
-  ょ: 'xyo'
-  っ: 'xtu'
-  ヵ: 'xka'
-  ヶ: 'xke'
-###
+  ぁ: 'a'
+  ぃ: 'i'
+  ぇ: 'e'
+  ぅ: 'u'
+  ぉ: 'o'
+  ゃ: 'ya'
+  ゅ: 'yu'
+  ょ: 'yo'
+  っ: ''
+  ゕ: 'ka'
+  ゖ: 'ka'
+  ゎ: 'wa'
+# Punctuation
+  '　': ' '
