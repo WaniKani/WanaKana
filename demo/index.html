@@ -79,12 +79,14 @@
 				box-shadow: 3px 3px 0 #e1e1e1;
 			}
 
-			#output {
+			.output {
 				font-weight: bold;
 				font-size: 32px;
 				width: 100%;
+				height: 40px;
 				text-align: center;
 				padding-top: 20px;
+				margin-bottom: 30px;
 				color: #0093DD;
 
 				-webkit-appearance: none;
@@ -107,12 +109,17 @@
 
 			<div class="wk-content">
 
+				<h2>Romaji to Kana</h2>
+				<input id="input-translit" autofocus="true" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Type here please" type="text" lang="en">
+				<div class="output" id="output-kana" lang="ja"></div>
+
+				<h2>Kana to Romaji</h2>
+				<input id="input-kana" autofocus="true" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Enter kana here" type="text" lang="ja">
+				<div class="output" id="output-romaji" lang="en"></div>
+
 				<h2>IME Mode</h2>
 				<input id="input-IME" autofocus="true" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="書いてください" type="text" lang="ja">
 
-				<h2>Transliterate Mode</h2>
-				<input id="input-translit" autofocus="true" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Type here please" type="text" lang="ja">
-				<div id="output">「期待」</div>
             </div>
 
 		<script type="text/javascript" src="../lib/wanakana.min.js"></script>
@@ -133,14 +140,19 @@
 				///// Non-IME mode
 
 				var inputTranslit = document.getElementById('input-translit');
-				var output = document.getElementById('output');
+				var outputKana = document.getElementById('output-kana');
 				function inputChangedTranslit (e) {
-					output.innerHTML = (wk.toKana(inputTranslit.value));
-					if (output.innerHTML == "") {
-						output.innerHTML = "「期待」";
-					}
+					outputKana.innerHTML = (wk.toKana(inputTranslit.value));
 				}
 				inputTranslit.addEventListener('input', inputChangedTranslit);
+
+				///// to romaji
+				var inputKana = document.getElementById('input-kana');
+				var outputRomaji = document.getElementById('output-romaji');
+				function inputChangedKana (e) {
+					outputRomaji.innerHTML = (wk.toRomaji(inputKana.value));
+				}
+				inputKana.addEventListener('input', inputChangedKana);
 
 			})(window.wanakana);
 
