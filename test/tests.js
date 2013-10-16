@@ -124,7 +124,6 @@ test("Case sensitivity", function() {
 
 
 test("N edge cases", function () {
-  debugger;
   equal( wanakana.toKana("n"), "ん", "Solo N");
   equal( wanakana.toKana("onn"), "おん", "double N");
   equal( wanakana.toKana("onna"), "おんな", "N followed by N* syllable");
