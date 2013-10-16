@@ -31,6 +31,14 @@ wanakana.unbind = (input) ->
 wanakana._onInput = (event) ->
   event.target.value = (wanakana.toKana(event.target.value, {IMEMode: true}))
 
+wanakana._extend = (target, source) ->
+  if not target?
+    return source
+  for prop of source
+    if not target[prop]? and source[prop]?
+      target[prop] = source[prop]
+  return target
+
 ###*
  * Takes an array of values and a function. The funciton is called with each value.
  * If the function returns true every time, the result will be true. Otherwise, false.
@@ -91,7 +99,7 @@ wanakana._hiraganaToKatakana = (hira) ->
       kata.push hiraChar
   kata.join ""
 
-wanakana._hiraganaToRomaji = (hira) ->
+wanakana._hiraganaToRomaji = (hira, options) ->
   len = hira.length
   roma = []
   cursor = 0
@@ -132,7 +140,7 @@ wanakana._hiraganaToRomaji = (hira) ->
       romaChar = chunk
 
     # Handle special cases.
-    options = wanakana.defaultOptions unless options?
+    options = wanakana._extend(options, wanakana.defaultOptions)
     roma.push romaChar
     cursor += chunkSize or 1
   roma.join("")
@@ -200,7 +208,7 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
       kanaChar = chunk
 
     # Handle special cases.
-    options = wanakana.defaultOptions unless options?
+    options = wanakana._extend(options, wanakana.defaultOptions)
     if options?.useObseleteKana
       if chunkLC is "wi" then kanaChar = "ゐ"
       if chunkLC is "we" then kanaChar = "ゑ"
