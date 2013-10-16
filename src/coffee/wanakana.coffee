@@ -20,6 +20,18 @@ wanakana.defaultOptions =
   IMEMode: off
 
 ###*
+ * Automatically sets up an input field to be an IME.
+###
+wanakana.bind = (input) ->
+  input.addEventListener('input', wanakana._onInput)
+
+wanakana.unbind = (input) ->
+  input.removeEventListener('input', wanakana._onInput)
+
+wanakana._onInput = (event) ->
+  event.target.value = (wanakana.toKana(event.target.value, {IMEMode: true}))
+
+###*
  * Takes an array of values and a function. The funciton is called with each value.
  * If the function returns true every time, the result will be true. Otherwise, false.
 ###
