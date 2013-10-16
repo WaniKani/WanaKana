@@ -119,7 +119,6 @@
 
 				<h2>IME Mode</h2>
 				<input id="input-IME" autofocus="true" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="書いてください" type="text" lang="ja">
-
             </div>
 
 		<script type="text/javascript" src="../lib/wanakana.min.js"></script>
@@ -131,11 +130,7 @@
 
 				var inputIME = document.getElementById('input-IME');
 
-				function inputChangedIME (e) {
-					inputIME.value = (wk.toKana(inputIME.value, {IMEMode: true}));
-				}
-
-				inputIME.addEventListener('input', inputChangedIME);
+				wk.bind(inputIME);
 
 				///// Non-IME mode
 
