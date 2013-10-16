@@ -72,9 +72,8 @@ test("Test every character with toHiragana() and toKatakana()", function () {
     var romaji = map[0];
     var hiragana = map[1];
     var katakana = map[2];
-    var options = { useKatakanaVU: true };
-    equal (wanakana.toHiragana(romaji, options), hiragana, romaji + " = " + hiragana);
-    equal (wanakana.toKatakana(romaji, options), katakana, romaji.toUpperCase() + " = " + katakana);
+    equal (wanakana.toHiragana(romaji), hiragana, romaji + " = " + hiragana);
+    equal (wanakana.toKatakana(romaji), katakana, romaji.toUpperCase() + " = " + katakana);
   }
 });
 
@@ -125,6 +124,7 @@ test("Case sensitivity", function() {
 
 
 test("N edge cases", function () {
+  debugger;
   equal( wanakana.toKana("n"), "ん", "Solo N");
   equal( wanakana.toKana("onn"), "おん", "double N");
   equal( wanakana.toKana("onna"), "おんな", "N followed by N* syllable");
@@ -241,9 +241,14 @@ test("Apostrophes for vague consonant vowel combos", function() {
   equal (wanakana.toRomaji('んよ んあ　んゆ'), "n'yo n'a n'yu" , "Checking other combinations");
 });
 
-// test("Options use defaultOptions by default", function () {
-//   equal (wanakana.toRomaji('とうきょう んや', opts), "tōkyō nya" , "use macrons is still true even though it's not specifically defined in the options object.");
-// });
+test("Options use defaultOptions by default", function () {
+  var defaultValue = wanakana.defaultOptions.useObseleteKana;
+  wanakana.defaultOptions.useObseleteKana = true;
+  equal (wanakana.toHiragana('wi'), 'ゐ', "Overwrite default (temporarily)");
+  var opts = {IMEMode: true};
+  equal (wanakana.toHiragana('wi', opts), 'ゐ', "Defaults aren't overwritten by being omitted");
+  wanakana.defaultOptions.useObseleteKana = defaultValue;
+});
 
 module("Performance");
 
