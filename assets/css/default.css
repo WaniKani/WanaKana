@@ -1,0 +1,126 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'FontAwesome';
+  src: url("//netdna.bootstrapcdn.com/font-awesome/3.2.1/font/fontawesome-webfont.eot?v=3.2.1");
+  src: url("//netdna.bootstrapcdn.com/font-awesome/3.2.1/font/fontawesome-webfont.eot?#iefix&v=3.2.1") format("embedded-opentype"), url("//netdna.bootstrapcdn.com/font-awesome/3.2.1/font/fontawesome-webfont.woff?v=3.2.1") format("woff"), url("//netdna.bootstrapcdn.com/font-awesome/3.2.1/font/fontawesome-webfont.ttf?v=3.2.1") format("truetype"), url("//netdna.bootstrapcdn.com/font-awesome/3.2.1/font/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+body, .pure-g [class*="pure-u"], .pure-g-r [class*="pure-u"] {
+  font-family: "omnes-pro", sans-serif; }
+
+body {
+  font-size: 200%;
+  font-weight: 200; }
+
+[lang=ja] {
+  font-family: "Hiragino Kaku Gothic Pro", "Meiryo", "ヒラギノ角ゴ Pro W3", "メイリオ", "Osaka", "MS PGothic", "ＭＳ Ｐゴシック", sans-serif; }
+
+#secondary-functions .pure-u-1-2 {
+  padding: 1em 0 1em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  #secondary-functions .pure-u-1-2:first-child {
+    padding-right: 0.5em; }
+  #secondary-functions .pure-u-1-2:last-child {
+    padding-left: 0.5em; }
+
+#content {
+  margin: 0 auto;
+  max-width: 980px; }
+
+section[id^=demo-] code:before {
+  display: block;
+  color: rgba(255, 255, 255, 0.3); }
+section[id^=demo-] form textarea {
+  resize: none;
+  background-color: #eeeeee;
+  width: 100%;
+  height: 1em;
+  padding: 1.5em;
+  color: #6e6e6e;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  -webkit-border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: height 0.2s;
+  -moz-transition: height 0.2s;
+  transition: height 0.2s; }
+  section[id^=demo-] form textarea::-webkit-input-placeholder {
+    color: #aeaeae;
+    font-family: "omnes-pro", sans-serif;
+    font-weight: 300; }
+  section[id^=demo-] form textarea::moz-placeholder {
+    color: #aeaeae;
+    font-family: "omnes-pro", sans-serif;
+    font-weight: 300; }
+  section[id^=demo-] form textarea:-moz-placeholder {
+    color: #aeaeae;
+    font-family: "omnes-pro", sans-serif;
+    font-weight: 300; }
+  section[id^=demo-] form textarea:-ms-input-placeholder {
+    color: #aeaeae;
+    font-family: "omnes-pro", sans-serif;
+    font-weight: 300; }
+section[id^=demo-] pre, section[id^=demo-] .output {
+  position: relative;
+  padding: 1.5em; }
+section[id^=demo-] .code-sample pre {
+  margin-bottom: 0; }
+  section[id^=demo-] .code-sample pre:last-child {
+    padding-top: 0;
+    -webkit-border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px; }
+  section[id^=demo-] .code-sample pre:first-child {
+    padding-top: 1.5em; }
+section[id^=demo-] .output {
+  padding-left: 3.5em;
+  background-color: #61ce3c;
+  font-size: 50%;
+  word-wrap: break-word; }
+  section[id^=demo-] .output:before {
+    content: '\f064';
+    position: absolute;
+    top: 0;
+    left: 1.3em;
+    color: #316f1c;
+    font-family: FontAwesome;
+    line-height: 4.85em; }
+
+code[data-language=html]:before {
+  content: 'HTML'; }
+
+code[data-language=javascript]:before {
+  content: 'JS'; }
+
+#secondary-functions section[id^=demo-] {
+  position: relative; }
+  #secondary-functions section[id^=demo-] form {
+    position: relative; }
+    #secondary-functions section[id^=demo-] form:before {
+      content: 'str =';
+      position: absolute;
+      top: 0;
+      left: 1.3em;
+      color: #aeaeae;
+      font-size: 50%;
+      font-weight: 300;
+      line-height: 4.3em; }
+    #secondary-functions section[id^=demo-] form textarea {
+      padding-left: 3.5em;
+      font-size: 50%; }
+#secondary-functions pre {
+  padding: 2em 2em 2em 4em; }
+#secondary-functions code[data-language=javascript]:before {
+  content: 'JS';
+  position: absolute;
+  top: 0;
+  left: 1.4em;
+  line-height: 5.5em; }

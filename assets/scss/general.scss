@@ -1,0 +1,25 @@
+body, .pure-g [class*="pure-u"], .pure-g-r [class*="pure-u"] {
+	font-family: $bodyFontFamily;
+}
+
+body {
+	font-size: 200%;
+	font-weight: 200;
+}
+
+[lang=ja] {
+	font-family: $japaneseFontFamily;
+}
+
+#secondary-functions {
+	.pure-u-1-2 {
+		padding: 1em 0 1em;
+		@include box-sizing(border-box);
+		&:first-child {
+			padding-right: 0.5em;
+		}
+		&:last-child {
+			padding-left: 0.5em;
+		}
+	}
+}

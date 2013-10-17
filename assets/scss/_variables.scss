@@ -1,0 +1,11 @@
+// Typeface
+$bodyFontFamily: "omnes-pro", sans-serif;
+$japaneseFontFamily: "Hiragino Kaku Gothic Pro", "Meiryo", "ヒラギノ角ゴ Pro W3", "メイリオ", "Osaka", "MS PGothic", 'ＭＳ Ｐゴシック', sans-serif;
+
+// Colors
+$green: #61ce3c;
+$greenDark: darken($green, 25%);
+
+$gray: #eee;
+$grayDark: darken($gray, 25%);
+$grayDarker: darken($grayDark, 25%);

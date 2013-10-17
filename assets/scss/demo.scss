@@ -1,0 +1,103 @@
+section[id^=demo-] {
+	code {
+		&:before {
+			display: block;
+			color: rgba(255,255,255,0.3);
+		}
+	}
+	form {
+		textarea {
+			resize: none;
+			background-color: $gray;
+			width: 100%;
+			height: 1em;
+			padding: 1.5em;
+			color: $grayDarker;
+			font-weight: bold;
+			border: none;
+			outline: none;
+			@include border-radius (5px 5px 0 0);
+			@include box-sizing(border-box);
+			@include placeholder(300, $grayDark);
+			@include transition(height, 0.2s);
+		}
+	}
+	pre, .output {
+		position: relative;
+		padding: 1.5em;
+	}
+	.code-sample {
+		pre {
+			margin-bottom: 0;
+			&:last-child {
+				padding-top: 0;
+				@include border-radius (0 0 5px 5px);
+			}
+			&:first-child {
+				padding-top: 1.5em; // Readds padding if pre is only child
+			}
+		}
+	}
+	.output {
+		padding-left: 3.5em;
+		background-color: $green;
+		font-size: 50%;
+		word-wrap: break-word;
+		&:before {
+			content: '\f064';
+			position: absolute;
+			top: 0;
+			left: 1.3em;
+			color: $greenDark;
+			font-family: FontAwesome;
+			line-height: 4.85em;
+		}
+	}
+}
+
+code[data-language=html] {
+	&:before {
+		content: 'HTML';
+	}
+}
+
+code[data-language=javascript] {
+	&:before {
+		content: 'JS';
+	}
+}
+
+#secondary-functions {
+	section[id^=demo-] {
+		position: relative;
+		form {
+			position: relative;
+			&:before {
+				content: 'str =';
+				position: absolute;
+				top: 0;
+				left: 1.3em;
+				color: $grayDark;
+				font-size: 50%;
+				font-weight: 300;
+				line-height: 4.3em;
+			}
+			textarea {
+				padding-left: 3.5em;
+				font-size: 50%;
+			}
+		}
+	}
+	pre {
+		padding: 2em 2em 2em 4em;
+	}
+	code[data-language=javascript] {
+		&:before {
+			content: 'JS';
+			position: absolute;
+			top: 0;
+			left: 1.4em;
+			line-height: 5.5em;
+		}
+	}
+}
