@@ -56,10 +56,10 @@ wanakana.bind(inputIME);</code></pre>
 
 					<section id="demo-kana-to-romaji">
 						<form>
-							<textarea id="kana-to-romaji" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Kana string to romaji" lang="ja">にほんご</textarea>
+							<textarea id="kana-to-romaji" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Kana string to romaji" lang="ja">にほんごのテスト</textarea>
 						</form>
 						<div id="kana-to-romaji-output" class="output">
-							nihongo
+							nihongonotesuto
 						</div><!-- output -->
 						<div class="code-sample">
 							<pre><code data-language="javascript">wanakana.toRomaji(str);</code></pre>
@@ -71,10 +71,10 @@ wanakana.bind(inputIME);</code></pre>
 
 					<section id="demo-romaji-to-kana">
 						<form>
-							<textarea id="romaji-to-kana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Romaji string to kana" lang="ja">nihongo</textarea>
+							<textarea id="romaji-to-kana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Romaji string to kana" lang="ja">TOFUGUnosushi</textarea>
 						</form>
 						<div id="romaji-to-kana-output" class="output" lang="ja">
-							にほんご
+							トフグのすし
 						</div><!-- output -->
 						<div class="code-sample">
 							<pre><code data-language="javascript">wanakana.toKana(str);</code></pre>
@@ -82,6 +82,41 @@ wanakana.bind(inputIME);</code></pre>
 					</section><!-- demo-romaji-to-kana -->
 
 				</div><!-- pure-u-1-2 -->
+
+			</div><!-- pure-g-r -->
+
+			<div class="pure-g-r">
+				<div class="pure-u-1-2">
+
+					<section id="demo-romaji-to-hiragana">
+						<form>
+							<textarea id="romaji-to-hiragana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Kana string to romaji" lang="ja">sugoi</textarea>
+						</form>
+						<div id="romaji-to-hiragana-output" class="output" lang="ja">
+							すごい
+						</div><!-- output -->
+						<div class="code-sample">
+							<pre><code data-language="javascript">wanakana.toHiragana(str);</code></pre>
+						</div><!-- code-sample -->
+					</section><!-- demo-romaji-to-hiragana -->
+
+				</div><!-- pure-u-1-2 -->
+				<div class="pure-u-1-2">
+
+					<section id="demo-romaji-to-katakana">
+						<form>
+							<textarea id="romaji-to-katakana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Romaji string to kana" lang="ja">wanikani</textarea>
+						</form>
+						<div id="romaji-to-katakana-output" class="output" lang="ja">
+							ワニカニ
+						</div><!-- output -->
+						<div class="code-sample">
+							<pre><code data-language="javascript">wanakana.toKatakana(str);</code></pre>
+						</div><!-- code-sample -->
+					</section><!-- demo-romaji-to-katakana -->
+
+				</div><!-- pure-u-1-2 -->
+
 			</div><!-- pure-g-r -->
 
 		</div><!-- secondary-functions -->
@@ -118,6 +153,22 @@ wanakana.bind(inputIME);</code></pre>
 		outputKana.innerHTML = (wanakana.toKana(inputTranslit.value) + '&nbsp;');
 	}
 	inputTranslit.addEventListener('input', inputChangedTranslit);
+
+	// Romaji to hiragana
+	var inputTranslistHiragana = document.getElementById('romaji-to-hiragana');
+	var outputHiragana = document.getElementById('romaji-to-hiragana-output');
+	function inputChangedTranslistHiragana (e) {
+		outputHiragana.innerHTML = (wanakana.toHiragana(inputTranslistHiragana.value) + '&nbsp;');
+	}
+	inputTranslistHiragana.addEventListener('input', inputChangedTranslistHiragana);
+
+	// Romaji to katakana
+	var inputTranslistKatakana = document.getElementById('romaji-to-katakana');
+	var outputKatakana = document.getElementById('romaji-to-katakana-output');
+	function inputChangedTranslistKatakana (e) {
+		outputKatakana.innerHTML = (wanakana.toKatakana(inputTranslistKatakana.value) + '&nbsp;');
+	}
+	inputTranslistKatakana.addEventListener('input', inputChangedTranslistKatakana);
 
 	$(document).ready(function(){
 		$('form textarea').autosize();
