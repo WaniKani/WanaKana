@@ -29,7 +29,10 @@ wanakana.unbind = (input) ->
   input.removeEventListener('input', wanakana._onInput)
 
 wanakana._onInput = (event) ->
-  event.target.value = (wanakana.toKana(event.target.value, {IMEMode: true}))
+  input = event.target
+  newText = (wanakana.toKana(input.value, {IMEMode: true}))
+  input.value = ""
+  input.value = newText
 
 wanakana._extend = (target, source) ->
   if not target?
