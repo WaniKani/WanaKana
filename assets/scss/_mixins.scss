@@ -15,21 +15,25 @@
 		color: $color;
 		font-family: $bodyFontFamily;
 		font-weight: $weight;
+		line-height: 1.33em;
 	}
 	&::moz-placeholder {
 		color: $color;
 		font-family: $bodyFontFamily;
 		font-weight: $weight;
+		line-height: 1.33em;
 	}
 	&:-moz-placeholder {
 		color: $color;
 		font-family: $bodyFontFamily;
 		font-weight: $weight;
+		line-height: 1.33em;
 	}
 	&:-ms-input-placeholder {
 		color: $color;
 		font-family: $bodyFontFamily;
 		font-weight: $weight;
+		line-height: 1.33em;
 	}
 }
 

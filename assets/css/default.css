@@ -55,19 +55,23 @@ section[id^=demo-] form textarea {
   section[id^=demo-] form textarea::-webkit-input-placeholder {
     color: #aeaeae;
     font-family: "omnes-pro", sans-serif;
-    font-weight: 300; }
+    font-weight: 300;
+    line-height: 1.33em; }
   section[id^=demo-] form textarea::moz-placeholder {
     color: #aeaeae;
     font-family: "omnes-pro", sans-serif;
-    font-weight: 300; }
+    font-weight: 300;
+    line-height: 1.33em; }
   section[id^=demo-] form textarea:-moz-placeholder {
     color: #aeaeae;
     font-family: "omnes-pro", sans-serif;
-    font-weight: 300; }
+    font-weight: 300;
+    line-height: 1.33em; }
   section[id^=demo-] form textarea:-ms-input-placeholder {
     color: #aeaeae;
     font-family: "omnes-pro", sans-serif;
-    font-weight: 300; }
+    font-weight: 300;
+    line-height: 1.33em; }
 section[id^=demo-] pre, section[id^=demo-] .output {
   position: relative;
   padding: 1.5em; }
@@ -109,7 +113,7 @@ code[data-language=javascript]:before {
       position: absolute;
       top: 0;
       left: 1.3em;
-      color: #aeaeae;
+      color: #d4d4d4;
       font-size: 50%;
       font-weight: 300;
       line-height: 4.3em; }
