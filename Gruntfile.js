@@ -91,7 +91,11 @@ module.exports = function(grunt) {
 		watch: {
 			coffee: {
 				files: '<%=coffeeSrcPath%>**/*.coffee',
-				tasks: ['lint', 'coffee:dev'],
+				tasks: ['coffee:dev']
+			},
+			deploy: {
+				files: '<%=coffeeSrcPath%>**/*.coffee',
+				tasks: ['deploy'],
 			}
 		},
 
