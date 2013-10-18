@@ -1,0 +1,46 @@
+@media (max-width: 767px) {
+	body {
+			font-size: 150%;
+	}
+
+	h2 {
+		font-size: 1em;
+	}
+
+	header {
+		margin-bottom: 0.5em;
+		h1 {
+			font-size: 1.5em;
+		}
+	}
+
+	footer {
+		#footer-other-info {
+			text-align: left;
+		}
+	}
+
+	.pure-u-1-2 {
+		&:first-child {
+			padding-right: 0;
+		}
+		&:last-child {
+			padding-left: 0;
+		}
+	}
+
+	section[id^=demo-] {
+		@include box-shadow(0 0 1em rgba(0,0,0,0.5));
+	}
+
+	#content {
+		margin: 0 auto;
+		padding: 0 0.5em;
+		max-width: 980px;
+	}
+
+	#ime {
+		padding: 1.5em;
+		font-size: 50% !important;
+	}
+}
