@@ -143,6 +143,7 @@ code[data-language=javascript]:before {
   line-height: 5.5em; }
 
 footer {
+  margin-top: 2em;
   color: #6e6e6e;
   font-size: 50%;
   border-top: 1px solid #aeaeae; }
