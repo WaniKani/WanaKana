@@ -40,7 +40,8 @@ section[id^=demo-] {
 	}
 	.output {
 		padding-left: 3.5em;
-		background-color: $green;
+		background-color: $blue;
+		color: $blueDarker;
 		font-size: 50%;
 		word-wrap: break-word;
 		&:before {
@@ -48,7 +49,7 @@ section[id^=demo-] {
 			position: absolute;
 			top: 0;
 			left: 1.3em;
-			color: $greenDark;
+			color: $blueDark;
 			font-family: FontAwesome;
 			line-height: 4.85em;
 		}

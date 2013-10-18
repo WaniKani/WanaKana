@@ -3,9 +3,14 @@ $bodyFontFamily: "omnes-pro", sans-serif;
 $japaneseFontFamily: "Hiragino Kaku Gothic Pro", "Meiryo", "ヒラギノ角ゴ Pro W3", "メイリオ", "Osaka", "MS PGothic", 'ＭＳ Ｐゴシック', sans-serif;
 
 // Colors
-$green: #61ce3c;
-$greenDark: darken($green, 25%);
+$black: #000;
+
+$blue: #bae4e5;
+$blueDark: darken($blue, 25%);
+$blueDarker: darken($blueDark, 15%);
 
 $gray: #eee;
 $grayDark: darken($gray, 25%);
 $grayDarker: darken($grayDark, 25%);
+
+$white: #fff;

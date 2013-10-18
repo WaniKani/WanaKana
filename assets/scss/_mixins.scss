@@ -4,6 +4,12 @@
 	border-radius: $value;
 }
 
+@mixin box-shadow($property) {
+	-webkit-box-shadow: $property;
+	-moz-box-shadow: $property;
+	box-shadow: $property;
+}
+
 @mixin box-sizing($property) {
 	-webkit-box-sizing: $property;
 	-moz-box-sizing: $property;
