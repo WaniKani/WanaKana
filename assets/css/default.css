@@ -253,7 +253,8 @@ header {
     font-size: 1em; }
 
   header {
-    margin-bottom: 0.5em; }
+    margin-bottom: 0.5em;
+    background-position: 45% 0; }
     header h1 {
       font-size: 1.5em; }
 
