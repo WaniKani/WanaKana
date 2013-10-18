@@ -142,7 +142,7 @@ code[data-language=javascript]:before {
       padding-left: 3.5em;
       font-size: 50%; }
 #secondary-functions pre {
-  padding: 2em 2em 2em 4em; }
+  padding: 2em 2em 2em 3.7em; }
 #secondary-functions code[data-language=javascript]:before {
   content: 'JS';
   position: absolute;
