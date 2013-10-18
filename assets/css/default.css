@@ -6,16 +6,24 @@
   font-weight: normal;
   font-style: normal; }
 
+@font-face {
+  font-family: 'norwester';
+  src: url(../fonts/norwester-v1.2/norwester.eot);
+  src: url(../fonts/norwester-v1.2/norwester.eot?#iefix) format("embedded-opentype"), url(../fonts/norwester-v1.2/norwester.woff) format("woff"), url(../fonts/norwester-v1.2/norwester.ttf) format("truetype"); }
+
 body, .pure-g [class*="pure-u"], .pure-g-r [class*="pure-u"] {
   font-family: "omnes-pro", sans-serif; }
 
 body {
+  background-image: url("../images/shattered.png");
   font-size: 200%;
   font-weight: 200; }
 
 [lang=ja] {
   font-family: "Hiragino Kaku Gothic Pro", "Meiryo", "ヒラギノ角ゴ Pro W3", "メイリオ", "Osaka", "MS PGothic", "ＭＳ Ｐゴシック", sans-serif; }
 
+#secondary-functions .pure-g-r:last-child .pure-u-1-2 {
+  padding-top: 0; }
 #secondary-functions .pure-u-1-2 {
   padding: 1em 0 1em;
   -webkit-box-sizing: border-box;
@@ -30,74 +38,72 @@ body {
   margin: 0 auto;
   max-width: 980px; }
 
-section[id^=demo-] code:before {
-  display: block;
-  color: rgba(255, 255, 255, 0.3); }
-section[id^=demo-] form textarea {
-  resize: none;
-  background-color: #eeeeee;
-  width: 100%;
-  height: 1em;
-  padding: 1.5em;
-  color: #6e6e6e;
-  font-weight: bold;
-  border: none;
-  outline: none;
-  -webkit-border-radius: 5px 5px 0 0;
-  -moz-border-radius: 5px 5px 0 0;
-  border-radius: 5px 5px 0 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transition: height 0.2s;
-  -moz-transition: height 0.2s;
-  transition: height 0.2s; }
-  section[id^=demo-] form textarea::-webkit-input-placeholder {
-    color: #aeaeae;
-    font-family: "omnes-pro", sans-serif;
-    font-weight: 300;
-    line-height: 1.33em; }
-  section[id^=demo-] form textarea::moz-placeholder {
-    color: #aeaeae;
-    font-family: "omnes-pro", sans-serif;
-    font-weight: 300;
-    line-height: 1.33em; }
-  section[id^=demo-] form textarea:-moz-placeholder {
-    color: #aeaeae;
-    font-family: "omnes-pro", sans-serif;
-    font-weight: 300;
-    line-height: 1.33em; }
-  section[id^=demo-] form textarea:-ms-input-placeholder {
-    color: #aeaeae;
-    font-family: "omnes-pro", sans-serif;
-    font-weight: 300;
-    line-height: 1.33em; }
-section[id^=demo-] pre, section[id^=demo-] .output {
-  position: relative;
-  padding: 1.5em; }
-section[id^=demo-] .code-sample pre {
-  margin-bottom: 0; }
-  section[id^=demo-] .code-sample pre:last-child {
-    padding-top: 0;
-    -webkit-border-radius: 0 0 5px 5px;
-    -moz-border-radius: 0 0 5px 5px;
-    border-radius: 0 0 5px 5px; }
-  section[id^=demo-] .code-sample pre:first-child {
-    padding-top: 1.5em; }
-section[id^=demo-] .output {
-  padding-left: 3.5em;
-  background-color: #bae4e5;
-  color: #3a9799;
-  font-size: 50%;
-  word-wrap: break-word; }
-  section[id^=demo-] .output:before {
-    content: '\f064';
-    position: absolute;
-    top: 0;
-    left: 1.3em;
-    color: #5dc0c2;
-    font-family: FontAwesome;
-    line-height: 4.85em; }
+section[id^=demo-] {
+  -webkit-box-shadow: 0 0 5em rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 0 5em rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 5em rgba(0, 0, 0, 0.25); }
+  section[id^=demo-] code:before {
+    display: block;
+    color: rgba(255, 255, 255, 0.3); }
+  section[id^=demo-] form textarea {
+    resize: none;
+    background-color: #eeeeee;
+    width: 100%;
+    height: 1em;
+    padding: 1.5em;
+    color: #6e6e6e;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: height 0.2s;
+    -moz-transition: height 0.2s;
+    transition: height 0.2s; }
+    section[id^=demo-] form textarea::-webkit-input-placeholder {
+      color: #aeaeae;
+      font-family: "omnes-pro", sans-serif;
+      font-weight: 300;
+      line-height: 1.33em; }
+    section[id^=demo-] form textarea::moz-placeholder {
+      color: #aeaeae;
+      font-family: "omnes-pro", sans-serif;
+      font-weight: 300;
+      line-height: 1.33em; }
+    section[id^=demo-] form textarea:-moz-placeholder {
+      color: #aeaeae;
+      font-family: "omnes-pro", sans-serif;
+      font-weight: 300;
+      line-height: 1.33em; }
+    section[id^=demo-] form textarea:-ms-input-placeholder {
+      color: #aeaeae;
+      font-family: "omnes-pro", sans-serif;
+      font-weight: 300;
+      line-height: 1.33em; }
+  section[id^=demo-] pre, section[id^=demo-] .output {
+    position: relative;
+    padding: 1.5em; }
+  section[id^=demo-] .code-sample pre {
+    margin-bottom: 0; }
+    section[id^=demo-] .code-sample pre:last-child {
+      padding-top: 0; }
+    section[id^=demo-] .code-sample pre:first-child {
+      padding-top: 1.5em; }
+  section[id^=demo-] .output {
+    padding-left: 3.5em;
+    background-color: #bae4e5;
+    color: #3a9799;
+    font-size: 50%;
+    word-wrap: break-word; }
+    section[id^=demo-] .output:before {
+      content: '\f064';
+      position: absolute;
+      top: 0;
+      left: 1.3em;
+      color: #5dc0c2;
+      font-family: FontAwesome;
+      line-height: 4.85em; }
 
 code[data-language=html]:before {
   content: 'HTML'; }
@@ -133,9 +139,11 @@ code[data-language=javascript]:before {
 header {
   position: relative;
   margin-bottom: 1em;
-  padding: 1em;
+  padding: 2em;
   background-color: #eeeeee;
   background-image: url("/assets/images/header.jpg");
+  background-size: cover;
+  border-bottom: 1px solid white;
   -webkit-box-shadow: inset 0 0 5em black;
   -moz-box-shadow: inset 0 0 5em black;
   box-shadow: inset 0 0 5em black; }
@@ -147,23 +155,41 @@ header {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: 0; }
+    z-index: 0;
+    -webkit-box-shadow: inset 0 -2em 5em black;
+    -moz-box-shadow: inset 0 -2em 5em black;
+    box-shadow: inset 0 -2em 5em black; }
   header h1, header #download {
     position: relative;
     z-index: 1; }
   header h1 {
     margin: 0;
     color: white;
-    font-weight: 600;
-    letter-spacing: -0.05em;
+    font-family: 'norwester';
+    font-size: 3em;
+    letter-spacing: -0.02em;
     line-height: 1em;
     text-align: center; }
     header h1 small {
       display: block;
       margin: 1em 0;
-      font-size: 50%;
+      font-family: "omnes-pro", sans-serif;
+      font-size: 40%;
       font-weight: 200;
+      letter-spacing: -0.01em;
       line-height: 1.2em; }
   header #download {
     padding: 1em 0 0;
     text-align: center; }
+    header #download small {
+      display: block;
+      font-size: 50%;
+      opacity: 0.5;
+      filter: alpha(opacity=50); }
+    header #download .pure-button {
+      background-color: #aaff00;
+      color: #558000;
+      font-weight: 300;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px; }

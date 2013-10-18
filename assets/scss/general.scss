@@ -3,6 +3,7 @@ body, .pure-g [class*="pure-u"], .pure-g-r [class*="pure-u"] {
 }
 
 body {
+	background-image: url('../images/shattered.png');
 	font-size: 200%;
 	font-weight: 200;
 }
@@ -12,6 +13,11 @@ body {
 }
 
 #secondary-functions {
+	.pure-g-r:last-child {
+		.pure-u-1-2 {
+			padding-top: 0;
+		}
+	}
 	.pure-u-1-2 {
 		padding: 1em 0 1em;
 		@include box-sizing(border-box);

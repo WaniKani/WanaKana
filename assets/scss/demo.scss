@@ -1,4 +1,5 @@
 section[id^=demo-] {
+	@include box-shadow(0 0 5em rgba(0,0,0,0.25));
 	code {
 		&:before {
 			display: block;
@@ -16,7 +17,6 @@ section[id^=demo-] {
 			font-weight: bold;
 			border: none;
 			outline: none;
-			@include border-radius (5px 5px 0 0);
 			@include box-sizing(border-box);
 			@include placeholder(300, $grayDark);
 			@include transition(height, 0.2s);
@@ -31,7 +31,6 @@ section[id^=demo-] {
 			margin-bottom: 0;
 			&:last-child {
 				padding-top: 0;
-				@include border-radius (0 0 5px 5px);
 			}
 			&:first-child {
 				padding-top: 1.5em; // Readds padding if pre is only child

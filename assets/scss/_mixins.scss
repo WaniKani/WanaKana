@@ -16,6 +16,11 @@
 	box-sizing: $property;
 }
 
+@mixin opacity($opacity) {
+	opacity: $opacity / 100;
+	filter: alpha(opacity=$opacity);
+}
+
 @mixin placeholder($weight, $color) {
 	&::-webkit-input-placeholder {
 		color: $color;
