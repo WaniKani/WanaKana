@@ -12,20 +12,24 @@ body {
 	font-family: $japaneseFontFamily;
 }
 
-#secondary-functions {
-	.pure-g-r:last-child {
-		.pure-u-1-2 {
-			padding-top: 0;
-		}
+h1, h2 {
+	font-family: $headerFontFamily !important;
+}
+
+h2 {
+	color: $grayDarker;
+	text-transform: uppercase;
+}
+
+.pure-u-1, .pure-u-1-2 {
+	padding-bottom: 1em;
+	@include box-sizing(border-box);
+}
+.pure-u-1-2 {
+	&:first-child {
+		padding-right: 0.5em;
 	}
-	.pure-u-1-2 {
-		padding: 1em 0 1em;
-		@include box-sizing(border-box);
-		&:first-child {
-			padding-right: 0.5em;
-		}
-		&:last-child {
-			padding-left: 0.5em;
-		}
+	&:last-child {
+		padding-left: 0.5em;
 	}
 }
