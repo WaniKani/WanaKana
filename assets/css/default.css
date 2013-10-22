@@ -245,29 +245,34 @@ header {
       -moz-border-radius: 5px;
       border-radius: 5px; }
 
-section#documentation table {
-  background: #0b1022;
-  color: white;
-  font-size: 50%; }
-section#documentation thead th, section#documentation thead td, section#documentation tbody th, section#documentation tbody td {
-  padding: 1em; }
-section#documentation thead {
-  background-color: black;
-  border-bottom: 1px solid #eeeeee; }
-  section#documentation thead th {
-    font-weight: 500;
-    text-align: left; }
-    section#documentation thead th:first-child {
-      width: 25%; }
-    section#documentation thead th:last-child {
-      width: 50%; }
-section#documentation tbody td:first-child {
-  font-family: 'Monaco', courier, monospace; }
-section#documentation tbody td:last-child {
-  opacity: 0.5;
-  filter: alpha(opacity=50); }
-section#documentation tbody tr:nth-child(2n+1) {
-  background-color: rgba(255, 255, 255, 0.1); }
+section#documentation {
+  -webkit-box-shadow: 0 0 5em rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 0 5em rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 5em rgba(0, 0, 0, 0.25); }
+  section#documentation table {
+    background: #0b1022;
+    color: white;
+    font-size: 50%; }
+  section#documentation thead th, section#documentation thead td, section#documentation tbody th, section#documentation tbody td {
+    padding: 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+  section#documentation thead {
+    background-color: black;
+    border-bottom: 1px solid #eeeeee; }
+    section#documentation thead th {
+      font-weight: 500;
+      text-align: left; }
+  section#documentation tbody td {
+    word-wrap: normal; }
+    section#documentation tbody td:first-child {
+      font-family: 'Monaco', courier, monospace; }
+    section#documentation tbody td:last-child {
+      opacity: 0.5;
+      filter: alpha(opacity=50); }
+  section#documentation tbody tr:nth-child(2n+1) {
+    background-color: rgba(255, 255, 255, 0.1); }
 
 @media (max-width: 767px) {
   body {
@@ -290,7 +295,7 @@ section#documentation tbody tr:nth-child(2n+1) {
   .pure-u-1-2:last-child {
     padding-left: 0; }
 
-  section[id^=demo-] {
+  section[id^=demo-], section#documentation {
     -webkit-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.5); }
@@ -302,4 +307,11 @@ section#documentation tbody tr:nth-child(2n+1) {
 
   #ime {
     padding: 1.5em;
-    font-size: 50% !important; } }
+    font-size: 50% !important; }
+
+  section#documentation thead {
+    display: none; }
+  section#documentation tbody td {
+    display: block; }
+    section#documentation tbody td:last-child {
+      padding-top: 0; } }

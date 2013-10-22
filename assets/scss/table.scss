@@ -1,4 +1,5 @@
 section#documentation {
+	@include box-shadow(0 0 5em rgba(0,0,0,0.25));
 	table {
 		background: #0b1022;
 		color: $white;
@@ -7,6 +8,7 @@ section#documentation {
 	thead, tbody {
 		th, td {
 			padding: 1em;
+			@include box-sizing(border-box);
 		}
 	}
 	thead {
@@ -15,16 +17,11 @@ section#documentation {
 		th {
 			font-weight: 500;
 			text-align: left;
-			&:first-child {
-				width: 25%;
-			}
-			&:last-child {
-				width: 50%;
-			}
 		}
 	}
 	tbody {
 		td {
+			word-wrap: normal;
 			&:first-child {
 				font-family: 'Monaco', courier, monospace;
 			}

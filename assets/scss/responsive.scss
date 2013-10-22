@@ -30,7 +30,7 @@
 		}
 	}
 
-	section[id^=demo-] {
+	section[id^=demo-], section#documentation {
 		@include box-shadow(0 0 1em rgba(0,0,0,0.5));
 	}
 
@@ -43,5 +43,19 @@
 	#ime {
 		padding: 1.5em;
 		font-size: 50% !important;
+	}
+
+	section#documentation {
+		thead {
+			display: none;
+		}
+		tbody {
+			td {
+				display: block;
+				&:last-child {
+					padding-top: 0;
+				}
+			}
+		}
 	}
 }
