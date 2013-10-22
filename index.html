@@ -141,8 +141,8 @@ wanakana.bind(inputIME);</code></pre>
 						</thead>
 						<tbody>
 							<tr>
-								<td>wanakana.bind(<span>element, options</span>)</td>
-								<td>Bind textarea or input with IME functionality.<br>Pass in option { useObsoleteKana: true } to use obsolete characters, such as <span lang="ja">ゐ</span> and <span lang="ja">ゑ</span>.</td>
+								<td>wanakana.bind(<span>element</span>, <span>options</span>)</td>
+								<td>Bind IME functionality to form textarea or input.<br>Pass in option { useObsoleteKana: true } to use obsolete characters, such as <span lang="ja">ゐ</span> and <span lang="ja">ゑ</span>.</td>
 							</tr>
 							<tr>
 								<td>wanakana.isHiragana(<span>string</span>)</td>
@@ -173,7 +173,7 @@ wanakana.bind(inputIME);</code></pre>
 								<td>Convert Kana to Romaji.</td>
 							</tr>
 							<tr>
-								<td>wanakana.unbind()</td>
+								<td>wanakana.unbind(<span>element</span>)</td>
 								<td>Unbind IME from element.</td>
 							</tr>
 						</tbody>
