@@ -1,6 +1,6 @@
 @media (max-width: 767px) {
 	body {
-			font-size: 150%;
+		font-size: 150%;
 	}
 
 	h2 {
@@ -46,10 +46,21 @@
 	}
 
 	section#documentation {
+		table {
+			display: block;
+		}
 		thead {
 			display: none;
 		}
 		tbody {
+			display: block;
+			width: 100%;
+			max-width: 100%;
+			tr {
+				display: block;
+				width: 100%;
+				max-width: 100%;
+			}
 			td {
 				display: block;
 				&:last-child {

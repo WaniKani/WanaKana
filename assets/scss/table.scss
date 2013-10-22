@@ -8,7 +8,6 @@ section#documentation {
 	thead, tbody {
 		th, td {
 			padding: 1em;
-			@include box-sizing(border-box);
 		}
 	}
 	thead {
@@ -21,7 +20,6 @@ section#documentation {
 	}
 	tbody {
 		td {
-			word-wrap: normal;
 			&:first-child {
 				font-family: 'Monaco', courier, monospace;
 			}

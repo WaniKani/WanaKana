@@ -254,23 +254,18 @@ section#documentation {
     color: white;
     font-size: 50%; }
   section#documentation thead th, section#documentation thead td, section#documentation tbody th, section#documentation tbody td {
-    padding: 1em;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box; }
+    padding: 1em; }
   section#documentation thead {
     background-color: black;
     border-bottom: 1px solid #eeeeee; }
     section#documentation thead th {
       font-weight: 500;
       text-align: left; }
-  section#documentation tbody td {
-    word-wrap: normal; }
-    section#documentation tbody td:first-child {
-      font-family: 'Monaco', courier, monospace; }
-    section#documentation tbody td:last-child {
-      opacity: 0.5;
-      filter: alpha(opacity=50); }
+  section#documentation tbody td:first-child {
+    font-family: 'Monaco', courier, monospace; }
+  section#documentation tbody td:last-child {
+    opacity: 0.5;
+    filter: alpha(opacity=50); }
   section#documentation tbody tr:nth-child(2n+1) {
     background-color: rgba(255, 255, 255, 0.1); }
 
@@ -309,9 +304,19 @@ section#documentation {
     padding: 1.5em;
     font-size: 50% !important; }
 
+  section#documentation table {
+    display: block; }
   section#documentation thead {
     display: none; }
-  section#documentation tbody td {
-    display: block; }
-    section#documentation tbody td:last-child {
-      padding-top: 0; } }
+  section#documentation tbody {
+    display: block;
+    width: 100%;
+    max-width: 100%; }
+    section#documentation tbody tr {
+      display: block;
+      width: 100%;
+      max-width: 100%; }
+    section#documentation tbody td {
+      display: block; }
+      section#documentation tbody td:last-child {
+        padding-top: 0; } }
