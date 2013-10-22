@@ -3,7 +3,7 @@ header {
 	margin-bottom: 1em;
 	padding: 2em;
 	background-color: $gray;
-	background-image: url('/assets/images/header.jpg');
+	background-image: url('../images/header.jpg');
 	background-size: cover;
 	border-bottom: 1px solid $white;
 	@include box-shadow(inset 0 0 5em $black);
