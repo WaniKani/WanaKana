@@ -1,0 +1,41 @@
+section#documentation {
+	table {
+		background: #0b1022;
+		color: $white;
+		font-size: 50%;
+	}
+	thead, tbody {
+		th, td {
+			padding: 1em;
+		}
+	}
+	thead {
+		background-color: $black;
+		border-bottom: 1px solid $gray;
+		th {
+			font-weight: 500;
+			text-align: left;
+			&:first-child {
+				width: 25%;
+			}
+			&:last-child {
+				width: 50%;
+			}
+		}
+	}
+	tbody {
+		td {
+			&:first-child {
+				font-family: 'Monaco', courier, monospace;
+			}
+			&:last-child {
+				@include opacity(50);
+			}
+		}
+		tr {
+			&:nth-child(2n+1) {
+				background-color: rgba(255,255,255,0.1);
+			}
+		}
+	}
+}

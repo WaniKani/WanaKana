@@ -95,10 +95,10 @@ wanakana.bind(inputIME);</code></pre>
 
 					<section id="demo-romaji-to-hiragana">
 						<form>
-							<textarea id="romaji-to-hiragana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Kana string to romaji" lang="ja">sugoi</textarea>
+							<textarea id="romaji-to-hiragana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Kana string to romaji" lang="ja">アメリカ</textarea>
 						</form>
 						<div id="romaji-to-hiragana-output" class="output" lang="ja">
-							すごい
+							あめりか
 						</div><!-- output -->
 						<div class="code-sample">
 							<pre><code data-language="javascript">wanakana.toHiragana(str);</code></pre>
@@ -110,7 +110,7 @@ wanakana.bind(inputIME);</code></pre>
 
 					<section id="demo-romaji-to-katakana">
 						<form>
-							<textarea id="romaji-to-katakana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Romaji string to kana" lang="ja">wanikani</textarea>
+							<textarea id="romaji-to-katakana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Romaji string to kana" lang="ja">わにかに</textarea>
 						</form>
 						<div id="romaji-to-katakana-output" class="output" lang="ja">
 							ワニカニ
@@ -125,6 +125,63 @@ wanakana.bind(inputIME);</code></pre>
 			</div><!-- pure-g-r -->
 
 		</div><!-- secondary-functions -->
+
+		<h2>Full Documentation</h2>
+
+		<div class="pure-g-r">
+			<div class="pure-u-1">
+				<section id="documentation">
+
+					<table>
+						<thead>
+							<tr>
+								<th>Function</th>
+								<th>Usage</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>wanakana.bind(element, options)</td>
+								<td>Bind textarea or input with IME functionality.<br>Pass in option { useObsoleteKana: true } to use obsolete characters, such as <span lang="ja">ゐ</span> and <span lang="ja">ゑ</span>.</td>
+							</tr>
+							<tr>
+								<td>wanakana.isHiragana(string)</td>
+								<td>Returns false if string contains mixed characters, otherwise true if Hiragana</td>
+							</tr>
+							<tr>
+								<td>wanakana.isKana(string)</td>
+								<td>Returns false if string contains characters outside of the kana family, otherwise true if Hiragana and/or Katakana</td>
+							</tr>
+							<tr>
+								<td>wanakana.isKatakana(string)</td>
+								<td>Returns false if string contains mixed characters, otherwise true if Katakana</td>
+							</tr>
+							<tr>
+								<td>wanakana.toHiragana(string)</td>
+								<td>Convert Katakana or Romaji to Hiragana.</td>
+							</tr>
+							<tr>
+								<td>wanakana.toKana(string)</td>
+								<td>Convert Romaji to Kana. Lowcase entries output Hiragana, while upcase entries output Katakana.</td>
+							</tr>
+							<tr>
+								<td>wanakana.toKatakana(string)</td>
+								<td>Convert Hiragana or Romaji to Katakana.</td>
+							</tr>
+							<tr>
+								<td>wanakana.toRomaji(string)</td>
+								<td>Convert Kana to Romaji.</td>
+							</tr>
+							<tr>
+								<td>wanakana.unbind()</td>
+								<td>Unbind IME from element.</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</section><!-- documentation -->
+			</div>
+		</div>
 
 		<footer>
 			<div class="pure-g-r">

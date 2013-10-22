@@ -11,7 +11,7 @@
   src: url(../fonts/norwester-v1.2/norwester.eot);
   src: url(../fonts/norwester-v1.2/norwester.eot?#iefix) format("embedded-opentype"), url(../fonts/norwester-v1.2/norwester.woff) format("woff"), url(../fonts/norwester-v1.2/norwester.ttf) format("truetype"); }
 
-body, .pure-g [class*="pure-u"], .pure-g-r [class*="pure-u"] {
+body, table, .pure-g [class*="pure-u"], .pure-g-r [class*="pure-u"] {
   font-family: "omnes-pro", sans-serif; }
 
 body {
@@ -244,6 +244,30 @@ header {
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
       border-radius: 5px; }
+
+section#documentation table {
+  background: #0b1022;
+  color: white;
+  font-size: 50%; }
+section#documentation thead th, section#documentation thead td, section#documentation tbody th, section#documentation tbody td {
+  padding: 1em; }
+section#documentation thead {
+  background-color: black;
+  border-bottom: 1px solid #eeeeee; }
+  section#documentation thead th {
+    font-weight: 500;
+    text-align: left; }
+    section#documentation thead th:first-child {
+      width: 25%; }
+    section#documentation thead th:last-child {
+      width: 50%; }
+section#documentation tbody td:first-child {
+  font-family: 'Monaco', courier, monospace; }
+section#documentation tbody td:last-child {
+  opacity: 0.5;
+  filter: alpha(opacity=50); }
+section#documentation tbody tr:nth-child(2n+1) {
+  background-color: rgba(255, 255, 255, 0.1); }
 
 @media (max-width: 767px) {
   body {
