@@ -266,6 +266,8 @@ section#documentation {
   section#documentation tbody td:last-child {
     opacity: 0.5;
     filter: alpha(opacity=50); }
+  section#documentation tbody tr span {
+    color: #61CE3C; }
   section#documentation tbody tr:nth-child(2n+1) {
     background-color: rgba(255, 255, 255, 0.1); }
 

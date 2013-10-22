@@ -28,6 +28,9 @@ section#documentation {
 			}
 		}
 		tr {
+			span {
+				color: #61CE3C;
+			}
 			&:nth-child(2n+1) {
 				background-color: rgba(255,255,255,0.1);
 			}
