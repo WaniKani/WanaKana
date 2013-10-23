@@ -34,7 +34,7 @@ wanakana.bind(input);
 ```javascript
 // Bind IME functionality to form textarea or input.
 // Pass in option { useObsoleteKana: true } to use obsolete characters, such as ゐ and ゑ.
-wanakana.bind(element ,options)
+wanakana.bind(element, options)
 
 // Unbind IME from element.
 wanakana.unbind(element)
