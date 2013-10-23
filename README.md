@@ -5,11 +5,6 @@ Javascript library that provides utilities for detecting and transliterating Hir
 
 See [demo site](http://wanakana.com) to see WanaKana in action.
 
-## Contributors
-
-- [Mims H. Wright](http://github.com/mimshwright)	Author
-- [James McNamee](http://github.com/dotfold)		Contributor
-
 ## Build using Grunt
 
 - Clone repository.
@@ -65,3 +60,8 @@ wanakana.toKatakana(string)
 // Convert Kana to Romaji.
 wanakana.toRomaji(string)
 ```
+
+## Contributors
+
+- [Mims H. Wright](http://github.com/mimshwright)	Author
+- [James McNamee](http://github.com/dotfold)		Contributor
