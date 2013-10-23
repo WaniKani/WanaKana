@@ -3,7 +3,7 @@
 
 Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--&rt; Katakana &lt;--&rt; Romaji.
 
-See [demo site](http://wanakana) to see WanaKana in action.
+See [demo site](http://wanakana.com) to see WanaKana in action.
 
 ## Contributors
 
