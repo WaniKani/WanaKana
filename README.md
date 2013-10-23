@@ -1,7 +1,7 @@
 ワナカナ <-> WanaKana <-> わなかな
 ===============================
 
-Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--&rt; Katakana &lt;--&rt; Romaji.
+Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--> Katakana &lt;--> Romaji.
 
 See [demo site](http://wanakana.com) to see WanaKana in action.
 
