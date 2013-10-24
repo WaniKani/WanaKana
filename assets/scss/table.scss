@@ -1,6 +1,16 @@
-section#documentation {
+#documentation, #ports {
 	@include box-shadow(0 0 5em rgba(0,0,0,0.25));
+	a {
+		color: $white;
+		text-decoration: none;
+		border-bottom: 1px dotted $white;
+		&:hover {
+			text-decoration: none;
+			border-bottom: 1px solid $white;
+		}
+	}
 	table {
+		width: 100%;
 		background: #0b1022;
 		color: $white;
 		font-size: 50%;
@@ -19,6 +29,19 @@ section#documentation {
 		}
 	}
 	tbody {
+		tr {
+			span:not([lang=ja]) {
+				color: #61CE3C;
+			}
+			&:nth-child(2n+1) {
+				background-color: rgba(255,255,255,0.1);
+			}
+		}
+	}
+}
+
+#documentation {
+	tbody {
 		td {
 			&:first-child {
 				font-family: 'Monaco', courier, monospace;
@@ -27,12 +50,14 @@ section#documentation {
 				@include opacity(50);
 			}
 		}
-		tr {
-			span:not([lang=ja]) {
-				color: #61CE3C;
-			}
-			&:nth-child(2n+1) {
-				background-color: rgba(255,255,255,0.1);
+	}
+}
+
+#ports {
+	tbody {
+		td {
+			&:first-child {
+				@include opacity(50);
 			}
 		}
 	}

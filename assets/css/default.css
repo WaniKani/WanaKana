@@ -245,31 +245,44 @@ header {
       -moz-border-radius: 5px;
       border-radius: 5px; }
 
-section#documentation {
+#documentation, #ports {
   -webkit-box-shadow: 0 0 5em rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0 0 5em rgba(0, 0, 0, 0.25);
   box-shadow: 0 0 5em rgba(0, 0, 0, 0.25); }
-  section#documentation table {
+  #documentation a, #ports a {
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px dotted white; }
+    #documentation a:hover, #ports a:hover {
+      text-decoration: none;
+      border-bottom: 1px solid white; }
+  #documentation table, #ports table {
+    width: 100%;
     background: #0b1022;
     color: white;
     font-size: 50%; }
-  section#documentation thead th, section#documentation thead td, section#documentation tbody th, section#documentation tbody td {
+  #documentation thead th, #documentation thead td, #documentation tbody th, #documentation tbody td, #ports thead th, #ports thead td, #ports tbody th, #ports tbody td {
     padding: 1em; }
-  section#documentation thead {
+  #documentation thead, #ports thead {
     background-color: black;
     border-bottom: 1px solid #eeeeee; }
-    section#documentation thead th {
+    #documentation thead th, #ports thead th {
       font-weight: 500;
       text-align: left; }
-  section#documentation tbody td:first-child {
-    font-family: 'Monaco', courier, monospace; }
-  section#documentation tbody td:last-child {
-    opacity: 0.5;
-    filter: alpha(opacity=50); }
-  section#documentation tbody tr span:not([lang=ja]) {
+  #documentation tbody tr span:not([lang=ja]), #ports tbody tr span:not([lang=ja]) {
     color: #61CE3C; }
-  section#documentation tbody tr:nth-child(2n+1) {
+  #documentation tbody tr:nth-child(2n+1), #ports tbody tr:nth-child(2n+1) {
     background-color: rgba(255, 255, 255, 0.1); }
+
+#documentation tbody td:first-child {
+  font-family: 'Monaco', courier, monospace; }
+#documentation tbody td:last-child {
+  opacity: 0.5;
+  filter: alpha(opacity=50); }
+
+#ports tbody td:first-child {
+  opacity: 0.5;
+  filter: alpha(opacity=50); }
 
 @media (max-width: 767px) {
   body {
@@ -292,7 +305,7 @@ section#documentation {
   .pure-u-1-2:last-child {
     padding-left: 0; }
 
-  section[id^=demo-], section#documentation {
+  section[id^=demo-], #documentation, #ports {
     -webkit-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 1em rgba(0, 0, 0, 0.5); }
@@ -306,19 +319,19 @@ section#documentation {
     padding: 1.5em;
     font-size: 50% !important; }
 
-  section#documentation table {
+  #documentation table, #ports table {
     display: block; }
-  section#documentation thead {
+  #documentation thead, #ports thead {
     display: none; }
-  section#documentation tbody {
+  #documentation tbody, #ports tbody {
     display: block;
     width: 100%;
     max-width: 100%; }
-    section#documentation tbody tr {
+    #documentation tbody tr, #ports tbody tr {
       display: block;
       width: 100%;
       max-width: 100%; }
-    section#documentation tbody td {
+    #documentation tbody td, #ports tbody td {
       display: block; }
-      section#documentation tbody td:last-child {
+      #documentation tbody td:last-child, #ports tbody td:last-child {
         padding-top: 0; } }

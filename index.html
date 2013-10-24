@@ -183,6 +183,31 @@ wanakana.bind(input);</code></pre>
 			</div>
 		</div>
 
+		<h2>Library Ports</h2>
+
+		<div class="pure-g-r">
+			<div class="pure-u-1">
+				<section id="ports">
+
+					<table>
+						<thead>
+							<tr>
+								<th>Language</th>
+								<th>Library Name</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Java</td>
+								<td><a href="https://github.com/MasterKale/WanaKanaJava" title="View WanaKanaJava">WanaKanaJava</a></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</section><!-- ports -->
+			</div>
+		</div>
+
 		<footer>
 			<div class="pure-g-r">
 				<div class="pure-u-1-2">
@@ -250,10 +275,23 @@ wanakana.bind(input);</code></pre>
 	inputTranslistKatakana.addEventListener('input', inputChangedTranslistKatakana);
 
 	// Misc js
-	$(document).ready(function(){
-		$('form textarea').autosize();
-		$('#ime').focus();
+
+	// Adjust library ports table's first column to match first column width of full documentation table
+	function libraryColumnWidth () {
+		var columnWidth = $('#documentation th:first-child').width();
+		$('#ports th:first-child').css('width', 300);	
+	}
+
+	$(document).ready(function() {
+		$('form textarea').autosize(); // Dynamically size vertical height of textarea
+		$('#ime').focus(); // Focus IME textarea on pageload
+		libraryColumnWidth();
 	});
+
+	$(window).resize(function() {
+		libraryColumnWidth();
+	});
+
 </script>
 	
 </body>
