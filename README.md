@@ -67,6 +67,6 @@ wanakana.toRomaji(string)
 - [James McNamee](http://github.com/dotfold)		Contributor
 
 ## Ports
-The following are ports created by the community.
+The following are ports created by the community:
 
 - Java ([MasterKale/WanaKanaJava](https://github.com/MasterKale/WanaKanaJava))
