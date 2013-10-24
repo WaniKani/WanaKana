@@ -65,3 +65,8 @@ wanakana.toRomaji(string)
 
 - [Mims H. Wright](http://github.com/mimshwright)	Author
 - [James McNamee](http://github.com/dotfold)		Contributor
+
+## Ports
+The following are ports created by the community.
+
+- Java ([MasterKale/WanaKanaJava](https://github.com/MasterKale/WanaKanaJava))
