@@ -196,7 +196,11 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
       wanakana._isCharConsonant(chunkLC.charAt(0)) and
       chunk.charAt(0) == chunk.charAt(1)
         chunkSize = 1
-        chunkLC = chunk = "っ"
+        # Return katakana ッ if chunk is uppercase, otherwise return hiragana っ
+        if wanakana._isCharInRange(chunk.charAt(0), wanakana.UPPERCASE_START, wanakana.UPPERCASE_END)
+          chunkLC = chunk = "ッ"
+        else
+          chunkLC = chunk = "っ"
 
       kanaChar = wanakana.R_to_J[chunkLC]
       # DEBUG
