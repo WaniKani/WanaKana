@@ -3,7 +3,7 @@
 
 Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--> Katakana &lt;--> Romaji.
 
-See [demo site](http://wanakana.com) to see WanaKana in action.
+View [demo site](http://wanakana.com) to see WanaKana in action.
 
 ## Build using Grunt
 
@@ -44,7 +44,7 @@ wanakana.isHiragana(string);
 // Returns false if string contains characters outside of the kana family, otherwise true if Hiragana and/or Katakana.
 wanakana.isKana(string);
 
-//Returns false if string contains mixed characters, otherwise true if Katakana.
+// Returns false if string contains mixed characters, otherwise true if Katakana.
 wanakana.isKatakana(string);
 
 // Convert Katakana or Romaji to Hiragana.
@@ -64,7 +64,6 @@ wanakana.toRomaji(string [, options]);
 // Here is the default object used for options.
 {
 	useObsoleteKana: false, // Set to true to use obsolete characters, such as ゐ and ゑ.
-
   	IMEMode: false // Set to true to handle input from a text input as it is typed.
 }
 ```
