@@ -269,7 +269,13 @@ header {
     #documentation thead th, #ports thead th {
       font-weight: 500;
       text-align: left; }
-  #documentation tbody tr span:not([lang=ja]), #ports tbody tr span:not([lang=ja]) {
+  #documentation tbody tr span:not([lang=ja]).indent, #ports tbody tr span:not([lang=ja]).indent {
+    display: block;
+    margin-left: 2em; }
+  #documentation tbody tr span:not([lang=ja]).options, #ports tbody tr span:not([lang=ja]).options {
+    opacity: 0.4;
+    filter: alpha(opacity=40); }
+  #documentation tbody tr span:not([lang=ja]).type, #ports tbody tr span:not([lang=ja]).type {
     color: #61CE3C; }
   #documentation tbody tr:nth-child(2n+1), #ports tbody tr:nth-child(2n+1) {
     background-color: rgba(255, 255, 255, 0.1); }
