@@ -70,7 +70,7 @@ wanakana.toRomaji(string [, options]);
 
 ## Credits
 
-Project sponsered by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wanikani.com)
+Project sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wanikani.com)
 
 ### Contributors
 
