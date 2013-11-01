@@ -13,6 +13,11 @@ wanakana.HIRAGANA_END    = 0x3096
 wanakana.KATAKANA_START  = 0x30A1
 wanakana.KATAKANA_END    = 0x30FA
 
+wanakana.LOWERCASE_FULLWIDTH_START = 0xFF41
+wanakana.LOWERCASE_FULLWIDTH_END   = 0xFF5A
+wanakana.UPPERCASE_FULLWIDTH_START = 0xFF21
+wanakana.UPPERCASE_FULLWIDTH_END   = 0xFF3A
+
 wanakana.defaultOptions =
   # Transliterates wi and we to ゐ and ゑ
   useObseleteKana: no
@@ -30,9 +35,11 @@ wanakana.unbind = (input) ->
 
 wanakana._onInput = (event) ->
   input = event.target
-  newText = (wanakana.toKana(input.value, {IMEMode: true}))
-  input.value = ""
-  input.value = newText
+  normalizedInputString = wanakana._convertFullwidthCharsToASCII (input.value)
+  newText = (wanakana.toKana(normalizedInputString, {IMEMode: true}))
+  unless normalizedInputString is newText
+    input.value = newText
+  console.log ("Change? " + (normalizedInputString != newText))
 
 wanakana._extend = (target, source) ->
   if not target?
@@ -73,6 +80,17 @@ wanakana._isCharKana = (char) ->
   wanakana._isCharHiragana(char) or wanakana._isCharKatakana(char)
 wanakana._isCharNotKana = (char) ->
   not wanakana._isCharHiragana(char) and not wanakana._isCharKatakana(char)
+
+wanakana._convertFullwidthCharsToASCII = (string) ->
+  chars = string.split ""
+  for char,i in chars
+    code = char.charCodeAt(0)
+    if wanakana._isCharInRange(char, wanakana.LOWERCASE_FULLWIDTH_START, wanakana.LOWERCASE_FULLWIDTH_END)
+      chars[i] = String.fromCharCode(code - wanakana.LOWERCASE_FULLWIDTH_START + wanakana.LOWERCASE_START)
+    if wanakana._isCharInRange(char, wanakana.UPPERCASE_FULLWIDTH_START, wanakana.UPPERCASE_FULLWIDTH_END)
+      chars[i] String.fromCharCode(code - wanakana.UPPERCASE_FULLWIDTH_START + wanakana.UPPERCASE_START)
+
+  chars.join ""
 
 wanakana._katakanaToHiragana = (kata) ->
   hira = []
@@ -150,6 +168,7 @@ wanakana._hiraganaToRomaji = (hira, options) ->
 
 wanakana._romajiToHiragana = (roma, options) -> wanakana._romajiToKana(roma, options, true)
 wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
+  console.log (new Date().getTime())
   len = roma.length
   # Final output array
   kana = []
@@ -204,7 +223,8 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
 
       kanaChar = wanakana.R_to_J[chunkLC]
       # DEBUG
-      # console.log (cursor + "x" + chunkSize + ":" + chunk + " => " + kanaChar )
+      console.log (chunk.charAt(0) + " : " + chunk.charCodeAt(0))
+      console.log (cursor + "x" + chunkSize + ":" + chunk + " => " + kanaChar )
       break if kanaChar?
       chunkSize--
 
