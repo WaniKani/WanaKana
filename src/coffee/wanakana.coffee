@@ -35,11 +35,14 @@ wanakana.unbind = (input) ->
 
 wanakana._onInput = (event) ->
   input = event.target
+  startingCursor = input.selectionStart
+  startingLength = input.value.length
   normalizedInputString = wanakana._convertFullwidthCharsToASCII (input.value)
   newText = (wanakana.toKana(normalizedInputString, {IMEMode: true}))
   unless normalizedInputString is newText
     input.value = newText
-  # console.log ("Change? " + (normalizedInputString != newText))
+    newCursor = startingCursor - startingLength + newText.length
+    input.selectionStart = input.selectionEnd = newCursor
 
 wanakana._extend = (target, source) ->
   if not target?
