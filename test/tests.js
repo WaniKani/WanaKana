@@ -79,7 +79,7 @@ test("Test every character with toHiragana() and toKatakana()", function () {
 
 test ("Double consonants transliterate to glottal stops (small tsu)", function () {
   equal (wanakana.toHiragana("babba"),   "ばっば", "double B");
-  equal (wanakana.toHiragana("cacca"),   "cあっcあ", "double C");
+  equal (wanakana.toHiragana("cacca"),   "かっか", "double C");
   equal (wanakana.toHiragana("chaccha"), "ちゃっちゃ", "double Ch");
   equal (wanakana.toHiragana("dadda"),   "だっだ", "double D");
   equal (wanakana.toHiragana("fuffu"),   "ふっふ", "double F");
