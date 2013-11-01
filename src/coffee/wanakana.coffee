@@ -232,8 +232,7 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
 
       kanaChar = wanakana.R_to_J[chunkLC]
       # DEBUG
-      # console.log (chunk.charAt(0) + " : " + chunk.charCodeAt(0))
-      # console.log (cursor + "x" + chunkSize + ":" + chunk + " => " + kanaChar )
+      console.log (cursor + "x" + chunkSize + ":" + chunk + " => " + kanaChar )
       break if kanaChar?
       chunkSize--
 
@@ -247,9 +246,12 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
     if options?.useObseleteKana
       if chunkLC is "wi" then kanaChar = "ゐ"
       if chunkLC is "we" then kanaChar = "ゑ"
-    if options?.IMEMode and chunkLC.charAt(0) is "n"
-      if (roma.charAt(cursor+1).toLowerCase() is "y" and cursor is (len-2)) or
-      cursor is (len-1)
+
+    if options.IMEMode and chunkLC.charAt(0) is "n"
+      if roma.charAt(cursor + 1).toLowerCase() is "y" and
+      wanakana._isCharVowel(roma.charAt(cursor + 2)) is false or
+      cursor is (len - 1) or
+      wanakana.isKana(roma.charAt(cursor + 1))
         # Don't transliterate this yet.
         kanaChar = chunk.charAt(0)
 
@@ -260,6 +262,7 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
 
     kana.push kanaChar
     cursor += chunkSize or 1
+
   kana.join("")
 
 wanakana._convertPunctuation = (input, options) ->
