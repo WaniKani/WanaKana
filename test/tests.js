@@ -218,6 +218,7 @@ test ("IMEMode", function () {
   equal (testTyping("n", opts), "n", "With IME mode, solo n's are not transliterated.");
   equal (testTyping("nn", opts), "ん", "With IME mode, double n's are transliterated.");
   equal (testTyping("n ", opts), "ん", "With IME mode, n + space are transliterated.");
+  equal (testTyping("n'", opts), "ん", "With IME mode, n + ' are transliterated.");
   equal (testTyping("ni", opts), "に", "With IME mode, ni.");
 
   equal (testTyping("kan", opts), "かn", "kan");

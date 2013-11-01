@@ -39,7 +39,7 @@ wanakana._onInput = (event) ->
   newText = (wanakana.toKana(normalizedInputString, {IMEMode: true}))
   unless normalizedInputString is newText
     input.value = newText
-  console.log ("Change? " + (normalizedInputString != newText))
+  # console.log ("Change? " + (normalizedInputString != newText))
 
 wanakana._extend = (target, source) ->
   if not target?
@@ -121,6 +121,8 @@ wanakana._hiraganaToKatakana = (hira) ->
   kata.join ""
 
 wanakana._hiraganaToRomaji = (hira, options) ->
+  # merge options with default options
+  options = wanakana._extend(options, wanakana.defaultOptions)
   len = hira.length
   roma = []
   cursor = 0
@@ -161,14 +163,15 @@ wanakana._hiraganaToRomaji = (hira, options) ->
       romaChar = chunk
 
     # Handle special cases.
-    options = wanakana._extend(options, wanakana.defaultOptions)
     roma.push romaChar
     cursor += chunkSize or 1
   roma.join("")
 
 wanakana._romajiToHiragana = (roma, options) -> wanakana._romajiToKana(roma, options, true)
 wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
-  console.log (new Date().getTime())
+  # console.log (new Date().getTime())
+  # merge options with default options
+  options = wanakana._extend(options, wanakana.defaultOptions)
   len = roma.length
   # Final output array
   kana = []
@@ -193,7 +196,6 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
     while chunkSize > 0
       chunk = getChunk()
       chunkLC = chunk.toLowerCase()
-      # nEdgeCase = false
 
       # Handle super-rare edge case with a 4 char chunk for 'ltsu'
       if chunkLC is "lts" and (len-cursor) >= 4
@@ -204,6 +206,10 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
       # Handle edge case of n followed by consonant
 
       if chunkLC.charAt(0) is "n"
+        if options.IMEMode and chunkLC.charAt(1) is "'" and chunkSize is 2
+          #convert n' to "ん"
+          kanaChar = "ん"
+          break
         # Handle edge case of n followed by n and vowel
         if wanakana._isCharConsonant(chunkLC.charAt(1), no) and wanakana._isCharVowel(chunkLC.charAt(2))
           chunkSize = 1
@@ -223,8 +229,8 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
 
       kanaChar = wanakana.R_to_J[chunkLC]
       # DEBUG
-      console.log (chunk.charAt(0) + " : " + chunk.charCodeAt(0))
-      console.log (cursor + "x" + chunkSize + ":" + chunk + " => " + kanaChar )
+      # console.log (chunk.charAt(0) + " : " + chunk.charCodeAt(0))
+      # console.log (cursor + "x" + chunkSize + ":" + chunk + " => " + kanaChar )
       break if kanaChar?
       chunkSize--
 
@@ -235,7 +241,6 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
       kanaChar = chunk
 
     # Handle special cases.
-    options = wanakana._extend(options, wanakana.defaultOptions)
     if options?.useObseleteKana
       if chunkLC is "wi" then kanaChar = "ゐ"
       if chunkLC is "we" then kanaChar = "ゑ"
