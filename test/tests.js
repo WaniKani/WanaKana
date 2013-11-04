@@ -8,6 +8,7 @@ module("Dependencies");
 
 test("require wanakana.js", function() {
   ok (wanakana, "wanakana.js is loaded.");
+  ok (wanakana.version, "wanakana version is " + wanakana.version);
   ok (testTable, "transliteration table is loaded.");
 });
 

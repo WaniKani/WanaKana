@@ -1,5 +1,8 @@
 wanakana = wanakana || {}
 
+# version is inserted from package.json by compiler
+wanakana.version = "%version%"
+
 # Support AMD
 if typeof define is "function" and define.amd
   define "wanakana", [], ->wanakana
@@ -232,7 +235,7 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
 
       kanaChar = wanakana.R_to_J[chunkLC]
       # DEBUG
-      console.log (cursor + "x" + chunkSize + ":" + chunk + " => " + kanaChar )
+      # console.log (cursor + "x" + chunkSize + ":" + chunk + " => " + kanaChar )
       break if kanaChar?
       chunkSize--
 

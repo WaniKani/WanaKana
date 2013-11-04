@@ -3,22 +3,27 @@ module.exports = function(grunt) {
 
 		generatedJSPath: 'src/js/',
 		coffeeSrcPath: 'src/coffee/',
+		coffeeTokenizedSrcPath: 'src/coffee/tokens/',
 		externalJSPath: 'src/libs/',
 		htmlPath: 'src/html/',
 		deployPath: 'lib/',
 		testPath: 'test/',
 		demoPath: 'demo/',
+		pkg: grunt.file.readJSON('package.json'),
 
 		coffeeFiles : [{
 								expand: true,
-								cwd: '<%=coffeeSrcPath%>',
+								cwd: '<%=coffeeTokenizedSrcPath%>',
 								src: '**/*.coffee',
 								dest: '<%=generatedJSPath%>',
 								ext: '.js'
 						}],
 
 
-		clean: ["<%=deployPath%>", "<%=generatedJSPath%>"],
+		clean: {
+			dev: ["<%=deployPath%>", "<%=generatedJSPath%>"],
+			tokens: ["<%=coffeeTokenizedSrcPath%>"]
+		},
 		coffee: {
 				dev : {
 						options: {
@@ -46,7 +51,7 @@ module.exports = function(grunt) {
 				"max_line_length": {'value':120 },
 				"no_trailing_whitespace" : {'level': 'warn'}
 			},
-			all: ['<%=coffeeSrcPath%>*.coffee']
+			all: ['<%=coffeeTokenizedSrcPath%>*.coffee']
 		},
 
 		uglify: {
@@ -77,6 +82,17 @@ module.exports = function(grunt) {
 			}
 		},
 
+		replace: {
+			version: {
+				src: ['<%=coffeeSrcPath%>**/*.coffee'],
+				dest: "<%=coffeeTokenizedSrcPath%>",
+				replacements : [{
+					from: "%version%",
+					to: "<%=pkg.version%>"
+				}]
+			}
+		},
+
 		open: {
             test : {
               path: '<%=testPath%>/index.html',
@@ -91,7 +107,7 @@ module.exports = function(grunt) {
 		watch: {
 			coffee: {
 				files: '<%=coffeeSrcPath%>**/*.coffee',
-				tasks: ['coffee:dev']
+				tasks: ['dev']
 			},
 			deploy: {
 				files: '<%=coffeeSrcPath%>**/*.coffee',
@@ -124,12 +140,14 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-coffeelint');
 	grunt.loadNpmTasks('grunt-bump');
     grunt.loadNpmTasks('grunt-open');
+    grunt.loadNpmTasks('grunt-text-replace');
 
 	grunt.registerTask('default', ['dev']);
-	grunt.registerTask('dev', ['lint', 'coffee:dev', 'qunit']);
+	grunt.registerTask('dev', ['tokenize', 'lint', 'coffee:dev', 'clean:tokens', 'qunit']);
+	grunt.registerTask('tokenize', ['clean:tokens', 'replace:version']);
 	grunt.registerTask('lint', ['coffeelint']);
-	grunt.registerTask('test', ['lint', 'coffee:dev', 'open:test']);
+	grunt.registerTask('test', ['dev', 'open:test']);
 	grunt.registerTask('demo', ['deploy', 'open:demo']);
-	grunt.registerTask('deploy', ['clean', 'lint', 'coffee:deploy', 'uglify:deploy', 'copy:deploy', 'qunit']);
+	grunt.registerTask('deploy', ['clean', 'tokenize', 'lint', 'coffee:deploy', 'uglify:deploy', 'copy:deploy', 'clean:tokens', 'qunit']);
 
 };
