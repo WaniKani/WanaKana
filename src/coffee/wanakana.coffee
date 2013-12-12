@@ -44,8 +44,9 @@ wanakana._onInput = (event) ->
   newText = (wanakana.toKana(normalizedInputString, {IMEMode: true}))
   unless normalizedInputString is newText
     input.value = newText
-    newCursor = startingCursor - startingLength + newText.length
-    startingCursor is 0 ? newCursor = newText.length
+    androidFix = startingCursor is 0 ? 1 : 0
+    newCursor = startingCursor - startingLength + newText.length + androidFix
+    androidFix ? newCursor = newText.length
     input.selectionStart = input.selectionEnd = newCursor
 
 wanakana._extend = (target, source) ->
