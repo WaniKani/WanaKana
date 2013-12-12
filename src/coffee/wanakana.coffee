@@ -45,9 +45,10 @@ wanakana._onInput = (event) ->
   unless normalizedInputString is newText
     input.value = newText
     androidFix = startingCursor is 0 ? 1 : 0
-    newCursor = startingCursor - startingLength + newText.length + androidFix
-    androidFix ? newCursor = newText.length
-    input.selectionStart = input.selectionEnd = newCursor
+    newLength = newText.length
+    newCursor = startingCursor - startingLength + newLength
+    fixedCursor = if androidFix then newLength else newCursor
+    input.selectionStart = input.selectionEnd = fixedCursor
 
 wanakana._extend = (target, source) ->
   if not target?
