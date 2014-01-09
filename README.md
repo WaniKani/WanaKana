@@ -19,7 +19,7 @@ View [demo site](http://wanakana.com) to see WanaKana in action.
 ## Usage
 
 ```html
-// HTML
+<!-- HTML -->
 <textarea id="ime"></textarea>
 ```
 
