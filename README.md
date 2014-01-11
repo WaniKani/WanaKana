@@ -18,13 +18,13 @@ View [demo site](http://wanakana.com) to see WanaKana in action.
 
 ## Usage
 
+### HTML
 ```html
-// HTML
 <textarea id="ime"></textarea>
 ```
 
+### Javascript
 ```javascript
-// Javascript
 var input = document.getElementById('ime');
 wanakana.bind(input);
 ```
