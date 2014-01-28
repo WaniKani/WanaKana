@@ -44,11 +44,13 @@ wanakana._onInput = (event) ->
   newText = (wanakana.toKana(normalizedInputString, {IMEMode: true}))
   unless normalizedInputString is newText
     input.value = newText
-    androidFix = startingCursor is 0 ? 1 : 0
-    newLength = newText.length
-    newCursor = startingCursor - startingLength + newLength
-    fixedCursor = if androidFix then newLength else newCursor
-    input.selectionStart = input.selectionEnd = fixedCursor
+    if (typeof input.selectionStart == "number")
+      input.selectionStart = input.selectionEnd = input.value.length
+    else if (typeof input.createTextRange != "undefined")
+      input.focus()
+      range = input.createTextRange()
+      range.collapse(false)
+      range.select()
 
 wanakana._extend = (target, source) ->
   if not target?
