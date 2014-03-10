@@ -209,7 +209,7 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
       chunkLC = chunk.toLowerCase()
 
       # Handle super-rare edge case with a 4 char chunk for 'ltsu'
-      if chunkLC is "lts" and (len-cursor) >= 4
+      if chunkLC in ["lts", "chy"] and (len-cursor) >= 4
         chunkSize++
         chunk = getChunk()
         chunkLC = chunk.toLowerCase()
@@ -472,6 +472,10 @@ wanakana.R_to_J =
   cyu: 'ちゅ'
   cye: 'ちぇ'
   cyo: 'ちょ'
+  chya: 'ちゃ'
+  chyu: 'ちゅ'
+  chye: 'ちぇ'
+  chyo: 'ちょ'
   tsa: 'つぁ'
   tsi: 'つぃ'
   tse: 'つぇ'
