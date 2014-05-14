@@ -137,6 +137,13 @@ test("N edge cases", function () {
   equal( wanakana.toKana("nnnyannn"), "んにゃんん", "nnnya -> んにゃ");
 });
 
+test("Bogus 4 character sequences", function () {
+  equal( wanakana.toKana("chya"), "ちゃ", "Non bogus sequences work");
+  equal( wanakana.toKana("chyx"), "chyx", "Bogus sequences do not work");
+  equal( wanakana.toKana("shyp"), "shyp", "Bogus sequences do not work");
+  equal( wanakana.toKana("ltsb"), "ltsb", "Bogus sequences do not work");
+});
+
 
 module("Kana to Romaji");
 

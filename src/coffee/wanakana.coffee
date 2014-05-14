@@ -209,40 +209,46 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
       chunkLC = chunk.toLowerCase()
 
       # Handle super-rare edge cases with 4 char chunks (like ltsu, chya, shya)
-      if chunkLC in ["lts", "chy", "shy"] and (len-cursor) >= 4
+      if chunkLC in wanakana.FOUR_CHARACTER_EDGE_CASES and (len-cursor) >= 4
         chunkSize++
         chunk = getChunk()
         chunkLC = chunk.toLowerCase()
+      else
+        # Handle edge case of n followed by consonant
 
-      # Handle edge case of n followed by consonant
+        if chunkLC.charAt(0) is "n"
+          if options.IMEMode and chunkLC.charAt(1) is "'" and chunkSize is 2
+            #convert n' to "ん"
+            kanaChar = "ん"
+            break
+          # Handle edge case of n followed by n and vowel
+          if wanakana._isCharConsonant(chunkLC.charAt(1), no) and wanakana._isCharVowel(chunkLC.charAt(2))
+            chunkSize = 1
+            chunk = getChunk()
+            chunkLC = chunk.toLowerCase()
 
-      if chunkLC.charAt(0) is "n"
-        if options.IMEMode and chunkLC.charAt(1) is "'" and chunkSize is 2
-          #convert n' to "ん"
-          kanaChar = "ん"
-          break
-        # Handle edge case of n followed by n and vowel
-        if wanakana._isCharConsonant(chunkLC.charAt(1), no) and wanakana._isCharVowel(chunkLC.charAt(2))
+        # Handle case of double consonants
+        if chunkLC.charAt(0) isnt "n" and
+        wanakana._isCharConsonant(chunkLC.charAt(0)) and
+        chunk.charAt(0) == chunk.charAt(1)
           chunkSize = 1
-          chunk = getChunk()
-          chunkLC = chunk.toLowerCase()
-
-      # Handle case of double consonants
-      if chunkLC.charAt(0) isnt "n" and
-      wanakana._isCharConsonant(chunkLC.charAt(0)) and
-      chunk.charAt(0) == chunk.charAt(1)
-        chunkSize = 1
-        # Return katakana ッ if chunk is uppercase, otherwise return hiragana っ
-        if wanakana._isCharInRange(chunk.charAt(0), wanakana.UPPERCASE_START, wanakana.UPPERCASE_END)
-          chunkLC = chunk = "ッ"
-        else
-          chunkLC = chunk = "っ"
+          # Return katakana ッ if chunk is uppercase, otherwise return hiragana っ
+          if wanakana._isCharInRange(chunk.charAt(0), wanakana.UPPERCASE_START, wanakana.UPPERCASE_END)
+            chunkLC = chunk = "ッ"
+          else
+            chunkLC = chunk = "っ"
 
       kanaChar = wanakana.R_to_J[chunkLC]
       # DEBUG
       # console.log (cursor + "x" + chunkSize + ":" + chunk + " => " + kanaChar )
       break if kanaChar?
-      chunkSize--
+
+      # Step down the chunk size.
+      # If chunkSize was 4, step down twice.
+      if chunkSize == 4
+        chunkSize -= 2
+      else
+        chunkSize--
 
     unless kanaChar?
       chunk = wanakana._convertPunctuation(chunk)
@@ -430,10 +436,10 @@ wanakana.R_to_J =
   shu: 'しゅ'
   she: 'しぇ'
   sho: 'しょ'
-  shya: 'しゃ'
-  shyu: 'しゅ'
-  shye: 'しぇ'
-  shyo: 'しょ'
+  shya: 'しゃ' # note 4 character code
+  shyu: 'しゅ' # note 4 character code
+  shye: 'しぇ' # note 4 character code
+  shyo: 'しょ' # note 4 character code
   swa: 'すぁ'
   swi: 'すぃ'
   swu: 'すぅ'
@@ -476,10 +482,10 @@ wanakana.R_to_J =
   cyu: 'ちゅ'
   cye: 'ちぇ'
   cyo: 'ちょ'
-  chya: 'ちゃ'
-  chyu: 'ちゅ'
-  chye: 'ちぇ'
-  chyo: 'ちょ'
+  chya: 'ちゃ' # note 4 character code
+  chyu: 'ちゅ' # note 4 character code
+  chye: 'ちぇ' # note 4 character code
+  chyo: 'ちょ' # note 4 character code
   tsa: 'つぁ'
   tsi: 'つぃ'
   tse: 'つぇ'
@@ -613,7 +619,9 @@ wanakana.R_to_J =
   nn: 'ん'
   'n ': 'ん' # n + space
   xn: 'ん'
-  ltsu: 'っ'
+  ltsu: 'っ' # note 4 character code
+
+wanakana.FOUR_CHARACTER_EDGE_CASES = ['lts', 'chy', 'shy']
 
 wanakana.J_to_R =
   あ: 'a'
