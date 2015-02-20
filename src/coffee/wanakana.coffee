@@ -61,15 +61,6 @@ wanakana._extend = (target, source) ->
   return target
 
 ###*
- * Takes an array of values and a function. The funciton is called with each value.
- * If the function returns true every time, the result will be true. Otherwise, false.
-###
-wanakana._allTrue = (arr, func) ->
-  for val in arr
-    if func(val) is false then return false
-  true
-
-###*
  * Takes a character and a unicode range. Returns true if the char is in the range.
 ###
 wanakana._isCharInRange = (char, start, end) ->
@@ -290,19 +281,19 @@ wanakana._convertPunctuation = (input, options) ->
 ###
 wanakana.isHiragana = (input) ->
   chars = input.split("")
-  wanakana._allTrue( chars, wanakana._isCharHiragana )
+  chars.every(wanakana._isCharHiragana)
 
 wanakana.isKatakana = (input) ->
   chars = input.split("")
-  wanakana._allTrue( chars, wanakana._isCharKatakana )
+  chars.every(wanakana._isCharKatakana)
 
 wanakana.isKana = (input) ->
   chars = input.split("")
-  wanakana._allTrue( chars, (char) -> (wanakana.isHiragana char) or (wanakana.isKatakana char) )
+  chars.every((char) -> (wanakana.isHiragana char) or (wanakana.isKatakana char))
 
 wanakana.isRomaji = (input) ->
   chars = input.split("")
-  wanakana._allTrue( chars, (char) -> (not wanakana.isHiragana char) and (not wanakana.isKatakana char) )
+  chars.every((char) -> (not wanakana.isHiragana char) and (not wanakana.isKatakana char))
 
 
 wanakana.toHiragana = (input, options) ->
