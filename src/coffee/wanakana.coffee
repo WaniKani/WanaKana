@@ -14,12 +14,14 @@ wanakana.UPPERCASE_END   = 0x5A
 wanakana.HIRAGANA_START  = 0x3041
 wanakana.HIRAGANA_END    = 0x3096
 wanakana.KATAKANA_START  = 0x30A1
-wanakana.KATAKANA_END    = 0x30FA
+wanakana.KATAKANA_END    = 0x30FC
 
 wanakana.LOWERCASE_FULLWIDTH_START = 0xFF41
 wanakana.LOWERCASE_FULLWIDTH_END   = 0xFF5A
 wanakana.UPPERCASE_FULLWIDTH_START = 0xFF21
 wanakana.UPPERCASE_FULLWIDTH_END   = 0xFF3A
+
+wanakana.KATAKANA_PROLONGED_SOUND_MARK = 0x30FC
 
 wanakana.defaultOptions =
   # Transliterates wi and we to ゐ and ゑ
@@ -96,16 +98,29 @@ wanakana._convertFullwidthCharsToASCII = (string) ->
 
 wanakana._katakanaToHiragana = (kata) ->
   hira = []
-  for kataChar in kata.split ""
+  previousKana = ""
+  for kataChar, index in kata.split ""
     if wanakana._isCharKatakana(kataChar)
       code = kataChar.charCodeAt 0
-      # Shift charcode.
-      code += wanakana.HIRAGANA_START - wanakana.KATAKANA_START
-      hiraChar = String.fromCharCode code
-      hira.push hiraChar
+      if code == wanakana.KATAKANA_PROLONGED_SOUND_MARK && index  > 0
+        #transform previousKana to romaji
+        romaji = wanakana._hiraganaToRomaji previousKana
+        romaji = romaji.slice -1
+
+        if wanakana.Long_Vowels?
+          hira.push wanakana.Long_Vowels[romaji]
+        else
+          hira.push kataChar
+      else
+        # Shift charcode.
+        code += wanakana.HIRAGANA_START - wanakana.KATAKANA_START
+        hiraChar = String.fromCharCode code
+        hira.push hiraChar
+        previousKana = hiraChar
     else
       # pass non katakana chars through
       hira.push kataChar
+      previousKana = ""
   hira.join ""
 
 wanakana._hiraganaToKatakana = (hira) ->
@@ -837,3 +852,11 @@ wanakana.J_to_R =
   んや: 'n\'ya'
   んゆ: 'n\'yu'
   んよ: 'n\'yo'
+
+
+wanakana.Long_Vowels =
+  a: 'あ'
+  i: 'い'
+  u: 'う'
+  e: 'え'
+  o: 'う'
