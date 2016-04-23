@@ -26,6 +26,8 @@ wanakana.defaultOptions =
   useObseleteKana: no
   # Special mode for handling input from a text input that is transliterated on the fly.
   IMEMode: off
+  # Convert hiragana to lowercase and katakana to uppercase
+  convertKatakanaToUppercase: no
 
 ###*
  * Automatically sets up an input field to be an IME.
@@ -130,15 +132,18 @@ wanakana._hiraganaToRomaji = (hira, options) ->
   cursor = 0
   chunkSize = 0
   maxChunk = 2
+
   getChunk = () -> hira.substr(cursor, chunkSize)
   # Don't pick a chunk that is bigger than the remaining characters.
   resetChunkSize = () -> chunkSize = Math.min(maxChunk, len-cursor)
 
   while cursor < len
+    convertThisChunkToUppercase = no
     resetChunkSize()
     while chunkSize > 0
       chunk = getChunk()
       if wanakana.isKatakana(chunk)
+        convertThisChunkToUppercase = options.convertKatakanaToUppercase
         chunk = wanakana._katakanaToHiragana(chunk)
 
 
@@ -164,6 +169,8 @@ wanakana._hiraganaToRomaji = (hira, options) ->
       # Passthrough undefined values
       romaChar = chunk
 
+    if convertThisChunkToUppercase
+      romaChar = romaChar.toUpperCase()
     # Handle special cases.
     roma.push romaChar
     cursor += chunkSize or 1
@@ -317,7 +324,7 @@ wanakana.toKana = (input, options) ->
   return input = wanakana._romajiToKana(input, options)
 
 wanakana.toRomaji = (input, options) ->
-  return input = wanakana._hiraganaToRomaji(input)
+  return input = wanakana._hiraganaToRomaji(input, options)
 
 
 wanakana.R_to_J =

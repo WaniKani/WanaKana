@@ -148,9 +148,12 @@ test("Bogus 4 character sequences", function () {
 module("Kana to Romaji");
 
 test("toRomaji()", function () {
-  equal( wanakana.toRomaji("ワニカニ　ガ　スゴイ　ダ"), "wanikani ga sugoi da", "Convert katakana to romaji");
+  equal( wanakana.toRomaji("ワニカニ　ガ　スゴイ　ダ"), "wanikani ga sugoi da", "Convert katakana to romaji. convertKatakanaToUppercase is false by default");
   equal( wanakana.toRomaji("わにかに　が　すごい　だ"), "wanikani ga sugoi da", "Convert hiragana to romaji");
   equal( wanakana.toRomaji("ワニカニ　が　すごい　だ"), "wanikani ga sugoi da", "Convert mixed kana to romaji");
+  equal( wanakana.toRomaji("ワニカニ", {convertKatakanaToUppercase: true}), "WANIKANI", "Use the convertKatakanaToUppercase flag to preserve casing. Works for katakana.");
+  equal( wanakana.toRomaji("わにかに", {convertKatakanaToUppercase: true}), "wanikani", "Use the convertKatakanaToUppercase flag to preserve casing. Works for hiragana.");
+  equal( wanakana.toRomaji("ワニカニ　が　すごい　だ", {convertKatakanaToUppercase: true}), "WANIKANI ga sugoi da", "Use the convertKatakanaToUppercase flag to preserve casing. Works for mixed kana.");
   notEqual( wanakana.toRomaji("わにかにがすごいだ"), "wanikani ga sugoi da", "Spaces must be manually entered");
 });
 
