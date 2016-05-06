@@ -618,8 +618,11 @@ wanakana.R_to_J =
   'n ': 'ん' # n + space
   xn: 'ん'
   ltsu: 'っ' # note 4 character code
+  nnya: 'んや'
+  nnyu: 'んゆ'
+  nnyo: 'んよ'
 
-wanakana.FOUR_CHARACTER_EDGE_CASES = ['lts', 'chy', 'shy']
+wanakana.FOUR_CHARACTER_EDGE_CASES = ['lts', 'chy', 'shy', 'nny']
 
 wanakana.J_to_R =
   あ: 'a'
