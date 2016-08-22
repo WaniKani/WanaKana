@@ -135,6 +135,8 @@ test("N edge cases", function () {
   equal( wanakana.toKana("nyan"), "にゃん", "nya -> にゃ");
   equal( wanakana.toKana("nnyann"), "んにゃん", "nnya -> んにゃ");
   equal( wanakana.toKana("nnnyannn"), "んにゃんん", "nnnya -> んにゃ");
+
+  equal( wanakana.toKana("kore ga zenbu nonaka de ichiban warui"), "これ が ぜんぶ のなか で いちばん わるい", "Properly add space after 'n[space]'");
 });
 
 test("Bogus 4 character sequences", function () {

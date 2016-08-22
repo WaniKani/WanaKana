@@ -212,13 +212,18 @@ wanakana._romajiToKana = (roma, options, ignoreCase = false) ->
         chunk = getChunk()
         chunkLC = chunk.toLowerCase()
       else
-        # Handle edge case of n followed by consonant
 
+        # Handle edge cases of n
         if chunkLC.charAt(0) is "n"
-          if options.IMEMode and chunkLC.charAt(1) is "'" and chunkSize is 2
-            #convert n' to "ん"
-            kanaChar = "ん"
-            break
+          if chunkSize is 2
+            if not options.IMEMode and chunkLC.charAt(1) is " "
+              #convert "n␣" to "ん␣"
+              kanaChar = "ん "
+              break
+            if options.IMEMode and chunkLC.charAt(1) is "'"
+              #convert n' to "ん"
+              kanaChar = "ん"
+              break
           # Handle edge case of n followed by n and vowel
           if wanakana._isCharConsonant(chunkLC.charAt(1), no) and wanakana._isCharVowel(chunkLC.charAt(2))
             chunkSize = 1
