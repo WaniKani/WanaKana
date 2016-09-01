@@ -114,6 +114,7 @@ test("toKana()", function () {
 
 test("Converting kana to kana", function () {
   equal (wanakana.toHiragana ("バケル"), "ばける", "katakana -> hiragana");
+  equal (wanakana.toHiragana ("バツゴー"), "ばつごう", "katakana -> hiragana");
   equal (wanakana.toKatakana ("ばける"), "バケル", "hiragana -> katakana");
 });
 
