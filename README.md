@@ -19,23 +19,24 @@
 </div>
 
 ## Demo
-Visit [wanikani.github.io/WanaKana/demo](https://wanikani.github.io/WanaKana/demo) to see WanaKana in action.
+Visit the [website](https://www.wanakana.com) to see WanaKana in action.
 
 ## Documentation
-Full API reference [wanikani.github.io/WanaKana/docs](https://wanikani.github.io/WanaKana/docs/global.html)
-
+[Extended API reference](https://wanikani.github.io/WanaKana/docs/global.html)
 
 ## Quick Start
 #### Install
 ```shell
-npm install wanakana
-# or yarn add wanakana
+yarn add wanakana
+# or npm install wanakana
 ```
+#### Or download the minified (6k gzipped) bundle for browser use
+[wanakana.min.js](https://raw.github.com/WaniKani/WanaKana/gh-pages/wanakana.min.js)
 
 #### HTML:
 ```html
 <input type="text" id="wanakana-input" />
-<script src="node_modules/wanakana/browser/wanakana.min.js"></script>
+<script src="node_modules/wanakana/lib/wanakana.min.js"></script>
 <script>
   const textInput = document.querySelector('#wanakana-input');
   wanakana.bind(textInput); // IME Mode
@@ -151,21 +152,7 @@ wanakana.tokenize('I said "私は悲しい"')
 ```
 
 ## Contributing
-#### Install dependencies from `package.json`
-Get [yarn](https://yarnpkg.com/en/docs/install) if not already installed,
-then install deps via
-```shell
-yarn
-```
-
-#### Useful build scripts
-- Lint JS `npm run lint`
-- Run tests `npm test` or `npm run test:watch` for continuous development
-- Build lib `npm run build`
-- Build docs `npm run docs:build`
-- Committing changes `npm run commit` for standardized commit messages
-- Release new version `npm run release`
-- Full list of tasks `npm run`
+Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Contributors
 - [Mims H. Wright](https://github.com/mimshwright) – Author
