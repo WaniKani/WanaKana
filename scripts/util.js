@@ -2,7 +2,7 @@ const path = require('path');
 const chalk = require('chalk');
 const { flowRight: compose } = require('lodash');
 
-const PACKAGE_NAME = process.env.npm_package_name.toLowerCase();
+const PACKAGE_NAME = process.env.npm_package_name;
 const BIN = path.resolve('./node_modules/.bin');
 const SOURCE_DIR = path.resolve('./src');
 const OUT_DIR = path.resolve('./dist');
