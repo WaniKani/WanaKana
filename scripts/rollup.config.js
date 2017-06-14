@@ -6,6 +6,7 @@ const uglify = require('rollup-plugin-uglify');
 const util = require('./util');
 const {
   SOURCE_DIR,
+  OUT_DIR,
   LIB_DIR,
   PACKAGE_NAME,
 } = util;
@@ -15,7 +16,7 @@ export default [
     entry: `${SOURCE_DIR}/index.js`,
     moduleName: PACKAGE_NAME,
     format: 'es',
-    dest: `${LIB_DIR}/${PACKAGE_NAME}.esm.js`,
+    dest: `${OUT_DIR}/${LIB_DIR}/${PACKAGE_NAME}.esm.js`,
     plugins: [
       babel({
         exclude: [
@@ -29,7 +30,7 @@ export default [
     entry: `${SOURCE_DIR}/index.js`,
     moduleName: PACKAGE_NAME,
     format: 'umd',
-    dest: `${LIB_DIR}/${PACKAGE_NAME}.js`,
+    dest: `${OUT_DIR}/${LIB_DIR}/${PACKAGE_NAME}.js`,
     plugins: [
       babel({
         exclude: [
@@ -50,7 +51,7 @@ export default [
     entry: `${SOURCE_DIR}/index.js`,
     moduleName: PACKAGE_NAME,
     format: 'umd',
-    dest: `${LIB_DIR}/${PACKAGE_NAME}.min.js`,
+    dest: `${OUT_DIR}/${LIB_DIR}/${PACKAGE_NAME}.min.js`,
     plugins: [
       babel({
         exclude: [

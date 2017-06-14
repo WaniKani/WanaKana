@@ -6,7 +6,7 @@ const PACKAGE_NAME = process.env.npm_package_name;
 const BIN = path.resolve('./node_modules/.bin');
 const SOURCE_DIR = path.resolve('./src');
 const OUT_DIR = path.resolve('./dist');
-const LIB_DIR = path.resolve(OUT_DIR, 'lib');
+const LIB_DIR = 'lib';
 const DEMO_DIR = path.resolve('./gh-pages/demo');
 
 const consoleLog = console.log.bind(console); // eslint-disable-line no-console

@@ -4,6 +4,7 @@ const { exit, cp, test } = require('shelljs');
 const util = require('./util.js');
 const {
   DEMO_DIR,
+  OUT_DIR,
   LIB_DIR,
   PACKAGE_NAME,
   log,
@@ -12,7 +13,7 @@ const {
   execSuccess,
 } = util;
 
-const browserBundle = path.resolve(LIB_DIR, `${PACKAGE_NAME}.min.js`);
+const browserBundle = path.resolve(OUT_DIR, LIB_DIR, `${PACKAGE_NAME}.min.js`);
 const copyBundle = () => cp('-Rf', browserBundle, DEMO_DIR);
 
 log('Copying browser bundle to demo dir');

@@ -9,6 +9,7 @@ const util = require('./util');
 
 const {
   PACKAGE_NAME,
+  LIB_DIR,
   OUT_DIR,
   log,
   logSuccess,
@@ -27,9 +28,9 @@ const PACKAGE_JSON = {
     'bugs',
   ],
   extraFields: {
-    main: 'lib/wanakana.js',
-    browser: 'lib/wanakana.min.js',
-    module: 'lib/wanakana.esm.js',
+    main: `${LIB_DIR}/wanakana.js`,
+    browser: `${LIB_DIR}/wanakana.min.js`,
+    module: `${LIB_DIR}/wanakana.esm.js`,
     keywords: [
       'english',
       'japanese',
@@ -45,10 +46,10 @@ const PACKAGE_JSON = {
   },
 };
 
-const writePackage = (outDir, filename) =>
+const writePackage = (outDir, packageData) =>
   fs.writeFileSync(
     path.resolve(outDir, 'package.json'),
-    JSON.stringify(filename, null, 2),
+    JSON.stringify(packageData, null, 2),
     'utf8'
   );
 
