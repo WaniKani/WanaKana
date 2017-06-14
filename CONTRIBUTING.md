@@ -2,15 +2,15 @@
 Install [yarn](https://yarnpkg.com/en/docs/install) if not already present,
 then install deps via `yarn` shell command
 
+#### Committing
+Please use `npm run commit` for standardized commit messages!
+
 #### Useful build scripts
 - Lint files `npm run lint`
 - Run tests `npm test` or `npm run test:watch` for continuous development
 - Build docs `npm run docs` or `npm run docs:watch` for continuous development
 - Build lib `npm run build`
 - Full list of available tasks `npm run`
-
-#### Committing
-Please use `npm run commit` for standardized commit messages!
 
 #### Publishing new versions
 Update CHANGELOG.md with any changes, following the format provided.

@@ -1,3 +1,10 @@
+<!--
+  TODO:
+    setup travis and coveralls for wanakana repo
+    add issue links for fixes in changelog
+    ask about wanakana site build script?
+-->
+
 <div align="center">
   <!-- Npm Version -->
   <a href="https://www.npmjs.com/package/wanakana">
@@ -28,7 +35,7 @@ Visit the [website](https://www.wanakana.com) to see WanaKana in action.
 #### Install
 ```shell
 yarn add wanakana
-# or npm install wanakana
+# alternatively: npm install wanakana
 ```
 #### Or download the minified (6k gzipped) bundle for browser use
 [wanakana.min.js](https://raw.github.com/WaniKani/WanaKana/gh-pages/wanakana.min.js)
@@ -42,6 +49,7 @@ yarn add wanakana
   wanakana.bind(textInput); // IME Mode
 </script>
 ```
+
 #### JavaScript:
 ```javascript
 /* UMD/CommonJS/node */
