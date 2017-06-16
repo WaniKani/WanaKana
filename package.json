@@ -1,6 +1,6 @@
 {
   "name": "wanakana",
-  "version": "1.3.11",
+  "version": "3.0.0",
   "license": "MIT",
   "homepage": "https://www.wanakana.com",
   "repository": {
@@ -16,15 +16,11 @@
   "scripts": {
     "prebuild": "rimraf ./dist",
     "build": "node ./scripts/buildDist.js",
-    "build:demo": "node ./scripts/buildDemo.js",
-    "build:all": "npm-run-all build build:demo docs",
     "commit": "git-cz",
     "prepush": "npm-run-all --parallel lint-staged test",
-    "docs": "npm-run-all docs:clean docs:build",
-    "docs:clean": "rimraf ./gh-pages/docs",
-    "docs:build": "node_modules/.bin/jsdoc -c jsdoc.json",
+    "predocs": "rimraf ./gh-pages/docs",
+    "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
     "docs:watch": "onchange './src/**/*.js' -- npm run docs",
-    "docs:view": "opn ./gh-pages/docs/index.html",
     "pretest": "rimraf ./coverage",
     "test": "jest",
     "test:watch": "npm run test -- --watch",
@@ -85,6 +81,7 @@
     "eslint-plugin-import": "~2.3.0",
     "eslint-plugin-jsx-a11y": "~5.0.3",
     "eslint-plugin-react": "~7.0.1",
+    "gh-pages": "~1.0.0",
     "husky": "~0.13.4",
     "jest": "~20.0.4",
     "jsdoc": "~3.4.3",

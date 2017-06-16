@@ -1,16 +1,15 @@
 const path = require('path');
 const glob = require('glob');
 const { exec, exit } = require('shelljs');
-const util = require('./util');
 const {
+  BIN,
+  SOURCE_DIR,
+  OUT_DIR,
   log,
   logSuccess,
   logError,
   execSuccess,
-  BIN,
-  SOURCE_DIR,
-  OUT_DIR,
-} = util;
+} = require('./util');
 
 function buildFlatFiles() {
   log('Compiling direct import es modules...');
