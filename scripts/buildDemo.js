@@ -1,8 +1,8 @@
 const path = require('path');
-const { exit, cp, test } = require('shelljs');
+const ghpages = require('gh-pages');
+const { exit, exec, cp, test } = require('shelljs');
 
-const util = require('./util.js');
-const {
+const const {
   DEMO_DIR,
   OUT_DIR,
   LIB_DIR,
@@ -11,29 +11,49 @@ const {
   logError,
   logSuccess,
   execSuccess,
-} = util;
+} = require('./util.js');
 
-const browserBundle = path.resolve(OUT_DIR, LIB_DIR, `${PACKAGE_NAME}.min.js`);
-const copyBundle = () => cp('-Rf', browserBundle, DEMO_DIR);
-
-log('Copying browser bundle to demo dir');
-
-if (!test('-e', browserBundle)) {
-  logError('Compiled browser bundle not found');
+const { NEXT_VERSION } = process.env;
+const DEMO_JS_DIR = path.resolve(DEMO_DIR, 'assets', 'js');
+const BROWSER_BUNDLE = path.resolve(OUT_DIR, LIB_DIR, `${PACKAGE_NAME}.min.js`);
+const fail = (msg) => {
+  logError(msg);
   exit(1);
+};
+
+runScript();
+
+async function runScript() {
+  if (!test('-e', BROWSER_BUNDLE)) {
+    fail('Compiled browser bundle not found. Have the dist packages been built?');
+  }
+
+  if (execSuccess(cp('-Rf', BROWSER_BUNDLE, DEMO_JS_DIR);)) {
+    logSuccess('Copied browser bundle to demo dir');
+  } else {
+    fail('Failed to copy browser bundle to demo dir.');
+  }
+
+  await buildHTML();
+
+  ghpages.publish(DEMO_DIR, (err) => {
+    if (err) {
+      logError(err);
+      fail('Publish github pages failed.');
+    } else {
+      logSuccess('Published demo and docs to gh-pages branch');
+    }
+  });
 }
 
-if (execSuccess(copyBundle())) {
-  logSuccess('Copied browser bundle to demo dir');
-} else {
-  logError('Failed to copy browser bundle to demo dir.');
-  exit(1);
+async function buildHTML() {
+  try {
+    const outFile = pug.renderFile('./index.pug');
+    const outFileName = path.resolve(DEMO_DIR, 'index.html');
+    writeFileSync(outFileName, outFile);
+    logSuccess('Rebuilt demo HTML with new wanakana version');
+  } catch(err) {
+    console.error(err)   ;
+    logError('Failed to rebuild demo HTML.');
+  }
 }
-
-
-// log('Publishing demo and docs to github pages.');
-// if (exec('git push origin `git subtree split --prefix gh-pages master`:gh-pages --force').code !== 0) {
-//   logError('Publish github pages failed.');
-//   exit(1);
-// }
-// logSuccess('Published github pages');

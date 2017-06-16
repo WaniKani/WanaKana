@@ -1,0 +1,26 @@
+footer {
+	margin-top: 2em;
+	color: $grayDarker;
+	font-size: 50%;
+	border-top: 1px solid $grayDark;
+	a {
+		color: $grayDarker;
+		border-bottom: 1px dotted $grayDark;
+		text-decoration: none;
+		@include transition(color, 0.3s);
+		&:hover {
+			color: $pink;
+			text-decoration: none;
+		}
+	}
+	ul {
+		margin: 1em 0 0;
+		padding: 0;
+		li {
+			display: block;
+		}
+	}
+	#footer-other-info {
+		text-align: right;
+	}
+}

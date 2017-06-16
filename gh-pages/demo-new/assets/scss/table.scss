@@ -1,0 +1,73 @@
+#documentation, #ports {
+	@include box-shadow(0 0 5em rgba(0,0,0,0.25));
+	a {
+		color: $white;
+		text-decoration: none;
+		border-bottom: 1px dotted $white;
+		&:hover {
+			text-decoration: none;
+			border-bottom: 1px solid $white;
+		}
+	}
+	table {
+		width: 100%;
+		background: #0b1022;
+		color: $white;
+		font-size: 50%;
+	}
+	thead, tbody {
+		th, td {
+			padding: 1em;
+		}
+	}
+	thead {
+		background-color: $black;
+		border-bottom: 1px solid $gray;
+		th {
+			font-weight: 500;
+			text-align: left;
+		}
+	}
+	tbody {
+		tr {
+			span:not([lang=ja]) {
+				&.indent {
+					display: block;
+					margin-left: 2em;
+				}
+				&.options {
+					@include opacity(40);
+				}
+				&.type {
+					color: #61CE3C;
+				}
+			}
+			&:nth-child(2n+1) {
+				background-color: rgba(255,255,255,0.1);
+			}
+		}
+	}
+}
+
+#documentation {
+	tbody {
+		td {
+			&:first-child {
+				font-family: 'Monaco', courier, monospace;
+			}
+			&:last-child {
+				@include opacity(50);
+			}
+		}
+	}
+}
+
+#ports {
+	tbody {
+		td {
+			&:first-child {
+				@include opacity(50);
+			}
+		}
+	}
+}

@@ -31,7 +31,7 @@
     "test:view": "opn ./coverage/lcov-report/index.html",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "release": "node ./scripts/release.js",
-    "lint": "eslint --color ./src/**/*.js",
+    "lint": "eslint --color --fix ./src/**/*.js",
     "lint:staged": "eslint --ignore-path ./.gitignore --ignore-pattern 'dist' --ignore-pattern 'gh-pages' --color",
     "//": "following script is used by husky in git hooks (like prepush) to run the lint-staged config below which then references the lint:staged script above. Clunky but works ʕノ•ᴥ•ʔノ ︵ ┻━┻",
     "lint-staged": "lint-staged"

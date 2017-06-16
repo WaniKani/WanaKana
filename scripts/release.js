@@ -65,18 +65,14 @@ try {
 
   log('Running tests...');
   if (execFail(exec('npm run lint && npm test'))) {
-    logError(
-      'The test command did not exit cleanly. Aborting release.'
-    );
+    logError('The test command did not exit cleanly. Aborting release.');
     exit(1);
   }
   logSuccess('Tests were successful.');
 
   log('Building dist files...');
   if (execFail(exec('npm run build:all'))) {
-    logError(
-      'The build command did not exit cleanly. Aborting release.'
-    );
+    logError('The build command did not exit cleanly. Aborting release.');
     exit(1);
   }
   log('Compilation was successful.');
@@ -159,12 +155,11 @@ try {
   exec('git push');
   exec('git push --tags');
 
-  log('Publishing demo and docs to github pages.');
-  if (exec('git push origin `git subtree split --prefix gh-pages master`:gh-pages --force').code !== 0) {
+  log('Rebuilding Demo and Docs')
+  if (execFail(`cross-env NEXT_VERSION=${nextVersion} node ./scripts/buildDemo.js`)) {
     logError('Publish github pages failed.');
     exit(1);
   }
-  logSuccess('Published github pages');
 
   logSuccess('Done.');
 } catch (error) {

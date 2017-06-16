@@ -2,6 +2,9 @@
 Install [yarn](https://yarnpkg.com/en/docs/install) if not already present,
 then install deps via `yarn` shell command
 
+#### Linting
+Recommend using an eslint addon for your code editor that can reference the .eslintrc config
+
 #### Committing
 Please use `npm run commit` for standardized commit messages!
 
