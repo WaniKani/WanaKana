@@ -2,13 +2,13 @@ const path = require('path');
 const glob = require('glob');
 const { exec, exit } = require('shelljs');
 const {
+  BIN,
+  SOURCE_DIR,
+  OUT_DIR,
   log,
   logSuccess,
   logError,
   execSuccess,
-  BIN,
-  SOURCE_DIR,
-  OUT_DIR,
 } = require('./util');
 
 function buildFlatFiles() {

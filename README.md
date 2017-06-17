@@ -2,7 +2,6 @@
   TODO:
     setup travis and coveralls for wanakana repo
     add issue links for fixes in changelog
-    ask about wanakana site build script?
 -->
 
 <div align="center">

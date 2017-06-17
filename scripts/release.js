@@ -4,21 +4,21 @@ const { exec, exit, cp, test } = require('shelljs');
 const semver = require('semver');
 const readline = require('readline-sync');
 const pick = require('lodash/pick');
-const packageLoc = require('../package.json');
-const util = require('./util');
-
+const ghpages = require('gh-pages');
+const buildSite = require('./buildSite');
 const {
+  BASE_PACKAGE,
   PACKAGE_NAME,
   LIB_DIR,
   OUT_DIR,
+  SITE_DIR,
   log,
   logSuccess,
   logError,
   execFail,
-} = util;
+} = require('./util');
 
 const PACKAGE_JSON = {
-  loc: packageLoc,
   keepFields: [
     'name',
     'version',
@@ -49,8 +49,7 @@ const PACKAGE_JSON = {
 const writePackage = (outDir, packageData) =>
   fs.writeFileSync(
     path.resolve(outDir, 'package.json'),
-    JSON.stringify(packageData, null, 2),
-    'utf8'
+    JSON.stringify(packageData, null, 2)
   );
 
 try {
@@ -71,7 +70,7 @@ try {
   logSuccess('Tests were successful.');
 
   log('Building dist files...');
-  if (execFail(exec('npm run build:all'))) {
+  if (execFail(exec('npm run build'))) {
     logError('The build command did not exit cleanly. Aborting release.');
     exit(1);
   }
@@ -112,16 +111,13 @@ try {
 
   log('Updating package.json...');
   const updatedPackage = Object.assign({},
-    PACKAGE_JSON.loc,
+    BASE_PACKAGE,
     { version: nextVersion }
   );
   const releasePackage = Object.assign({},
     pick(updatedPackage, PACKAGE_JSON.keepFields),
     PACKAGE_JSON.extraFields
   );
-
-  log(updatedPackage);
-  log(releasePackage);
 
   writePackage(OUT_DIR, releasePackage);
 
@@ -155,11 +151,23 @@ try {
   exec('git push');
   exec('git push --tags');
 
-  log('Rebuilding Demo and Docs')
-  if (execFail(`cross-env NEXT_VERSION=${nextVersion} node ./scripts/buildDemo.js`)) {
-    logError('Publish github pages failed.');
+  log('Rebuilding demo site');
+  buildSite(nextVersion);
+
+  log('Rebuilding docs');
+  if (execFail(exec('npm run docs'))) {
+    logError('Building docs failed.');
     exit(1);
   }
+  ghpages.publish(SITE_DIR, (err) => {
+    if (err) {
+      logError(err);
+      logError('Publish github pages failed.');
+      exit(1);
+    } else {
+      logSuccess('Published demo and docs to gh-pages branch');
+    }
+  });
 
   logSuccess('Done.');
 } catch (error) {
