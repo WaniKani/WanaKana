@@ -27,17 +27,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Changelog!
 - Separate bundles for different environments (node, esmodules, browser)
-- New method: stripOkurigana()
-- New method: tokenize()
+- New method: `stripOkurigana()`
+- New method: `tokenize()`
+- Default options extended with `passRomaji` and `upcaseKatakana`
+- [Extended docs](http://www.wanakana.com/docs)
 
 ### Fixed
-- [n']()
-- [long vowels]()
+- [Ambiguous N](https://github.com/WaniKani/WanaKana/issues/38) thanks to @DTJB
+- [Missing Space](https://github.com/WaniKani/WanaKana/issues/50) thanks to @DJTB @mimshwright
+- [Katakana Long Vowels](https://github.com/WaniKani/WanaKana/pull/46) thanks to @DJTB @dianahervascastillo @maesierra @codebar @ladieswhocode
 
 ### Changed
 - Transliteration converts major punctuation marks both ways.
-- isJapanese() & isRomaji() check major punctuation.
-- isRomaji() allows hepburn romanisation long vowels. (IE. Tōkyō)
+- `isJapanese()` & `isRomaji()` check major punctuation.
+- `isRomaji()` allows hepburn romanisation long vowels. (IE. Tōkyō)
 
 
 [2.0.0]: https://github.com/WaniKani/WanaKana/compare/2.0.0...1.3.7
