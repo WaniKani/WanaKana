@@ -404,6 +404,7 @@ export const FROM_ROMAJI = {
   'xwa': 'ゎ',
   'n': 'ん',
   'nn': 'ん',
+  'n\'': 'ん', // n' should equal single ん
   'n ': 'ん', // n + space
   'xn': 'ん',
   'ltsu': 'っ',  // 4 character code

@@ -235,6 +235,12 @@ describe('Character conversion', () => {
     it('nya -> にゃ', () => expect(toKana('nyan')).toBe('にゃん'));
     it('nnya -> んにゃ', () => expect(toKana('nnyann')).toBe('んにゃん'));
     it('nnnya -> んにゃ', () => expect(toKana('nnnyannn')).toBe('んにゃんん'));
+    it("n'ya -> んや", () => expect(toKana("n'ya")).toBe('んや'));
+    it("kin'ya -> きんや", () => expect(toKana("kin'ya")).toBe('きんや'));
+    it("shin'ya -> しんや", () => expect(toKana("shin'ya")).toBe('しんや'));
+    it('kinyou -> きにょう', () => expect(toKana('kinyou')).toBe('きにょう'));
+    it("kin'you -> きんよう", () => expect(toKana("kin'you")).toBe('きんよう'));
+    it("kin'yu -> きんゆ", () => expect(toKana("kin'yu")).toBe('きんゆ'));
     it('Properly add space after "n[space]"', () => expect(toKana('ichiban warui')).toBe('いちばん わるい'));
   });
 
