@@ -177,11 +177,11 @@ describe('Character conversion', () => {
     it('Uppercase with double consonants and double vowels are transliterated to katakana.',
       () => expect(toKana('BUTTSUUJI')).toBe('ブッツウジ'));
 
-    it('KaniWani -> カにワに - Mixed case uses the first character for each syllable.',
-      () => expect(toKana('KaniWani')).toBe('カにワに'));
+    it('WaniKani -> ワにカに - Mixed case uses the first character for each syllable.',
+      () => expect(toKana('WaniKani')).toBe('ワにカに'));
 
     it('Non-romaji will be passed through.',
-      () => expect(toKana('カにワに AiUeO 鰐蟹 12345 @#$%')).toBe('カにワに アいウえオ 鰐蟹 12345 @#$%'));
+      () => expect(toKana('ワニカニ AiUeO 鰐蟹 12345 @#$%')).toBe('ワニカニ アいウえオ 鰐蟹 12345 @#$%'));
 
     it('It handles mixed syllabaries',
       () => expect(toKana('座禅‘zazen’スタイル')).toBe('座禅「ざぜん」スタイル'));
@@ -255,28 +255,28 @@ describe('Character conversion', () => {
 describe('Kana to Romaji', () => {
   describe('toRomaji()', () => {
     it('Convert katakana to romaji',
-     () => expect(toRomaji('カニワニ　ガ　スゴイ　ダ')).toBe('kaniwani ga sugoi da'));
+     () => expect(toRomaji('ワニカニ　ガ　スゴイ　ダ')).toBe('wanikani ga sugoi da'));
 
     it('Convert hiragana to romaji',
-     () => expect(toRomaji('かにわに　が　すごい　だ')).toBe('kaniwani ga sugoi da'));
+     () => expect(toRomaji('わにかに　が　すごい　だ')).toBe('wanikani ga sugoi da'));
 
     it('Convert mixed kana to romaji',
-     () => expect(toRomaji('カニワニ　が　すごい　だ')).toBe('kaniwani ga sugoi da'));
+     () => expect(toRomaji('ワニカニ　が　すごい　だ')).toBe('wanikani ga sugoi da'));
 
     it('Will convert punctuation and full-width spaces',
      () => expect(toRomaji(JA_PUNC.join(''))).toBe(EN_PUNC.join('')));
 
     it('Use the upcaseKatakana flag to preserve casing. Works for katakana.',
-     () => expect(toRomaji('カニワニ', { upcaseKatakana: true })).toBe('KANIWANI'));
+     () => expect(toRomaji('ワニカニ', { upcaseKatakana: true })).toBe('WANIKANI'));
 
     it('Use the upcaseKatakana flag to preserve casing. Works for mixed kana.',
-     () => expect(toRomaji('カニワニ　が　すごい　だ', { upcaseKatakana: true })).toBe('KANIWANI ga sugoi da'));
+     () => expect(toRomaji('ワニカニ　が　すごい　だ', { upcaseKatakana: true })).toBe('WANIKANI ga sugoi da'));
 
     it("Doesn't mangle the long dash 'ー' or slashdot '・'",
      () => expect(toRomaji('罰ゲーム・ばつげーむ')).toBe('罰ge-mu/batsuge-mu'));
 
     it('Spaces must be manually entered',
-     () => expect(toRomaji('かにわにがすごいだ')).not.toBe('kaniwani ga sugoi da'));
+     () => expect(toRomaji('わにかにがすごいだ')).not.toBe('wanikani ga sugoi da'));
   });
 
   describe('Quick Brown Fox - Hiragana to Romaji', () => {

@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 <!--
 - TITLE
   - Add link at EOF to compare changes:
-    - [2.2.3]: https://github.com/Kaniwani/KanaWana/compare/2.2.2...2.2.3
+    - [2.2.3]: https://github.com/WaniKani/WanaKana/compare/2.2.2...2.2.3
   - List release date in YYYY-MM-DD format
 - DETAILS
   - Added: for new features.
