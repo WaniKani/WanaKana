@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
-## [2.0.0] - 2017-06-15
+## [2.0.0] - 2017-06-17
 ### Added
 - Changelog!
 - Separate bundles for different environments (node, esmodules, browser)
@@ -40,4 +40,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - isRomaji() allows hepburn romanisation long vowels. (IE. Tōkyō)
 
 
-[2.0.0]: https://github.com/WaniKani/WanaKana/compare/v2.2.3...v1.3.11
+[2.0.0]: https://github.com/WaniKani/WanaKana/compare/2.0.0...1.3.7

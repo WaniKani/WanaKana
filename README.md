@@ -1,9 +1,3 @@
-<!--
-  TODO:
-    setup travis and coveralls for wanakana repo
-    add issue links for fixes in changelog
--->
-
 <div align="center">
   <!-- Npm Version -->
   <a href="https://www.npmjs.com/package/wanakana">
@@ -28,7 +22,7 @@
 Visit the [website](https://www.wanakana.com) to see WanaKana in action.
 
 ## Documentation
-[Extended API reference](https://wanikani.github.io/WanaKana/docs/global.html)
+[Extended API reference](https://www.wanakana.com/docs/global.html)
 
 ## Quick Start
 #### Install
@@ -36,8 +30,8 @@ Visit the [website](https://www.wanakana.com) to see WanaKana in action.
 yarn add wanakana
 # alternatively: npm install wanakana
 ```
-#### Or download the minified (6k gzipped) bundle for browser use
-[wanakana.min.js](https://raw.github.com/WaniKani/WanaKana/gh-pages/wanakana.min.js)
+#### Or download the minified bundle for browser use
+[wanakana.min.js](https://raw.github.com/WaniKani/WanaKana/gh-pages/assets/js/wanakana.min.js)
 
 #### HTML:
 ```html

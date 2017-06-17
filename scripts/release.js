@@ -140,7 +140,7 @@ try {
   writePackage(process.cwd(), updatedPackage);
 
   log('Committing changes...');
-  const newTagName = `v${nextVersion}`;
+  const newTagName = `${nextVersion}`;
   exec(`git add ${versionLoc} package.json`);
   exec(`git commit -m "Version ${newTagName}"`);
 
