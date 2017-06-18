@@ -45,7 +45,7 @@ yarn add wanakana
 
 #### JavaScript:
 ```javascript
-/* UMD/CommonJS/node */
+/* UMD/CommonJS */
 const wanakana = require('wanakana');
 
 /* ES modules */
@@ -77,10 +77,8 @@ wanakana.unbind(domElement);
 
 
 /*** TEXT CHECKING UTILITIES ***/
-wanakana.isJapanese('泣き虫。！〜') // Full-width punctuation allowed
+wanakana.isJapanese('泣き虫。！〜') // Full-width/zenkaku punctuation allowed
 // => true
-wanakana.isJapanese('泣き虫.!~') // Half-width / Latin punctuation fails
-// => false
 
 wanakana.isKana('あーア')
 // => true
@@ -97,7 +95,7 @@ wanakana.isKanji('切腹')
 wanakana.isMixed('お腹A')
 // => true
 
-wanakana.isRomaji('Tōkyō and Ōsaka') // allows basic Hepburn romanisation
+wanakana.isRomaji('Tōkyō and Ōsaka') // Basic Hepburn romanisation allowed
 // => true
 
 /*
