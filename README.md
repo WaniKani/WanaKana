@@ -19,10 +19,10 @@
 </div>
 
 ## Demo
-Visit the [website](https://www.wanakana.com) to see WanaKana in action.
+Visit the [website](http://www.wanakana.com) to see WanaKana in action.
 
 ## Documentation
-[Extended API reference](https://www.wanakana.com/docs/global.html)
+[Extended API reference](http://www.wanakana.com/docs/global.html)
 
 ## Quick Start
 #### Install
