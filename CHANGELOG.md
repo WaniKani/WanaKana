@@ -34,8 +34,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - [Ambiguous N](https://github.com/WaniKani/WanaKana/issues/38) thanks to @DTJB
-- [Missing Space](https://github.com/WaniKani/WanaKana/issues/50) thanks to @DJTB @mimshwright
-- [Katakana Long Vowels](https://github.com/WaniKani/WanaKana/pull/46) thanks to @DJTB @dianahervascastillo @maesierra @codebar @ladieswhocode
+- [Mixed Case toHiragana](https://github.com/WaniKani/WanaKana/issues/39) thanks to @DTJB
+- [Katakana Long Vowels](https://github.com/WaniKani/WanaKana/issues/40) thanks to @dianahervascastillo @maesierra @codebar @ladieswhocode
+- [Missing Space](https://github.com/WaniKani/WanaKana/issues/50) thanks to @mimshwright
 
 ### Changed
 - Transliteration converts major punctuation marks both ways.
