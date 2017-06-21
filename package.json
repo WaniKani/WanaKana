@@ -17,7 +17,7 @@
     "prebuild": "rimraf ./dist",
     "build": "node ./scripts/buildDist.js",
     "commit": "git-cz",
-    "prepush": "npm-run-all --parallel lint-staged test",
+    "prepush": "npm run lint-staged",
     "predocs": "rimraf ./gh-pages/docs",
     "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
     "docs:watch": "onchange './src/**/*.js' -- npm run docs",

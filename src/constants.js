@@ -16,7 +16,7 @@
 */
 
 /**
- * Default config for KanaWana, user passed options will be merged with this
+ * Default config for WanaKana, user passed options will be merged with this
  * @type {DefaultOptions}
  * @ignore
  */
