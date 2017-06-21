@@ -1,20 +1,107 @@
 {
-  "name": "WanaKana",
+  "name": "wanakana",
   "version": "1.3.11",
-  "description": "JS library that transliterates between japanese kana and roman letters.",
-  "repository": "https://github.com/WaniKani/WanaKana/",
+  "license": "MIT",
+  "homepage": "https://www.wanakana.com",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/WaniKani/WanaKana"
+  },
+  "bugs": {
+    "url": "https://github.com/WaniKani/WanaKana/issues"
+  },
+  "devEngines": {
+    "node": ">7"
+  },
+  "scripts": {
+    "prebuild": "rimraf ./dist",
+    "build": "node ./scripts/buildDist.js",
+    "commit": "git-cz",
+    "prepush": "npm-run-all --parallel lint-staged test",
+    "predocs": "rimraf ./gh-pages/docs",
+    "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
+    "docs:watch": "onchange './src/**/*.js' -- npm run docs",
+    "pretest": "rimraf ./coverage",
+    "test": "jest",
+    "test:watch": "npm run test -- --watch",
+    "test:view": "opn ./coverage/lcov-report/index.html",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "release": "node ./scripts/release.js",
+    "lint": "eslint --color --fix ./src/**/*.js",
+    "lint:staged": "eslint --ignore-path ./.gitignore --ignore-pattern 'dist' --ignore-pattern 'gh-pages' --color",
+    "//": "following script is used by husky in git hooks (like prepush) to run the lint-staged config below which then references the lint:staged script above. Clunky but works ʕノ•ᴥ•ʔノ ︵ ┻━┻",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "lint:staged"
+    ]
+  },
+  "//": "mirror .babelrc cjs browsers field until babel-preset-env 2.0 supports browserslist - then we can remove from .babelrc",
+  "browserslist": [
+    "last 4 versions",
+    ">1%"
+  ],
+  "jest": {
+    "bail": false,
+    "verbose": false,
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.test.js"
+    ],
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 98,
+        "functions": 100,
+        "lines": 95,
+        "statements": 98
+      }
+    },
+    "coverageDirectory": "./coverage",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/index.js",
+      "!**/node_modules/**",
+      "!**/__tests__/**"
+    ]
+  },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-coffee": "~0.7.0",
-    "grunt-contrib-copy": "~0.4.1",
-    "grunt-contrib-jshint": "~0.6.4",
-    "grunt-contrib-qunit": "~0.2.2",
-    "grunt-contrib-uglify": "~0.2.4",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-coffeelint": "~0.0.7",
-    "grunt-bump": "~0.0.11",
-    "grunt-open": "~0.2.2",
-    "grunt-text-replace": "~0.3.9"
+    "babel-cli": "~6.24.1",
+    "babel-eslint": "~7.2.3",
+    "babel-plugin-external-helpers": "~6.22.0",
+    "babel-preset-env": "~1.5.2",
+    "benchmark": "~2.1.4",
+    "commitizen": "~2.9.6",
+    "coveralls": "~2.13.1",
+    "cross-env": "~5.0.1",
+    "cz-conventional-changelog": "~2.0.0",
+    "docdash": "~0.4.0",
+    "eslint": "~3.19.0",
+    "eslint-config-airbnb": "~15.0.1",
+    "eslint-plugin-import": "~2.3.0",
+    "eslint-plugin-jsx-a11y": "~5.0.3",
+    "eslint-plugin-react": "~7.1.0",
+    "gh-pages": "~1.0.0",
+    "husky": "~0.13.4",
+    "jest": "~20.0.4",
+    "jsdoc": "~3.4.3",
+    "jsdom-simulant": "~1.1.2",
+    "lint-staged": "~4.0.0",
+    "npm-run-all": "~4.0.2",
+    "onchange": "~3.2.1",
+    "opn-cli": "~3.1.0",
+    "readline-sync": "~1.4.7",
+    "rimraf": "~2.6.1",
+    "rollup": "~0.43.0",
+    "rollup-plugin-babel": "~2.7.1",
+    "rollup-plugin-commonjs": "~8.0.2",
+    "rollup-plugin-node-resolve": "~3.0.0",
+    "rollup-plugin-replace": "~1.1.1",
+    "rollup-plugin-uglify": "~2.0.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }
