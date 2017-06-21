@@ -49,5 +49,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `isRomaji()` allows hepburn romanisation long vowels. (IE. Tōkyō)
 
 
-[2.0.1]: https://github.com/WaniKani/WanaKana/compare/2.0.1...2.0.0
-[2.0.0]: https://github.com/WaniKani/WanaKana/compare/2.0.0...1.3.7
+[2.0.1]: https://github.com/WaniKani/WanaKana/compare/2.0.0...2.0.1
+[2.0.0]: https://github.com/WaniKani/WanaKana/compare/1.3.7...2.0.0
