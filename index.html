@@ -34,10 +34,10 @@
       <div class="pure-u-1">
         <section id="demo-ime">
           <form>
-            <textarea id="ime" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Type in romaji to convert to kana" lang="ja"></textarea>
+            <textarea lang="ja" id="ime" autocapitalize="none" autocomplete="off" autocorrect="off" placeholder="Type in romaji to convert to kana"></textarea>
           </form>
           <div class="code-sample">
-            <pre><code data-language="html"><textarea id="ime"></textarea></code></pre>
+            <pre><code data-language="html"><textarea id="ime" autocapitalize="none" /></code></pre>
 
             <pre><code data-language="javascript">var input = document.getElementById('ime');
 wanakana.bind(input);</code></pre>
