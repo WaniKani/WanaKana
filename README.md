@@ -35,7 +35,7 @@ yarn add wanakana
 
 #### HTML:
 ```html
-<input type="text" id="wanakana-input" />
+<input type="text" id="wanakana-input" autocapitalize="none" />
 <script src="node_modules/wanakana/lib/wanakana.min.js"></script>
 <script>
   const textInput = document.querySelector('#wanakana-input');
