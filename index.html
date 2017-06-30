@@ -34,10 +34,10 @@
       <div class="pure-u-1">
         <section id="demo-ime">
           <form>
-            <textarea lang="ja" id="ime" autocapitalize="none" autocomplete="off" autocorrect="off" placeholder="Type in romaji to convert to kana"></textarea>
+            <input type="text" lang="ja" id="ime" autocapitalize="none" autocomplete="off" autocorrect="off" placeholder="Type in romaji to convert to kana"></input>
           </form>
           <div class="code-sample">
-            <pre><code data-language="html"><textarea id="ime" autocapitalize="none"></textarea></code></pre>
+            <pre><code data-language="html"><input type="text" id="ime" autocapitalize="none"></input></code></pre>
 
             <pre><code data-language="javascript">var input = document.getElementById('ime');
 wanakana.bind(input);</code></pre>
@@ -55,7 +55,7 @@ wanakana.bind(input);</code></pre>
 
           <section id="demo-kana-to-romaji">
             <form>
-              <textarea id="kana-to-romaji" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Kana string to romaji" lang="ja">にほんごのテスト</textarea>
+              <input type="text" id="kana-to-romaji" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Kana string to romaji" lang="ja">にほんごのテスト</input>
             </form>
             <div id="kana-to-romaji-output" class="output">
               nihongonotesuto
@@ -66,11 +66,12 @@ wanakana.bind(input);</code></pre>
           </section><!-- demo-kana-to-romaji -->
 
         </div><!-- pure-u-1-2 -->
+
         <div class="pure-u-1-2">
 
           <section id="demo-romaji-to-kana">
             <form>
-              <textarea id="romaji-to-kana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Romaji string to kana" lang="ja">TOFUGUnosushi</textarea>
+              <input type="text" id="romaji-to-kana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Romaji string to kana" lang="ja">TOFUGUnosushi</input>
             </form>
             <div id="romaji-to-kana-output" class="output" lang="ja">
               トフグのすし
@@ -89,7 +90,7 @@ wanakana.bind(input);</code></pre>
 
           <section id="demo-romaji-to-hiragana">
             <form>
-              <textarea id="romaji-to-hiragana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Kana string to romaji" lang="ja">アメリカ</textarea>
+              <input type="text" id="romaji-to-hiragana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Kana string to romaji" lang="ja">アメリカ</input>
             </form>
             <div id="romaji-to-hiragana-output" class="output" lang="ja">
               あめりか
@@ -104,7 +105,7 @@ wanakana.bind(input);</code></pre>
 
           <section id="demo-romaji-to-katakana">
             <form>
-              <textarea id="romaji-to-katakana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Romaji string to kana" lang="ja">わにかに</textarea>
+              <input type="text" id="romaji-to-katakana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Romaji string to kana" lang="ja">わにかに</input>
             </form>
             <div id="romaji-to-katakana-output" class="output" lang="ja">
               ワニカニ
@@ -136,7 +137,7 @@ wanakana.bind(input);</code></pre>
             <tbody>
               <tr>
                 <td>wanakana.bind(<span class="type">element</span><span class="options">[,<span class="type">options</span>]</span>)</td>
-                <td>Automatically bind IME functionality to a form textarea or input.</td>
+                <td>Automatically bind IME functionality to a form input or input.</td>
               </tr>
               <tr>
                 <td>wanakana.unbind(<span class="type">element</span>)</td>
@@ -317,7 +318,7 @@ wanakana.bind(input);</code></pre>
   }
 
   $(document).ready(function() {
-    $('form textarea').autosize(); // Dynamically size vertical height of textarea
+    $('form input').autosize(); // Dynamically size vertical height of input
     libraryColumnWidth();
   });
 
