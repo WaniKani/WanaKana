@@ -18,7 +18,8 @@ h2 {
 	text-transform: uppercase;
 }
 
-textarea {
+textarea,
+input[type="text"] {
 	-webkit-appearance: none;
 	@include border-radius(0);
 }

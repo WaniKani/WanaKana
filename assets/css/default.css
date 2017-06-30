@@ -27,7 +27,8 @@ h2 {
   color: #6e6e6e;
   text-transform: uppercase; }
 
-textarea {
+textarea,
+input[type="text"] {
   -webkit-appearance: none;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -75,22 +76,26 @@ section[id^=demo-] {
     -webkit-transition: height 0.2s;
     -moz-transition: height 0.2s;
     transition: height 0.2s; }
-    section[id^=demo-] form textarea::-webkit-input-placeholder {
+    section[id^=demo-] form textarea::-webkit-input-placeholder,
+    section[id^=demo-] form input[type="text"]::-webkit-input-placeholder {
       color: #aeaeae;
       font-family: "omnes-pro", sans-serif;
       font-weight: 400;
       line-height: 1.33em; }
-    section[id^=demo-] form textarea::moz-placeholder {
+    section[id^=demo-] form textarea::moz-placeholder,
+    section[id^=demo-] form input[type="text"]::moz-placeholder {
       color: #aeaeae;
       font-family: "omnes-pro", sans-serif;
       font-weight: 400;
       line-height: 1.33em; }
-    section[id^=demo-] form textarea:-moz-placeholder {
+    section[id^=demo-] form textarea:-moz-placeholder,
+    section[id^=demo-] form input[type="text"]:-moz-placeholder {
       color: #aeaeae;
       font-family: "omnes-pro", sans-serif;
       font-weight: 400;
       line-height: 1.33em; }
-    section[id^=demo-] form textarea:-ms-input-placeholder {
+    section[id^=demo-] form textarea:-ms-input-placeholder,
+    section[id^=demo-] form input[type="text"]:-ms-input-placeholder {
       color: #aeaeae;
       font-family: "omnes-pro", sans-serif;
       font-weight: 400;
@@ -139,7 +144,8 @@ code[data-language=javascript]:before {
       font-size: 50%;
       font-weight: 400;
       line-height: 4.3em; }
-    #secondary-functions section[id^=demo-] form textarea {
+    #secondary-functions section[id^=demo-] form textarea,
+        #secondary-functions section[id^=demo-] form input[type="text"] {
       padding-left: 3.5em;
       font-size: 50%; }
 #secondary-functions pre {
