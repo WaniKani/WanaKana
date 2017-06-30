@@ -18,7 +18,7 @@ section[id^=demo-] {
 			border: none;
 			outline: none;
 			@include box-sizing(border-box);
-			@include placeholder(300, $grayDark);
+			@include placeholder(400, $grayDark);
 			@include transition(height, 0.2s);
 		}
 	}
@@ -80,7 +80,7 @@ code[data-language=javascript] {
 				left: 1.3em;
 				color: lighten($grayDark, 15%);
 				font-size: 50%;
-				font-weight: 300;
+				font-weight: 400;
 				line-height: 4.3em;
 			}
 			textarea {

@@ -78,22 +78,22 @@ section[id^=demo-] {
     section[id^=demo-] form textarea::-webkit-input-placeholder {
       color: #aeaeae;
       font-family: "omnes-pro", sans-serif;
-      font-weight: 300;
+      font-weight: 400;
       line-height: 1.33em; }
     section[id^=demo-] form textarea::moz-placeholder {
       color: #aeaeae;
       font-family: "omnes-pro", sans-serif;
-      font-weight: 300;
+      font-weight: 400;
       line-height: 1.33em; }
     section[id^=demo-] form textarea:-moz-placeholder {
       color: #aeaeae;
       font-family: "omnes-pro", sans-serif;
-      font-weight: 300;
+      font-weight: 400;
       line-height: 1.33em; }
     section[id^=demo-] form textarea:-ms-input-placeholder {
       color: #aeaeae;
       font-family: "omnes-pro", sans-serif;
-      font-weight: 300;
+      font-weight: 400;
       line-height: 1.33em; }
   section[id^=demo-] pre, section[id^=demo-] .output {
     position: relative;
@@ -137,7 +137,7 @@ code[data-language=javascript]:before {
       left: 1.3em;
       color: #d4d4d4;
       font-size: 50%;
-      font-weight: 300;
+      font-weight: 400;
       line-height: 4.3em; }
     #secondary-functions section[id^=demo-] form textarea {
       padding-left: 3.5em;
@@ -240,7 +240,7 @@ header {
     header #download .pure-button {
       background-color: #aaff00;
       color: #558000;
-      font-weight: 300;
+      font-weight: 400;
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
       border-radius: 5px; }
