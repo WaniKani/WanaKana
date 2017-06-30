@@ -17,7 +17,7 @@ body, table, .pure-g [class*="pure-u"], .pure-g-r [class*="pure-u"] {
 body {
   background-image: url("../images/shattered.png");
   font-size: 200%;
-  font-weight: 200; }
+  font-weight: 400; }
 
 h1, h2 {
   font-family: "norwester", sans-serif !important;
@@ -224,7 +224,7 @@ header {
       margin: 1em 0;
       font-family: "omnes-pro", sans-serif;
       font-size: 40%;
-      font-weight: 200;
+      font-weight: 400;
       letter-spacing: -0.01em;
       line-height: 1.2em; }
     header h1 span {

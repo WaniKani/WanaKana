@@ -37,7 +37,7 @@
             <textarea lang="ja" id="ime" autocapitalize="none" autocomplete="off" autocorrect="off" placeholder="Type in romaji to convert to kana"></textarea>
           </form>
           <div class="code-sample">
-            <pre><code data-language="html"><textarea id="ime" autocapitalize="none" /></code></pre>
+            <pre><code data-language="html"><textarea id="ime" autocapitalize="none"></textarea></code></pre>
 
             <pre><code data-language="javascript">var input = document.getElementById('ime');
 wanakana.bind(input);</code></pre>
@@ -66,6 +66,7 @@ wanakana.bind(input);</code></pre>
           </section><!-- demo-kana-to-romaji -->
 
         </div><!-- pure-u-1-2 -->
+
         <div class="pure-u-1-2">
 
           <section id="demo-romaji-to-kana">
@@ -317,7 +318,7 @@ wanakana.bind(input);</code></pre>
   }
 
   $(document).ready(function() {
-    $('form textarea').autosize(); // Dynamically size vertical height of textarea
+    $('form textarea').autosize(); // Dynamically size vertical height of input
     libraryColumnWidth();
   });
 
