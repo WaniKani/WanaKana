@@ -25,6 +25,7 @@ const PACKAGE_JSON = {
     'license',
     'homepage',
     'repository',
+    'description',
     'bugs',
   ],
   extraFields: {

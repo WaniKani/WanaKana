@@ -23,6 +23,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
+## [2.0.3] - 2017-07-07
+### Fixed
+- Missing description field in package.json
+
 ## [2.0.2] - 2017-06-30
 ### Added
 - Documentation regarding recommended use of autocapitalize="none" on input fields
@@ -56,6 +60,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `isRomaji()` allows hepburn romanisation long vowels. (IE. Tōkyō)
 
 
+[2.0.3]: https://github.com/WaniKani/WanaKana/compare/2.0.2...2.0.3
 [2.0.2]: https://github.com/WaniKani/WanaKana/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/WaniKani/WanaKana/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/WaniKani/WanaKana/compare/1.3.7...2.0.0
