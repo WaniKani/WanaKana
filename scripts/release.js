@@ -26,24 +26,13 @@ const PACKAGE_JSON = {
     'homepage',
     'repository',
     'description',
+    'keywords',
     'bugs',
   ],
   extraFields: {
     main: `${LIB_DIR}/wanakana.js`,
     browser: `${LIB_DIR}/wanakana.min.js`,
     module: `${LIB_DIR}/wanakana.esm.js`,
-    keywords: [
-      'english',
-      'japanese',
-      'hiragana',
-      'katakana',
-      'kana',
-      'romaji',
-      'conversion',
-      'transliteration',
-      'input',
-      'wanikani',
-    ],
   },
 };
 
