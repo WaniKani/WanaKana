@@ -1,6 +1,5 @@
 // IME event listener DOM helpers
-export { default as bind } from './bind';
-export { default as unbind } from './unbind';
+export { bind, unbind } from './dom-helpers';
 
 // Writing system checks
 export { default as isRomaji } from './isRomaji';

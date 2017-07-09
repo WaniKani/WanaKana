@@ -14,8 +14,7 @@ import toHiragana from '../toHiragana';
 import toRomaji from '../toRomaji';
 import stripOkurigana from '../stripOkurigana';
 import tokenize from '../tokenize';
-import bind from '../bind';
-import unbind from '../unbind';
+import { bind, unbind } from '../dom-helpers';
 
 describe('Methods should return valid defaults when given no input', () => {
   it('isKana() with no input', () => expect(isKana()).toBe(false));
@@ -133,8 +132,16 @@ describe('Character conversion', () => {
   describe('Test every character with toHiragana() and toKatakana()', () => {
     TEST_TABLE.forEach((item) => {
       const [romaji, hiragana, katakana] = item;
-      it('converts to hiragana', () => expect(toHiragana(romaji)).toBe(hiragana));
-      it('converts to katakana', () => expect(toKatakana(romaji.toUpperCase())).toBe(katakana));
+      it('converts to hiragana', () => {
+        const result = toHiragana(romaji);
+        expect(result).toBe(hiragana);
+        expect(result).toMatchSnapshot();
+      });
+      it('converts to katakana', () => {
+        const result = toKatakana(romaji.toUpperCase());
+        expect(result).toBe(katakana);
+        expect(result).toMatchSnapshot();
+      });
     });
   });
 
@@ -345,21 +352,59 @@ describe('tokenize', () => {
 });
 
 describe('Event listener helpers', () => {
-  document.body.innerHTML = '<div><input type="text" id="ime" /></div>';
+  document.body.innerHTML = `
+      <div>
+        <input type="text" id="ime" />
+        <textarea id="ime2"></textarea>
+      </div>
+    `;
   const inputField = document.querySelector('#ime');
+  const inputField2 = document.querySelector('#ime2');
+
+  it('should warn if invalid params passed', () => {
+    const consoleRef = global.console;
+    global.console = { warn: jest.fn() };
+    bind('not an element');
+    unbind(inputField);
+    expect(console.warn).toHaveBeenCalledTimes(2); // eslint-disable-line no-console
+    global.console = consoleRef; // restore console
+  });
 
   it('adds onInput event listener', () => {
-    inputField.value = 'wanakana';
     bind(inputField);
+    inputField.value = 'wanakana';
     simulant.fire(inputField, 'input');
     expect(inputField.value).toEqual('わなかな');
   });
 
+  it('forces autocapitalize "none"', () => {
+    expect(inputField.autocapitalize).toEqual('none');
+  });
+
   it('removes onInput event listener', () => {
     unbind(inputField);
-    inputField.value = 'wanakana';
+    inputField.value = 'fugu';
     simulant.fire(inputField, 'input');
-    expect(inputField.value).toEqual('wanakana');
+    expect(inputField.value).toEqual('fugu');
+  });
+
+  it('should handle multiple separate bindings', () => {
+    bind(inputField);
+    bind(inputField2);
+    inputField2.value = 'wanakana2';
+    simulant.fire(inputField2, 'input');
+    expect(inputField.value).toEqual('fugu');
+    expect(inputField2.value).toEqual('わなかな2');
+    unbind(inputField);
+    unbind(inputField2);
+  });
+
+  it('should handle passed options', () => {
+    bind(inputField, { useObsoleteKana: true });
+    inputField.value = 'wiweWIWEwo';
+    simulant.fire(inputField, 'input');
+    expect(inputField.value).toEqual('ゐゑヰヱを');
+    unbind(inputField);
   });
 
   it('should not be possible to force { IMEMode: false }', () => {
@@ -367,28 +412,86 @@ describe('Event listener helpers', () => {
     bind(inputField, { IMEMode: false });
     simulant.fire(inputField, 'input');
     expect(inputField.value).toEqual('わなかな');
+    unbind(inputField);
+  });
+
+  it('should handle nonascii', () => {
+    bind(inputField);
+    inputField.value = 'ｈｉｒｏｉ';
+    simulant.fire(inputField, 'input');
+    expect(inputField.value).toEqual('ひろい');
+    // passes setting value if conversion would be the same
+    inputField.value = 'かんじ';
+    simulant.fire(inputField, 'input');
+    expect(inputField.value).toEqual('かんじ');
+    unbind(inputField);
+  });
+
+  it('should reset cursor to end of input values', () => {
+    bind(inputField);
+    inputField.value = 'sentaku';
+    const expected = 'せんたく';
+    inputField.setSelectionRange(2, 2);
+    simulant.fire(inputField, 'input');
+    expect(inputField.value).toEqual(expected);
+    expect(inputField.selectionStart).toEqual(expected.length);
+    unbind(inputField);
+  });
+
+  it('should reset cursor to end of input values on IE < 9', () => {
+    const setSelRef = inputField.setSelectionRange;
+    const collapseSpy = jest.fn();
+    const selectSpy = jest.fn();
+    inputField.setSelectionRange = null;
+    inputField.createTextRange = () => ({ collapse: collapseSpy, select: selectSpy });
+    bind(inputField);
+    inputField.value = 'sentaku';
+    simulant.fire(inputField, 'input');
+    expect(inputField.value).toEqual('せんたく');
+    expect(collapseSpy).toBeCalled();
+    expect(selectSpy).toBeCalled();
+    delete inputField.createTextRange;
+    inputField.setSelectionRange = setSelRef;
+    unbind(inputField);
   });
 });
 
 describe('Options', () => {
   describe('useObsoleteKana', () => {
-    it('useObsoleteKana is false by default',
-      () => expect(toHiragana('wi')).toBe('うぃ'));
-    it('wi = ゐ (when useObsoleteKana is true)',
-      () => expect(toHiragana('wi', { useObsoleteKana: true })).toBe('ゐ'));
-    it('we = ゑ (when useObsoleteKana is true)',
-      () => expect(toHiragana('we', { useObsoleteKana: true })).toBe('ゑ'));
-    it('WI = ヰ (when useObsoleteKana is true)',
-      () => expect(toKatakana('wi', { useObsoleteKana: true })).toBe('ヰ'));
-    it('WE = ヱ (when useObsoleteKana is true)',
-      () => expect(toKatakana('we', { useObsoleteKana: true })).toBe('ヱ'));
-    it('wi = うぃ when useObsoleteKana is false',
-      () => expect(toHiragana('wi', { useObsoleteKana: false })).toBe('うぃ'));
-    it('wi = ウィ when useObsoleteKana is false',
-      () => expect(toKatakana('WI', { useObsoleteKana: false })).toBe('ウィ'));
+    describe('toKana', () => {
+      it('useObsoleteKana is false by default',
+      () => expect(toKana('wi')).toBe('うぃ'));
+      it('wi = ゐ (when useObsoleteKana is true)',
+      () => expect(toKana('wi', { useObsoleteKana: true })).toBe('ゐ'));
+      it('we = ゑ (when useObsoleteKana is true)',
+      () => expect(toKana('we', { useObsoleteKana: true })).toBe('ゑ'));
+      it('WI = ヰ (when useObsoleteKana is true)',
+      () => expect(toKana('WI', { useObsoleteKana: true })).toBe('ヰ'));
+      it('WE = ヱ (when useObsoleteKana is true)',
+      () => expect(toKana('WE', { useObsoleteKana: true })).toBe('ヱ'));
+    });
+
+    describe('toHiragana', () => {
+      it('useObsoleteKana is false by default',
+        () => expect(toHiragana('wi')).toBe('うぃ'));
+      it('wi = ゐ (when useObsoleteKana is true)',
+          () => expect(toHiragana('wi', { useObsoleteKana: true })).toBe('ゐ'));
+      it('we = ゑ (when useObsoleteKana is true)',
+          () => expect(toHiragana('we', { useObsoleteKana: true })).toBe('ゑ'));
+      it('wi = うぃ when useObsoleteKana is false',
+          () => expect(toHiragana('wi', { useObsoleteKana: false })).toBe('うぃ'));
+    });
+
+    describe('toKataKana', () => {
+      it('wi = ウィ when useObsoleteKana is false',
+        () => expect(toKatakana('WI', { useObsoleteKana: false })).toBe('ウィ'));
+      it('WI = ヰ (when useObsoleteKana is true)',
+          () => expect(toKatakana('wi', { useObsoleteKana: true })).toBe('ヰ'));
+      it('WE = ヱ (when useObsoleteKana is true)',
+          () => expect(toKatakana('we', { useObsoleteKana: true })).toBe('ヱ'));
+    });
   });
 
-  // TODO: test with JSDOM and/or sinon instead?
   describe('IMEMode', () => {
     /**
      * Simulate real typing by calling the function on every character in sequence

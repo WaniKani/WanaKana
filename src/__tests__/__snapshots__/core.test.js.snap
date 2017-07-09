@@ -1,0 +1,1253 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 1`] = `"1"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 2`] = `"@"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 3`] = `"#"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 4`] = `"$"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 5`] = `"%"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 6`] = `"！"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 7`] = `"？"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 8`] = `"。"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 9`] = `"："`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 10`] = `"・"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 11`] = `"、"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 12`] = `"〜"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 13`] = `"ー"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 14`] = `"「"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 15`] = `"」"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 16`] = `"『"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 17`] = `"』"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 18`] = `"［"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 19`] = `"］"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 20`] = `"（"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 21`] = `"）"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 22`] = `"｛"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 23`] = `"｝"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 24`] = `"あ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 25`] = `"い"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 26`] = `"う"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 27`] = `"え"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 28`] = `"お"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 29`] = `"い"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 30`] = `"う"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 31`] = `"う"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 32`] = `"ぁ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 33`] = `"ぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 34`] = `"ぅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 35`] = `"ぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 36`] = `"ぉ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 37`] = `"ぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 38`] = `"ぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 39`] = `"いぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 40`] = `"うぁ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 41`] = `"うぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 42`] = `"うぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 43`] = `"うぉ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 44`] = `"うぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 45`] = `"うぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 46`] = `"ゔぁ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 47`] = `"ゔぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 48`] = `"ゔ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 49`] = `"ゔぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 50`] = `"ゔぉ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 51`] = `"ゔぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 52`] = `"ゔぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 53`] = `"ゔゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 54`] = `"ゔゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 55`] = `"ゔょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 56`] = `"か"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 57`] = `"き"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 58`] = `"く"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 59`] = `"け"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 60`] = `"こ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 61`] = `"ヵ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 62`] = `"ヶ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 63`] = `"ヵ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 64`] = `"ヶ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 65`] = `"きゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 66`] = `"きぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 67`] = `"きゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 68`] = `"きぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 69`] = `"きょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 70`] = `"か"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 71`] = `"き"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 72`] = `"く"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 73`] = `"け"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 74`] = `"こ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 75`] = `"ヵ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 76`] = `"ヶ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 77`] = `"ヵ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 78`] = `"ヶ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 79`] = `"くゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 80`] = `"くゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 81`] = `"くょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 82`] = `"くぁ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 83`] = `"くぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 84`] = `"くぅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 85`] = `"くぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 86`] = `"くぉ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 87`] = `"くぁ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 88`] = `"くぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 89`] = `"くぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 90`] = `"くぉ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 91`] = `"くぁ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 92`] = `"くぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 93`] = `"くぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 94`] = `"が"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 95`] = `"ぎ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 96`] = `"ぐ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 97`] = `"げ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 98`] = `"ご"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 99`] = `"ぎゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 100`] = `"ぎぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 101`] = `"ぎゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 102`] = `"ぎぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 103`] = `"ぎょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 104`] = `"ぐぁ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 105`] = `"ぐぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 106`] = `"ぐぅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 107`] = `"ぐぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 108`] = `"ぐぉ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 109`] = `"さ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 110`] = `"し"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 111`] = `"す"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 112`] = `"せ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 113`] = `"そ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 114`] = `"し"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 115`] = `"ざ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 116`] = `"じ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 117`] = `"ず"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 118`] = `"ぜ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 119`] = `"ぞ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 120`] = `"じ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 121`] = `"しゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 122`] = `"しぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 123`] = `"しゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 124`] = `"しぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 125`] = `"しょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 126`] = `"しゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 127`] = `"しゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 128`] = `"しぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 129`] = `"しょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 130`] = `"しゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 131`] = `"しゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 132`] = `"しぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 133`] = `"しょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 134`] = `"すぁ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 135`] = `"すぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 136`] = `"すぅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 137`] = `"すぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 138`] = `"すぉ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 139`] = `"じゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 140`] = `"じぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 141`] = `"じゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 142`] = `"じぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 143`] = `"じょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 144`] = `"じゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 145`] = `"じゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 146`] = `"じぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 147`] = `"じょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 148`] = `"じゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 149`] = `"じぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 150`] = `"じゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 151`] = `"じぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 152`] = `"じょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 153`] = `"た"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 154`] = `"ち"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 155`] = `"つ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 156`] = `"て"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 157`] = `"と"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 158`] = `"ち"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 159`] = `"つ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 160`] = `"っ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 161`] = `"っ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 162`] = `"っ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 163`] = `"ちゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 164`] = `"ちぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 165`] = `"ちゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 166`] = `"ちぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 167`] = `"ちょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 168`] = `"ちゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 169`] = `"ちゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 170`] = `"ちぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 171`] = `"ちょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 172`] = `"ちゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 173`] = `"ちぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 174`] = `"ちゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 175`] = `"ちぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 176`] = `"ちょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 177`] = `"ちゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 178`] = `"ちゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 179`] = `"ちぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 180`] = `"ちょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 181`] = `"つぁ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 182`] = `"つぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 183`] = `"つぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 184`] = `"つぉ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 185`] = `"てゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 186`] = `"てぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 187`] = `"てゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 188`] = `"てぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 189`] = `"てょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 190`] = `"とぁ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 191`] = `"とぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 192`] = `"とぅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 193`] = `"とぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 194`] = `"とぉ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 195`] = `"だ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 196`] = `"ぢ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 197`] = `"づ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 198`] = `"で"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 199`] = `"ど"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 200`] = `"ぢゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 201`] = `"ぢぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 202`] = `"ぢゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 203`] = `"ぢぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 204`] = `"ぢょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 205`] = `"でゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 206`] = `"でぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 207`] = `"でゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 208`] = `"でぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 209`] = `"でょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 210`] = `"どぁ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 211`] = `"どぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 212`] = `"どぅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 213`] = `"どぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 214`] = `"どぉ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 215`] = `"な"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 216`] = `"に"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 217`] = `"ぬ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 218`] = `"ね"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 219`] = `"の"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 220`] = `"にゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 221`] = `"にぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 222`] = `"にゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 223`] = `"にぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 224`] = `"にょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 225`] = `"は"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 226`] = `"ひ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 227`] = `"ふ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 228`] = `"へ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 229`] = `"ほ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 230`] = `"ふ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 231`] = `"ひゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 232`] = `"ひぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 233`] = `"ひゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 234`] = `"ひぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 235`] = `"ひょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 236`] = `"ふゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 237`] = `"ふゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 238`] = `"ふょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 239`] = `"ふぁ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 240`] = `"ふぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 241`] = `"ふぅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 242`] = `"ふぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 243`] = `"ふぉ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 244`] = `"ふぁ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 245`] = `"ふぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 246`] = `"ふぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 247`] = `"ふぉ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 248`] = `"ふぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 249`] = `"ふぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 250`] = `"ば"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 251`] = `"び"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 252`] = `"ぶ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 253`] = `"べ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 254`] = `"ぼ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 255`] = `"びゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 256`] = `"びぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 257`] = `"びゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 258`] = `"びぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 259`] = `"びょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 260`] = `"ぱ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 261`] = `"ぴ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 262`] = `"ぷ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 263`] = `"ぺ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 264`] = `"ぽ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 265`] = `"ぴゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 266`] = `"ぴぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 267`] = `"ぴゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 268`] = `"ぴぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 269`] = `"ぴょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 270`] = `"ま"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 271`] = `"み"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 272`] = `"む"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 273`] = `"め"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 274`] = `"も"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 275`] = `"みゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 276`] = `"みぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 277`] = `"みゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 278`] = `"みぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 279`] = `"みょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 280`] = `"や"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 281`] = `"ゆ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 282`] = `"よ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 283`] = `"ゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 284`] = `"ゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 285`] = `"ょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 286`] = `"ら"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 287`] = `"り"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 288`] = `"る"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 289`] = `"れ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 290`] = `"ろ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 291`] = `"ら"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 292`] = `"り"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 293`] = `"る"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 294`] = `"れ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 295`] = `"ろ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 296`] = `"りゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 297`] = `"りぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 298`] = `"りゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 299`] = `"りぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 300`] = `"りょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 301`] = `"りゃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 302`] = `"りぃ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 303`] = `"りゅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 304`] = `"りぇ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 305`] = `"りょ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 306`] = `"わ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 307`] = `"を"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 308`] = `"ゎ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 309`] = `"ゎ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 310`] = `"ん"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 311`] = `"ん"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 312`] = `"ん"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 313`] = `"ん"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 1`] = `"1"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 2`] = `"@"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 3`] = `"#"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 4`] = `"$"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 5`] = `"%"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 6`] = `"！"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 7`] = `"？"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 8`] = `"。"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 9`] = `"："`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 10`] = `"・"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 11`] = `"、"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 12`] = `"〜"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 13`] = `"ー"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 14`] = `"「"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 15`] = `"」"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 16`] = `"『"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 17`] = `"』"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 18`] = `"［"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 19`] = `"］"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 20`] = `"（"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 21`] = `"）"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 22`] = `"｛"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 23`] = `"｝"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 24`] = `"ア"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 25`] = `"イ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 26`] = `"ウ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 27`] = `"エ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 28`] = `"オ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 29`] = `"イ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 30`] = `"ウ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 31`] = `"ウ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 32`] = `"ァ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 33`] = `"ィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 34`] = `"ゥ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 35`] = `"ェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 36`] = `"ォ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 37`] = `"ィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 38`] = `"ェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 39`] = `"イェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 40`] = `"ウァ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 41`] = `"ウィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 42`] = `"ウェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 43`] = `"ウォ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 44`] = `"ウィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 45`] = `"ウェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 46`] = `"ヴァ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 47`] = `"ヴィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 48`] = `"ヴ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 49`] = `"ヴェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 50`] = `"ヴォ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 51`] = `"ヴィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 52`] = `"ヴェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 53`] = `"ヴャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 54`] = `"ヴュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 55`] = `"ヴョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 56`] = `"カ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 57`] = `"キ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 58`] = `"ク"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 59`] = `"ケ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 60`] = `"コ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 61`] = `"ヵ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 62`] = `"ヶ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 63`] = `"ヵ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 64`] = `"ヶ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 65`] = `"キャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 66`] = `"キィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 67`] = `"キュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 68`] = `"キェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 69`] = `"キョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 70`] = `"カ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 71`] = `"キ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 72`] = `"ク"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 73`] = `"ケ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 74`] = `"コ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 75`] = `"ヵ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 76`] = `"ヶ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 77`] = `"ヵ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 78`] = `"ヶ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 79`] = `"クャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 80`] = `"クュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 81`] = `"クョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 82`] = `"クァ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 83`] = `"クィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 84`] = `"クゥ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 85`] = `"クェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 86`] = `"クォ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 87`] = `"クァ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 88`] = `"クィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 89`] = `"クェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 90`] = `"クォ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 91`] = `"クァ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 92`] = `"クィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 93`] = `"クェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 94`] = `"ガ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 95`] = `"ギ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 96`] = `"グ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 97`] = `"ゲ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 98`] = `"ゴ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 99`] = `"ギャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 100`] = `"ギィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 101`] = `"ギュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 102`] = `"ギェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 103`] = `"ギョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 104`] = `"グァ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 105`] = `"グィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 106`] = `"グゥ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 107`] = `"グェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 108`] = `"グォ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 109`] = `"サ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 110`] = `"シ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 111`] = `"ス"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 112`] = `"セ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 113`] = `"ソ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 114`] = `"シ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 115`] = `"ザ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 116`] = `"ジ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 117`] = `"ズ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 118`] = `"ゼ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 119`] = `"ゾ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 120`] = `"ジ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 121`] = `"シャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 122`] = `"シィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 123`] = `"シュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 124`] = `"シェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 125`] = `"ショ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 126`] = `"シャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 127`] = `"シュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 128`] = `"シェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 129`] = `"ショ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 130`] = `"シャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 131`] = `"シュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 132`] = `"シェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 133`] = `"ショ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 134`] = `"スァ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 135`] = `"スィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 136`] = `"スゥ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 137`] = `"スェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 138`] = `"スォ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 139`] = `"ジャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 140`] = `"ジィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 141`] = `"ジュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 142`] = `"ジェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 143`] = `"ジョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 144`] = `"ジャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 145`] = `"ジュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 146`] = `"ジェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 147`] = `"ジョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 148`] = `"ジャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 149`] = `"ジィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 150`] = `"ジュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 151`] = `"ジェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 152`] = `"ジョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 153`] = `"タ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 154`] = `"チ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 155`] = `"ツ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 156`] = `"テ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 157`] = `"ト"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 158`] = `"チ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 159`] = `"ツ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 160`] = `"ッ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 161`] = `"ッ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 162`] = `"ッ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 163`] = `"チャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 164`] = `"チィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 165`] = `"チュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 166`] = `"チェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 167`] = `"チョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 168`] = `"チャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 169`] = `"チュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 170`] = `"チェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 171`] = `"チョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 172`] = `"チャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 173`] = `"チィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 174`] = `"チュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 175`] = `"チェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 176`] = `"チョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 177`] = `"チャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 178`] = `"チュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 179`] = `"チェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 180`] = `"チョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 181`] = `"ツァ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 182`] = `"ツィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 183`] = `"ツェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 184`] = `"ツォ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 185`] = `"テャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 186`] = `"ティ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 187`] = `"テュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 188`] = `"テェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 189`] = `"テョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 190`] = `"トァ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 191`] = `"トィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 192`] = `"トゥ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 193`] = `"トェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 194`] = `"トォ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 195`] = `"ダ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 196`] = `"ヂ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 197`] = `"ヅ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 198`] = `"デ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 199`] = `"ド"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 200`] = `"ヂャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 201`] = `"ヂィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 202`] = `"ヂュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 203`] = `"ヂェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 204`] = `"ヂョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 205`] = `"デャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 206`] = `"ディ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 207`] = `"デュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 208`] = `"デェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 209`] = `"デョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 210`] = `"ドァ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 211`] = `"ドィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 212`] = `"ドゥ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 213`] = `"ドェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 214`] = `"ドォ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 215`] = `"ナ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 216`] = `"ニ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 217`] = `"ヌ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 218`] = `"ネ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 219`] = `"ノ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 220`] = `"ニャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 221`] = `"ニィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 222`] = `"ニュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 223`] = `"ニェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 224`] = `"ニョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 225`] = `"ハ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 226`] = `"ヒ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 227`] = `"フ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 228`] = `"ヘ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 229`] = `"ホ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 230`] = `"フ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 231`] = `"ヒャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 232`] = `"ヒィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 233`] = `"ヒュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 234`] = `"ヒェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 235`] = `"ヒョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 236`] = `"フャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 237`] = `"フュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 238`] = `"フョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 239`] = `"ファ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 240`] = `"フィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 241`] = `"フゥ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 242`] = `"フェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 243`] = `"フォ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 244`] = `"ファ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 245`] = `"フィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 246`] = `"フェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 247`] = `"フォ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 248`] = `"フィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 249`] = `"フェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 250`] = `"バ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 251`] = `"ビ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 252`] = `"ブ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 253`] = `"ベ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 254`] = `"ボ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 255`] = `"ビャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 256`] = `"ビィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 257`] = `"ビュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 258`] = `"ビェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 259`] = `"ビョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 260`] = `"パ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 261`] = `"ピ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 262`] = `"プ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 263`] = `"ペ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 264`] = `"ポ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 265`] = `"ピャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 266`] = `"ピィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 267`] = `"ピュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 268`] = `"ピェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 269`] = `"ピョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 270`] = `"マ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 271`] = `"ミ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 272`] = `"ム"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 273`] = `"メ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 274`] = `"モ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 275`] = `"ミャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 276`] = `"ミィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 277`] = `"ミュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 278`] = `"ミェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 279`] = `"ミョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 280`] = `"ヤ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 281`] = `"ユ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 282`] = `"ヨ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 283`] = `"ャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 284`] = `"ュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 285`] = `"ョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 286`] = `"ラ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 287`] = `"リ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 288`] = `"ル"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 289`] = `"レ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 290`] = `"ロ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 291`] = `"ラ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 292`] = `"リ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 293`] = `"ル"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 294`] = `"レ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 295`] = `"ロ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 296`] = `"リャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 297`] = `"リィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 298`] = `"リュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 299`] = `"リェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 300`] = `"リョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 301`] = `"リャ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 302`] = `"リィ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 303`] = `"リュ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 304`] = `"リェ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 305`] = `"リョ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 306`] = `"ワ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 307`] = `"ヲ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 308`] = `"ヮ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 309`] = `"ヮ"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 310`] = `"ン"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 311`] = `"ン"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 312`] = `"ン"`;
+
+exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 313`] = `"ン"`;

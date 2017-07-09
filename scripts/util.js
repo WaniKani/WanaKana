@@ -9,6 +9,7 @@ const SOURCE_DIR = path.resolve('./src');
 const OUT_DIR = path.resolve('./dist');
 const LIB_DIR = 'lib';
 const SITE_DIR = path.resolve('./gh-pages');
+const SITE_JS_DIR = path.resolve(SITE_DIR, 'assets', 'js');
 
 const consoleLog = console.log.bind(console); // eslint-disable-line no-console
 const log = compose(consoleLog, chalk.bold);
@@ -26,6 +27,7 @@ module.exports = {
   OUT_DIR,
   LIB_DIR,
   SITE_DIR,
+  SITE_JS_DIR,
   log,
   logSuccess,
   logError,

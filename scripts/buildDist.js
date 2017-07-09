@@ -1,6 +1,7 @@
 const path = require('path');
 const glob = require('glob');
 const { exec, exit } = require('shelljs');
+const buildSite = require('./buildSite');
 const {
   BIN,
   SOURCE_DIR,
@@ -38,9 +39,13 @@ function buildBundles() {
   );
 }
 
-if (execSuccess(buildFlatFiles()) && execSuccess(buildBundles())) {
-  logSuccess('Successfully built dist files');
+if (
+  execSuccess(buildFlatFiles()) &&
+  execSuccess(buildBundles()) &&
+  execSuccess(buildSite())
+) {
+  logSuccess('Successfully built dist & demo site files');
 } else {
-  logError('Building dist files failed.');
+  logError('Building files failed.');
   exit(1);
 }

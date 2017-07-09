@@ -12,6 +12,7 @@ const {
   LIB_DIR,
   OUT_DIR,
   SITE_DIR,
+  SITE_JS_DIR,
   log,
   logSuccess,
   logError,
@@ -135,9 +136,35 @@ try {
   logSuccess(`${PACKAGE_NAME}@${nextVersion} was successfully published.`);
 
   log('Updating VERSION file...');
-  fs.writeFileSync(versionLoc, `${nextVersion}\n`, 'utf8');
+  fs.writeFileSync(versionLoc, `${nextVersion}\n`);
+
+  log('Copying dynamic version for demo site');
+  fs.writeFileSync(path.resolve(SITE_JS_DIR, 'version.js'),
+    `document.querySelector('#wk-version').textContent = '${version}'`
+  );
+
   log('Updating repo package.json');
   writePackage(process.cwd(), updatedPackage);
+
+  log('Rebuilding demo site');
+  buildSite(nextVersion);
+
+  log('Rebuilding docs');
+  if (execFail(exec('npm run docs'))) {
+    logError('Building docs failed.');
+    exit(1);
+  }
+
+  log('Publishing github-pages demo & docs');
+  ghpages.publish(SITE_DIR, (err) => {
+    if (err) {
+      logError(err);
+      logError('Publish github pages failed.');
+      exit(1);
+    } else {
+      logSuccess('Published demo and docs to gh-pages branch');
+    }
+  });
 
   log('Committing changes...');
   const newTagName = `${nextVersion}`;
@@ -150,24 +177,6 @@ try {
   log('Pushing to GitHub...');
   exec('git push');
   exec('git push --tags');
-
-  log('Rebuilding demo site');
-  buildSite(nextVersion);
-
-  log('Rebuilding docs');
-  if (execFail(exec('npm run docs'))) {
-    logError('Building docs failed.');
-    exit(1);
-  }
-  ghpages.publish(SITE_DIR, (err) => {
-    if (err) {
-      logError(err);
-      logError('Publish github pages failed.');
-      exit(1);
-    } else {
-      logSuccess('Published demo and docs to gh-pages branch');
-    }
-  });
 
   logSuccess('Done.');
 } catch (error) {

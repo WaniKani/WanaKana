@@ -99,6 +99,7 @@
     "rollup-plugin-replace": "~1.1.1",
     "rollup-plugin-uglify": "~2.0.1"
   },
+  "dependencies": {},
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"

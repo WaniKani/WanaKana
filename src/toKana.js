@@ -102,7 +102,7 @@ function toKana(input = '', options = {}, ignoreCase = false) {
       }
 
       kanaChar = FROM_ROMAJI[chunkLC];
-      // console.log(`${cursor}x${chunkSize}:${chunk} => ${kanaChar}`); // DEBUG
+      // console.log(`${chunkLC}, ${cursor}x${chunkSize}:${chunk} => ${kanaChar}`); // DEBUG
       if (kanaChar != null) {
         break;
       }

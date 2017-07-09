@@ -1,5 +1,3 @@
-// TODO: onInput testing with chrome headless?
-
 import { JA_PUNC, EN_PUNC } from './testTables';
 
 import { HIRAGANA_END, HIRAGANA_START } from '../constants';
