@@ -155,7 +155,7 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Contributors
 - [Mims H. Wright](https://github.com/mimshwright) – Author
-- [Duncan Bay](https://github.com/DJTB) – Contributor
+- [Duncan Bay](https://github.com/DJTB) – Author
 - [James McNamee](https://github.com/dotfold) – Contributor
 
 ## Credits
