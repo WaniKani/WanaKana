@@ -39,7 +39,7 @@ yarn add wanakana
 <script src="node_modules/wanakana/lib/wanakana.min.js"></script>
 <script>
   const textInput = document.querySelector('#wanakana-input');
-  wanakana.bind(textInput); // IME Mode
+  wanakana.bind(textInput); // uses IMEMode toKana() as default
 </script>
 ```
 
@@ -64,12 +64,14 @@ import isKanji from 'wanakana/isKanji';
   // Convert katakana to uppercase when using toRomaji()
   upcaseKatakana: false,
   // Convert characters from a text input while being typed.
-  IMEMode: false,
+  IMEMode: false, // alternatives are: true, 'toHiragana', 'toKatakana'
 }
 
 /*** DOM HELPERS ***/
-// Automatically converts to kana using an eventListener on input
-// Uses { IMEMode:true } by default (first example on the demo page)
+// Automatically converts text using an eventListener on input
+// bind() uses { IMEMode: true } with toKana() by default
+// Can also explicitly set IMEMode to one of: 'toHiragana', 'toKatakana'
+// on order to enforce conversion type.
 wanakana.bind(domElement [, options]);
 
 // Removes event listener
@@ -77,7 +79,7 @@ wanakana.unbind(domElement);
 
 
 /*** TEXT CHECKING UTILITIES ***/
-wanakana.isJapanese('泣き虫。！〜') // Full-width/zenkaku punctuation allowed
+wanakana.isJapanese('泣き虫。！〜') // Full-width/Zenkaku punctuation allowed
 // => true
 
 wanakana.isKana('あーア')

@@ -354,8 +354,9 @@ describe('tokenize', () => {
 describe('Event listener helpers', () => {
   document.body.innerHTML = `
       <div>
-        <input type="text" id="ime" />
+        <input id="ime" type="text" />
         <textarea id="ime2"></textarea>
+        <input id="ime3" type="text" />
       </div>
     `;
   const inputField1 = document.querySelector('#ime');
@@ -388,12 +389,25 @@ describe('Event listener helpers', () => {
     expect(inputField1.value).toEqual('fugu');
   });
 
-  it('should handle passed options', () => {
+  it('should handle an options object', () => {
     bind(inputField1, { useObsoleteKana: true });
     inputField1.value = 'wiweWIWEwo';
     simulant.fire(inputField1, 'input');
     expect(inputField1.value).toEqual('ゐゑヰヱを');
     unbind(inputField1);
+  });
+
+  it('should allow conversion type selection', () => {
+    bind(inputField1, { IMEMode: 'toKatakana' });
+    bind(inputField2, { IMEMode: 'toHiragana' });
+    inputField1.value = 'amerika';
+    inputField2.value = 'KURO';
+    simulant.fire(inputField1, 'input');
+    simulant.fire(inputField2, 'input');
+    expect(inputField1.value).toEqual('アメリカ');
+    expect(inputField2.value).toEqual('くろ');
+    unbind(inputField1);
+    unbind(inputField2);
   });
 
   it('should instantiate separate onInput bindings', () => {
@@ -407,14 +421,6 @@ describe('Event listener helpers', () => {
     expect(inputField2.value).toEqual('ヰヱゐゑ');
     unbind(inputField1);
     unbind(inputField2);
-  });
-
-  it('should not be possible to force { IMEMode: false }', () => {
-    inputField1.value = 'wanakana';
-    bind(inputField1, { IMEMode: false });
-    simulant.fire(inputField1, 'input');
-    expect(inputField1.value).toEqual('わなかな');
-    unbind(inputField1);
   });
 
   it('should handle nonascii', () => {

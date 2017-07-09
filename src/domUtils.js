@@ -36,20 +36,31 @@ export function unbind(input) {
   }
 }
 
+// easy way to still use `toKana` to handle IME input - but with forced conversion type
+const setKanaType = (input, flag) => {
+  switch (true) {
+    case flag === 'toHiragana': return input.toLowerCase();
+    case flag === 'toKatakana': return input.toUpperCase();
+    default: return input;
+  }
+};
+
 /**
  * Automagically replaces input values with converted text to kana
  * @param  {Object} event DOM event to listen to
- * @param  {defaultOptions} [options] user config overrides, {IMEMode: true} cannot be changed
+ * @param  {defaultOptions} [options] user config overrides, default conversion is toKana()
  * @return {Function} event handler with bound options
  * @ignore
  */
 function onInput(options) {
-  const config = Object.assign({}, DEFAULT_OPTIONS, options, { IMEMode: true });
+  const config = Object.assign({}, DEFAULT_OPTIONS, options);
+
   return function listener(event) {
     const input = event.target;
     // const startingCursor = input.selectionStart;
     // const startingLength = input.value.length;
-    const normalizedInputString = convertFullwidthCharsToASCII(input.value);
+
+    const normalizedInputString = setKanaType(convertFullwidthCharsToASCII(input.value), config.IMEMode);
     const newText = toKana(normalizedInputString, config);
 
     if (normalizedInputString !== newText) {
