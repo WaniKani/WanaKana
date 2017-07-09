@@ -4,8 +4,9 @@ const { exec, exit, cp, test } = require('shelljs');
 const semver = require('semver');
 const readline = require('readline-sync');
 const pick = require('lodash/pick');
-const ghpages = require('gh-pages');
 const buildSite = require('./buildSite');
+const ghpages = require('gh-pages');
+
 const {
   BASE_PACKAGE,
   PACKAGE_NAME,
@@ -130,20 +131,20 @@ try {
 
   log('Copying dynamic version for demo site');
   fs.writeFileSync(path.resolve(SITE_JS_DIR, 'version.js'),
-    `document.querySelector('#wk-version').textContent = '${version}'`
+    `document.querySelector('#wk-version').textContent = '${nextVersion}'`
   );
 
   log('Updating repo package.json');
   writePackage(process.cwd(), updatedPackage);
-
-  log('Rebuilding demo site');
-  buildSite(nextVersion);
 
   log('Rebuilding docs');
   if (execFail(exec('npm run docs'))) {
     logError('Building docs failed.');
     exit(1);
   }
+
+  log('Rebuilding demo site');
+  buildSite(nextVersion);
 
   log('Publishing github-pages demo & docs');
   ghpages.publish(SITE_DIR, (err) => {
@@ -153,6 +154,7 @@ try {
       exit(1);
     } else {
       logSuccess('Published demo and docs to gh-pages branch');
+      exit(0);
     }
   });
 
