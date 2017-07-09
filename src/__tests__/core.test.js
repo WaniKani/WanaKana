@@ -14,7 +14,7 @@ import toHiragana from '../toHiragana';
 import toRomaji from '../toRomaji';
 import stripOkurigana from '../stripOkurigana';
 import tokenize from '../tokenize';
-import { bind, unbind } from '../dom-helpers';
+import { bind, unbind } from '../domUtils';
 
 describe('Methods should return valid defaults when given no input', () => {
   it('isKana() with no input', () => expect(isKana()).toBe(false));

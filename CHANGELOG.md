@@ -23,6 +23,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
+## [2.1.0] - 2017-07-09
+### Added
+- Set `autocapitalize="none"` on bound input fields
+- Handle multiple event listeners with separate options
+- Increased test coverage
+
+### Fixed
+- Hold onto merged options for dom utils via closure instead of global
+- Keep track of event listeners for removal on unbind
+
+### Changed
+- `bind`, `unbind` are now named exports in 'wanakana/domUtils'
+
 ## [2.0.4] - 2017-07-07
 ### Fixed
 - Wanakana website address in package.json
@@ -64,6 +77,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `isRomaji()` allows hepburn romanisation long vowels. (IE. Tōkyō)
 
 
+[2.1.0]: https://github.com/WaniKani/WanaKana/compare/2.0.4...2.1.0
 [2.0.4]: https://github.com/WaniKani/WanaKana/compare/2.0.3...2.0.4
 [2.0.3]: https://github.com/WaniKani/WanaKana/compare/2.0.2...2.0.3
 [2.0.2]: https://github.com/WaniKani/WanaKana/compare/2.0.1...2.0.2

@@ -40,9 +40,10 @@ export function unbind(input) {
  * Automagically replaces input values with converted text to kana
  * @param  {Object} event DOM event to listen to
  * @param  {defaultOptions} [options] user config overrides, {IMEMode: true} cannot be changed
+ * @return {Function} event handler with bound options
  * @ignore
  */
-export function onInput(options) {
+function onInput(options) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options, { IMEMode: true });
   return function listener(event) {
     const input = event.target;
