@@ -358,101 +358,103 @@ describe('Event listener helpers', () => {
         <textarea id="ime2"></textarea>
       </div>
     `;
-  const inputField = document.querySelector('#ime');
+  const inputField1 = document.querySelector('#ime');
   const inputField2 = document.querySelector('#ime2');
 
   it('should warn if invalid params passed', () => {
     const consoleRef = global.console;
     global.console = { warn: jest.fn() };
     bind('not an element');
-    unbind(inputField);
+    unbind(inputField1);
     expect(console.warn).toHaveBeenCalledTimes(2); // eslint-disable-line no-console
     global.console = consoleRef; // restore console
   });
 
   it('adds onInput event listener', () => {
-    bind(inputField);
-    inputField.value = 'wanakana';
-    simulant.fire(inputField, 'input');
-    expect(inputField.value).toEqual('わなかな');
+    bind(inputField1);
+    inputField1.value = 'wanakana';
+    simulant.fire(inputField1, 'input');
+    expect(inputField1.value).toEqual('わなかな');
   });
 
   it('forces autocapitalize "none"', () => {
-    expect(inputField.autocapitalize).toEqual('none');
+    expect(inputField1.autocapitalize).toEqual('none');
   });
 
   it('removes onInput event listener', () => {
-    unbind(inputField);
-    inputField.value = 'fugu';
-    simulant.fire(inputField, 'input');
-    expect(inputField.value).toEqual('fugu');
-  });
-
-  it('should handle multiple separate bindings', () => {
-    bind(inputField);
-    bind(inputField2);
-    inputField2.value = 'wanakana2';
-    simulant.fire(inputField2, 'input');
-    expect(inputField.value).toEqual('fugu');
-    expect(inputField2.value).toEqual('わなかな2');
-    unbind(inputField);
-    unbind(inputField2);
+    unbind(inputField1);
+    inputField1.value = 'fugu';
+    simulant.fire(inputField1, 'input');
+    expect(inputField1.value).toEqual('fugu');
   });
 
   it('should handle passed options', () => {
-    bind(inputField, { useObsoleteKana: true });
-    inputField.value = 'wiweWIWEwo';
-    simulant.fire(inputField, 'input');
-    expect(inputField.value).toEqual('ゐゑヰヱを');
-    unbind(inputField);
+    bind(inputField1, { useObsoleteKana: true });
+    inputField1.value = 'wiweWIWEwo';
+    simulant.fire(inputField1, 'input');
+    expect(inputField1.value).toEqual('ゐゑヰヱを');
+    unbind(inputField1);
+  });
+
+  it('should instantiate separate onInput bindings', () => {
+    bind(inputField1, {});
+    bind(inputField2, { useObsoleteKana: true });
+    inputField1.value = 'WIWEwiwe';
+    inputField2.value = 'WIWEwiwe';
+    simulant.fire(inputField1, 'input');
+    simulant.fire(inputField2, 'input');
+    expect(inputField1.value).toEqual('ウィウェうぃうぇ');
+    expect(inputField2.value).toEqual('ヰヱゐゑ');
+    unbind(inputField1);
+    unbind(inputField2);
   });
 
   it('should not be possible to force { IMEMode: false }', () => {
-    inputField.value = 'wanakana';
-    bind(inputField, { IMEMode: false });
-    simulant.fire(inputField, 'input');
-    expect(inputField.value).toEqual('わなかな');
-    unbind(inputField);
+    inputField1.value = 'wanakana';
+    bind(inputField1, { IMEMode: false });
+    simulant.fire(inputField1, 'input');
+    expect(inputField1.value).toEqual('わなかな');
+    unbind(inputField1);
   });
 
   it('should handle nonascii', () => {
-    bind(inputField);
-    inputField.value = 'ｈｉｒｏｉ';
-    simulant.fire(inputField, 'input');
-    expect(inputField.value).toEqual('ひろい');
+    bind(inputField1);
+    inputField1.value = 'ｈｉｒｏｉ';
+    simulant.fire(inputField1, 'input');
+    expect(inputField1.value).toEqual('ひろい');
     // passes setting value if conversion would be the same
-    inputField.value = 'かんじ';
-    simulant.fire(inputField, 'input');
-    expect(inputField.value).toEqual('かんじ');
-    unbind(inputField);
+    inputField1.value = 'かんじ';
+    simulant.fire(inputField1, 'input');
+    expect(inputField1.value).toEqual('かんじ');
+    unbind(inputField1);
   });
 
   it('should reset cursor to end of input values', () => {
-    bind(inputField);
-    inputField.value = 'sentaku';
+    bind(inputField1);
+    inputField1.value = 'sentaku';
     const expected = 'せんたく';
-    inputField.setSelectionRange(2, 2);
-    simulant.fire(inputField, 'input');
-    expect(inputField.value).toEqual(expected);
-    expect(inputField.selectionStart).toEqual(expected.length);
-    unbind(inputField);
+    inputField1.setSelectionRange(2, 2);
+    simulant.fire(inputField1, 'input');
+    expect(inputField1.value).toEqual(expected);
+    expect(inputField1.selectionStart).toEqual(expected.length);
+    unbind(inputField1);
   });
 
   it('should reset cursor to end of input values on IE < 9', () => {
-    const setSelRef = inputField.setSelectionRange;
+    const setSelRef = inputField1.setSelectionRange;
     const collapseSpy = jest.fn();
     const selectSpy = jest.fn();
-    inputField.setSelectionRange = null;
-    inputField.createTextRange = () => ({ collapse: collapseSpy, select: selectSpy });
-    bind(inputField);
-    inputField.value = 'sentaku';
-    simulant.fire(inputField, 'input');
-    expect(inputField.value).toEqual('せんたく');
+    inputField1.setSelectionRange = null;
+    inputField1.createTextRange = () => ({ collapse: collapseSpy, select: selectSpy });
+    bind(inputField1);
+    inputField1.value = 'sentaku';
+    simulant.fire(inputField1, 'input');
+    expect(inputField1.value).toEqual('せんたく');
     expect(collapseSpy).toBeCalled();
     expect(selectSpy).toBeCalled();
-    delete inputField.createTextRange;
-    inputField.setSelectionRange = setSelRef;
-    unbind(inputField);
+    delete inputField1.createTextRange;
+    inputField1.setSelectionRange = setSelRef;
+    unbind(inputField1);
   });
 });
 
