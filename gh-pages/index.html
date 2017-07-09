@@ -34,10 +34,10 @@
       <div class="pure-u-1">
         <section id="demo-ime">
           <form>
-            <textarea lang="ja" id="ime" autocapitalize="none" autocomplete="off" autocorrect="off" placeholder="Type in romaji to convert to kana"></textarea>
+            <textarea lang="ja" id="ime" autocapitalize="none" autocorrect="none" autocomplete="off" placeholder="Type in romaji to convert to kana"></textarea>
           </form>
           <div class="code-sample">
-            <pre><code data-language="html"><textarea id="ime" autocapitalize="none"></textarea></code></pre>
+            <pre><code data-language="html"><textarea id="ime" autocapitalize="none" autocorrect="none" autocomplete="off"></textarea></code></pre>
 
             <pre><code data-language="javascript">var input = document.getElementById('ime');
 wanakana.bind(input);</code></pre>
@@ -55,7 +55,7 @@ wanakana.bind(input);</code></pre>
 
           <section id="demo-kana-to-romaji">
             <form>
-              <textarea id="kana-to-romaji" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Kana string to romaji" lang="ja">にほんごのテスト</textarea>
+              <textarea id="kana-to-romaji"  autocapitalize="none" autocorrect="none" autocomplete="off" placeholder="Kana string to romaji" lang="ja">にほんごのテスト</textarea>
             </form>
             <div id="kana-to-romaji-output" class="output">
               nihongonotesuto
@@ -71,7 +71,7 @@ wanakana.bind(input);</code></pre>
 
           <section id="demo-romaji-to-kana">
             <form>
-              <textarea id="romaji-to-kana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Romaji string to kana" lang="ja">TOFUGUnosushi</textarea>
+              <textarea id="romaji-to-kana"  autocapitalize="none" autocorrect="none" autocomplete="off" placeholder="Romaji string to kana" lang="ja">TOFUGUnosushi</textarea>
             </form>
             <div id="romaji-to-kana-output" class="output" lang="ja">
               トフグのすし
@@ -90,7 +90,7 @@ wanakana.bind(input);</code></pre>
 
           <section id="demo-romaji-to-hiragana">
             <form>
-              <textarea id="romaji-to-hiragana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Kana string to romaji" lang="ja">アメリカ</textarea>
+              <textarea id="romaji-to-hiragana"  autocapitalize="none" autocorrect="none" autocomplete="off" placeholder="Kana string to romaji" lang="ja">アメリカ</textarea>
             </form>
             <div id="romaji-to-hiragana-output" class="output" lang="ja">
               あめりか
@@ -105,7 +105,7 @@ wanakana.bind(input);</code></pre>
 
           <section id="demo-romaji-to-katakana">
             <form>
-              <textarea id="romaji-to-katakana" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Romaji string to kana" lang="ja">わにかに</textarea>
+              <textarea id="romaji-to-katakana"  autocapitalize="none" autocorrect="none" autocomplete="off" placeholder="Romaji string to kana" lang="ja">わにかに</textarea>
             </form>
             <div id="romaji-to-katakana-output" class="output" lang="ja">
               ワニカニ
