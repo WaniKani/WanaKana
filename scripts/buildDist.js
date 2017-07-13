@@ -42,7 +42,7 @@ function buildBundles() {
 if (
   execSuccess(buildFlatFiles()) &&
   execSuccess(buildBundles()) &&
-  execSuccess(buildSite())
+  buildSite()
 ) {
   logSuccess('Successfully built dist & demo site files');
 } else {

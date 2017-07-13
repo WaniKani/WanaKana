@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>domUtils.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#bind">bind</a></li><li><a href="global.html#unbind">unbind</a></li><li><a href="global.html#isHiragana">isHiragana</a></li><li><a href="global.html#isJapanese">isJapanese</a></li><li><a href="global.html#isKana">isKana</a></li><li><a href="global.html#isKanji">isKanji</a></li><li><a href="global.html#isKatakana">isKatakana</a></li><li><a href="global.html#isMixed">isMixed</a></li><li><a href="global.html#isRomaji">isRomaji</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li><li><a href="global.html#toHiragana">toHiragana</a></li><li><a href="global.html#toKana">toKana</a></li><li><a href="global.html#toKatakana">toKatakana</a></li><li><a href="global.html#toRomaji">toRomaji</a></li><li><a href="global.html#tokenize">tokenize</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">domUtils.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { DEFAULT_OPTIONS } from './constants';
+import convertFullwidthCharsToASCII from './utils/convertFullwidthCharsToASCII';
+import toKana from './toKana';
+
+const ELEMENTS = ['TEXTAREA', 'INPUT'];
+let LISTENERS = [];
+
+/**
+ * Binds eventListener for 'input' events to an input field to automagically replace values with kana
+ * Sets`autocapitalize="none"` on the input field to prevent mobile devices forcing the first input character to katakana.
+ * @param  {HTMLElement} input textarea, input[type="text"] etc
+ * @param  {DefaultOptions} [options=defaultOptions] user config overrides
+ */
+export function bind(input, options = {}) {
+  const listener = onInput(options);
+  if (input instanceof Element &amp;&amp; ELEMENTS.includes(input.nodeName)) {
+    input.autocapitalize = 'none'; // eslint-disable-line no-param-reassign
+    input.addEventListener('input', listener);
+    LISTENERS = LISTENERS.concat({ id: input.getAttribute('id'), handler: listener });
+  } else {
+    console.warn('Input provided to wanakana.bind was not a valid input field.'); // eslint-disable-line no-console
+  }
+}
+
+/**
+ * Unbinds eventListener from input field
+ * @param  {HTMLElement} input textarea, input[type="text"] etc
+ */
+export function unbind(input) {
+  const found = LISTENERS.find(({ id }) => id === input.id);
+  if (found != null) {
+    input.removeEventListener('input', found.handler);
+    LISTENERS = LISTENERS.filter((entry) => entry.handler !== found.handler);
+  } else {
+    console.warn('Input had no listener registered.'); // eslint-disable-line no-console
+  }
+}
+
+/**
+ * Automagically replaces input values with converted text to kana
+ * @param  {Object} event DOM event to listen to
+ * @param  {defaultOptions} [options] user config overrides, default conversion is toKana()
+ * @return {Function} event handler with bound options
+ * @ignore
+ */
+function onInput(options) {
+  const config = Object.assign({}, DEFAULT_OPTIONS, options);
+
+  return function listener(event) {
+    const input = event.target;
+    // const startingCursor = input.selectionStart;
+    // const startingLength = input.value.length;
+
+    const normalizedInputString = convertFullwidthCharsToASCII(input.value);
+    const hiraOrKataString = setKanaType(normalizedInputString, config.IMEMode);
+    const ensureIMEModeConfig = Object.assign({}, config, { IMEMode: true });
+    const newText = toKana(hiraOrKataString, ensureIMEModeConfig);
+
+    if (normalizedInputString !== newText) {
+      input.value = newText;
+
+      // Modern browsers, set cursor to the end of the new text
+      if (input.setSelectionRange != null &amp;&amp; typeof input.selectionStart === 'number') {
+        input.setSelectionRange(input.value.length, input.value.length);
+        return;
+      }
+      // &lt; IE 9
+      if (input.createTextRange != null) {
+        input.focus();
+        const range = input.createTextRange();
+        range.collapse(false);
+        range.select();
+      }
+    }
+  };
+}
+
+// easy way to still use `toKana` to handle IME input - but with forced conversion type
+function setKanaType(input, flag) {
+  switch (true) {
+    case flag === 'toHiragana': return input.toLowerCase();
+    case flag === 'toKatakana': return input.toUpperCase();
+    default: return input;
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

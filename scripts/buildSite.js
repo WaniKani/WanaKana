@@ -25,7 +25,7 @@ function buildSite(version) {
     logError('Failed to copy browser bundle to demo dir.');
     exit(1);
   }
-  exit(0);
+  return true;
 }
 
 module.exports = buildSite;
