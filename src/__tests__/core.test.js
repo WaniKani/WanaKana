@@ -389,6 +389,14 @@ describe('Event listener helpers', () => {
     expect(inputField1.value).toEqual('fugu');
   });
 
+  it('forces IMEMode true if option not specified', () => {
+    bind(inputField1);
+    inputField1.value = 'n';
+    simulant.fire(inputField1, 'input');
+    expect(inputField1.value).toEqual('n');
+    unbind(inputField1);
+  });
+
   it('should handle an options object', () => {
     bind(inputField1, { useObsoleteKana: true });
     inputField1.value = 'wiweWIWEwo';

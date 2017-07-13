@@ -36,15 +36,6 @@ export function unbind(input) {
   }
 }
 
-// easy way to still use `toKana` to handle IME input - but with forced conversion type
-const setKanaType = (input, flag) => {
-  switch (true) {
-    case flag === 'toHiragana': return input.toLowerCase();
-    case flag === 'toKatakana': return input.toUpperCase();
-    default: return input;
-  }
-};
-
 /**
  * Automagically replaces input values with converted text to kana
  * @param  {Object} event DOM event to listen to
@@ -60,8 +51,10 @@ function onInput(options) {
     // const startingCursor = input.selectionStart;
     // const startingLength = input.value.length;
 
-    const normalizedInputString = setKanaType(convertFullwidthCharsToASCII(input.value), config.IMEMode);
-    const newText = toKana(normalizedInputString, config);
+    const normalizedInputString = convertFullwidthCharsToASCII(input.value);
+    const hiraOrKataString = setKanaType(normalizedInputString, config.IMEMode);
+    const ensureIMEModeConfig = Object.assign({}, config, { IMEMode: true });
+    const newText = toKana(hiraOrKataString, ensureIMEModeConfig);
 
     if (normalizedInputString !== newText) {
       input.value = newText;
@@ -80,4 +73,13 @@ function onInput(options) {
       }
     }
   };
+}
+
+// easy way to still use `toKana` to handle IME input - but with forced conversion type
+function setKanaType(input, flag) {
+  switch (true) {
+    case flag === 'toHiragana': return input.toLowerCase();
+    case flag === 'toKatakana': return input.toUpperCase();
+    default: return input;
+  }
 }
