@@ -12,7 +12,7 @@
   * @example
   * toRomaji('ひらがな カタカナ', { upcaseKatakana: true })
   * // => "hiragana KATAKANA"
-  * @property {Boolean} [IMEMode=false] - Set to true to handle conversion from a text input as it is being typed
+  * @property {Boolean} [IMEMode=false] - Set to true, 'toHiragana', or 'toKatakana' to handle conversion from a text input while it is being typed
 */
 
 /**
