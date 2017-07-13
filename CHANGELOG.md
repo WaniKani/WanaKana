@@ -23,6 +23,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
+## [2.2.0] - 2017-07-13
+### Added
+- Options object setting `IMEMode` can now accept `'toHiragana'` or `'toKatakana'` to enforce specific conversion on input
+
 ## [2.1.0] - 2017-07-09
 ### Added
 - Set `autocapitalize="none"` on bound input fields
@@ -77,6 +81,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `isRomaji()` allows hepburn romanisation long vowels. (IE. Tōkyō)
 
 
+[2.2.0]: https://github.com/WaniKani/WanaKana/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/WaniKani/WanaKana/compare/2.0.4...2.1.0
 [2.0.4]: https://github.com/WaniKani/WanaKana/compare/2.0.3...2.0.4
 [2.0.3]: https://github.com/WaniKani/WanaKana/compare/2.0.2...2.0.3

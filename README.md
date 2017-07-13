@@ -64,14 +64,13 @@ import isKanji from 'wanakana/isKanji';
   // Convert katakana to uppercase when using toRomaji()
   upcaseKatakana: false,
   // Convert characters from a text input while being typed.
-  IMEMode: false, // alternatives are: true, 'toHiragana', 'toKatakana'
+  IMEMode: false, // alternatives are: true, 'toHiragana', or 'toKatakana'
 }
 
 /*** DOM HELPERS ***/
 // Automatically converts text using an eventListener on input
-// bind() uses { IMEMode: true } with toKana() by default
-// Can also explicitly set IMEMode to one of: 'toHiragana', 'toKatakana'
-// on order to enforce conversion type.
+// bind() uses option: { IMEMode: true } with `toKana()` by default
+// Alternatives are: 'toHiragana' or 'toKatakana' to enforce kana type
 wanakana.bind(domElement [, options]);
 
 // Removes event listener
