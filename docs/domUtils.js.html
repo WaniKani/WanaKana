@@ -46,9 +46,9 @@ let LISTENERS = [];
 
 /**
  * Binds eventListener for 'input' events to an input field to automagically replace values with kana
- * Sets`autocapitalize="none"` on the input field to prevent mobile devices forcing the first input character to katakana.
+ * Can pass { IMEMode: 'toHiragana' } or `'toKatakana'` as second param to enforce kana conversion type
  * @param  {HTMLElement} input textarea, input[type="text"] etc
- * @param  {DefaultOptions} [options=defaultOptions] user config overrides
+ * @param  {DefaultOptions} [options=defaultOptions] defaults to { IMEMode: true } using `toKana`
  */
 export function bind(input, options = {}) {
   const listener = onInput(options);
