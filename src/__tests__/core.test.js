@@ -357,10 +357,12 @@ describe('Event listener helpers', () => {
         <input id="ime" type="text" />
         <textarea id="ime2"></textarea>
         <input id="ime3" type="text" />
+        <input class="has-no-id" type="text" />
       </div>
     `;
   const inputField1 = document.querySelector('#ime');
   const inputField2 = document.querySelector('#ime2');
+  const inputField3 = document.querySelector('.has-no-id');
 
   // both JSDOM and simulant are lacking proper CompositionEvent functionality
   // have to fake it instead
@@ -383,6 +385,7 @@ describe('Event listener helpers', () => {
     inputField1.value = 'wanakana';
     simulant.fire(inputField1, 'input');
     expect(inputField1.value).toEqual('わなかな');
+    expect(inputField1.getAttribute('data-wanakana-id')).toBeDefined();
   });
 
   it('forces autocapitalize "none"', () => {
@@ -394,9 +397,10 @@ describe('Event listener helpers', () => {
     inputField1.value = 'fugu';
     simulant.fire(inputField1, 'input');
     expect(inputField1.value).toEqual('fugu');
+    expect(inputField1.getAttribute('data-wanakana-id')).toBeNull();
   });
 
-  it('adds a compositionListener and ignores input events while composing', () => {
+  it('ignores input events while composing', () => {
     bind(inputField1);
     inputField1.value = 'aka';
     simulant.fire(inputField1, 'input');
@@ -461,6 +465,19 @@ describe('Event listener helpers', () => {
     expect(inputField2.value).toEqual('ヰヱゐゑ');
     unbind(inputField1);
     unbind(inputField2);
+  });
+
+  it('should keep track of separate onInput bindings if element has no id', () => {
+    bind(inputField2);
+    bind(inputField3);
+    inputField2.value = 'wana';
+    inputField3.value = 'kana';
+    simulant.fire(inputField2, 'input');
+    simulant.fire(inputField3, 'input');
+    expect(inputField2.value).toEqual('わな');
+    expect(inputField3.value).toEqual('かな');
+    unbind(inputField2);
+    unbind(inputField3);
   });
 
   it('should handle nonascii', () => {

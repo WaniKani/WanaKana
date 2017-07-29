@@ -23,9 +23,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
-## [2.2.1] - 2017-07-29
+## [2.2.2] - 2017-07-30
 ### Fixed
-- Microsoft IME input with 'tt' / っ issue #48
+- Keep track of event listeners by generated ids
+
+## [2.2.1] - 2017-07-30
+### Fixed
+- [Microsoft IME input with 'tt' / っ](https://github.com/WaniKani/WanaKana/issues/48)
 
 ## [2.2.0] - 2017-07-13
 ### Added
@@ -85,6 +89,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `isRomaji()` allows hepburn romanisation long vowels. (IE. Tōkyō)
 
 
+[2.2.2]: https://github.com/WaniKani/WanaKana/compare/2.2.1...2.2.2
 [2.2.1]: https://github.com/WaniKani/WanaKana/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/WaniKani/WanaKana/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/WaniKani/WanaKana/compare/2.0.4...2.1.0
