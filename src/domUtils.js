@@ -4,6 +4,10 @@ import toKana from './toKana';
 
 const ELEMENTS = ['TEXTAREA', 'INPUT'];
 let LISTENERS = [];
+let hasCompositionListener = false;
+let isComposing = false;
+const ignoreComposition = () => { isComposing = true; };
+const unignoreComposition = () => { isComposing = false; };
 
 /**
  * Binds eventListener for 'input' events to an input field to automagically replace values with kana
@@ -17,6 +21,11 @@ export function bind(input, options = {}) {
     input.autocapitalize = 'none'; // eslint-disable-line no-param-reassign
     input.addEventListener('input', listener);
     LISTENERS = LISTENERS.concat({ id: input.getAttribute('id'), handler: listener });
+    if (!hasCompositionListener) {
+      hasCompositionListener = true;
+      document.addEventListener('compositionstart', ignoreComposition);
+      document.addEventListener('compositionend', unignoreComposition);
+    }
   } else {
     console.warn('Input provided to wanakana.bind was not a valid input field.'); // eslint-disable-line no-console
   }
@@ -31,6 +40,11 @@ export function unbind(input) {
   if (found != null) {
     input.removeEventListener('input', found.handler);
     LISTENERS = LISTENERS.filter((entry) => entry.handler !== found.handler);
+    if (!LISTENERS.length && hasCompositionListener) {
+      hasCompositionListener = false;
+      document.removeEventListener('compositionstart', ignoreComposition);
+      document.removeEventListener('compositionend', unignoreComposition);
+    }
   } else {
     console.warn('Input had no listener registered.'); // eslint-disable-line no-console
   }
@@ -47,9 +61,8 @@ function onInput(options) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
 
   return function listener(event) {
+    if (isComposing) return;
     const input = event.target;
-    // const startingCursor = input.selectionStart;
-    // const startingLength = input.value.length;
 
     const normalizedInputString = convertFullwidthCharsToASCII(input.value);
     const hiraOrKataString = setKanaType(normalizedInputString, config.IMEMode);
