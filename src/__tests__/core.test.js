@@ -402,23 +402,21 @@ describe('Event listener helpers', () => {
     simulant.fire(inputField1, 'input');
     expect(inputField1.value).toEqual('あか');
     inputField1.value = 'ao';
-    document.body.dispatchEvent(startCompose);
+    inputField1.dispatchEvent(startCompose);
     simulant.fire(inputField1, 'input');
     expect(inputField1.value).toEqual('ao');
-    document.body.dispatchEvent(endCompose);
-    simulant.fire(inputField1, 'input');
+    inputField1.dispatchEvent(endCompose);
     expect(inputField1.value).toEqual('あお');
     unbind(inputField1);
   });
 
   it('still converts romaji entered by an IME after composition', () => {
     bind(inputField1);
+    inputField1.dispatchEvent(startCompose);
     inputField1.value = 'kuro';
-    document.body.dispatchEvent(startCompose);
     simulant.fire(inputField1, 'input');
     expect(inputField1.value).toEqual('kuro');
-    document.body.dispatchEvent(endCompose);
-    simulant.fire(inputField1, 'input');
+    inputField1.dispatchEvent(endCompose);
     expect(inputField1.value).toEqual('くろ');
     unbind(inputField1);
   });
