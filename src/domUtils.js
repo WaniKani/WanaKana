@@ -5,17 +5,6 @@ import toKana from './toKana';
 const ELEMENTS = ['TEXTAREA', 'INPUT'];
 let LISTENERS = [];
 
-const findListener = (input) => LISTENERS.find(({ id }) => id === input.id);
-const ignoreComposition = (event) => {
-  findListener(event.target).isComposing = true;
-};
-const unignoreComposition = (event) => {
-  const inputListener = findListener(event.target);
-  inputListener.isComposing = false;
-  // force a conversion in case final IME composition input was romaji
-  inputListener.handler(event);
-};
-
 /**
  * Binds eventListener for 'input' events to an input field to automagically replace values with kana
  * Can pass { IMEMode: 'toHiragana' } or `'toKatakana'` as second param to enforce kana conversion type
@@ -25,12 +14,14 @@ const unignoreComposition = (event) => {
 export function bind(input, options = {}) {
   const listener = onInput(options);
   if (input instanceof Element && ELEMENTS.includes(input.nodeName)) {
+    const id = newId();
+    input.setAttribute('data-wanakana-id', id);
     input.autocapitalize = 'none'; // eslint-disable-line no-param-reassign
     input.addEventListener('input', listener);
     input.addEventListener('compositionstart', ignoreComposition);
     input.addEventListener('compositionend', unignoreComposition);
     LISTENERS = LISTENERS.concat({
-      id: input.getAttribute('id'),
+      id,
       handler: listener,
       isComposing: false,
     });
@@ -46,6 +37,7 @@ export function bind(input, options = {}) {
 export function unbind(input) {
   const found = findListener(input);
   if (found != null) {
+    input.removeAttribute('data-wanakana-id');
     input.removeEventListener('input', found.handler);
     input.removeEventListener('compositionstart', ignoreComposition);
     input.removeEventListener('compositionend', unignoreComposition);
@@ -91,6 +83,28 @@ function onInput(options) {
       }
     }
   };
+}
+
+function findListener(input) {
+  return input && LISTENERS.find(({ id }) => id === input.getAttribute('data-wanakana-id'));
+}
+
+function ignoreComposition(event) {
+  findListener(event.target).isComposing = true;
+}
+
+function unignoreComposition(event) {
+  const inputListener = findListener(event.target);
+  inputListener.isComposing = false;
+  // force a conversion in case final IME composition input was romaji
+  inputListener.handler(event);
+}
+
+let idCounter = 0;
+
+function newId() {
+  idCounter += 1;
+  return `${Date.now()}${idCounter}`;
 }
 
 // easy way to still use `toKana` to handle IME input - but with forced conversion type
