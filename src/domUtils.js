@@ -4,6 +4,12 @@ import toKana from './toKana';
 
 const ELEMENTS = ['TEXTAREA', 'INPUT'];
 let LISTENERS = [];
+let idCounter = 0;
+
+const newId = () => {
+  idCounter += 1;
+  return `${Date.now()}${idCounter}`;
+};
 
 /**
  * Binds eventListener for 'input' events to an input field to automagically replace values with kana
@@ -20,11 +26,7 @@ export function bind(input, options = {}) {
     input.addEventListener('input', listener);
     input.addEventListener('compositionstart', ignoreComposition);
     input.addEventListener('compositionend', unignoreComposition);
-    LISTENERS = LISTENERS.concat({
-      id,
-      handler: listener,
-      isComposing: false,
-    });
+    LISTENERS = trackListener(listener, id);
   } else {
     console.warn('Input provided to wanakana.bind was not a valid input field.'); // eslint-disable-line no-console
   }
@@ -35,13 +37,13 @@ export function bind(input, options = {}) {
  * @param  {HTMLElement} input textarea, input[type="text"] etc
  */
 export function unbind(input) {
-  const found = findListener(input);
-  if (found != null) {
+  const trackedListener = findListener(input);
+  if (trackedListener != null) {
     input.removeAttribute('data-wanakana-id');
-    input.removeEventListener('input', found.handler);
+    input.removeEventListener('input', trackedListener.handler);
     input.removeEventListener('compositionstart', ignoreComposition);
     input.removeEventListener('compositionend', unignoreComposition);
-    LISTENERS = LISTENERS.filter(({ id }) => id !== found.id);
+    LISTENERS = untrackListener(trackedListener);
   } else {
     console.warn('Input had no listener registered.'); // eslint-disable-line no-console
   }
@@ -85,8 +87,20 @@ function onInput(options) {
   };
 }
 
+function trackListener(listener, id) {
+  return LISTENERS.concat({
+    id,
+    handler: listener,
+    isComposing: false,
+  });
+}
+
 function findListener(input) {
   return input && LISTENERS.find(({ id }) => id === input.getAttribute('data-wanakana-id'));
+}
+
+function untrackListener({ id: targetId }) {
+  return LISTENERS.filter(({ id }) => id !== targetId);
 }
 
 function ignoreComposition(event) {
@@ -98,13 +112,6 @@ function unignoreComposition(event) {
   inputListener.isComposing = false;
   // force a conversion in case final IME composition input was romaji
   inputListener.handler(event);
-}
-
-let idCounter = 0;
-
-function newId() {
-  idCounter += 1;
-  return `${Date.now()}${idCounter}`;
 }
 
 // easy way to still use `toKana` to handle IME input - but with forced conversion type
