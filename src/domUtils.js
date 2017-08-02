@@ -4,16 +4,11 @@ import toKana from './toKana';
 
 const ELEMENTS = ['TEXTAREA', 'INPUT'];
 let LISTENERS = [];
+let idCounter = 0;
 
-const findListener = (input) => LISTENERS.find(({ id }) => id === input.id);
-const ignoreComposition = (event) => {
-  findListener(event.target).isComposing = true;
-};
-const unignoreComposition = (event) => {
-  const inputListener = findListener(event.target);
-  inputListener.isComposing = false;
-  // force a conversion in case final IME composition input was romaji
-  inputListener.handler(event);
+const newId = () => {
+  idCounter += 1;
+  return `${Date.now()}${idCounter}`;
 };
 
 /**
@@ -25,15 +20,13 @@ const unignoreComposition = (event) => {
 export function bind(input, options = {}) {
   const listener = onInput(options);
   if (input instanceof Element && ELEMENTS.includes(input.nodeName)) {
+    const id = newId();
+    input.setAttribute('data-wanakana-id', id);
     input.autocapitalize = 'none'; // eslint-disable-line no-param-reassign
     input.addEventListener('input', listener);
     input.addEventListener('compositionstart', ignoreComposition);
     input.addEventListener('compositionend', unignoreComposition);
-    LISTENERS = LISTENERS.concat({
-      id: input.getAttribute('id'),
-      handler: listener,
-      isComposing: false,
-    });
+    LISTENERS = trackListener(listener, id);
   } else {
     console.warn('Input provided to wanakana.bind was not a valid input field.'); // eslint-disable-line no-console
   }
@@ -44,12 +37,13 @@ export function bind(input, options = {}) {
  * @param  {HTMLElement} input textarea, input[type="text"] etc
  */
 export function unbind(input) {
-  const found = findListener(input);
-  if (found != null) {
-    input.removeEventListener('input', found.handler);
+  const trackedListener = findListener(input);
+  if (trackedListener != null) {
+    input.removeAttribute('data-wanakana-id');
+    input.removeEventListener('input', trackedListener.handler);
     input.removeEventListener('compositionstart', ignoreComposition);
     input.removeEventListener('compositionend', unignoreComposition);
-    LISTENERS = LISTENERS.filter(({ id }) => id !== found.id);
+    LISTENERS = untrackListener(trackedListener);
   } else {
     console.warn('Input had no listener registered.'); // eslint-disable-line no-console
   }
@@ -91,6 +85,33 @@ function onInput(options) {
       }
     }
   };
+}
+
+function trackListener(listener, id) {
+  return LISTENERS.concat({
+    id,
+    handler: listener,
+    isComposing: false,
+  });
+}
+
+function findListener(input) {
+  return input && LISTENERS.find(({ id }) => id === input.getAttribute('data-wanakana-id'));
+}
+
+function untrackListener({ id: targetId }) {
+  return LISTENERS.filter(({ id }) => id !== targetId);
+}
+
+function ignoreComposition(event) {
+  findListener(event.target).isComposing = true;
+}
+
+function unignoreComposition(event) {
+  const inputListener = findListener(event.target);
+  inputListener.isComposing = false;
+  // force a conversion in case final IME composition input was romaji
+  inputListener.handler(event);
 }
 
 // easy way to still use `toKana` to handle IME input - but with forced conversion type
