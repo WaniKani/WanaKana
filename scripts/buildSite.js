@@ -20,6 +20,7 @@ function buildSite(version) {
   }
 
   if (execSuccess(cp('-Rf', BROWSER_BUNDLE, SITE_JS_DIR))) {
+    exec(`git add gh-pages`);
     logSuccess('Copied browser bundle to demo dir');
   } else {
     logError('Failed to copy browser bundle to demo dir.');
