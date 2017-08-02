@@ -1,6 +1,5 @@
 ## Repo specific
 dist
-gh-pages/docs # auto copied to gh-pages branch during release
 
 ## GENERAL
 # Logs

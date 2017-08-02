@@ -127,7 +127,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="domUtils.js.html">domUtils.js</a>, <a href="domUtils.js.html#line14">line 14</a>
+        <a href="domUtils.js.html">domUtils.js</a>, <a href="domUtils.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -167,7 +167,7 @@
 
 
 <div class="description">
-    <p>Binds eventListener for 'input' events to an input field to automagically replace values with kana<br>Sets<code>autocapitalize=&quot;none&quot;</code> on the input field to prevent mobile devices forcing the first input character to katakana.</p>
+    <p>Binds eventListener for 'input' events to an input field to automagically replace values with kana<br>Can pass { IMEMode: 'toHiragana' } or <code>'toKatakana'</code> as second param to enforce kana conversion type</p>
 </div>
 
 
@@ -276,7 +276,7 @@
                 </td>
             
 
-            <td class="description last"><p>user config overrides</p></td>
+            <td class="description last"><p>defaults to { IMEMode: true } using <code>toKana</code></p></td>
         </tr>
 
     
@@ -315,7 +315,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="domUtils.js.html">domUtils.js</a>, <a href="domUtils.js.html#line29">line 29</a>
+        <a href="domUtils.js.html">domUtils.js</a>, <a href="domUtils.js.html#line39">line 39</a>
     </li></ul></dd>
     
 
@@ -3303,7 +3303,7 @@ tokenize('what the...私は「悲しい」。')
                 </td>
             
 
-            <td class="description last"><p>Set to true to handle conversion from a text input as it is being typed</p></td>
+            <td class="description last"><p>Set to true, 'toHiragana', or 'toKatakana' to handle conversion from a text input while it is being typed</p></td>
         </tr>
 
     
