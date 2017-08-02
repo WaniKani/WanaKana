@@ -5,6 +5,17 @@ import toKana from './toKana';
 const ELEMENTS = ['TEXTAREA', 'INPUT'];
 let LISTENERS = [];
 
+const findListener = (input) => LISTENERS.find(({ id }) => id === input.id);
+const ignoreComposition = (event) => {
+  findListener(event.target).isComposing = true;
+};
+const unignoreComposition = (event) => {
+  const inputListener = findListener(event.target);
+  inputListener.isComposing = false;
+  // force a conversion in case final IME composition input was romaji
+  inputListener.handler(event);
+};
+
 /**
  * Binds eventListener for 'input' events to an input field to automagically replace values with kana
  * Can pass { IMEMode: 'toHiragana' } or `'toKatakana'` as second param to enforce kana conversion type
@@ -16,7 +27,13 @@ export function bind(input, options = {}) {
   if (input instanceof Element && ELEMENTS.includes(input.nodeName)) {
     input.autocapitalize = 'none'; // eslint-disable-line no-param-reassign
     input.addEventListener('input', listener);
-    LISTENERS = LISTENERS.concat({ id: input.getAttribute('id'), handler: listener });
+    input.addEventListener('compositionstart', ignoreComposition);
+    input.addEventListener('compositionend', unignoreComposition);
+    LISTENERS = LISTENERS.concat({
+      id: input.getAttribute('id'),
+      handler: listener,
+      isComposing: false,
+    });
   } else {
     console.warn('Input provided to wanakana.bind was not a valid input field.'); // eslint-disable-line no-console
   }
@@ -27,10 +44,12 @@ export function bind(input, options = {}) {
  * @param  {HTMLElement} input textarea, input[type="text"] etc
  */
 export function unbind(input) {
-  const found = LISTENERS.find(({ id }) => id === input.id);
+  const found = findListener(input);
   if (found != null) {
     input.removeEventListener('input', found.handler);
-    LISTENERS = LISTENERS.filter((entry) => entry.handler !== found.handler);
+    input.removeEventListener('compositionstart', ignoreComposition);
+    input.removeEventListener('compositionend', unignoreComposition);
+    LISTENERS = LISTENERS.filter(({ id }) => id !== found.id);
   } else {
     console.warn('Input had no listener registered.'); // eslint-disable-line no-console
   }
@@ -48,8 +67,7 @@ function onInput(options) {
 
   return function listener(event) {
     const input = event.target;
-    // const startingCursor = input.selectionStart;
-    // const startingLength = input.value.length;
+    if (findListener(input).isComposing) return;
 
     const normalizedInputString = convertFullwidthCharsToASCII(input.value);
     const hiraOrKataString = setKanaType(normalizedInputString, config.IMEMode);

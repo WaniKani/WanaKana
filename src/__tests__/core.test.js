@@ -362,6 +362,13 @@ describe('Event listener helpers', () => {
   const inputField1 = document.querySelector('#ime');
   const inputField2 = document.querySelector('#ime2');
 
+  // both JSDOM and simulant are lacking proper CompositionEvent functionality
+  // have to fake it instead
+  const startCompose = document.createEvent('CustomEvent');
+  startCompose.initEvent('compositionstart', true, true);
+  const endCompose = document.createEvent('CustomEvent');
+  endCompose.initEvent('compositionend', true, true);
+
   it('should warn if invalid params passed', () => {
     const consoleRef = global.console;
     global.console = { warn: jest.fn() };
@@ -387,6 +394,31 @@ describe('Event listener helpers', () => {
     inputField1.value = 'fugu';
     simulant.fire(inputField1, 'input');
     expect(inputField1.value).toEqual('fugu');
+  });
+
+  it('adds a compositionListener and ignores input events while composing', () => {
+    bind(inputField1);
+    inputField1.value = 'aka';
+    simulant.fire(inputField1, 'input');
+    expect(inputField1.value).toEqual('あか');
+    inputField1.value = 'ao';
+    inputField1.dispatchEvent(startCompose);
+    simulant.fire(inputField1, 'input');
+    expect(inputField1.value).toEqual('ao');
+    inputField1.dispatchEvent(endCompose);
+    expect(inputField1.value).toEqual('あお');
+    unbind(inputField1);
+  });
+
+  it('still converts romaji entered by an IME after composition', () => {
+    bind(inputField1);
+    inputField1.dispatchEvent(startCompose);
+    inputField1.value = 'kuro';
+    simulant.fire(inputField1, 'input');
+    expect(inputField1.value).toEqual('kuro');
+    inputField1.dispatchEvent(endCompose);
+    expect(inputField1.value).toEqual('くろ');
+    unbind(inputField1);
   });
 
   it('forces IMEMode true if option not specified', () => {
