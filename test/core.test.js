@@ -1,20 +1,21 @@
 import simulant from 'jsdom-simulant';
 
-import { TEST_TABLE, JA_PUNC, EN_PUNC } from './testTables';
-import isKana from '../isKana';
-import isKanji from '../isKanji';
-import isJapanese from '../isJapanese';
-import isKatakana from '../isKatakana';
-import isHiragana from '../isHiragana';
-import isRomaji from '../isRomaji';
-import isMixed from '../isMixed';
-import toKana from '../toKana';
-import toKatakana from '../toKatakana';
-import toHiragana from '../toHiragana';
-import toRomaji from '../toRomaji';
-import stripOkurigana from '../stripOkurigana';
-import tokenize from '../tokenize';
-import { bind, unbind } from '../domUtils';
+import { TEST_TABLE, JA_PUNC, EN_PUNC } from './helpers/testTables';
+
+import isKana from '../src/isKana';
+import isKanji from '../src/isKanji';
+import isJapanese from '../src/isJapanese';
+import isKatakana from '../src/isKatakana';
+import isHiragana from '../src/isHiragana';
+import isRomaji from '../src/isRomaji';
+import isMixed from '../src/isMixed';
+import toKana from '../src/toKana';
+import toKatakana from '../src/toKatakana';
+import toHiragana from '../src/toHiragana';
+import toRomaji from '../src/toRomaji';
+import stripOkurigana from '../src/stripOkurigana';
+import tokenize from '../src/tokenize';
+import { bind, unbind } from '../src/domUtils';
 
 describe('Methods should return valid defaults when given no input', () => {
   it('isKana() with no input', () => expect(isKana()).toBe(false));
@@ -318,6 +319,11 @@ describe('Kana to Romaji', () => {
     it('Small ka', () => expect(toRomaji('ヵ')).toBe('ka'));
     it('Small wa', () => expect(toRomaji('ゎ')).toBe('wa'));
   });
+
+  describe('Apostrophes in vague consonant vowel combos', () => {
+    it('おんよみ', () => expect(toRomaji('おんよみ')).toBe("on'yomi"));
+    it('んよ んあ んゆ', () => expect(toRomaji('んよ んあ んゆ')).toBe("n'yo n'a n'yu"));
+  });
 });
 
 describe('stripOkurigana', () => {
@@ -364,13 +370,6 @@ describe('Event listener helpers', () => {
   const inputField2 = document.querySelector('#ime2');
   const inputField3 = document.querySelector('.has-no-id');
 
-  // both JSDOM and simulant are lacking proper CompositionEvent functionality
-  // have to fake it instead
-  const startCompose = document.createEvent('CustomEvent');
-  startCompose.initEvent('compositionstart', true, true);
-  const endCompose = document.createEvent('CustomEvent');
-  endCompose.initEvent('compositionend', true, true);
-
   it('should warn if invalid params passed', () => {
     const consoleRef = global.console;
     global.console = { warn: jest.fn() };
@@ -400,36 +399,11 @@ describe('Event listener helpers', () => {
     expect(inputField1.getAttribute('data-wanakana-id')).toBeNull();
   });
 
-  it('ignores input events while composing', () => {
-    bind(inputField1);
-    inputField1.value = 'aka';
-    simulant.fire(inputField1, 'input');
-    expect(inputField1.value).toEqual('あか');
-    inputField1.value = 'ao';
-    inputField1.dispatchEvent(startCompose);
-    simulant.fire(inputField1, 'input');
-    expect(inputField1.value).toEqual('ao');
-    inputField1.dispatchEvent(endCompose);
-    expect(inputField1.value).toEqual('あお');
-    unbind(inputField1);
-  });
-
-  it('still converts romaji entered by an IME after composition', () => {
-    bind(inputField1);
-    inputField1.dispatchEvent(startCompose);
-    inputField1.value = 'kuro';
-    simulant.fire(inputField1, 'input');
-    expect(inputField1.value).toEqual('kuro');
-    inputField1.dispatchEvent(endCompose);
-    expect(inputField1.value).toEqual('くろ');
-    unbind(inputField1);
-  });
-
   it('forces IMEMode true if option not specified', () => {
     bind(inputField1);
-    inputField1.value = 'n';
+    inputField1.value = "n'";
     simulant.fire(inputField1, 'input');
-    expect(inputField1.value).toEqual('n');
+    expect(inputField1.value).toEqual('ん');
     unbind(inputField1);
   });
 
@@ -480,12 +454,25 @@ describe('Event listener helpers', () => {
     unbind(inputField3);
   });
 
+  it('ignores double consonants following composeupdate', () => {
+    bind(inputField1);
+    inputField1.value = 'かｔ';
+    simulant.fire(inputField1, 'input');
+    expect(inputField1.value).toEqual('かｔ');
+    inputField1.value = 'かｔｔ';
+    // have to fake it... no compositionupdate in jsdom
+    inputField1.dispatchEvent(new CustomEvent('compositionupdate', { bubbles: true, cancellable: true, detail: { data: 'かｔｔ' } }));
+    simulant.fire(inputField1, 'input');
+    expect(inputField1.value).toEqual('かｔｔ');
+    unbind(inputField1);
+  });
+
   it('should handle nonascii', () => {
     bind(inputField1);
     inputField1.value = 'ｈｉｒｏｉ';
     simulant.fire(inputField1, 'input');
     expect(inputField1.value).toEqual('ひろい');
-    // passes setting value if conversion would be the same
+    // skips setting value if conversion would be the same
     inputField1.value = 'かんじ';
     simulant.fire(inputField1, 'input');
     expect(inputField1.value).toEqual('かんじ');
@@ -519,6 +506,54 @@ describe('Event listener helpers', () => {
     inputField1.setSelectionRange = setSelRef;
     unbind(inputField1);
   });
+});
+
+
+describe('IMEMode', () => {
+    /**
+     * Simulate real typing by calling the function on every character in sequence
+     * @param  {String} input
+     * @param  {Object} options
+     * @return {String} converted romaji as kana
+     */
+  function testTyping(input, options) {
+    let pos = 1;
+    let text = input;
+    const len = text.length;
+      // console.log(`--${text}--`);
+    while (pos <= len) {
+      let buffer = text.slice(0, pos);
+      const rest = text.slice(pos);
+      buffer = toKana(buffer, options);
+        // console.log(`${pos}:${buffer} <-${rest}`);
+      text = buffer + rest;
+      pos += 1;
+    }
+    return text;
+  }
+
+  it("Without IME mode, solo n's are transliterated.", () => expect(toKana('n')).toBe('ん'));
+  it("Without IME mode, double n's are transliterated.", () => expect(toKana('nn')).toBe('ん'));
+
+  it("With IME mode, solo n's are not transliterated.", () => expect(testTyping('n', { IMEMode: true })).toBe('n'));
+  it("With IME mode, double n's are transliterated.", () => expect(testTyping('nn', { IMEMode: true })).toBe('ん'));
+  it('With IME mode, n + space are transliterated.', () => expect(testTyping('n ', { IMEMode: true })).toBe('ん'));
+  it("With IME mode, n + ' are transliterated.", () => expect(testTyping("n'", { IMEMode: true })).toBe('ん'));
+  it('With IME mode, ni.', () => expect(testTyping('ni', { IMEMode: true })).toBe('に'));
+
+  it('kan', () => expect(testTyping('kan', { IMEMode: true })).toBe('かn'));
+  it('kanp', () => expect(testTyping('kanp', { IMEMode: true })).toBe('かんp'));
+  it('kanpai!', () => expect(testTyping('kanpai', { IMEMode: true })).toBe('かんぱい'));
+  it('nihongo', () => expect(testTyping('nihongo', { IMEMode: true })).toBe('にほんご'));
+
+  it("y doesn't count as a consonant for IME", () => expect(testTyping('ny', { IMEMode: true })).toBe('ny'));
+  it('nya works as expected', () => expect(testTyping('nya', { IMEMode: true })).toBe('にゃ'));
+
+  it("With IME mode, solo N's are not transliterated - katakana.", () => expect(testTyping('N', { IMEMode: true })).toBe('N'));
+  it("With IME mode, double N's are transliterated - katakana.", () => expect(testTyping('NN', { IMEMode: true })).toBe('ン'));
+  it('With IME mode, NI - katakana.', () => expect(testTyping('NI', { IMEMode: true })).toBe('ニ'));
+  it('With IME mode - KAN - katakana', () => expect(testTyping('KAN', { IMEMode: true })).toBe('カN'));
+  it('With IME mode - NIHONGO - katakana', () => expect(testTyping('NIHONGO', { IMEMode: true })).toBe('ニホンゴ'));
 });
 
 describe('Options', () => {
@@ -555,57 +590,5 @@ describe('Options', () => {
       it('WE = ヱ (when useObsoleteKana is true)',
           () => expect(toKatakana('we', { useObsoleteKana: true })).toBe('ヱ'));
     });
-  });
-
-  describe('IMEMode', () => {
-    /**
-     * Simulate real typing by calling the function on every character in sequence
-     * @param  {String} input
-     * @param  {Object} options
-     * @return {String} converted romaji as kana
-     */
-    function testTyping(input, options) {
-      let pos = 1;
-      let text = input;
-      const len = text.length;
-      // console.log(`--${text}--`);
-      while (pos <= len) {
-        let buffer = text.slice(0, pos);
-        const rest = text.slice(pos);
-        buffer = toKana(buffer, options);
-        // console.log(`${pos}:${buffer} <-${rest}`);
-        text = buffer + rest;
-        pos += 1;
-      }
-      return text;
-    }
-
-    it("Without IME mode, solo n's are transliterated.", () => expect(toKana('n')).toBe('ん'));
-    it("Without IME mode, double n's are transliterated.", () => expect(toKana('nn')).toBe('ん'));
-
-    it("With IME mode, solo n's are not transliterated.", () => expect(testTyping('n', { IMEMode: true })).toBe('n'));
-    it("With IME mode, double n's are transliterated.", () => expect(testTyping('nn', { IMEMode: true })).toBe('ん'));
-    it('With IME mode, n + space are transliterated.', () => expect(testTyping('n ', { IMEMode: true })).toBe('ん'));
-    it("With IME mode, n + ' are transliterated.", () => expect(testTyping("n'", { IMEMode: true })).toBe('ん'));
-    it('With IME mode, ni.', () => expect(testTyping('ni', { IMEMode: true })).toBe('に'));
-
-    it('kan', () => expect(testTyping('kan', { IMEMode: true })).toBe('かn'));
-    it('kanp', () => expect(testTyping('kanp', { IMEMode: true })).toBe('かんp'));
-    it('kanpai!', () => expect(testTyping('kanpai', { IMEMode: true })).toBe('かんぱい'));
-    it('nihongo', () => expect(testTyping('nihongo', { IMEMode: true })).toBe('にほんご'));
-
-    it("y doesn't count as a consonant for IME", () => expect(testTyping('ny', { IMEMode: true })).toBe('ny'));
-    it('nya works as expected', () => expect(testTyping('nya', { IMEMode: true })).toBe('にゃ'));
-
-    it("With IME mode, solo N's are not transliterated - katakana.", () => expect(testTyping('N', { IMEMode: true })).toBe('N'));
-    it("With IME mode, double N's are transliterated - katakana.", () => expect(testTyping('NN', { IMEMode: true })).toBe('ン'));
-    it('With IME mode, NI - katakana.', () => expect(testTyping('NI', { IMEMode: true })).toBe('ニ'));
-    it('With IME mode - KAN - katakana', () => expect(testTyping('KAN', { IMEMode: true })).toBe('カN'));
-    it('With IME mode - NIHONGO - katakana', () => expect(testTyping('NIHONGO', { IMEMode: true })).toBe('ニホンゴ'));
-  });
-
-  describe('Apostrophes for vague consonant vowel combos', () => {
-    it("おんよみ = on'yomi", () => expect(toRomaji('おんよみ')).toBe("on'yomi"));
-    it('Checking other combinations', () => expect(toRomaji('んよ んあ んゆ')).toBe("n'yo n'a n'yu"));
   });
 });
