@@ -1,6 +1,7 @@
 import { DEFAULT_OPTIONS } from './constants';
 import convertFullwidthCharsToASCII from './utils/convertFullwidthCharsToASCII';
 import toKana from './toKana';
+/* import { addDebugListeners, removeDebugListeners } from './utils/logInputEvents';*/
 
 const ELEMENTS = ['TEXTAREA', 'INPUT'];
 let LISTENERS = [];
@@ -21,6 +22,7 @@ export function bind(input, options = {}) {
   const listener = onInput(options);
   if (input instanceof Element && ELEMENTS.includes(input.nodeName)) {
     const id = newId();
+    /* addDebugListeners(input);*/
     input.setAttribute('data-wanakana-id', id);
     input.autocapitalize = 'none'; // eslint-disable-line no-param-reassign
     input.addEventListener('input', listener);
@@ -39,6 +41,7 @@ export function bind(input, options = {}) {
 export function unbind(input) {
   const trackedListener = findListener(input);
   if (trackedListener != null) {
+    /* removeDebugListeners(input); */
     input.removeAttribute('data-wanakana-id');
     input.removeEventListener('input', trackedListener.handler);
     input.removeEventListener('compositionstart', ignoreComposition);

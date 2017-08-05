@@ -74,6 +74,7 @@
     "coverageDirectory": "./coverage",
     "collectCoverageFrom": [
       "src/**/*.js",
+      "!src/**/logInputEvents.js",
       "!src/**/index.js",
       "!**/node_modules/**",
       "!**/__tests__/**"
