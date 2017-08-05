@@ -39,11 +39,14 @@
         <article>
             <pre class="prettyprint source linenums"><code>import { DEFAULT_OPTIONS } from './constants';
 import convertFullwidthCharsToASCII from './utils/convertFullwidthCharsToASCII';
+import isCharConsonant from './utils/isCharConsonant';
 import toKana from './toKana';
+/* import { addDebugListeners, removeDebugListeners } from './utils/logInputEvents';*/
 
 const ELEMENTS = ['TEXTAREA', 'INPUT'];
 let LISTENERS = [];
 let idCounter = 0;
+let ignoreMicrosoftIMEDoubleConsonant = false;
 
 const newId = () => {
   idCounter += 1;
@@ -60,11 +63,11 @@ export function bind(input, options = {}) {
   const listener = onInput(options);
   if (input instanceof Element &amp;&amp; ELEMENTS.includes(input.nodeName)) {
     const id = newId();
+    /* addDebugListeners(input);*/
     input.setAttribute('data-wanakana-id', id);
     input.autocapitalize = 'none'; // eslint-disable-line no-param-reassign
+    input.addEventListener('compositionupdate', onCompositionUpdate);
     input.addEventListener('input', listener);
-    input.addEventListener('compositionstart', ignoreComposition);
-    input.addEventListener('compositionend', unignoreComposition);
     LISTENERS = trackListener(listener, id);
   } else {
     console.warn('Input provided to wanakana.bind was not a valid input field.'); // eslint-disable-line no-console
@@ -78,10 +81,10 @@ export function bind(input, options = {}) {
 export function unbind(input) {
   const trackedListener = findListener(input);
   if (trackedListener != null) {
+    /* removeDebugListeners(input); */
     input.removeAttribute('data-wanakana-id');
+    input.removeEventListener('compositionupdate', onCompositionUpdate);
     input.removeEventListener('input', trackedListener.handler);
-    input.removeEventListener('compositionstart', ignoreComposition);
-    input.removeEventListener('compositionend', unignoreComposition);
     LISTENERS = untrackListener(trackedListener);
   } else {
     console.warn('Input had no listener registered.'); // eslint-disable-line no-console
@@ -100,7 +103,11 @@ function onInput(options) {
 
   return function listener(event) {
     const input = event.target;
-    if (findListener(input).isComposing) return;
+
+    if (ignoreMicrosoftIMEDoubleConsonant) {
+      ignoreMicrosoftIMEDoubleConsonant = false;
+      return;
+    }
 
     const normalizedInputString = convertFullwidthCharsToASCII(input.value);
     const hiraOrKataString = setKanaType(normalizedInputString, config.IMEMode);
@@ -126,11 +133,18 @@ function onInput(options) {
   };
 }
 
+function onCompositionUpdate(event) {
+  const data = event.data || (event.detail &amp;&amp; event.detail.data); // have to use custom event with detail in tests
+  const finalTwoChars = (data &amp;&amp; data.slice(-2).split('')) || [];
+  const isFirstLetterN = finalTwoChars[0] === 'n';
+  const isDoubleConsonant = finalTwoChars.every((char) => isCharConsonant(convertFullwidthCharsToASCII(char)));
+  ignoreMicrosoftIMEDoubleConsonant = !isFirstLetterN &amp;&amp; isDoubleConsonant;
+}
+
 function trackListener(listener, id) {
   return LISTENERS.concat({
     id,
     handler: listener,
-    isComposing: false,
   });
 }
 
@@ -140,17 +154,6 @@ function findListener(input) {
 
 function untrackListener({ id: targetId }) {
   return LISTENERS.filter(({ id }) => id !== targetId);
-}
-
-function ignoreComposition(event) {
-  findListener(event.target).isComposing = true;
-}
-
-function unignoreComposition(event) {
-  const inputListener = findListener(event.target);
-  inputListener.isComposing = false;
-  // force a conversion in case final IME composition input was romaji
-  inputListener.handler(event);
 }
 
 // easy way to still use `toKana` to handle IME input - but with forced conversion type
