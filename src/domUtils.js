@@ -94,6 +94,11 @@ function onInput(options) {
   };
 }
 
+/**
+ * Sets a flag on compositionupdate for a once-off ignore in onInput
+ * see https://github.com/WaniKani/WanaKana/issues/48
+ * @param  {object} event compositionupdate event
+ */
 function onCompositionUpdate(event) {
   const data = event.data || (event.detail && event.detail.data); // have to use custom event with detail in tests
   const finalTwoChars = (data && data.slice(-2).split('')) || [];
