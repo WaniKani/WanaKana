@@ -4,8 +4,8 @@
 
 import Benchmark from 'benchmark';
 
-import toKana from '../toKana';
-import toRomaji from '../toRomaji';
+import toKana from '../src/toKana';
+import toRomaji from '../src/toRomaji';
 
 describe('Performance', () => {
   const maxTime = 0.05;

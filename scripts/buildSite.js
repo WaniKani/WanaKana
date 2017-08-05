@@ -1,5 +1,5 @@
 const path = require('path');
-const { exit, cp, test } = require('shelljs');
+const { exec, exit, cp, test } = require('shelljs');
 const {
   SITE_JS_DIR,
   OUT_DIR,
@@ -20,7 +20,7 @@ function buildSite(version) {
   }
 
   if (execSuccess(cp('-Rf', BROWSER_BUNDLE, SITE_JS_DIR))) {
-    exec(`git add gh-pages`);
+    exec('git add gh-pages');
     logSuccess('Copied browser bundle to demo dir');
   } else {
     logError('Failed to copy browser bundle to demo dir.');
