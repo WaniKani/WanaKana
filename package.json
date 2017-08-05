@@ -32,7 +32,7 @@
     "commit": "git-cz",
     "prepush": "npm run lint-staged",
     "predocs": "rimraf ./gh-pages/docs",
-    "docs": "npx -c jsdoc.json",
+    "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
     "docs:watch": "onchange './src/**/*.js' -- npm run docs",
     "ghpages:publish": "gh-pages -d gh-pages",
     "pretest": "rimraf ./coverage",
