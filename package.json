@@ -102,7 +102,6 @@
     "jsdoc": "3.4.3",
     "jsdom-simulant": "1.1.2",
     "lint-staged": "4.0.0",
-    "npm-run-all": "4.0.2",
     "onchange": "3.2.1",
     "opn-cli": "3.1.0",
     "readline-sync": "1.4.7",
