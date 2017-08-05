@@ -2,7 +2,7 @@ language: node_js
 
 node_js:
   - 7
-  - node
+  - node # latest
 
 script:
   - npm run test

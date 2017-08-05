@@ -624,8 +624,6 @@ exports[`Character conversion Test every character with toHiragana() and toKatak
 
 exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 312`] = `"ん"`;
 
-exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to hiragana 313`] = `"ん"`;
-
 exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 1`] = `"1"`;
 
 exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 2`] = `"@"`;
@@ -1249,5 +1247,3 @@ exports[`Character conversion Test every character with toHiragana() and toKatak
 exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 311`] = `"ン"`;
 
 exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 312`] = `"ン"`;
-
-exports[`Character conversion Test every character with toHiragana() and toKatakana() converts to katakana 313`] = `"ン"`;
