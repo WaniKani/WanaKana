@@ -23,6 +23,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
+## [2.2.4] - 2017-08-24
+### Fixed
+- Pass through long vowel conversion using toHiragana with odd/mixed input
+
 ## [2.2.3] - 2017-08-05
 ### Fixed
 - Mobile input not converting automatically during autosuggest (regression due to 2.2.1)
@@ -93,6 +97,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `isRomaji()` allows hepburn romanisation long vowels. (IE. Tōkyō)
 
 
+[2.2.4]: https://github.com/WaniKani/WanaKana/compare/2.2.3...2.2.4
 [2.2.3]: https://github.com/WaniKani/WanaKana/compare/2.2.2...2.2.3
 [2.2.2]: https://github.com/WaniKani/WanaKana/compare/2.2.1...2.2.2
 [2.2.1]: https://github.com/WaniKani/WanaKana/compare/2.2.0...2.2.1
