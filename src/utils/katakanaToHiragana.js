@@ -31,12 +31,12 @@ function katakanaToHiragana(input = '') {
     // Short circuit to avoid incorrect codeshift for 'ー' and '・'
     if (slashDot || (longDash && index < 1)) {
       hira.push(char);
-    // Transform long vowels: 'オー' to 'おう'
-    } else if (longDash && index > 0) {
+      // Transform long vowels: 'オー' to 'おう'
+    } else if (previousKana && longDash && index > 0) {
       // Transform previousKana back to romaji, and slice off the vowel
       const romaji = TO_ROMAJI[previousKana].slice(-1);
       hira.push(LONG_VOWELS[romaji]);
-    } else if (isCharKatakana(char)) {
+    } else if (!longDash && isCharKatakana(char)) {
       // Shift charcode.
       const code = char.charCodeAt(0) + (HIRAGANA_START - KATAKANA_START);
       const hiraChar = String.fromCharCode(code);

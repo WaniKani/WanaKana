@@ -206,11 +206,23 @@ describe('Character conversion', () => {
     it('h -> k', () => expect(toKatakana('ばける')).toBe('バケル'));
 
     it('It survives only katakana toKatakana', () => expect(toKatakana('スタイル')).toBe('スタイル'));
-    it('It survives only hiragana toHiragana', () => expect(toHiragana('すたいる')).toBe('すたいる'));
+    it('It survives only hiragana toHiragana', () => expect(toHiragana('すたーいる')).toBe('すたーいる'));
     it('Mixed kana converts every char k -> h', () => expect(toKatakana('アメリカじん')).toBe('アメリカジン'));
     it('Mixed kana converts every char h -> k', () => expect(toHiragana('アメリカじん')).toBe('あめりかじん'));
-    it('Converts long vowels correctly from k -> h', () => expect(toHiragana('バツゴー')).toBe('ばつごう'));
-    it('Preserves long dash from h -> k', () => expect(toKatakana('ばつゲーム')).toBe('バツゲーム'));
+
+    describe('long vowels', () => {
+      it('Converts long vowels correctly from k -> h', () => expect(toHiragana('バツゴー')).toBe('ばつごう'));
+      it('Preserves long dash from h -> k', () => expect(toKatakana('ばつゲーム')).toBe('バツゲーム'));
+      it('Preserves long dash from h -> h', () => expect(toHiragana('ばつげーむ')).toBe('ばつげーむ'));
+      it('Preserves long dash from k -> k', () => expect(toKatakana('バツゲーム')).toBe('バツゲーム'));
+      it('Preserves long dash from mixed -> k', () => expect(toKatakana('バツゲーム')).toBe('バツゲーム'));
+      it('Preserves long dash from mixed -> k', () => expect(toKatakana('テスーと')).toBe('テスート'));
+      it('Preserves long dash from mixed -> h', () => expect(toHiragana('てすート')).toBe('てすーと'));
+      it('Preserves long dash from mixed -> h', () => expect(toHiragana('てすー戸')).toBe('てすー戸'));
+      it('Preserves long dash from mixed -> h', () => expect(toHiragana('手巣ート')).toBe('手巣ーと'));
+      it('Preserves long dash from mixed -> h', () => expect(toHiragana('tesート')).toBe('てsーと'));
+      it('Preserves long dash from mixed -> h', () => expect(toHiragana('ートtesu')).toBe('ーとてす'));
+    });
 
     describe('Mixed syllabaries', () => {
       it('It passes non-katakana through when passRomaji is true k -> h',
