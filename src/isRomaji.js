@@ -8,7 +8,7 @@ import isCharRomaji from './utils/isCharRomaji';
  * @example
  * isRomaji('Tōkyō and Ōsaka')
  * // => true
- * isRomaji('a*b&c-d')
+ * isRomaji('12a*b&c-d')
  * // => true
  * isRomaji('あアA')
  * // => false
@@ -19,7 +19,7 @@ import isCharRomaji from './utils/isCharRomaji';
  */
 function isRomaji(input = '') {
   if (isEmpty(input)) return false;
-  return [...input].every((char) => isCharRomaji(char));
+  return [...input].every(isCharRomaji);
 }
 
 export default isRomaji;

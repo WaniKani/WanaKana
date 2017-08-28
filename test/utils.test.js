@@ -10,11 +10,12 @@ import isCharVowel from '../src/utils/isCharVowel';
 import isCharConsonant from '../src/utils/isCharConsonant';
 import isCharLongDash from '../src/utils/isCharLongDash';
 import isCharSlashDot from '../src/utils/isCharSlashDot';
-import isCharRomaji from '../src/utils/isCharRomaji';
 import isCharKatakana from '../src/utils/isCharKatakana';
 import isCharHiragana from '../src/utils/isCharHiragana';
 import isCharKana from '../src/utils/isCharKana';
 import isCharKanji from '../src/utils/isCharKanji';
+import isCharRomaji from '../src/utils/isCharRomaji';
+import isCharJapanese from '../src/utils/isCharJapanese';
 import isCharJapanesePunctuation from '../src/utils/isCharJapanesePunctuation';
 import isCharEnglishPunctuation from '../src/utils/isCharEnglishPunctuation';
 import isCharPunctuation from '../src/utils/isCharPunctuation';
@@ -33,11 +34,12 @@ describe('Methods should return sane defaults when given no input', () => {
   it('isCharConsonant()', () => expect(isCharConsonant()).toBe(false));
   it('isCharLongDash()', () => expect(isCharLongDash()).toBe(false));
   it('isCharSlashDot()', () => expect(isCharSlashDot()).toBe(false));
-  it('isCharRomaji()', () => expect(isCharRomaji()).toBe(false));
   it('isCharKatakana()', () => expect(isCharKatakana()).toBe(false));
   it('isCharHiragana()', () => expect(isCharHiragana()).toBe(false));
   it('isCharKana()', () => expect(isCharKana()).toBe(false));
   it('isCharKanji()', () => expect(isCharKanji()).toBe(false));
+  it('isCharRomaji()', () => expect(isCharRomaji()).toBe(false));
+  it('isCharJapanese()', () => expect(isCharJapanese()).toBe(false));
   it('isCharJapanesePunctuation()', () => expect(isCharJapanesePunctuation()).toBe(false));
   it('isCharEnglishPunctuation()', () => expect(isCharEnglishPunctuation()).toBe(false));
   it('isCharPunctuation()', () => expect(isCharPunctuation()).toBe(false));
@@ -143,6 +145,21 @@ describe('isCharRomaji', () => {
   });
 });
 
+describe('isCharJapanese', () => {
+  it('passes parameter tests', () => {
+    // zenkaku/latin numbers considered neutral
+    expect(isCharJapanese('１')).toBe(true);
+    expect(isCharJapanese('1')).toBe(true);
+    expect(isCharJapanese('ナ')).toBe(true);
+    expect(isCharJapanese('は')).toBe(true);
+    expect(isCharJapanese('缶')).toBe(true);
+    expect(isCharJapanese('〜')).toBe(true);
+    expect(isCharJapanese('n')).toBe(false);
+    expect(isCharJapanese('!')).toBe(false);
+    expect(isCharJapanese('')).toBe(false);
+  });
+});
+
 describe('isCharKatakana', () => {
   it('passes parameter tests', () => {
     expect(isCharKatakana('ナ')).toBe(true);
@@ -192,7 +209,7 @@ describe('isCharJapanesePunctuation', () => {
   it('passes parameter tests', () => {
     expect(JA_PUNC.every((char) => isCharJapanesePunctuation(char))).toBe(true);
     expect(EN_PUNC.every((char) => isCharJapanesePunctuation(char))).toBe(false);
-    expect(isCharJapanesePunctuation('!')).toBe(false);
+    expect(isCharJapanesePunctuation('?')).toBe(false);
     expect(isCharJapanesePunctuation('a')).toBe(false);
     expect(isCharJapanesePunctuation('ふ')).toBe(false);
     expect(isCharJapanesePunctuation('字')).toBe(false);
