@@ -70,17 +70,24 @@ describe('Character type detection', () => {
     it('あア is not kanji', () => expect(isKanji('あア')).toBe(false));
     it('A is not kanji', () => expect(isKanji('A')).toBe(false));
     it('あAア is not kanji', () => expect(isKanji('あAア')).toBe(false));
+    it('１２隻 is not kanji', () => expect(isKanji('１２隻')).toBe(false));
+    it('12隻 is not kanji', () => expect(isKanji('12隻')).toBe(false));
+    it('隻。 is not kanji', () => expect(isKanji('隻。')).toBe(false));
   });
 
   describe('isJapanese()', () => {
-    it('泣き虫 is kanji/kana', () => expect(isJapanese('泣き虫')).toBe(true));
-    it('あア is kanji/kana', () => expect(isJapanese('あア')).toBe(true));
-    it('泣き虫A is not kanji/kana', () => expect(isJapanese('泣き虫A')).toBe(false));
-    it('A is not kanji/kana', () => expect(isJapanese('A')).toBe(false));
-    it('泣き虫。！〜 (w. kana punctuation) is kanji/kana',
+    it('泣き虫 is japanese', () => expect(isJapanese('泣き虫')).toBe(true));
+    it('あア is japanese', () => expect(isJapanese('あア')).toBe(true));
+    it('A泣き虫 is not japanese', () => expect(isJapanese('A泣き虫')).toBe(false));
+    it('A is not japanese', () => expect(isJapanese('A')).toBe(false));
+    it('泣き虫。！〜 (w. zenkaku punctuation) is japanese',
       () => expect(isJapanese('泣き虫。！〜')).toBe(true));
-    it('泣き虫.!~ (w. romaji punctuation) is not kanji/kana',
+    it('泣き虫.!~ (w. romaji punctuation) is not japanese',
       () => expect(isJapanese('泣き虫.!~')).toBe(false));
+    it('zenkaku numbers are considered neutral', () => expect(isJapanese('０１２３４５６７８９')).toBe(true));
+    it('latin numbers are considered neutral', () => expect(isJapanese('0123456789')).toBe(true));
+    it('mixed with numbers is japanese', () => expect(isJapanese('２０１１年')).toBe(true));
+    it('hankaku katakana is allowed', () => expect(isJapanese('ﾊﾝｶｸｶﾀｶﾅ')).toBe(true));
   });
 
   describe('isRomaji()', () => {
@@ -90,15 +97,17 @@ describe('Character type detection', () => {
     it('あアA is not romaji', () => expect(isRomaji('あアA')).toBe(false));
     it('お願い is not romaji', () => expect(isRomaji('お願い')).toBe(false));
     it('熟成 is not romaji', () => expect(isRomaji('熟成')).toBe(false));
-    it('passes roman punctuation', () => expect(isRomaji('a*b&c-d')).toBe(true));
-    it('fails japanese punctuation', () => expect(isRomaji('a！b&cーd')).toBe(false));
+    it('passes latin punctuation', () => expect(isRomaji('a*b&c-d')).toBe(true));
+    it('passes latin numbers', () => expect(isRomaji('0123456789')).toBe(true));
+    it('fails zenkaku punctuation', () => expect(isRomaji('a！b&cーd')).toBe(false));
+    it('fails zenkaku latin', () => expect(isRomaji('ｈｅｌｌｏ')).toBe(false));
   });
 
   describe('isMixed()', () => {
     it('Aア is mixed', () => expect(isMixed('Aア')).toBe(true));
     it('Aあ is mixed', () => expect(isMixed('Aあ')).toBe(true));
     it('Aあア is mixed', () => expect(isMixed('Aあア')).toBe(true));
-    it('あア is not mixed', () => expect(isMixed('あア')).toBe(false));
+    it('２あア is not mixed', () => expect(isMixed('２あア')).toBe(false));
     it('お腹A is mixed', () => expect(isMixed('お腹A')).toBe(true));
     it('お腹A is not mixed when { passKanji: false }', () => expect(isMixed('お腹A', { passKanji: false })).toBe(false));
     it('お腹 is not mixed', () => expect(isMixed('お腹')).toBe(false));
