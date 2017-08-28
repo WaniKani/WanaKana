@@ -38,30 +38,31 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import isEmpty from './utils/isEmpty';
-import { JAPANESE_REGEX } from './constants';
+import isCharJapanese from './utils/isCharJapanese';
 
 /**
- * Test if `input` is [Kanji](https://en.wikipedia.org/wiki/Kanji) and/or [Kana](https://en.wikipedia.org/wiki/Kana) like “「泣き虫」”
- * Includes Japanese full-width punctuation ranges
+ * Test if `input` only includes [Kanji](https://en.wikipedia.org/wiki/Kanji), [Kana](https://en.wikipedia.org/wiki/Kana), zenkaku punctuation, japanese symbols and numbers.”
  * @param  {String} [input=''] text
- * @return {Boolean} true if all [Kanji](https://en.wikipedia.org/wiki/Kanji) and/or [Kana](https://en.wikipedia.org/wiki/Kana)
+ * @return {Boolean} true if passes checks
  * @example
  * isJapanese('泣き虫')
  * // => true
  * isJapanese('あア')
  * // => true
- * isJapanese('泣き虫。！〜') // Full-width punctuation
+ * isJapanese('２月1日') // Full and half-width numbers allowed
  * // => true
- * isJapanese('泣き虫.!~') // Half-width / Latin punctuation
+ * isJapanese('泣き虫。！〜＄')
+ * // => true
+ * isJapanese('泣き虫.!~$') // Half-width / Latin punctuation fails
  * // => false
- * isJapanese('泣き虫A')
+ * isJapanese('A泣き虫')
  * // => false
  * isJapanese('A')
  * // => false
  */
 function isJapanese(input = '') {
   if (isEmpty(input)) return false;
-  return [...input].every((char) => JAPANESE_REGEX.test(char));
+  return [...input].every(isCharJapanese);
 }
 
 export default isJapanese;

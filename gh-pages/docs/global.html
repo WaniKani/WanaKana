@@ -766,7 +766,7 @@ isHiragana('あア')
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isJapanese.js.html">isJapanese.js</a>, <a href="isJapanese.js.html#line23">line 23</a>
+        <a href="isJapanese.js.html">isJapanese.js</a>, <a href="isJapanese.js.html#line24">line 24</a>
     </li></ul></dd>
     
 
@@ -806,7 +806,7 @@ isHiragana('あア')
 
 
 <div class="description">
-    <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a> and/or <a href="https://en.wikipedia.org/wiki/Kana">Kana</a> like “「泣き虫」”<br>Includes Japanese full-width punctuation ranges</p>
+    <p>Test if <code>input</code> only includes <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a>, <a href="https://en.wikipedia.org/wiki/Kana">Kana</a>, zenkaku punctuation, japanese symbols and numbers.”</p>
 </div>
 
 
@@ -823,11 +823,13 @@ isHiragana('あア')
 // => true
 isJapanese('あア')
 // => true
-isJapanese('泣き虫。！〜') // Full-width punctuation
+isJapanese('２月1日') // Full and half-width numbers allowed
 // => true
-isJapanese('泣き虫.!~') // Half-width / Latin punctuation
+isJapanese('泣き虫。！〜＄')
+// => true
+isJapanese('泣き虫.!~$') // Half-width / Latin punctuation fails
 // => false
-isJapanese('泣き虫A')
+isJapanese('A泣き虫')
 // => false
 isJapanese('A')
 // => false</code></pre>
@@ -920,7 +922,7 @@ isJapanese('A')
 
         
 <div class="param-desc">
-    <p>true if all <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a> and/or <a href="https://en.wikipedia.org/wiki/Kana">Kana</a></p>
+    <p>true if passes checks</p>
 </div>
 
 
@@ -1801,7 +1803,7 @@ isMixed('あア'))
     
     <pre class="prettyprint"><code>isRomaji('Tōkyō and Ōsaka')
 // => true
-isRomaji('a*b&amp;c-d')
+isRomaji('12a*b&amp;c-d')
 // => true
 isRomaji('あアA')
 // => false
