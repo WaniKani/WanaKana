@@ -67,58 +67,113 @@ export const DEFAULT_OPTIONS = {
 };
 
 // CharCode References
-// http://unicode-table.com
 // http://www.rikai.com/library/kanjitables/kanji_codes.unicode.shtml
+// http://unicode-table.com
+
+const CJK_SYMBOLS_PUNCTUATION = [0x3000, 0x303F];
+const KATAKANA_PUNCTUATION = [0x30FB, 0x30FC];
+const HIRAGANA_CHARS = [0x3040, 0x309F];
+const KATAKANA_CHARS = [0x30A0, 0x30FF];
+const ZENKAKU_NUMBERS = [0xFF10, 0xFF19];
+const ZENKAKU_PUNCTUATION_1 = [0xFF01, 0xFF0F];
+const ZENKAKU_PUNCTUATION_2 = [0xFF1A, 0xFF1F];
+const ZENKAKU_PUNCTUATION_3 = [0xFF3B, 0xFF3F];
+const ZENKAKU_PUNCTUATION_4 = [0xFF5B, 0xFF60];
+const ZENKAKU_SYMBOLS_CURRENCY = [0xFFE0, 0xFFEE];
+const KANA_PUNCTUATION = [0xFF61, 0xFF65];
+const HANKAKU_KATAKANA = [0xFF66, 0xFF9F];
+const COMMON_CJK = [0x4E00, 0x9FFF];
+const RARE_CJK = [0x3400, 0x4DBF];
+const LATIN_NUMBERS = [0x0030, 0x0039];
+const MODERN_ENGLISH = [0x0000, 0x007f];
+const HEPBURN_MACRON_RANGES = [
+  [0x0100, 0x0101], // Ā ā
+  [0x0112, 0x0113], // Ē ē
+  [0x012a, 0x012b], // Ī ī
+  [0x014c, 0x014d], // Ō ō
+  [0x016a, 0x016b], // Ū ū
+];
+const SMART_QUOTE_RANGES = [
+  [0x2018, 0x2019], // ‘ ’
+  [0x201C, 0x201D], // “ ”
+];
+
+// const FULL_LATIN_RANGES = [
+//   [0x0001-0x007F],
+//   [0x0080-0x00FF],
+//   [0x0100-0x017F],
+//   [0x0180-0x024F],
+// ];
+
+export const JA_PUNCTUATION_RANGES = [
+  CJK_SYMBOLS_PUNCTUATION,
+  KANA_PUNCTUATION,
+  KATAKANA_PUNCTUATION,
+  ZENKAKU_PUNCTUATION_1,
+  ZENKAKU_PUNCTUATION_2,
+  ZENKAKU_PUNCTUATION_3,
+  ZENKAKU_PUNCTUATION_4,
+  ZENKAKU_SYMBOLS_CURRENCY,
+];
+
+const KANA_RANGES = [
+  HIRAGANA_CHARS,
+  KATAKANA_CHARS,
+  KANA_PUNCTUATION,
+  HANKAKU_KATAKANA,
+];
 
 /**
- * All Japanese regex, for mixes of kanji and kana like "泣き虫"
- * Includes Japanese full-width punctuation ranges
- * Doesn't include *half-width katakana / roman letters* since they should be considered typos
- * @type {RegExp}
+ * All Japanese unicode start and end ranges
+ * Includes full-width punctuation and number ranges.
+ * Incudes latin numbers since they are used in Japanese text as well.
+ * @type {Array}
  * @ignore
  */
-export const KANJI_KANA_REGEX = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff01-\uff0f\u4e00-\u9faf\u3400-\u4dbf]/;
+export const JAPANESE_RANGES = [
+  ...KANA_RANGES,
+  ...JA_PUNCTUATION_RANGES,
+  LATIN_NUMBERS,
+  ZENKAKU_NUMBERS,
+  COMMON_CJK,
+  RARE_CJK,
+];
 
 /**
-* Basic Latin unicode regex, for determining Romaji written as Hepburn romanisation
+* Basic Latin unicode regex, for determining Romaji + Hepburn romanisation
 * Includes upper/lowercase long vowels like "ā, ī, ū, ē, ō"
-* Includes curly quotes ‘’ “”
-* @type {RegExp}
+* Includes smart quotes ‘’ “”
+* @type {Array}
 * @ignore
 */
-export const ROMAJI_REGEX = /[\u0000-\u007f\u0100-\u0101\u0112-\u0113\u012a-\u012b\u014c-\u014d\u016a-\u016b\u2018-\u2019\u201C-\u201D]/;
+export const ROMAJI_RANGES = [
+  MODERN_ENGLISH,
+  ...HEPBURN_MACRON_RANGES,
+  ...SMART_QUOTE_RANGES,
+];
 
-// TODO: just use a regex instead? not sure why these are in arrays
-export const ENGLISH_PUNCTUATION_RANGES = [
+export const EN_PUNCTUATION_RANGES = [
   [0x21, 0x2F],
   [0x3A, 0x3F],
   [0x5B, 0x60],
   [0x7B, 0x7E],
-  [0x2018, 0x2019], // ‘ ’
-  [0x201C, 0x201D], // “ ”
+  ...SMART_QUOTE_RANGES,
 ];
-export const JAPANESE_FULLWIDTH_PUNCTUATION_RANGES = [
-  [0x3001, 0x303E],
-  [0x30FB, 0x30FC],
-  [0xFF01, 0xFF0F],
-  [0xFF1A, 0xFF1F],
-  [0xFF3B, 0xFF3F],
-  [0xFF5B, 0xFF60],
-];
+
 export const LOWERCASE_START = 0x61;
 export const LOWERCASE_END = 0x7A;
 export const UPPERCASE_START = 0x41;
 export const UPPERCASE_END = 0x5A;
+export const LOWERCASE_FULLWIDTH_START = 0xFF41;
+export const LOWERCASE_FULLWIDTH_END = 0xFF5A;
+export const UPPERCASE_FULLWIDTH_START = 0xFF21;
+export const UPPERCASE_FULLWIDTH_END = 0xFF3A;
 export const HIRAGANA_START = 0x3041;
 export const HIRAGANA_END = 0x3096;
 export const KATAKANA_START = 0x30A1;
 export const KATAKANA_END = 0x30FC;
 export const KANJI_START = 0x4E00;
 export const KANJI_END = 0x9FAF;
-export const LOWERCASE_FULLWIDTH_START = 0xFF41;
-export const LOWERCASE_FULLWIDTH_END = 0xFF5A;
-export const UPPERCASE_FULLWIDTH_START = 0xFF21;
-export const UPPERCASE_FULLWIDTH_END = 0xFF3A;
 export const PROLONGED_SOUND_MARK = 0x30FC;
 export const KANA_SLASH_DOT = 0x30FB;
 
