@@ -1,5 +1,5 @@
 import isEmpty from './isEmpty';
-import { ENGLISH_PUNCTUATION_RANGES } from '../constants';
+import { EN_PUNCTUATION_RANGES } from '../constants';
 import isCharInRange from './isCharInRange';
 
 /**
@@ -9,7 +9,7 @@ import isCharInRange from './isCharInRange';
  */
 function isCharEnglishPunctuation(char = '') {
   if (isEmpty(char)) return false;
-  return ENGLISH_PUNCTUATION_RANGES.some(([start, end]) => isCharInRange(char, start, end));
+  return EN_PUNCTUATION_RANGES.some(([start, end]) => isCharInRange(char, start, end));
 }
 
 export default isCharEnglishPunctuation;

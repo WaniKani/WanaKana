@@ -78,7 +78,7 @@ wanakana.unbind(domElement);
 
 
 /*** TEXT CHECKING UTILITIES ***/
-wanakana.isJapanese('泣き虫。！〜') // Full-width/Zenkaku punctuation allowed
+wanakana.isJapanese('泣き虫。！〜２￥')
 // => true
 
 wanakana.isKana('あーア')
@@ -96,7 +96,7 @@ wanakana.isKanji('切腹')
 wanakana.isMixed('お腹A')
 // => true
 
-wanakana.isRomaji('Tōkyō and Ōsaka') // Basic Hepburn romanisation allowed
+wanakana.isRomaji('Tōkyō and Ōsaka')
 // => true
 
 /*
@@ -104,7 +104,7 @@ wanakana.isRomaji('Tōkyō and Ōsaka') // Basic Hepburn romanisation allowed
  * Lowercase -> Hiragana.
  * Uppercase -> Katakana.
  * Non-romaji and _English_ punctuation is passed through: 123 @#$%
- * Japanese equivalent punctuation is converted:
+ * Limited Japanese equivalent punctuation is converted:
  * !?.:/,~-‘’“”[](){}
  * ！？。：・、〜ー「」『』［］（）｛｝
  */
