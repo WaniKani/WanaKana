@@ -100,7 +100,7 @@
     "http-server": "0.10.0",
     "husky": "0.13.4",
     "jest": "20.0.4",
-    "jsdoc": "3.4.3",
+    "jsdoc": "3.5.5",
     "jsdom-simulant": "1.1.2",
     "lint-staged": "4.0.0",
     "onchange": "3.2.1",
