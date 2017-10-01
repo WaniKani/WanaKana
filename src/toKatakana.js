@@ -15,7 +15,7 @@ import romajiToHiragana from './utils/romajiToHiragana';
  * toKatakana('only かな', { passRomaji: true })
  * // => 'only カナ'
  * toKatakana('wi')
- * // => 'うぃ'
+ * // => 'ウィ'
  * toKatakana('wi', { useObsoleteKana: true })
  * // => 'ヰ'
 */
