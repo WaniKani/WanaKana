@@ -9,7 +9,7 @@ import isKatakana from '../src/isKatakana';
 import isHiragana from '../src/isHiragana';
 import isRomaji from '../src/isRomaji';
 import isMixed from '../src/isMixed';
-import toKana from '../src/toKana';
+import { toKana, splitIntoKana } from '../src/toKana';
 import toKatakana from '../src/toKatakana';
 import toHiragana from '../src/toHiragana';
 import toRomaji from '../src/toRomaji';
@@ -26,6 +26,7 @@ describe('Methods should return valid defaults when given no input', () => {
   it('isRomaji() with no input', () => expect(isRomaji()).toBe(false));
   it('isMixed() with no input', () => expect(isMixed()).toBe(false));
   it('toKana() with no input', () => expect(toKana()).toBe(''));
+  it('splitIntoKana() with no input', () => expect(splitIntoKana()).toEqual([]));
   it('toKatakana() with no input', () => expect(toKatakana()).toBe(''));
   it('toHiragana() with no input', () => expect(toHiragana()).toBe(''));
   it('toRomaji() with no input', () => expect(toRomaji()).toBe(''));
@@ -208,6 +209,35 @@ describe('Character conversion', () => {
 
     it('Will convert punctuation but pass through spaces',
       () => expect(toKana(EN_PUNC.join(' '))).toBe(JA_PUNC.join(' ')));
+  });
+
+  describe('splitIntoKana()', () => {
+    it('Lowercase characters are transliterated to hiragana.',
+      () => expect(splitIntoKana('onaji')).toEqual([[0, 1, 'お'], [1, 3, 'な'], [3, 5, 'じ']]));
+
+    it('Lowercase with double consonants and double vowels are transliterated to hiragana.',
+      () => expect(splitIntoKana('buttsuuji')).toEqual([[0, 2, 'ぶ'], [2, 3, 'っ'], [3, 6, 'つ'], [6, 7, 'う'], [7, 9, 'じ']]));
+
+    it('Uppercase characters are transliterated to katakana.',
+      () => expect(splitIntoKana('ONAJI')).toEqual([[0, 1, 'オ'], [1, 3, 'ナ'], [3, 5, 'ジ']]));
+
+    it('Uppercase with double consonants and double vowels are transliterated to katakana.',
+      () => expect(splitIntoKana('BUTTSUUJI')).toEqual([[0, 2, 'ブ'], [2, 3, 'ッ'], [3, 6, 'ツ'], [6, 7, 'ウ'], [7, 9, 'ジ']]));
+
+    it('WaniKani -> ワにカに - Mixed case uses the first character for each syllable.',
+      () => expect(splitIntoKana('WaniKani')).toEqual([[0, 2, 'ワ'], [2, 4, 'に'], [4, 6, 'カ'], [6, 8, 'に']]));
+
+    it('Non-romaji will be passed through.',
+      () => expect(splitIntoKana('ワニカニ AiUeO 鰐蟹 12345 @#$%')).toEqual([[0, 1, 'ワ'], [1, 2, 'ニ'], [2, 3, 'カ'], [3, 4, 'ニ'], [4, 5, ' '], [5, 6, 'ア'], [6, 7, 'い'], [7, 8, 'ウ'], [8, 9, 'え'], [9, 10, 'オ'], [10, 11, ' '], [11, 12, '鰐'], [12, 13, '蟹'], [13, 14, ' '], [14, 15, '1'], [15, 16, '2'], [16, 17, '3'], [17, 18, '4'], [18, 19, '5'], [19, 20, ' '], [20, 21, '@'], [21, 22, '#'], [22, 23, '$'], [23, 24, '%']]));
+
+    it('It handles mixed syllabaries',
+      () => expect(splitIntoKana('座禅‘zazen’スタイル')).toEqual([[0, 1, '座'], [1, 2, '禅'], [2, 3, '「'], [3, 5, 'ざ'], [5, 7, 'ぜ'], [7, 8, 'ん'], [8, 9, '」'], [9, 10, 'ス'], [10, 11, 'タ'], [11, 12, 'イ'], [12, 13, 'ル']]));
+
+    it('Will convert short to long dashes',
+      () => expect(splitIntoKana('batsuge-mu')).toEqual([[0, 2, 'ば'], [2, 5, 'つ'], [5, 7, 'げ'], [7, 8, 'ー'], [8, 10, 'む']]));
+
+    // it('Will convert punctuation but pass through spaces',
+    //   () => expect(splitIntoKana(EN_PUNC.join(' '))).toEqual(JA_PUNC.join(' ')));
   });
 
   describe('Converting kana to kana', () => {
@@ -500,14 +530,20 @@ describe('Event listener helpers', () => {
     unbind(inputField1);
   });
 
-  it('should reset cursor to end of input values', () => {
+  it('should keep the cursor at the correct position even after conversion', () => {
     bind(inputField1);
-    inputField1.value = 'sentaku';
+    const inputValue = 'sentaku';
     const expected = 'せんたく';
-    inputField1.setSelectionRange(2, 2);
-    simulant.fire(inputField1, 'input');
-    expect(inputField1.value).toEqual(expected);
-    expect(inputField1.selectionStart).toEqual(expected.length);
+    const expectedCursorPositions = [
+      0, 1, 1, 2, 3, 3, 4, 4,
+    ];
+    for (let index = 0; index < expected.length; index += 1) {
+      inputField1.value = inputValue;
+      inputField1.setSelectionRange(index, index);
+      simulant.fire(inputField1, 'input');
+      expect(inputField1.value).toEqual(expected);
+      expect(inputField1.selectionStart).toBe(expectedCursorPositions[index]);
+    }
     unbind(inputField1);
   });
 
