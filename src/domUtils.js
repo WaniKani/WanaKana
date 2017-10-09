@@ -78,6 +78,7 @@ function onInput(options) {
 
     if (normalizedInputString !== newText) {
       const selectionEnd = input.selectionEnd;
+      console.log('bla', normalizedInputString, kanaTokens);
       input.value = newText;
 
       // Modern browsers
@@ -85,11 +86,14 @@ function onInput(options) {
         if (selectionEnd === 0) input.setSelectionRange(0, 0);
         else {
           input.setSelectionRange(input.value.length, input.value.length);
+          let kanaLength = 0;
           for (let index = 0; index < kanaTokens.length; index += 1) {
             const currentToken = kanaTokens[index];
             const tokenEnd = currentToken[1];
+            const tokenKana = currentToken[2];
+            kanaLength += tokenKana.length;
             if (tokenEnd >= selectionEnd) {
-              input.setSelectionRange(index+1, index+1);
+              input.setSelectionRange(kanaLength, kanaLength);
               break;
             }
           }
