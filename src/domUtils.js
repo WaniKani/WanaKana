@@ -78,7 +78,6 @@ function onInput(options) {
 
     if (normalizedInputString !== newText) {
       const selectionEnd = input.selectionEnd;
-      console.log('bla', normalizedInputString, kanaTokens);
       input.value = newText;
 
       // Modern browsers
