@@ -72,7 +72,6 @@ function onInput(options) {
     const normalizedInputString = convertFullwidthCharsToASCII(input.value);
     const hiraOrKataString = setKanaType(normalizedInputString, config.IMEMode);
     const ensureIMEModeConfig = Object.assign({}, config, { IMEMode: true });
-    // const newText = toKana(hiraOrKataString, ensureIMEModeConfig);
     const kanaTokens = splitIntoKana(hiraOrKataString, ensureIMEModeConfig);
     const newText = kanaTokens.map((token) => token[2]).join('');
 
