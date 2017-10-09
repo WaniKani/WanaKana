@@ -1,7 +1,7 @@
 import { DEFAULT_OPTIONS } from './constants';
 import convertFullwidthCharsToASCII from './utils/convertFullwidthCharsToASCII';
 import isCharConsonant from './utils/isCharConsonant';
-import toKana from './toKana';
+import { splitIntoKana } from './toKana';
 /* import { addDebugListeners, removeDebugListeners } from './utils/logInputEvents';*/
 
 const ELEMENTS = ['TEXTAREA', 'INPUT'];
@@ -61,7 +61,6 @@ export function unbind(input) {
  */
 function onInput(options) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
-
   return function listener(event) {
     const input = event.target;
 
@@ -73,14 +72,28 @@ function onInput(options) {
     const normalizedInputString = convertFullwidthCharsToASCII(input.value);
     const hiraOrKataString = setKanaType(normalizedInputString, config.IMEMode);
     const ensureIMEModeConfig = Object.assign({}, config, { IMEMode: true });
-    const newText = toKana(hiraOrKataString, ensureIMEModeConfig);
+    // const newText = toKana(hiraOrKataString, ensureIMEModeConfig);
+    const kanaTokens = splitIntoKana(hiraOrKataString, ensureIMEModeConfig);
+    const newText = kanaTokens.map((token) => token[2]).join('');
 
     if (normalizedInputString !== newText) {
+      const selectionEnd = input.selectionEnd;
       input.value = newText;
 
-      // Modern browsers, set cursor to the end of the new text
+      // Modern browsers
       if (input.setSelectionRange != null && typeof input.selectionStart === 'number') {
-        input.setSelectionRange(input.value.length, input.value.length);
+        if (selectionEnd === 0) input.setSelectionRange(0, 0);
+        else {
+          input.setSelectionRange(input.value.length, input.value.length);
+          for (let index = 0; index < kanaTokens.length; index += 1) {
+            const currentToken = kanaTokens[index];
+            const tokenEnd = currentToken[1];
+            if (tokenEnd >= selectionEnd) {
+              input.setSelectionRange(index+1, index+1);
+              break;
+            }
+          }
+        }
         return;
       }
       // < IE 9
