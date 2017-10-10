@@ -41,7 +41,7 @@ export function toKana(input = '', options = {}, ignoreCase = false) {
 
 export function splitIntoKana(input = '', options = {}, ignoreCase = false) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
-  // Final output array containing arrays [start index of the translitterated substring, kana]
+  // Final output array containing arrays [start index of the translitterated substring, end index, kana]
   const kana = [];
   // Position in the string that is being evaluated
   let cursor = 0;
