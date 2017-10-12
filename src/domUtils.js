@@ -81,8 +81,9 @@ function onInput(options) {
 
       // Modern browsers
       if (input.setSelectionRange != null && typeof input.selectionStart === 'number') {
-        if (selectionEnd === 0) input.setSelectionRange(0, 0);
-        else {
+        if (selectionEnd === 0) {
+          input.setSelectionRange(0, 0);
+        } else {
           input.setSelectionRange(input.value.length, input.value.length);
           let kanaLength = 0;
           for (let index = 0; index < kanaTokens.length; index += 1) {
