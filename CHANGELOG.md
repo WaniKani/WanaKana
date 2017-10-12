@@ -22,6 +22,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
+## [2.3.1] - 2017-10-17
+### Changed
+- Set cursor in IME mode to the correct position after conversion
 
 ## [2.3.0] - 2017-08-28
 ### Changed
