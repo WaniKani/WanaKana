@@ -1,7 +1,10 @@
 export function IME_MODE_MAP(map) {
   // in IME mode, we do not want to convert single ns
   const mapCopy = JSON.parse(JSON.stringify(map));
+  // two typed ns should produce a single ん in IME mode
   delete mapCopy.n[''];
+  mapCopy.n.n = { '': 'ん' };
+  mapCopy.n[' '] = { '': 'ん' };
   return mapCopy;
 }
 
@@ -179,7 +182,7 @@ function createRomajiToKanaMap() {
   }
 
   // different ways to write ん
-  for (const nvar of ['n', 'nn', 'n\'', 'n ', 'xn']) {
+  for (const nvar of ['n', 'n\'', 'xn']) {
     getSubTreeOf(nvar, true)[''] = 'ん';
   }
 
@@ -287,7 +290,7 @@ function createRomajiToKanaMap() {
   }
 
   // have to explicitly name c here, because we made it a copy of k, not a reference
-  const sokuonConsonants = ['k', 'c', 's', 't', 'p'];
+  const sokuonConsonants = ['k', 'c', 's', 't', 'p', 'q', 'j'];
   for (const consonant of sokuonConsonants) {
     const subtree = kanaTree[consonant];
     subtree[consonant] = addTsu(subtree);
