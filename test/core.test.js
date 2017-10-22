@@ -157,29 +157,17 @@ describe('Character conversion', () => {
   });
 
   describe('Double consonants transliterate to glottal stops (small tsu)', () => {
-    it('double B', () => expect(toHiragana('babba')).toBe('ばっば'));
     it('double C', () => expect(toHiragana('cacca')).toBe('かっか'));
     it('double Ch', () => expect(toHiragana('chaccha')).toBe('ちゃっちゃ'));
-    it('double D', () => expect(toHiragana('dadda')).toBe('だっだ'));
-    it('double F', () => expect(toHiragana('fuffu')).toBe('ふっふ'));
-    it('double G', () => expect(toHiragana('gagga')).toBe('がっが'));
-    it('double H', () => expect(toHiragana('hahha')).toBe('はっは'));
     it('double J', () => expect(toHiragana('jajja')).toBe('じゃっじゃ'));
     it('double K', () => expect(toHiragana('kakka')).toBe('かっか'));
-    it('double L', () => expect(toHiragana('lalla')).toBe('らっら'));
-    it('double M', () => expect(toHiragana('mamma')).toBe('まっま'));
     it('double N', () => expect(toHiragana('nanna')).toBe('なんな'));
     it('double P', () => expect(toHiragana('pappa')).toBe('ぱっぱ'));
     it('double Q', () => expect(toHiragana('qaqqa')).toBe('くぁっくぁ'));
-    it('double R', () => expect(toHiragana('rarra')).toBe('らっら'));
     it('double S', () => expect(toHiragana('sassa')).toBe('さっさ'));
     it('double Sh', () => expect(toHiragana('shassha')).toBe('しゃっしゃ'));
     it('double T', () => expect(toHiragana('tatta')).toBe('たった'));
     it('double Ts', () => expect(toHiragana('tsuttsu')).toBe('つっつ'));
-    it('double V', () => expect(toHiragana('vavva')).toBe('ゔぁっゔぁ'));
-    it('double W', () => expect(toHiragana('wawwa')).toBe('わっわ'));
-    it('double X', () => expect(toHiragana('yayya')).toBe('やっや'));
-    it('double Z', () => expect(toHiragana('zazza')).toBe('ざっざ'));
   });
 
   describe('toKana()', () => {
