@@ -204,13 +204,13 @@ describe('Character conversion', () => {
       () => expect(splitIntoKana('onaji')).toEqual([[0, 1, 'お'], [1, 3, 'な'], [3, 5, 'じ']]));
 
     it('Lowercase with double consonants and double vowels are transliterated to hiragana.',
-      () => expect(splitIntoKana('buttsuuji')).toEqual([[0, 2, 'ぶ'], [2, 3, 'っ'], [3, 6, 'つ'], [6, 7, 'う'], [7, 9, 'じ']]));
+      () => expect(splitIntoKana('buttsuuji')).toEqual([[0, 2, 'ぶ'], [2, 6, 'っつ'], [6, 7, 'う'], [7, 9, 'じ']]));
 
     it('Uppercase characters are transliterated to katakana.',
       () => expect(splitIntoKana('ONAJI')).toEqual([[0, 1, 'オ'], [1, 3, 'ナ'], [3, 5, 'ジ']]));
 
     it('Uppercase with double consonants and double vowels are transliterated to katakana.',
-      () => expect(splitIntoKana('BUTTSUUJI')).toEqual([[0, 2, 'ブ'], [2, 3, 'ッ'], [3, 6, 'ツ'], [6, 7, 'ウ'], [7, 9, 'ジ']]));
+      () => expect(splitIntoKana('BUTTSUUJI')).toEqual([[0, 2, 'ブ'], [2, 6, 'ッツ'], [6, 7, 'ウ'], [7, 9, 'ジ']]));
 
     it('WaniKani -> ワにカに - Mixed case uses the first character for each syllable.',
       () => expect(splitIntoKana('WaniKani')).toEqual([[0, 2, 'ワ'], [2, 4, 'に'], [4, 6, 'カ'], [6, 8, 'に']]));
@@ -274,14 +274,14 @@ describe('Character conversion', () => {
 
   describe('N edge cases', () => {
     it('Solo N', () => expect(toKana('n')).toBe('ん'));
-    it('double N', () => expect(toKana('onn')).toBe('おん'));
+    it('double N', () => expect(toKana('onn')).toBe('おんん'));
     it('N followed by N* syllable', () => expect(toKana('onna')).toBe('おんな'));
-    it('Triple N', () => expect(toKana('nnn')).toBe('んん'));
-    it('Triple N followed by N* syllable', () => expect(toKana('onnna')).toBe('おんな'));
-    it('Quadruple N', () => expect(toKana('nnnn')).toBe('んん'));
+    it('Triple N', () => expect(toKana('nnn')).toBe('んんん'));
+    it('Triple N followed by N* syllable', () => expect(toKana('onnna')).toBe('おんんな'));
+    it('Quadruple N', () => expect(toKana('nnnn')).toBe('んんんん'));
     it('nya -> にゃ', () => expect(toKana('nyan')).toBe('にゃん'));
-    it('nnya -> んにゃ', () => expect(toKana('nnyann')).toBe('んにゃん'));
-    it('nnnya -> んにゃ', () => expect(toKana('nnnyannn')).toBe('んにゃんん'));
+    it('nnya -> んにゃ', () => expect(toKana('nnyann')).toBe('んにゃんん'));
+    it('nnnya -> んにゃ', () => expect(toKana('nnnyannn')).toBe('んんにゃんんん'));
     it("n'ya -> んや", () => expect(toKana("n'ya")).toBe('んや'));
     it("kin'ya -> きんや", () => expect(toKana("kin'ya")).toBe('きんや'));
     it("shin'ya -> しんや", () => expect(toKana("shin'ya")).toBe('しんや'));
@@ -578,7 +578,7 @@ describe('IMEMode', () => {
   }
 
   it("Without IME mode, solo n's are transliterated.", () => expect(toKana('n')).toBe('ん'));
-  it("Without IME mode, double n's are transliterated.", () => expect(toKana('nn')).toBe('ん'));
+  it("Without IME mode, double n's are transliterated.", () => expect(toKana('nn')).toBe('んん'));
 
   it("With IME mode, solo n's are not transliterated.", () => expect(testTyping('n', { IMEMode: true })).toBe('n'));
   it("With IME mode, double n's are transliterated.", () => expect(testTyping('nn', { IMEMode: true })).toBe('ん'));
