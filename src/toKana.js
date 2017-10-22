@@ -51,6 +51,9 @@ export function splitIntoKana(input = '', options = {}) {
     const committed = [lastCursor, currentCursor, convertToKatakana? hiraganaToKatakana(treeString): treeString];
 
     if (!remaining) {  // nothing more to consume, just commit the last chunk and return it
+      if (!treeString) {
+        return [];
+      }
       return [committed];
     }
 
