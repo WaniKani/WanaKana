@@ -83,15 +83,11 @@ function createRomajiToKanaMap() {
 
   const kanaTree = transform(kunreiTree);
 
-  function getSubTreeOf(string, makeNew=false) {
+  function getSubTreeOf(string) {
     let correctSubTree = kanaTree;
     for (const char of string) {
       if (correctSubTree[char] === undefined) {
-        if (makeNew) {
-          correctSubTree[char] = {};
-        } else {
-          return undefined;
-        }
+        correctSubTree[char] = {};
       }
       correctSubTree = correctSubTree[char];
     }
@@ -129,7 +125,7 @@ function createRomajiToKanaMap() {
   for (const [consonant, yKana] of Object.entries(consonants)) {
     for (const [rom, kan] of Object.entries(smallY)) {
       // for example kyo -> き + ょ
-      getSubTreeOf(consonant + rom, true)[''] = yKana + kan;
+      getSubTreeOf(consonant + rom)[''] = yKana + kan;
     }
   }
 
@@ -155,7 +151,7 @@ function createRomajiToKanaMap() {
   };
 
   for (const [symbol, jsymbol] of Object.entries(specialSymbols)) {
-    getSubTreeOf(symbol, true)[''] = jsymbol;
+    getSubTreeOf(symbol)[''] = jsymbol;
   }
 
   const aiueoConstructions = {
@@ -176,14 +172,14 @@ function createRomajiToKanaMap() {
   // things like うぃ, くぃ, etc.
   for (const [consonant, aiueoKan] of Object.entries(aiueoConstructions)) {
     for (const [vow, kan] of Object.entries(smallaiueo)) {
-      const subtree = getSubTreeOf(consonant + vow, true);
+      const subtree = getSubTreeOf(consonant + vow);
       subtree[''] = aiueoKan + kan;
     }
   }
 
   // different ways to write ん
   for (const nvar of ['n', 'n\'', 'xn']) {
-    getSubTreeOf(nvar, true)[''] = 'ん';
+    getSubTreeOf(nvar)[''] = 'ん';
   }
 
   // typing one should be the same as having typed the other instead
@@ -210,7 +206,7 @@ function createRomajiToKanaMap() {
   for (const [string, alternative] of Object.entries(alternativeMappings)) {
     const allExceptLast = string.slice(0, string.length - 1);
     const last = string.charAt(string.length - 1);
-    const parentTree = getSubTreeOf(allExceptLast, true);
+    const parentTree = getSubTreeOf(allExceptLast);
     // copy to avoid recursive containment
     parentTree[last] = JSON.parse(JSON.stringify(getSubTreeOf(alternative)));
   }
@@ -232,13 +228,13 @@ function createRomajiToKanaMap() {
   for (const [kunreiRom, kan] of Object.entries(smallLetters)) {
     {
       const xRom = `x${kunreiRom}`;
-      const xSubtree = getSubTreeOf(xRom, true);
+      const xSubtree = getSubTreeOf(xRom);
       xSubtree[''] = kan;
 
       // ltu -> xtu -> っ
       const allExceptLast = kunreiRom.slice(0, kunreiRom.length - 1);
       const last = kunreiRom.charAt(kunreiRom.length - 1);
-      const parentTree = getSubTreeOf(`l${allExceptLast}`, true);
+      const parentTree = getSubTreeOf(`l${allExceptLast}`);
       parentTree[last] = xSubtree;
     }
 
@@ -247,7 +243,7 @@ function createRomajiToKanaMap() {
       const allExceptLast = altRom.slice(0, altRom.length - 1);
       const last = altRom.charAt(altRom.length - 1);
       for (const prefix of ['l', 'x']) {
-        const parentTree = getSubTreeOf(prefix + allExceptLast, true);
+        const parentTree = getSubTreeOf(prefix + allExceptLast);
         parentTree[last] = getSubTreeOf(prefix + kunreiRom);
       }
     }
@@ -273,7 +269,7 @@ function createRomajiToKanaMap() {
   };
 
   for (const [string, kana] of Object.entries(individualCases)) {
-    getSubTreeOf(string, true)[''] = kana;
+    getSubTreeOf(string)[''] = kana;
   }
 
   // add kka, tta, etc.
