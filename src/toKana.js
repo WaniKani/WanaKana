@@ -72,10 +72,6 @@ export function splitIntoKana(input = '', options = {}) {
         if (!!options.IMEMode && isRomaji(nextChar)) {
           if (committed[2].toLowerCase() === 'n') {
             committed[2] = convertToKatakana? 'ン': 'ん';
-            // convert 'nn' to a single kana character
-            if (nextChar.toLowerCase() === 'n') {
-              return [committed].concat(parse(nextTree, nextRemaining.slice(1), currentCursor+1, 1, convertToKata));
-            }
           }
         }
         return [committed].concat(parse(nextTree, nextRemaining, currentCursor, 1, convertToKata));
