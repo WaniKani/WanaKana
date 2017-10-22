@@ -1,19 +1,14 @@
 import {
   DEFAULT_OPTIONS,
-  UPPERCASE_START,
-  UPPERCASE_END,
-  FOUR_CHAR_EDGECASES,
-  FROM_ROMAJI,
 } from './constants';
 
-import isCharInRange from './utils/isCharInRange';
 import isCharUpperCase from './utils/isCharUpperCase';
-import getChunkSize from './utils/getChunkSize';
-import getChunk from './utils/getChunk';
-import isCharConsonant from './utils/isCharConsonant';
-import isCharVowel from './utils/isCharVowel';
 import hiraganaToKatakana from './utils/hiraganaToKatakana';
-import isKana from './isKana';
+import isRomaji from './isRomaji';
+import {
+  getRomajiToKanaTree,
+  IME_MODE_MAP,
+  USE_OBSOLETE_KANA_MAP } from './kanaMapping';
 
 /**
  * Convert [Romaji](https://en.wikipedia.org/wiki/Romaji) to [Kana](https://en.wikipedia.org/wiki/Kana), lowercase text will result in [Hiragana](https://en.wikipedia.org/wiki/Hiragana) and uppercase text will result in [Katakana](https://en.wikipedia.org/wiki/Katakana).
@@ -34,126 +29,60 @@ import isKana from './isKana';
  * toKana('we', { useObsoleteKana: true })
  * // => 'ゑ'
  */
-export function toKana(input = '', options = {}, ignoreCase = false) {
+export function toKana(input = '', options = {}) {
   // just throw away the substring index information and just concatenate all the kana
-  return splitIntoKana(input, options, ignoreCase).map((kanaToken) => kanaToken[2]).join('');
+  return splitIntoKana(input, options).map((kanaToken) => kanaToken[2]).join('');
 }
 
-export function splitIntoKana(input = '', options = {}, ignoreCase = false) {
+export function splitIntoKana(input = '', options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
-  // Final output array containing arrays [start index of the translitterated substring, kana]
-  const kana = [];
-  // Position in the string that is being evaluated
-  let cursor = 0;
-  const len = input.length;
-  const maxChunk = 3;
-  let chunkSize = 3;
-  let chunk = '';
-  let chunkLC = '';
 
-  // Steps through the string pulling out chunks of characters. Each chunk will be evaluated
-  // against the romaji to kana table. If there is no match, the last character in the chunk
-  // is dropped and the chunk is reevaluated. If nothing matches, the character is assumed
-  // to be invalid or punctuation or other and gets passed through.
-  while (cursor < len) {
-    let kanaChar = null;
-    chunkSize = getChunkSize(maxChunk, len - cursor);
-    while (chunkSize > 0) {
-      chunk = getChunk(input, cursor, cursor + chunkSize);
-      chunkLC = chunk.toLowerCase();
-      // Handle super-rare edge cases with 4 char chunks (like ltsu, chya, shya)
-      if (FOUR_CHAR_EDGECASES.includes(chunkLC) && (len - cursor) >= 4) {
-        chunkSize += 1;
-        chunk = getChunk(input, cursor, cursor + chunkSize);
-        chunkLC = chunk.toLowerCase();
-      } else {
-        // Handle edge case of n followed by consonant
-        if (chunkLC.charAt(0) === 'n') {
-          if (chunkSize === 2) {
-            // Handle edge case of n followed by a space (only if not in IME mode)
-            if (!config.IMEMode && chunkLC.charAt(1) === ' ') {
-              kanaChar = 'ん ';
-              break;
-            }
-            // Convert IME input of n' to "ん"
-            if (config.IMEMode && chunkLC === "n'") {
-              kanaChar = 'ん';
-              break;
+  let map = getRomajiToKanaTree();
+  map = config.IMEMode? IME_MODE_MAP(map): map;
+  map = config.useObsoleteKana? USE_OBSOLETE_KANA_MAP(map): map;
+  map = config.customKanaMapping(map);
+  const root = map;
+
+  function parse(tree, remaining, lastCursor, currentLength, convertToKatakana) {
+    const currentCursor = lastCursor + currentLength;
+    // the string you would get if you stopped the tree traversal right here
+    const treeString = tree[''] || '';
+    // this variable will only used if there are no more characters to consume
+    const committed = [lastCursor, currentCursor, convertToKatakana? hiraganaToKatakana(treeString): treeString];
+
+    if (!remaining) {  // nothing more to consume, just commit the last chunk and return it
+      return [committed];
+    }
+
+    const nextChar = remaining.charAt(0);
+    const convertToKata = !options.ignoreCase && isCharUpperCase(nextChar);
+    const subTree = tree[nextChar.toLowerCase()];
+
+    if (subTree === undefined) {  // the next char is not a continuation of this tree
+      // the next tree is guaranteed to have an '' element, which is going to be the raw input char if there is no corresponding kana;
+      // since we want to start a new run here, we start from root again
+      const nextTree = Object.assign({ '': nextChar }, root[nextChar.toLowerCase()]);
+      const nextRemaining = remaining.slice(1);
+      // only commit, when there is an actual run to commit (so you don't end up with something like [0, 0, undefined])
+      if (currentLength > 0) {
+        // convert n in IME mode
+        if (!!options.IMEMode && isRomaji(nextChar)) {
+          if (committed[2].toLowerCase() === 'n') {
+            committed[2] = convertToKatakana? 'ン': 'ん';
+            // convert 'nn' to a single kana character
+            if (nextChar.toLowerCase() === 'n') {
+              return [committed].concat(parse(nextTree, nextRemaining.slice(1), currentCursor+1, 1, convertToKata));
             }
           }
-          // Handle edge case of n followed by n and vowel
-          if (isCharConsonant(chunkLC.charAt(1), false) && isCharVowel(chunkLC.charAt(2))) {
-            chunkSize = 1;
-            chunk = getChunk(input, cursor, cursor + chunkSize);
-            chunkLC = chunk.toLowerCase();
-          }
         }
-
-        // Handle case of double consonants
-        if (chunkLC.charAt(0) !== 'n' &&
-          isCharConsonant(chunkLC.charAt(0)) &&
-          chunk.charAt(0) === chunk.charAt(1)
-        ) {
-          chunkSize = 1;
-          // Return katakana ッ if chunk is uppercase, otherwise return hiragana っ
-          if (isCharInRange(chunk.charAt(0), UPPERCASE_START, UPPERCASE_END)) {
-            chunkLC = 'ッ';
-            chunk = 'ッ';
-          } else {
-            chunkLC = 'っ';
-            chunk = 'っ';
-          }
-        }
+        return [committed].concat(parse(nextTree, nextRemaining, currentCursor, 1, convertToKata));
       }
-
-      kanaChar = FROM_ROMAJI[chunkLC];
-      // console.log(`${chunkLC}, ${cursor}x${chunkSize}:${chunk} => ${kanaChar}`); // DEBUG
-      if (kanaChar != null) {
-        break;
-      }
-      // Step down the chunk size.
-      // If chunkSize was 4, step down twice.
-      if (chunkSize === 4) {
-        chunkSize -= 2;
-      } else {
-        chunkSize -= 1;
-      }
+      return parse(nextTree, nextRemaining, currentCursor, 1, convertToKata);
     }
-
-    // Passthrough undefined values
-    if (kanaChar == null) {
-      kanaChar = chunk;
-    }
-
-    // Handle special cases.
-    if (config.useObsoleteKana) {
-      if (chunkLC === 'wi') kanaChar = 'ゐ';
-      if (chunkLC === 'we') kanaChar = 'ゑ';
-    }
-
-    if (!!config.IMEMode && chunkLC.charAt(0) === 'n') {
-      if ((input.charAt(cursor + 1).toLowerCase() === 'y' &&
-        isCharVowel(input.charAt(cursor + 2)) === false) ||
-        cursor === (len - 1) ||
-        isKana(input.charAt(cursor + 1))
-      ) {
-        // Don't transliterate this yet.
-        kanaChar = chunk.charAt(0);
-      }
-    }
-
-    // Use katakana if first letter in chunk is uppercase
-    if (!ignoreCase) {
-      if (isCharUpperCase(chunk.charAt(0))) {
-        kanaChar = hiraganaToKatakana(kanaChar);
-      }
-    }
-
-    const nextCursor = cursor + (chunkSize || 1);
-    kana.push([cursor, nextCursor, kanaChar]);
-    cursor = nextCursor;
+    // if the run keeps going, we need to store the string from the run so far and the next char appended to it
+    return parse(Object.assign({ '': treeString + nextChar }, subTree), remaining.slice(1), lastCursor, currentLength + 1, convertToKatakana === undefined? convertToKata: convertToKatakana);
   }
-  return kana;
+  return parse(root, input, 0, 0);
 }
 
 export default toKana;
