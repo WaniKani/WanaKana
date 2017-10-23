@@ -26,12 +26,13 @@ export function bind(input, options = {}) {
     const id = newId();
     /* addDebugListeners(input);*/
     input.setAttribute('data-wanakana-id', id);
-    input.autocapitalize = 'none'; // eslint-disable-line no-param-reassign
+    input.autocapitalize = 'none';
     input.addEventListener('compositionupdate', onCompositionUpdate);
     input.addEventListener('input', listener);
     LISTENERS = trackListener(listener, id);
   } else {
-    console.warn('Input provided to wanakana.bind was not a valid input field.'); // eslint-disable-line no-console
+    // eslint-disable-next-line no-console
+    console.warn('Input provided to wanakana.bind was not a valid input field.');
   }
 }
 
@@ -61,6 +62,7 @@ export function unbind(input) {
  */
 function onInput(options) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
+
   return function listener(event) {
     const input = event.target;
 
@@ -76,7 +78,7 @@ function onInput(options) {
     const newText = kanaTokens.map((token) => token[2]).join('');
 
     if (normalizedInputString !== newText) {
-      const selectionEnd = input.selectionEnd;
+      const { selectionEnd } = input;
       input.value = newText;
 
       // Modern browsers
@@ -117,9 +119,10 @@ function onInput(options) {
  */
 function onCompositionUpdate(event) {
   const data = event.data || (event.detail && event.detail.data); // have to use custom event with detail in tests
-  const finalTwoChars = (data && data.slice(-2).split('')) || [];
+  const finalTwoChars = (data && data.slice(-2)) || '';
   const isFirstLetterN = finalTwoChars[0] === 'n';
-  const isDoubleConsonant = finalTwoChars.every((char) => isCharConsonant(convertFullwidthCharsToASCII(char)));
+  const isDoubleConsonant = convertFullwidthCharsToASCII(finalTwoChars).split('').every(isCharConsonant);
+
   ignoreMicrosoftIMEDoubleConsonant = !isFirstLetterN && isDoubleConsonant;
 }
 

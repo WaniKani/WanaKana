@@ -11,7 +11,8 @@ const LIB_DIR = 'lib';
 const SITE_DIR = path.resolve('./gh-pages');
 const SITE_JS_DIR = path.resolve(SITE_DIR, 'assets', 'js');
 
-const consoleLog = console.log.bind(console); // eslint-disable-line no-console
+// eslint-disable-next-line no-console
+const consoleLog = console.log.bind(console);
 const log = compose(consoleLog, chalk.bold);
 const logSuccess = compose(consoleLog, chalk.green.bold);
 const logError = compose(consoleLog, chalk.red.bold);

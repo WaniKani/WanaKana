@@ -2,7 +2,14 @@
   "presets": [
     ["env", {
       "loose": false,
-      "modules": false
+      "modules": false,
+      "targets": {
+        "node": 7,
+        "browsers": [
+          "last 2 versions",
+          ">1%"
+        ]
+      }
     }]
   ],
   "env": {
@@ -16,7 +23,7 @@
           "targets": {
             "node": 7,
             "browsers": [
-              "last 4 versions",
+              "last 2 versions",
               ">1%"
             ]
           }
