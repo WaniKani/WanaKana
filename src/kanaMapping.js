@@ -286,11 +286,12 @@ function createRomajiToKanaMap() {
   }
 
   // have to explicitly name c here, because we made it a copy of k, not a reference
-  const sokuonConsonants = ['k', 'c', 's', 't', 'p', 'q', 'j'];
-  for (const consonant of sokuonConsonants) {
+  for (const consonant of Object.keys(consonants).concat('c', 'y', 'w', 'j')) {
     const subtree = kanaTree[consonant];
     subtree[consonant] = addTsu(subtree);
   }
+  // nn should not be っん
+  delete kanaTree.n.n;
   // solidify the results, so that there there is referential transparency within the tree
   return JSON.parse(JSON.stringify(kanaTree));
 }
