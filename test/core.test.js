@@ -166,7 +166,6 @@ describe('Character conversion', () => {
     it('double H', () => expect(toHiragana('hahha')).toBe('はっは'));
     it('double J', () => expect(toHiragana('jajja')).toBe('じゃっじゃ'));
     it('double K', () => expect(toHiragana('kakka')).toBe('かっか'));
-    it('double L', () => expect(toHiragana('lalla')).toBe('らっら'));
     it('double M', () => expect(toHiragana('mamma')).toBe('まっま'));
     it('double N', () => expect(toHiragana('nanna')).toBe('なんな'));
     it('double P', () => expect(toHiragana('pappa')).toBe('ぱっぱ'));
