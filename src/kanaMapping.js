@@ -10,6 +10,31 @@ export function IME_MODE_MAP(map) {
 
 export const USE_OBSOLETE_KANA_MAP = createCustomRomajiToKanaMapping({ wi: 'ゐ', we: 'ゑ' });
 
+// transform the tree, so that for example hepburnTree['ゔ']['ぁ'][''] === 'va'
+// or kanaTree['k']['y']['a'][''] === 'きゃ'
+function transform(tree) {
+  const result = {};
+  for (const [char, subtree] of Object.entries(tree)) {
+    if (typeof subtree === 'string') {  // we have reached the bottom of this branch
+      result[char] = { '': subtree };
+    } else {  // more subtrees to go through
+      result[char] = transform(subtree);
+    }
+  }
+  return result;
+}
+
+function getSubTreeOf(tree, string) {
+  let correctSubTree = tree;
+  for (const char of string) {
+    if (correctSubTree[char] === undefined) {
+      correctSubTree[char] = {};
+    }
+    correctSubTree = correctSubTree[char];
+  }
+  return correctSubTree;
+}
+
 // map is an object {romajiString: kanaString}
 export function createCustomRomajiToKanaMapping(customMap) {
   const customTree = {};
@@ -26,18 +51,135 @@ export function createCustomRomajiToKanaMapping(customMap) {
 
   return function makeMap(map) {
     const mapCopy = JSON.parse(JSON.stringify(map));
-    function transform(mapSubtree, customSubtree) {
+    function transformMap(mapSubtree, customSubtree) {
       if (mapSubtree === undefined || typeof mapSubtree === 'string') {  // replace the subtree
         return customSubtree;
       }
       const result = mapSubtree;
       for (const [char, subtree] of Object.entries(customSubtree)) {
-        result[char] = transform(mapSubtree[char], subtree);
+        result[char] = transformMap(mapSubtree[char], subtree);
       }
       return result;
     }
-    return transform(mapCopy, customTree);
+    return transformMap(mapCopy, customTree);
   };
+}
+
+function createKanaToHepburnMap() {
+  /* eslint object-property-newline: ["error", { "allowMultiplePropertiesPerLine": true }] */
+  const hepburnTree = {
+    あ: 'a',
+    い: 'i',
+    う: 'u',
+    え: 'e',
+    お: 'o',
+    か: 'ka',
+    き: 'ki',
+    く: 'ku',
+    け: 'ke',
+    こ: 'ko',
+    さ: 'sa',
+    し: 'shi',
+    す: 'su',
+    せ: 'se',
+    そ: 'so',
+    た: 'ta',
+    ち: 'chi',
+    つ: 'tsu',
+    て: 'te',
+    と: 'to',
+    な: 'na',
+    に: 'ni',
+    ぬ: 'nu',
+    ね: 'ne',
+    の: 'no',
+    は: 'ha',
+    ひ: 'hi',
+    ふ: 'fu',
+    へ: 'he',
+    ほ: 'ho',
+    ま: 'ma',
+    み: 'mi',
+    む: 'mu',
+    め: 'me',
+    も: 'mo',
+    や: 'ya',
+    ゆ: 'yu',
+    よ: 'yo',
+    ら: 'ra',
+    り: 'ri',
+    る: 'ru',
+    れ: 're',
+    ろ: 'ro',
+    わ: 'wa',
+    ゐ: 'wi',
+    ゑ: 'we',
+    を: 'wo',
+    が: 'ga',
+    ぎ: 'gi',
+    ぐ: 'gu',
+    げ: 'ge',
+    ご: 'go',
+    ざ: 'za',
+    じ: 'ji',
+    ず: 'zu',
+    ぜ: 'ze',
+    ぞ: 'zo',
+    だ: 'da',
+    ぢ: 'ji',
+    づ: 'zu',
+    で: 'de',
+    ど: 'do',
+    ば: 'ba',
+    び: 'bi',
+    ぶ: 'bu',
+    べ: 'be',
+    ぼ: 'bo',
+    ぱ: 'pa',
+    ぴ: 'pi',
+    ぷ: 'pu',
+    ぺ: 'pe',
+    ぽ: 'po',
+    ゔぁ: 'va',
+    ゔぃ: 'vi',
+    ゔ: 'vu',
+    ゔぇ: 've',
+    ゔぉ: 'vo',
+  };
+
+  const romajiTree = transform(hepburnTree);
+  const subtreeOf = (string) => getSubTreeOf(romajiTree, string);
+
+  const smallY = { ゃ: 'ya', ゅ: 'yu', ょ: 'yo' };
+  const smallYExtra = { ぃ: 'yi', ぇ: 'ye' };
+  const smallaiueo = { ぁ: 'a', ぃ: 'i', ぅ: 'u', ぇ: 'e', ぉ: 'o' };
+
+  for (const [rom, kan] of Object.entries(smallY).concat(Object.entries(smallaiueo))) {
+    subtreeOf(rom)[''] = kan;
+  }
+
+  const yoonKana = ['き', 'に', 'ひ', 'み', 'り', 'ぎ', 'び', 'ぴ', 'ゔ', 'く', 'ふ'];
+  // きゃ -> kya
+  for (const kana of yoonKana) {
+    const fistRomajiLetter = subtreeOf(kana)[''][0];
+    for (const [yKan, yRom] of Object.entries(smallY)) {
+      subtreeOf(kana + yKan)[''] = fistRomajiLetter + yRom;
+    }
+    // きぃ -> kyi
+    for (const [yKan, yRom] of Object.entries(smallYExtra)) {
+      subtreeOf(kana + yKan)[''] = fistRomajiLetter + yRom;
+    }
+  }
+  const yoonExceptions = { し: 'sh', ち: 'ch', じ: 'j', ぢ: 'j' };
+  for (const [kana, rom] of Object.entries(yoonExceptions)) {
+    // じゃ -> ja
+    for (const [yKan, yRom] of Object.entries(smallY)) {
+      subtreeOf(kana + yKan)[''] = rom + yRom[0];
+    }
+    // じぃ -> jyi, じぇ -> je
+    subtreeOf(`${kana}ぃ`)[''] = `${rom}yi`;
+    subtreeOf(`${kana}ぇ`)[''] = `${rom}e`;
+  }
 }
 
 let romajiToKanaMap = null;
@@ -68,35 +210,9 @@ function createRomajiToKanaMap() {
     v: { a: 'ゔぁ', i: 'ゔぃ', u: 'ゔ', e: 'ゔぇ', o: 'ゔぉ' },
   };
 
-  // transform the tree, so that for example kanaTree['k']['y']['a'][''] === 'きゃ'
-  function transform(tree) {
-    const result = {};
-    for (const [char, subtree] of Object.entries(tree)) {
-      if (typeof subtree === 'string') {  // we have reached the bottom of this branch
-        result[char] = { '': subtree };
-      } else {  // more subtrees to go through
-        result[char] = transform(subtree);
-      }
-    }
-    return result;
-  }
-
   const kanaTree = transform(kunreiTree);
-
-  function getSubTreeOf(string) {
-    let correctSubTree = kanaTree;
-    for (const char of string) {
-      if (correctSubTree[char] === undefined) {
-        correctSubTree[char] = {};
-      }
-      correctSubTree = correctSubTree[char];
-    }
-    return correctSubTree;
-  }
-
-  // for (const [consonant, subtree] of Object.entries(kanaTree)) {
-  //   kanaTree[consonant] = transform(subtree);
-  // }
+  // pseudo partial application
+  const subtreeOf = (string) => getSubTreeOf(kanaTree, string);
 
   const consonants = {
     k: 'き',
@@ -115,9 +231,8 @@ function createRomajiToKanaMap() {
     v: 'ゔ',
     q: 'く',
     f: 'ふ',
-    // sh: 'し',
-    // ch: 'ち',
   };
+
   const smallY = { ya: 'ゃ', yi: 'ぃ', yu: 'ゅ', ye: 'ぇ', yo: 'ょ' };
   const smallaiueo = { a: 'ぁ', i: 'ぃ', u: 'ぅ', e: 'ぇ', o: 'ぉ' };
 
@@ -125,7 +240,7 @@ function createRomajiToKanaMap() {
   for (const [consonant, yKana] of Object.entries(consonants)) {
     for (const [rom, kan] of Object.entries(smallY)) {
       // for example kyo -> き + ょ
-      getSubTreeOf(consonant + rom)[''] = yKana + kan;
+      subtreeOf(consonant + rom)[''] = yKana + kan;
     }
   }
 
@@ -151,7 +266,7 @@ function createRomajiToKanaMap() {
   };
 
   for (const [symbol, jsymbol] of Object.entries(specialSymbols)) {
-    getSubTreeOf(symbol)[''] = jsymbol;
+    subtreeOf(symbol)[''] = jsymbol;
   }
 
   const aiueoConstructions = {
@@ -172,14 +287,14 @@ function createRomajiToKanaMap() {
   // things like うぃ, くぃ, etc.
   for (const [consonant, aiueoKan] of Object.entries(aiueoConstructions)) {
     for (const [vow, kan] of Object.entries(smallaiueo)) {
-      const subtree = getSubTreeOf(consonant + vow);
+      const subtree = subtreeOf(consonant + vow);
       subtree[''] = aiueoKan + kan;
     }
   }
 
   // different ways to write ん
   for (const nvar of ['n', 'n\'', 'xn']) {
-    getSubTreeOf(nvar)[''] = 'ん';
+    subtreeOf(nvar)[''] = 'ん';
   }
 
   // typing one should be the same as having typed the other instead
@@ -206,9 +321,9 @@ function createRomajiToKanaMap() {
   for (const [string, alternative] of Object.entries(alternativeMappings)) {
     const allExceptLast = string.slice(0, string.length - 1);
     const last = string.charAt(string.length - 1);
-    const parentTree = getSubTreeOf(allExceptLast);
+    const parentTree = subtreeOf(allExceptLast);
     // copy to avoid recursive containment
-    parentTree[last] = JSON.parse(JSON.stringify(getSubTreeOf(alternative)));
+    parentTree[last] = JSON.parse(JSON.stringify(subtreeOf(alternative)));
   }
 
 
@@ -228,13 +343,13 @@ function createRomajiToKanaMap() {
   for (const [kunreiRom, kan] of Object.entries(smallLetters)) {
     {
       const xRom = `x${kunreiRom}`;
-      const xSubtree = getSubTreeOf(xRom);
+      const xSubtree = subtreeOf(xRom);
       xSubtree[''] = kan;
 
       // ltu -> xtu -> っ
       const allExceptLast = kunreiRom.slice(0, kunreiRom.length - 1);
       const last = kunreiRom.charAt(kunreiRom.length - 1);
-      const parentTree = getSubTreeOf(`l${allExceptLast}`);
+      const parentTree = subtreeOf(`l${allExceptLast}`);
       parentTree[last] = xSubtree;
     }
 
@@ -243,8 +358,8 @@ function createRomajiToKanaMap() {
       const allExceptLast = altRom.slice(0, altRom.length - 1);
       const last = altRom.charAt(altRom.length - 1);
       for (const prefix of ['l', 'x']) {
-        const parentTree = getSubTreeOf(prefix + allExceptLast);
-        parentTree[last] = getSubTreeOf(prefix + kunreiRom);
+        const parentTree = subtreeOf(prefix + allExceptLast);
+        parentTree[last] = subtreeOf(prefix + kunreiRom);
       }
     }
   }
@@ -269,7 +384,7 @@ function createRomajiToKanaMap() {
   };
 
   for (const [string, kana] of Object.entries(individualCases)) {
-    getSubTreeOf(string)[''] = kana;
+    subtreeOf(string)[''] = kana;
   }
 
   // add kka, tta, etc.
