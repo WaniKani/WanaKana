@@ -180,6 +180,8 @@ function createKanaToHepburnMap() {
     subtreeOf(`${kana}ぃ`)[''] = `${rom}yi`;
     subtreeOf(`${kana}ぇ`)[''] = `${rom}e`;
   }
+
+  return Object.freeze(JSON.parse(JSON.stringify(romajiTree)));
 }
 
 let romajiToKanaMap = null;
@@ -408,7 +410,7 @@ function createRomajiToKanaMap() {
   // nn should not be っん
   delete kanaTree.n.n;
   // solidify the results, so that there there is referential transparency within the tree
-  return JSON.parse(JSON.stringify(kanaTree));
+  return Object.freeze(JSON.parse(JSON.stringify(kanaTree)));
 }
 
 export function getRomajiToKanaTree() {
