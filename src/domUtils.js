@@ -80,15 +80,13 @@ function onInput(options) {
       input.value = newText;
 
       // Modern browsers
-      if (input.setSelectionRange != null && typeof input.selectionStart === 'number') {
+      if (input.setSelectionRange !== null && typeof input.selectionStart === 'number') {
         if (selectionEnd === 0) input.setSelectionRange(0, 0);
         else {
           input.setSelectionRange(input.value.length, input.value.length);
           let kanaLength = 0;
           for (let index = 0; index < kanaTokens.length; index += 1) {
-            const currentToken = kanaTokens[index];
-            const tokenEnd = currentToken[1];
-            const tokenKana = currentToken[2];
+            const [, tokenEnd, tokenKana] = kanaTokens[index];
             kanaLength += tokenKana.length;
             if (tokenEnd >= selectionEnd) {
               input.setSelectionRange(kanaLength, kanaLength);

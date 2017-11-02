@@ -11,7 +11,7 @@ import toKana from '../toKana';
  * @ignore
  */
 function romajiToHiragana(input = '', options = {}) {
-  return toKana(input, options, true /* ignore case to enforce Hiragana conversion */);
+  return toKana(input, Object.assign({}, options, { ignoreCase: true }) /* ignore case to enforce Hiragana conversion */);
 }
 
 export default romajiToHiragana;
