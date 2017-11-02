@@ -331,7 +331,7 @@ describe('Kana to Romaji', () => {
      () => expect(toRomaji('ワニカニ　が　すごい　だ', { upcaseKatakana: true })).toBe('WANIKANI ga sugoi da'));
 
     it("Doesn't mangle the long dash 'ー' or slashdot '・'",
-     () => expect(toRomaji('罰ゲーム・ばつげーむ')).toBe('罰ge-mu/batsuge-mu'));
+     () => expect(toRomaji('罰ゲーム・ばつげーむ')).toBe('罰geemu/batsuge-mu'));
 
     it('Spaces must be manually entered',
      () => expect(toRomaji('わにかにがすごいだ')).not.toBe('wanikani ga sugoi da'));
