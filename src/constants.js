@@ -27,6 +27,9 @@ export const DEFAULT_OPTIONS = {
   ignoreCase: false,
   IMEMode: false,
   customKanaMapping: (map) => map,
+  customKanaPostProcessing: ([string, parsed]) => [string, parsed],
+  customRomajiMapping: (map) => map,
+  customRomajiPostProcessing: ([string, parsed]) => [string, parsed],
 };
 
 // CharCode References
