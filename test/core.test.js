@@ -352,7 +352,7 @@ describe('Kana to Romaji', () => {
     it('Double and single n', () => expect(toRomaji('きんにくまん')).toBe('kinnikuman'));
     it('N extravaganza', () => expect(toRomaji('んんにんにんにゃんやん')).toBe("nnninninnyan'yan"));
     it('Double consonants',
-      () => expect(toRomaji('かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ')).toBe('kappa tatta shusshu chaccha yattsu'));
+      () => expect(toRomaji('かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ')).toBe('kappa tatta shusshu chatcha yattsu'));
   });
 
   describe('Small kana', () => {
