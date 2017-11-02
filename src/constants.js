@@ -20,16 +20,19 @@
  * @type {DefaultOptions}
  * @ignore
  */
+import { methods as romanizations } from './kanaToRomajiMap';
+
 export const DEFAULT_OPTIONS = {
   useObsoleteKana: false,
   passRomaji: false,
   upcaseKatakana: false,
   ignoreCase: false,
   IMEMode: false,
+  romanization: romanizations.HEPBURN,
   customKanaMapping: (map) => map,
-  customKanaPostProcessing: ([string, parsed]) => [string, parsed],
+  customKanaPostProcessing: ([romaji, parsed]) => [romaji, parsed],
   customRomajiMapping: (map) => map,
-  customRomajiPostProcessing: ([string, parsed]) => [string, parsed],
+  customRomajiPostProcessing: ([kana, parsed]) => [kana, parsed],
 };
 
 // CharCode References
