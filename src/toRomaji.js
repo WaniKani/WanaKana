@@ -1,12 +1,7 @@
-import {
-  DEFAULT_OPTIONS,
-  TO_ROMAJI,
-} from './constants';
-
-import getChunkSize from './utils/getChunkSize';
-import getChunk from './utils/getChunk';
-import katakanaToHiragana from './utils/katakanaToHiragana';
-import isKatakana from './isKatakana';
+import { DEFAULT_OPTIONS } from './constants';
+import { applyMapping } from './kanaMappingUtils';
+import toHiragana from './toHiragana';
+import { getRomajiPostProcessing, getKanaToRomajiTree } from './kanaToRomajiMap';
 
 /**
  * Convert kana to romaji
@@ -19,59 +14,23 @@ import isKatakana from './isKatakana';
  * toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
  * // => 'hiragana KATAKANA'
  */
-function toRomaji(kana = '', options = {}) {
+export function toRomaji(input = '', options = {}) {
+  // just throw away the substring index information and just concatenate all the kana
+  return splitIntoRomaji(input, options).map((romajiToken) => romajiToken[2]).join('');
+}
+
+function splitIntoRomaji(input = '', options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
-  const len = kana.length;
-  // Final output array
-  const roma = [];
-  // Position in the string that is being evaluated
-  let cursor = 0;
-  const maxChunk = 2;
-  let chunkSize = 2;
-  let chunk = '';
-  let romaChar = '';
-  let nextCharIsDoubleConsonant;
+  const romajiPostProcessing = getRomajiPostProcessing(config);
 
-  while (cursor < len) {
-    chunkSize = getChunkSize(maxChunk, len - cursor);
-    let convertThisChunkToUppercase = false;
-    while (chunkSize > 0) {
-      chunk = getChunk(kana, cursor, cursor + chunkSize);
-      if (isKatakana(chunk)) {
-        convertThisChunkToUppercase = config.upcaseKatakana;
-        chunk = katakanaToHiragana(chunk);
-      }
-      // special case for small tsus
-      if (chunk.charAt(0) === 'っ' && chunkSize === 1 && cursor < (len - 1)) {
-        nextCharIsDoubleConsonant = true;
-        romaChar = '';
-        break;
-      }
+  let map = getKanaToRomajiTree(config);
+  map = config.customRomajiMapping(map);
 
-      romaChar = TO_ROMAJI[chunk];
+  const mappingResult = applyMapping(toHiragana(input, { passRomaji: true }), map, !config.IMEMode);
+  let result = romajiPostProcessing([input, mappingResult]);
+  result = config.customRomajiPostProcessing(result);
 
-      if ((romaChar != null) && nextCharIsDoubleConsonant) {
-        romaChar = romaChar.charAt(0).concat(romaChar);
-        nextCharIsDoubleConsonant = false;
-      }
-      // console.log(`${cursor}x${chunkSize}:${chunk} => ${romaChar}`);
-      if (romaChar != null) {
-        break;
-      }
-      chunkSize -= 1;
-    }
-    if (romaChar == null) {
-      // Passthrough undefined values
-      romaChar = chunk;
-    }
-
-    if (convertThisChunkToUppercase) {
-      romaChar = romaChar.toUpperCase();
-    }
-    roma.push(romaChar);
-    cursor += chunkSize || 1;
-  }
-  return roma.join('');
+  return result[1];
 }
 
 export default toRomaji;
