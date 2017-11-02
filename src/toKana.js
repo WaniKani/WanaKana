@@ -4,9 +4,9 @@ import {
 
 import isCharUpperCase from './utils/isCharUpperCase';
 import hiraganaToKatakana from './utils/hiraganaToKatakana';
-import isRomaji from './isRomaji';
 import {
   getRomajiToKanaTree,
+  applyMapping,
   IME_MODE_MAP,
   USE_OBSOLETE_KANA_MAP } from './kanaMapping';
 
@@ -41,47 +41,20 @@ export function splitIntoKana(input = '', options = {}) {
   map = config.IMEMode? IME_MODE_MAP(map): map;
   map = config.useObsoleteKana? USE_OBSOLETE_KANA_MAP(map): map;
   map = config.customKanaMapping(map);
-  const root = map;
 
-  function parse(tree, remaining, lastCursor, currentLength, convertToKatakana) {
-    const currentCursor = lastCursor + currentLength;
-    // the string you would get if you stopped the tree traversal right here
-    const treeString = tree[''] || '';
-    // this variable will only used if there are no more characters to consume
-    const committed = [lastCursor, currentCursor, convertToKatakana? hiraganaToKatakana(treeString): treeString];
+  const result = applyMapping(input.toLowerCase(), map, !config.IMEMode);
 
-    if (!remaining) {  // nothing more to consume, just commit the last chunk and return it
-      if (!treeString) {
-        return [];
-      }
-      return [committed];
+  return result.map((element) => {
+    const [start, end, kan] = element;
+    if (kan === null) {
+      // we encountered the last chunk, that should not be converted yet
+      return [start, end, input.slice(start)];
     }
-
-    const nextChar = remaining.charAt(0);
-    const convertToKata = !options.ignoreCase && isCharUpperCase(nextChar);
-    const subTree = tree[nextChar.toLowerCase()];
-
-    if (subTree === undefined) {  // the next char is not a continuation of this tree
-      // the next tree is guaranteed to have an '' element, which is going to be the raw input char if there is no corresponding kana;
-      // since we want to start a new run here, we start from root again
-      const nextTree = Object.assign({ '': nextChar }, root[nextChar.toLowerCase()]);
-      const nextRemaining = remaining.slice(1);
-      // only commit, when there is an actual run to commit (so you don't end up with something like [0, 0, undefined])
-      if (currentLength > 0) {
-        // convert n in IME mode
-        if (!!options.IMEMode && isRomaji(nextChar)) {
-          if (committed[2].toLowerCase() === 'n') {
-            committed[2] = convertToKatakana? 'ン': 'ん';
-          }
-        }
-        return [committed].concat(parse(nextTree, nextRemaining, currentCursor, 1, convertToKata));
-      }
-      return parse(nextTree, nextRemaining, currentCursor, 1, convertToKata);
+    if (!config.ignoreCase && isCharUpperCase(input[start])) {
+      return [start, end, hiraganaToKatakana(kan)];
     }
-    // if the run keeps going, we need to store the string from the run so far and the next char appended to it
-    return parse(Object.assign({ '': treeString + nextChar }, subTree), remaining.slice(1), lastCursor, currentLength + 1, convertToKatakana === undefined? convertToKata: convertToKatakana);
-  }
-  return parse(root, input, 0, 0);
+    return element;
+  });
 }
 
 export default toKana;
