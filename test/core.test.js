@@ -356,7 +356,7 @@ describe('Kana to Romaji', () => {
   });
 
   describe('Small kana', () => {
-    it("Small tsu doesn't transliterate", () => expect(toRomaji('っ')).toBe(''));
+    it("Small tsu doesn't transliterate", () => expect(toRomaji('っ')).toBe('tsu'));
     it('Small ya', () => expect(toRomaji('ゃ')).toBe('ya'));
     it('Small yu', () => expect(toRomaji('ゅ')).toBe('yu'));
     it('Small yo', () => expect(toRomaji('ょ')).toBe('yo'));
