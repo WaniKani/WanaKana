@@ -20,4 +20,5 @@ export { default as toKatakana } from './toKatakana';
 export { default as stripOkurigana } from './stripOkurigana';
 export { default as tokenize } from './tokenize';
 
-export { createKanaToHepburnMap, applyMapping } from './kanaMapping';
+export { createCustomMapping } from './kanaMappingUtils';
+export { methods } from './kanaToRomajiMap';
