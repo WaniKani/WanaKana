@@ -365,7 +365,7 @@ describe('Kana to Romaji', () => {
     it('Small u', () => expect(toRomaji('ぅ')).toBe('u'));
     it('Small e', () => expect(toRomaji('ぇ')).toBe('e'));
     it('Small o', () => expect(toRomaji('ぉ')).toBe('o'));
-    it('Small ke (ka)', () => expect(toRomaji('ヶ')).toBe('ka'));
+    it('Small ke', () => expect(toRomaji('ヶ')).toBe('ke'));
     it('Small ka', () => expect(toRomaji('ヵ')).toBe('ka'));
     it('Small wa', () => expect(toRomaji('ゎ')).toBe('wa'));
   });
