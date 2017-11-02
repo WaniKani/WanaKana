@@ -1,10 +1,8 @@
 import {
   DEFAULT_OPTIONS,
 } from './constants';
-
-import isCharUpperCase from './utils/isCharUpperCase';
-import hiraganaToKatakana from './utils/hiraganaToKatakana';
 import {
+  getKanaPostProcessing,
   getRomajiToKanaTree,
   IME_MODE_MAP,
   USE_OBSOLETE_KANA_MAP,
@@ -37,25 +35,18 @@ export function toKana(input = '', options = {}) {
 
 export function splitIntoKana(input = '', options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
+  const kanaPostProcessing = getKanaPostProcessing(config);
 
-  let map = getRomajiToKanaTree();
+  let map = getRomajiToKanaTree(config);
   map = config.IMEMode? IME_MODE_MAP(map): map;
   map = config.useObsoleteKana? USE_OBSOLETE_KANA_MAP(map): map;
   map = config.customKanaMapping(map);
 
-  const result = applyMapping(input.toLowerCase(), map, !config.IMEMode);
+  const mappingResult = applyMapping(input.toLowerCase(), map, !config.IMEMode);
+  let result = kanaPostProcessing([input, mappingResult]);
+  result = config.customKanaPostProcessing(result);
 
-  return result.map((element) => {
-    const [start, end, kan] = element;
-    if (kan === null) {
-      // we encountered the last chunk, that should not be converted yet
-      return [start, end, input.slice(start)];
-    }
-    if (!config.ignoreCase && isCharUpperCase(input[start])) {
-      return [start, end, hiraganaToKatakana(kan)];
-    }
-    return element;
-  });
+  return result[1];
 }
 
 export default toKana;
