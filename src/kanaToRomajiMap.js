@@ -179,7 +179,7 @@ function createKanaToHepburnMap() {
     っ: '',
     ゎ: 'wa',
     ゕ: 'ka',
-    ゖ: 'ke',
+    ゖ: 'ka',  // because katakana is converted to hiragana before calling this function
     ゃ: 'ya',
     ゅ: 'yu',
     ょ: 'yo',
