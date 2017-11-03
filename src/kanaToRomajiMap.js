@@ -9,8 +9,7 @@ export const methods = Object.freeze({
 let kanaToHepburnMap = null;
 
 function createKanaToHepburnMap() {
-  /* eslint object-property-newline: ["error", { "allowMultiplePropertiesPerLine": true }] */
-  const hepburnTree = {
+  const romajiTree = transform({
     あ: 'a',
     い: 'i',
     う: 'u',
@@ -89,11 +88,8 @@ function createKanaToHepburnMap() {
     ゔぇ: 've',
     ゔぉ: 'vo',
     ん: 'n',
-    wi: 'ゐ',
-    we: 'ゑ',
-  };
+  });
 
-  const romajiTree = transform(hepburnTree);
   const subtreeOf = (string) => getSubTreeOf(romajiTree, string);
 
   const specialSymbols = {
@@ -155,16 +151,45 @@ function createKanaToHepburnMap() {
 
   // going with the intuitive (yet incorrect) solution where っや -> yya and っぃ -> ii
   // in other words, just assume the sokuon could have been applied to anything
+
+  const sokuonWhitelist = transform({
+    b: 'b',
+    ch: 't',
+    d: 'd',
+    f: 'f',
+    g: 'g',
+    h: 'h',
+    j: 'j',
+    k: 'k',
+    m: 'm',
+    p: 'p',
+    q: 'q',
+    r: 'r',
+    s: 's',
+    sh: 's',
+    t: 't',
+    ts: 't',
+    v: 'v',
+    w: 'w',
+    x: 'x',
+    z: 'z',
+  });
+
+  sokuonWhitelist[''] = '';
+
   function resolveTsu(tree) {
     const result = {};
     for (const [key, value] of Object.entries(tree)) {
       if (!key) {  // we have reached the bottom of this branch
-        // double the fist letter
-        if (value.slice(0, 2) === 'ch') {
-          // special case is っちゃ -> tcha for example
-          result[key] = `tch${value.slice(2)}`;
-        } else {
-          result[key] = `${value[0]}${value}`;
+        let subtree = sokuonWhitelist;
+        for (const char of value) {
+          const child = subtree[char];
+          if (child === undefined) {
+            result[''] = subtree[''] + value;
+            break;
+          } else {
+            subtree = child;
+          }
         }
       } else {  // more subtrees
         result[key] = resolveTsu(value);
