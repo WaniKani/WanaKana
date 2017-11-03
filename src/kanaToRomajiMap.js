@@ -152,9 +152,9 @@ function createKanaToHepburnMap() {
   // going with the intuitive (yet incorrect) solution where っや -> yya and っぃ -> ii
   // in other words, just assume the sokuon could have been applied to anything
 
-  const sokuonWhitelist = transform({
+  const sokuonWhitelist = {
     b: 'b',
-    ch: 't',
+    c: 't',
     d: 'd',
     f: 'f',
     g: 'g',
@@ -166,31 +166,21 @@ function createKanaToHepburnMap() {
     q: 'q',
     r: 'r',
     s: 's',
-    sh: 's',
     t: 't',
-    ts: 't',
     v: 'v',
     w: 'w',
     x: 'x',
     z: 'z',
-  });
-
-  sokuonWhitelist[''] = '';
+  };
 
   function resolveTsu(tree) {
     const result = {};
     for (const [key, value] of Object.entries(tree)) {
       if (!key) {  // we have reached the bottom of this branch
-        let subtree = sokuonWhitelist;
-        for (const char of value) {
-          const child = subtree[char];
-          if (child === undefined) {
-            result[''] = subtree[''] + value;
-            break;
-          } else {
-            subtree = child;
-          }
-        }
+        const consonant = value.charAt(0);
+        result[key] = consonant in sokuonWhitelist?
+          sokuonWhitelist[consonant] + value:
+          value;
       } else {  // more subtrees
         result[key] = resolveTsu(value);
       }
