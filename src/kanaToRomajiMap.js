@@ -174,10 +174,9 @@ function createKanaToHepburnMap() {
   }
 
   romajiTree['っ'] = resolveTsu(romajiTree);
-  romajiTree['っ'][''] = 'tsu';
 
   const smallLetters = {
-    っ: 'tsu',
+    っ: '',
     ゎ: 'wa',
     ゕ: 'ka',
     ゖ: 'ke',
