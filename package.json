@@ -24,7 +24,7 @@
     "url": "https://github.com/WaniKani/WanaKana/issues"
   },
   "devEngines": {
-    "node": ">7"
+    "node": ">=8.9.1"
   },
   "scripts": {
     "prebuild": "rimraf ./dist",
