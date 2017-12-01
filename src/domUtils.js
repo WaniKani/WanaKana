@@ -32,7 +32,7 @@ export function bind(input, options = {}) {
     LISTENERS = trackListener(listener, id);
   } else {
     // eslint-disable-next-line no-console
-    console.warn('Input provided to wanakana.bind was not a valid input field.');
+    console.warn('Input provided to Wanakana bind() was not a valid input field.');
   }
 }
 
@@ -49,7 +49,7 @@ export function unbind(input) {
     input.removeEventListener('input', trackedListener.handler);
     LISTENERS = untrackListener(trackedListener);
   } else {
-    console.warn('Input had no listener registered.'); // eslint-disable-line no-console
+    console.warn('Input called with Wanakana unbind() had no listener registered.'); // eslint-disable-line no-console
   }
 }
 
