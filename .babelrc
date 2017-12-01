@@ -4,7 +4,7 @@
       "loose": false,
       "modules": false,
       "targets": {
-        "node": 7,
+        "node": 8,
         "browsers": [
           "last 2 versions",
           ">1%"
@@ -21,7 +21,7 @@
         ["env", {
           "loose": false,
           "targets": {
-            "node": 7,
+            "node": 8,
             "browsers": [
               "last 2 versions",
               ">1%"
