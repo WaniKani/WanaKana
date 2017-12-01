@@ -226,7 +226,7 @@ export function getKanaToRomajiTree(fullOptions) {
 
 function getHepburnPostProcessing(fullOptions) {
   return function postProcessing([kana, parsed]) {
-    const labial = ['b', 'm', 'p'];
+    // const labial = ['b', 'm', 'p'];
     const vowels = ['a', 'i', 'u', 'e', 'o', 'y'];
     const newParsed = JSON.parse(JSON.stringify(parsed));
     for (let index = 0; index < parsed.length; index += 1) {
@@ -236,10 +236,10 @@ function getHepburnPostProcessing(fullOptions) {
         if (nextElement !== undefined) {
           const nextChar = nextElement[2].charAt(0);
           switch (true) {
-            // んば -> mba
-            case labial.includes(nextChar):
-              newParsed[index][2] = 'm';
-              break;
+            // // んば -> mba
+            // case labial.includes(nextChar):
+            //   newParsed[index][2] = 'm';
+            //   break;
             // んや -> n'ya
             case vowels.includes(nextChar):
               newParsed[index][2] = "n'";
