@@ -21,6 +21,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 <!--
 ## [Unreleased]
 ### Add any unpublished changes here as they are made, for easy reference come release time.
+### Changed
+- toRomaji: no more automatic conversion of small ヶ or ヵ since they don't actually function as kana when used in Japanese text
+- toRomaji: katakana long dashes modify vowel length. ゲーム => geemu
 -->
 ## [2.3.1] - 2017-10-17
 ### Changed
