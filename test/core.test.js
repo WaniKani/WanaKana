@@ -12,7 +12,7 @@ import isMixed from '../src/isMixed';
 import { toKana, splitIntoKana } from '../src/toKana';
 import toKatakana from '../src/toKatakana';
 import toHiragana from '../src/toHiragana';
-import toRomaji from '../src/toRomaji';
+import { toRomaji, splitIntoRomaji } from '../src/toRomaji';
 import stripOkurigana from '../src/stripOkurigana';
 import tokenize from '../src/tokenize';
 import { bind, unbind } from '../src/domUtils';
@@ -28,6 +28,7 @@ describe('Methods should return valid defaults when given no input', () => {
   it('isMixed() with no input', () => expect(isMixed()).toBe(false));
   it('toKana() with no input', () => expect(toKana()).toBe(''));
   it('splitIntoKana() with no input', () => expect(splitIntoKana()).toEqual([]));
+  it('splitIntoRomaji() with no input', () => expect(splitIntoRomaji()).toEqual([]));
   it('toKatakana() with no input', () => expect(toKatakana()).toBe(''));
   it('toHiragana() with no input', () => expect(toHiragana()).toBe(''));
   it('toRomaji() with no input', () => expect(toRomaji()).toBe(''));
@@ -124,16 +125,24 @@ describe('Character type detection', () => {
 });
 
 describe('Character conversion', () => {
+  // https://en.wikipedia.org/wiki/Iroha
   describe('Quick Brown Fox - Romaji to Hiragana', () => {
-    // thanks to Yuki http://www.yesjapan.com/YJ6/question/1099/is-there-a-group-of-sentences-that-uses-every-hiragana
-    expect(toHiragana('IROHANIHOHETO', { useObsoleteKana: true })).toBe('いろはにほへと'); // Even the colorful fragrant flowers'
-    expect(toHiragana('CHIRINURUWO', { useObsoleteKana: true })).toBe('ちりぬるを'); // die sooner or later.'
-    expect(toHiragana('WAKAYOTARESO', { useObsoleteKana: true })).toBe('わかよたれそ'); // Us who live in this world'
-    expect(toHiragana('TSUNENARAMU', { useObsoleteKana: true })).toBe('つねならむ'); // cannot live forever, either.'
-    expect(toHiragana('UWINOOKUYAMA', { useObsoleteKana: true })).toBe('うゐのおくやま'); // This transient mountain with shifts and changes,'
-    expect(toHiragana('KEFUKOETE', { useObsoleteKana: true })).toBe('けふこえて'); // today we are going to overcome, and reach the world of enlightenment.'
-    expect(toHiragana('ASAKIYUMEMISHI', { useObsoleteKana: true })).toBe('あさきゆめみし'); // We are not going to have meaningless dreams'
-    expect(toHiragana('WEHIMOSESUN', { useObsoleteKana: true })).toBe('ゑひもせすん'); // nor become intoxicated with the fake world anymore.'
+    expect(toHiragana('IROHANIHOHETO', { useObsoleteKana: true })).toBe('いろはにほへと');
+    // Even the colorful fragrant flowers'
+    expect(toHiragana('CHIRINURUWO', { useObsoleteKana: true })).toBe('ちりぬるを');
+    // die sooner or later.'
+    expect(toHiragana('WAKAYOTARESO', { useObsoleteKana: true })).toBe('わかよたれそ');
+    // Us who live in this world'
+    expect(toHiragana('TSUNENARAMU', { useObsoleteKana: true })).toBe('つねならむ');
+    // cannot live forever, either.'
+    expect(toHiragana('UWINOOKUYAMA', { useObsoleteKana: true })).toBe('うゐのおくやま');
+    // This transient mountain with shifts and changes,'
+    expect(toHiragana('KEFUKOETE', { useObsoleteKana: true })).toBe('けふこえて');
+    // today we are going to overcome, and reach the world of enlightenment.'
+    expect(toHiragana('ASAKIYUMEMISHI', { useObsoleteKana: true })).toBe('あさきゆめみし');
+    // We are not going to have meaningless dreams'
+    expect(toHiragana('WEHIMOSESUN', { useObsoleteKana: true })).toBe('ゑひもせすん');
+    // nor become intoxicated with the fake world anymore.'
   });
 
   describe('Test custom mappings options', () => {
@@ -468,10 +477,6 @@ describe('Kana to Romaji', () => {
     it('Small u', () => expect(toRomaji('ぅ')).toBe('u'));
     it('Small e', () => expect(toRomaji('ぇ')).toBe('e'));
     it('Small o', () => expect(toRomaji('ぉ')).toBe('o'));
-    // https://en.wikipedia.org/wiki/Small_ke
-    it('Small ke (ka)', () => expect(toRomaji('ヶ')).toBe('ka'));
-    it('Small ka', () => expect(toRomaji('ヵ')).toBe('ka'));
-    it('Small wa', () => expect(toRomaji('ゎ')).toBe('wa'));
   });
 
   describe('Apostrophes in ambiguous consonant vowel combos', () => {

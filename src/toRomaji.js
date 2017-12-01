@@ -21,7 +21,7 @@ export function toRomaji(input = '', options = {}) {
     .join('');
 }
 
-function splitIntoRomaji(input = '', options = {}) {
+export function splitIntoRomaji(input = '', options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
   const romajiPostProcessing = getRomajiPostProcessing(config);
 

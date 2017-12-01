@@ -8,8 +8,9 @@ export const methods = Object.freeze({
 
 let kanaToHepburnMap = null;
 
+/* eslint-disable object-curly-newline */
+/* eslint object-property-newline: ["error", { "allowMultiplePropertiesPerLine": true }] */
 function createKanaToHepburnMap() {
-  /* eslint object-property-newline: ["error", { "allowMultiplePropertiesPerLine": true }] */
   const hepburnTree = {
     あ: 'a',
     い: 'i',
@@ -124,9 +125,7 @@ function createKanaToHepburnMap() {
 
   const smallY = { ゃ: 'ya', ゅ: 'yu', ょ: 'yo' };
   const smallYExtra = { ぃ: 'yi', ぇ: 'ye' };
-  const smallaiueo = {
-    ぁ: 'a', ぃ: 'i', ぅ: 'u', ぇ: 'e', ぉ: 'o',
-  };
+  const smallaiueo = { ぁ: 'a', ぃ: 'i', ぅ: 'u', ぇ: 'e', ぉ: 'o' };
 
   for (const [rom, kan] of Object.entries(smallY).concat(Object.entries(smallaiueo))) {
     subtreeOf(rom)[''] = kan;
@@ -144,9 +143,8 @@ function createKanaToHepburnMap() {
       subtreeOf(kana + yKan)[''] = firstRomajiLetter + yRom;
     }
   }
-  const yoonExceptions = {
-    し: 'sh', ち: 'ch', じ: 'j', ぢ: 'j',
-  };
+  const yoonExceptions = { し: 'sh', ち: 'ch', じ: 'j', ぢ: 'j' };
+
   for (const [kana, rom] of Object.entries(yoonExceptions)) {
     // じゃ -> ja
     for (const [yKan, yRom] of Object.entries(smallY)) {
@@ -184,9 +182,6 @@ function createKanaToHepburnMap() {
 
   const smallLetters = {
     っ: 'tsu',
-    ゎ: 'wa',
-    ゕ: 'ka',
-    ゖ: 'ke',
     ゃ: 'ya',
     ゅ: 'yu',
     ょ: 'yo',

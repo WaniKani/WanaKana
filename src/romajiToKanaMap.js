@@ -4,6 +4,8 @@ import hiraganaToKatakana from './utils/hiraganaToKatakana';
 
 let romajiToKanaMap = null;
 
+/* eslint-disable object-curly-newline */
+/* eslint object-property-newline: ["error", { "allowMultiplePropertiesPerLine": true }] */
 function createRomajiToKanaMap() {
   // not exactly kunrei shiki, for example ぢゃ -> dya instead of zya, to avoid name clashing
   const kunreiTree = {
