@@ -19,3 +19,6 @@ export { default as toKatakana } from './toKatakana';
 // Other utils
 export { default as stripOkurigana } from './stripOkurigana';
 export { default as tokenize } from './tokenize';
+
+export { createCustomMapping } from './kanaMappingUtils';
+export { methods } from './kanaToRomajiMap';

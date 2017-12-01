@@ -89,9 +89,7 @@ function onInput(options) {
           input.setSelectionRange(input.value.length, input.value.length);
           let kanaLength = 0;
           for (let index = 0; index < kanaTokens.length; index += 1) {
-            const currentToken = kanaTokens[index];
-            const tokenEnd = currentToken[1];
-            const tokenKana = currentToken[2];
+            const [, tokenEnd, tokenKana] = kanaTokens[index];
             kanaLength += tokenKana.length;
             if (tokenEnd >= selectionEnd) {
               input.setSelectionRange(kanaLength, kanaLength);
@@ -121,7 +119,9 @@ function onCompositionUpdate(event) {
   const data = event.data || (event.detail && event.detail.data); // have to use custom event with detail in tests
   const finalTwoChars = (data && data.slice(-2)) || '';
   const isFirstLetterN = finalTwoChars[0] === 'n';
-  const isDoubleConsonant = convertFullwidthCharsToASCII(finalTwoChars).split('').every(isCharConsonant);
+  const isDoubleConsonant = convertFullwidthCharsToASCII(finalTwoChars)
+    .split('')
+    .every(isCharConsonant);
 
   ignoreMicrosoftIMEDoubleConsonant = !isFirstLetterN && isDoubleConsonant;
 }
@@ -134,7 +134,9 @@ function trackListener(listener, id) {
 }
 
 function findListener(input) {
-  return input && LISTENERS.find(({ id }) => id === input.getAttribute('data-wanakana-id'));
+  return (
+    input && LISTENERS.find(({ id }) => id === input.getAttribute('data-wanakana-id'))
+  );
 }
 
 function untrackListener({ id: targetId }) {
@@ -144,8 +146,11 @@ function untrackListener({ id: targetId }) {
 // easy way to still use `toKana` to handle IME input - but with forced conversion type
 function setKanaType(input, flag) {
   switch (true) {
-    case flag === 'toHiragana': return input.toLowerCase();
-    case flag === 'toKatakana': return input.toUpperCase();
-    default: return input;
+    case flag === 'toHiragana':
+      return input.toLowerCase();
+    case flag === 'toKatakana':
+      return input.toUpperCase();
+    default:
+      return input;
   }
 }

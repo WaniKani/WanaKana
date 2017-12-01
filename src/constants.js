@@ -20,31 +20,39 @@
  * @type {DefaultOptions}
  * @ignore
  */
+import { methods as romanizations } from './kanaToRomajiMap';
+
 export const DEFAULT_OPTIONS = {
   useObsoleteKana: false,
   passRomaji: false,
   upcaseKatakana: false,
+  ignoreCase: false,
   IMEMode: false,
+  romanization: romanizations.HEPBURN,
+  customKanaMapping: (map) => map,
+  customKanaPostProcessing: ([romaji, parsed]) => [romaji, parsed],
+  customRomajiMapping: (map) => map,
+  customRomajiPostProcessing: ([kana, parsed]) => [kana, parsed],
 };
 
 // CharCode References
 // http://www.rikai.com/library/kanjitables/kanji_codes.unicode.shtml
 // http://unicode-table.com
 
-const CJK_SYMBOLS_PUNCTUATION = [0x3000, 0x303F];
-const KATAKANA_PUNCTUATION = [0x30FB, 0x30FC];
-const HIRAGANA_CHARS = [0x3040, 0x309F];
-const KATAKANA_CHARS = [0x30A0, 0x30FF];
-const ZENKAKU_NUMBERS = [0xFF10, 0xFF19];
-const ZENKAKU_PUNCTUATION_1 = [0xFF01, 0xFF0F];
-const ZENKAKU_PUNCTUATION_2 = [0xFF1A, 0xFF1F];
-const ZENKAKU_PUNCTUATION_3 = [0xFF3B, 0xFF3F];
-const ZENKAKU_PUNCTUATION_4 = [0xFF5B, 0xFF60];
-const ZENKAKU_SYMBOLS_CURRENCY = [0xFFE0, 0xFFEE];
-const KANA_PUNCTUATION = [0xFF61, 0xFF65];
-const HANKAKU_KATAKANA = [0xFF66, 0xFF9F];
-const COMMON_CJK = [0x4E00, 0x9FFF];
-const RARE_CJK = [0x3400, 0x4DBF];
+const CJK_SYMBOLS_PUNCTUATION = [0x3000, 0x303f];
+const KATAKANA_PUNCTUATION = [0x30fb, 0x30fc];
+const HIRAGANA_CHARS = [0x3040, 0x309f];
+const KATAKANA_CHARS = [0x30a0, 0x30ff];
+const ZENKAKU_NUMBERS = [0xff10, 0xff19];
+const ZENKAKU_PUNCTUATION_1 = [0xff01, 0xff0f];
+const ZENKAKU_PUNCTUATION_2 = [0xff1a, 0xff1f];
+const ZENKAKU_PUNCTUATION_3 = [0xff3b, 0xff3f];
+const ZENKAKU_PUNCTUATION_4 = [0xff5b, 0xff60];
+const ZENKAKU_SYMBOLS_CURRENCY = [0xffe0, 0xffee];
+const KANA_PUNCTUATION = [0xff61, 0xff65];
+const HANKAKU_KATAKANA = [0xff66, 0xff9f];
+const COMMON_CJK = [0x4e00, 0x9fff];
+const RARE_CJK = [0x3400, 0x4dbf];
 const LATIN_NUMBERS = [0x0030, 0x0039];
 const MODERN_ENGLISH = [0x0000, 0x007f];
 const HEPBURN_MACRON_RANGES = [
@@ -56,7 +64,7 @@ const HEPBURN_MACRON_RANGES = [
 ];
 const SMART_QUOTE_RANGES = [
   [0x2018, 0x2019], // ‘ ’
-  [0x201C, 0x201D], // “ ”
+  [0x201c, 0x201d], // “ ”
 ];
 
 // const FULL_LATIN_RANGES = [
@@ -77,12 +85,7 @@ export const JA_PUNCTUATION_RANGES = [
   ZENKAKU_SYMBOLS_CURRENCY,
 ];
 
-const KANA_RANGES = [
-  HIRAGANA_CHARS,
-  KATAKANA_CHARS,
-  KANA_PUNCTUATION,
-  HANKAKU_KATAKANA,
-];
+const KANA_RANGES = [HIRAGANA_CHARS, KATAKANA_CHARS, KANA_PUNCTUATION, HANKAKU_KATAKANA];
 
 /**
  * All Japanese unicode start and end ranges
@@ -114,29 +117,29 @@ export const ROMAJI_RANGES = [
 ];
 
 export const EN_PUNCTUATION_RANGES = [
-  [0x21, 0x2F],
-  [0x3A, 0x3F],
-  [0x5B, 0x60],
-  [0x7B, 0x7E],
+  [0x21, 0x2f],
+  [0x3a, 0x3f],
+  [0x5b, 0x60],
+  [0x7b, 0x7e],
   ...SMART_QUOTE_RANGES,
 ];
 
 export const LOWERCASE_START = 0x61;
-export const LOWERCASE_END = 0x7A;
+export const LOWERCASE_END = 0x7a;
 export const UPPERCASE_START = 0x41;
-export const UPPERCASE_END = 0x5A;
-export const LOWERCASE_FULLWIDTH_START = 0xFF41;
-export const LOWERCASE_FULLWIDTH_END = 0xFF5A;
-export const UPPERCASE_FULLWIDTH_START = 0xFF21;
-export const UPPERCASE_FULLWIDTH_END = 0xFF3A;
+export const UPPERCASE_END = 0x5a;
+export const LOWERCASE_FULLWIDTH_START = 0xff41;
+export const LOWERCASE_FULLWIDTH_END = 0xff5a;
+export const UPPERCASE_FULLWIDTH_START = 0xff21;
+export const UPPERCASE_FULLWIDTH_END = 0xff3a;
 export const HIRAGANA_START = 0x3041;
 export const HIRAGANA_END = 0x3096;
-export const KATAKANA_START = 0x30A1;
-export const KATAKANA_END = 0x30FC;
-export const KANJI_START = 0x4E00;
-export const KANJI_END = 0x9FAF;
-export const PROLONGED_SOUND_MARK = 0x30FC;
-export const KANA_SLASH_DOT = 0x30FB;
+export const KATAKANA_START = 0x30a1;
+export const KATAKANA_END = 0x30fc;
+export const KANJI_START = 0x4e00;
+export const KANJI_END = 0x9faf;
+export const PROLONGED_SOUND_MARK = 0x30fc;
+export const KANA_SLASH_DOT = 0x30fb;
 
 export const LONG_VOWELS = {
   a: 'あ',
@@ -144,325 +147,6 @@ export const LONG_VOWELS = {
   u: 'う',
   e: 'え',
   o: 'う',
-};
-
-export const FOUR_CHAR_EDGECASES = [
-  'lts',
-  'chy',
-  'shy',
-];
-
-export const FROM_ROMAJI = {
-  '.': '。',
-  ',': '、',
-  ':': '：',
-  '/': '・',
-  '!': '！',
-  '?': '？',
-  '~': '〜',
-  '-': 'ー',
-  '‘': '「',
-  '’': '」',
-  '“': '『',
-  '”': '』',
-  '[': '［',
-  ']': '］',
-  '(': '（',
-  ')': '）',
-  '{': '｛',
-  '}': '｝',
-
-  'a': 'あ',
-  'i': 'い',
-  'u': 'う',
-  'e': 'え',
-  'o': 'お',
-  'yi': 'い',
-  'wu': 'う',
-  'whu': 'う',
-  'xa': 'ぁ',
-  'xi': 'ぃ',
-  'xu': 'ぅ',
-  'xe': 'ぇ',
-  'xo': 'ぉ',
-  'xyi': 'ぃ',
-  'xye': 'ぇ',
-  'ye': 'いぇ',
-  'wha': 'うぁ',
-  'whi': 'うぃ',
-  'whe': 'うぇ',
-  'who': 'うぉ',
-  'wi': 'うぃ',
-  'we': 'うぇ',
-  'va': 'ゔぁ',
-  'vi': 'ゔぃ',
-  'vu': 'ゔ',
-  've': 'ゔぇ',
-  'vo': 'ゔぉ',
-  'vya': 'ゔゃ',
-  'vyi': 'ゔぃ',
-  'vyu': 'ゔゅ',
-  'vye': 'ゔぇ',
-  'vyo': 'ゔょ',
-  'ka': 'か',
-  'ki': 'き',
-  'ku': 'く',
-  'ke': 'け',
-  'ko': 'こ',
-  'lka': 'ヵ',
-  'lke': 'ヶ',
-  'xka': 'ヵ',
-  'xke': 'ヶ',
-  'kya': 'きゃ',
-  'kyi': 'きぃ',
-  'kyu': 'きゅ',
-  'kye': 'きぇ',
-  'kyo': 'きょ',
-  'ca': 'か',
-  'ci': 'き',
-  'cu': 'く',
-  'ce': 'け',
-  'co': 'こ',
-  'lca': 'ヵ',
-  'lce': 'ヶ',
-  'xca': 'ヵ',
-  'xce': 'ヶ',
-  'qya': 'くゃ',
-  'qyu': 'くゅ',
-  'qyo': 'くょ',
-  'qwa': 'くぁ',
-  'qwi': 'くぃ',
-  'qwu': 'くぅ',
-  'qwe': 'くぇ',
-  'qwo': 'くぉ',
-  'qa': 'くぁ',
-  'qi': 'くぃ',
-  'qe': 'くぇ',
-  'qo': 'くぉ',
-  'kwa': 'くぁ',
-  'qyi': 'くぃ',
-  'qye': 'くぇ',
-  'ga': 'が',
-  'gi': 'ぎ',
-  'gu': 'ぐ',
-  'ge': 'げ',
-  'go': 'ご',
-  'gya': 'ぎゃ',
-  'gyi': 'ぎぃ',
-  'gyu': 'ぎゅ',
-  'gye': 'ぎぇ',
-  'gyo': 'ぎょ',
-  'gwa': 'ぐぁ',
-  'gwi': 'ぐぃ',
-  'gwu': 'ぐぅ',
-  'gwe': 'ぐぇ',
-  'gwo': 'ぐぉ',
-  'sa': 'さ',
-  'si': 'し',
-  'shi': 'し',
-  'su': 'す',
-  'se': 'せ',
-  'so': 'そ',
-  'za': 'ざ',
-  'zi': 'じ',
-  'zu': 'ず',
-  'ze': 'ぜ',
-  'zo': 'ぞ',
-  'ji': 'じ',
-  'sya': 'しゃ',
-  'syi': 'しぃ',
-  'syu': 'しゅ',
-  'sye': 'しぇ',
-  'syo': 'しょ',
-  'sha': 'しゃ',
-  'shu': 'しゅ',
-  'she': 'しぇ',
-  'sho': 'しょ',
-  'shya': 'しゃ', // 4 character code
-  'shyu': 'しゅ', // 4 character code
-  'shye': 'しぇ', // 4 character code
-  'shyo': 'しょ', // 4 character code
-  'swa': 'すぁ',
-  'swi': 'すぃ',
-  'swu': 'すぅ',
-  'swe': 'すぇ',
-  'swo': 'すぉ',
-  'zya': 'じゃ',
-  'zyi': 'じぃ',
-  'zyu': 'じゅ',
-  'zye': 'じぇ',
-  'zyo': 'じょ',
-  'ja': 'じゃ',
-  'ju': 'じゅ',
-  'je': 'じぇ',
-  'jo': 'じょ',
-  'jya': 'じゃ',
-  'jyi': 'じぃ',
-  'jyu': 'じゅ',
-  'jye': 'じぇ',
-  'jyo': 'じょ',
-  'ta': 'た',
-  'ti': 'ち',
-  'tu': 'つ',
-  'te': 'て',
-  'to': 'と',
-  'chi': 'ち',
-  'tsu': 'つ',
-  'ltu': 'っ',
-  'xtu': 'っ',
-  'tya': 'ちゃ',
-  'tyi': 'ちぃ',
-  'tyu': 'ちゅ',
-  'tye': 'ちぇ',
-  'tyo': 'ちょ',
-  'cha': 'ちゃ',
-  'chu': 'ちゅ',
-  'che': 'ちぇ',
-  'cho': 'ちょ',
-  'cya': 'ちゃ',
-  'cyi': 'ちぃ',
-  'cyu': 'ちゅ',
-  'cye': 'ちぇ',
-  'cyo': 'ちょ',
-  'chya': 'ちゃ', // 4 character code
-  'chyu': 'ちゅ', // 4 character code
-  'chye': 'ちぇ', // 4 character code
-  'chyo': 'ちょ', // 4 character code
-  'tsa': 'つぁ',
-  'tsi': 'つぃ',
-  'tse': 'つぇ',
-  'tso': 'つぉ',
-  'tha': 'てゃ',
-  'thi': 'てぃ',
-  'thu': 'てゅ',
-  'the': 'てぇ',
-  'tho': 'てょ',
-  'twa': 'とぁ',
-  'twi': 'とぃ',
-  'twu': 'とぅ',
-  'twe': 'とぇ',
-  'two': 'とぉ',
-  'da': 'だ',
-  'di': 'ぢ',
-  'du': 'づ',
-  'de': 'で',
-  'do': 'ど',
-  'dya': 'ぢゃ',
-  'dyi': 'ぢぃ',
-  'dyu': 'ぢゅ',
-  'dye': 'ぢぇ',
-  'dyo': 'ぢょ',
-  'dha': 'でゃ',
-  'dhi': 'でぃ',
-  'dhu': 'でゅ',
-  'dhe': 'でぇ',
-  'dho': 'でょ',
-  'dwa': 'どぁ',
-  'dwi': 'どぃ',
-  'dwu': 'どぅ',
-  'dwe': 'どぇ',
-  'dwo': 'どぉ',
-  'na': 'な',
-  'ni': 'に',
-  'nu': 'ぬ',
-  'ne': 'ね',
-  'no': 'の',
-  'nya': 'にゃ',
-  'nyi': 'にぃ',
-  'nyu': 'にゅ',
-  'nye': 'にぇ',
-  'nyo': 'にょ',
-  'ha': 'は',
-  'hi': 'ひ',
-  'hu': 'ふ',
-  'he': 'へ',
-  'ho': 'ほ',
-  'fu': 'ふ',
-  'hya': 'ひゃ',
-  'hyi': 'ひぃ',
-  'hyu': 'ひゅ',
-  'hye': 'ひぇ',
-  'hyo': 'ひょ',
-  'fya': 'ふゃ',
-  'fyu': 'ふゅ',
-  'fyo': 'ふょ',
-  'fwa': 'ふぁ',
-  'fwi': 'ふぃ',
-  'fwu': 'ふぅ',
-  'fwe': 'ふぇ',
-  'fwo': 'ふぉ',
-  'fa': 'ふぁ',
-  'fi': 'ふぃ',
-  'fe': 'ふぇ',
-  'fo': 'ふぉ',
-  'fyi': 'ふぃ',
-  'fye': 'ふぇ',
-  'ba': 'ば',
-  'bi': 'び',
-  'bu': 'ぶ',
-  'be': 'べ',
-  'bo': 'ぼ',
-  'bya': 'びゃ',
-  'byi': 'びぃ',
-  'byu': 'びゅ',
-  'bye': 'びぇ',
-  'byo': 'びょ',
-  'pa': 'ぱ',
-  'pi': 'ぴ',
-  'pu': 'ぷ',
-  'pe': 'ぺ',
-  'po': 'ぽ',
-  'pya': 'ぴゃ',
-  'pyi': 'ぴぃ',
-  'pyu': 'ぴゅ',
-  'pye': 'ぴぇ',
-  'pyo': 'ぴょ',
-  'ma': 'ま',
-  'mi': 'み',
-  'mu': 'む',
-  'me': 'め',
-  'mo': 'も',
-  'mya': 'みゃ',
-  'myi': 'みぃ',
-  'myu': 'みゅ',
-  'mye': 'みぇ',
-  'myo': 'みょ',
-  'ya': 'や',
-  'yu': 'ゆ',
-  'yo': 'よ',
-  'xya': 'ゃ',
-  'xyu': 'ゅ',
-  'xyo': 'ょ',
-  'ra': 'ら',
-  'ri': 'り',
-  'ru': 'る',
-  're': 'れ',
-  'ro': 'ろ',
-  'rya': 'りゃ',
-  'ryi': 'りぃ',
-  'ryu': 'りゅ',
-  'rye': 'りぇ',
-  'ryo': 'りょ',
-  'la': 'ら',
-  'li': 'り',
-  'lu': 'る',
-  'le': 'れ',
-  'lo': 'ろ',
-  'lya': 'りゃ',
-  'lyi': 'りぃ',
-  'lyu': 'りゅ',
-  'lye': 'りぇ',
-  'lyo': 'りょ',
-  'wa': 'わ',
-  'wo': 'を',
-  'lwe': 'ゎ',
-  'xwa': 'ゎ',
-  'n': 'ん',
-  'nn': 'ん',
-  'n\'': 'ん', // n' should equal single ん
-  'n ': 'ん', // n + space
-  'xn': 'ん',
-  'ltsu': 'っ',  // 4 character code
 };
 
 export const TO_ROMAJI = {
@@ -702,12 +386,12 @@ export const TO_ROMAJI = {
   'ゎ': 'wa',
 
   // Ambiguous consonant vowel pairs
-  'んあ': 'n\'a',
-  'んい': 'n\'i',
-  'んう': 'n\'u',
-  'んえ': 'n\'e',
-  'んお': 'n\'o',
-  'んや': 'n\'ya',
-  'んゆ': 'n\'yu',
-  'んよ': 'n\'yo',
+  'んあ': "n'a",
+  'んい': "n'i",
+  'んう': "n'u",
+  'んえ': "n'e",
+  'んお': "n'o",
+  'んや': "n'ya",
+  'んゆ': "n'yu",
+  'んよ': "n'yo",
 };

@@ -16,6 +16,7 @@ import toRomaji from '../src/toRomaji';
 import stripOkurigana from '../src/stripOkurigana';
 import tokenize from '../src/tokenize';
 import { bind, unbind } from '../src/domUtils';
+import { createCustomMapping } from '../src/kanaMappingUtils';
 
 describe('Methods should return valid defaults when given no input', () => {
   it('isKana() with no input', () => expect(isKana()).toBe(false));
@@ -135,6 +136,36 @@ describe('Character conversion', () => {
     expect(toHiragana('WEHIMOSESUN', { useObsoleteKana: true })).toBe('ゑひもせすん'); // nor become intoxicated with the fake world anymore.'
   });
 
+  describe('Test custom mappings options', () => {
+    expect(toKana('WanaKana', {
+      customKanaMapping: createCustomMapping({ na: 'に', ka: 'Bana' }),
+    })).toBe('ワにBanaに'); // doing some silly custom mapping
+    expect(toKana('WanaKana', {
+      customKanaPostProcessing: ([romaji, parsed]) => [
+        romaji,
+        parsed.map(([start, end, kana]) => [
+          start,
+          end,
+          isKatakana(kana) ? `${kana}!` : kana,
+        ]),
+      ],
+    })).toBe('ワ!なカ!な'); // add an exclamation mark after every katakana
+    expect(toRomaji('つじぎり', { romanization: "it's called rōmaji!!!" })).toBe('つじぎり'); // can't romanize without method
+    expect(toRomaji('つじぎり', {
+      customRomajiMapping: createCustomMapping({ じ: 'zi', つ: 'tu', り: 'li' }),
+    })).toBe('tuzigili'); // kunrei-shiki it up a bit
+    expect(toRomaji('ひさしぶり', {
+      customRomajiPostProcessing: ([kana, parsed]) => [
+        kana,
+        parsed.map(([start, end, romaji]) => [
+          start,
+          end,
+          romaji.charAt(0) === 's' ? `sss${romaji.slice(1)}` : romaji,
+        ]),
+      ],
+    })).toBe('hisssassshiburi'); // make it sound like a snake
+  });
+
   describe('Test every character with toHiragana() and toKatakana()', () => {
     TEST_TABLE.forEach((item) => {
       const [romaji, hiragana, katakana] = item;
@@ -161,7 +192,6 @@ describe('Character conversion', () => {
     it('double H', () => expect(toHiragana('hahha')).toBe('はっは'));
     it('double J', () => expect(toHiragana('jajja')).toBe('じゃっじゃ'));
     it('double K', () => expect(toHiragana('kakka')).toBe('かっか'));
-    it('double L', () => expect(toHiragana('lalla')).toBe('らっら'));
     it('double M', () => expect(toHiragana('mamma')).toBe('まっま'));
     it('double N', () => expect(toHiragana('nanna')).toBe('なんな'));
     it('double P', () => expect(toHiragana('pappa')).toBe('ぱっぱ'));
@@ -213,8 +243,7 @@ describe('Character conversion', () => {
     it('Lowercase with double consonants and double vowels are transliterated to hiragana.', () =>
       expect(splitIntoKana('buttsuuji')).toEqual([
         [0, 2, 'ぶ'],
-        [2, 3, 'っ'],
-        [3, 6, 'つ'],
+        [2, 6, 'っつ'],
         [6, 7, 'う'],
         [7, 9, 'じ'],
       ]));
@@ -225,8 +254,7 @@ describe('Character conversion', () => {
     it('Uppercase with double consonants and double vowels are transliterated to katakana.', () =>
       expect(splitIntoKana('BUTTSUUJI')).toEqual([
         [0, 2, 'ブ'],
-        [2, 3, 'ッ'],
-        [3, 6, 'ツ'],
+        [2, 6, 'ッツ'],
         [6, 7, 'ウ'],
         [7, 9, 'ジ'],
       ]));
@@ -359,14 +387,14 @@ describe('Character conversion', () => {
 
   describe('N edge cases', () => {
     it('Solo N', () => expect(toKana('n')).toBe('ん'));
-    it('double N', () => expect(toKana('onn')).toBe('おん'));
+    it('double N', () => expect(toKana('onn')).toBe('おんん'));
     it('N followed by N* syllable', () => expect(toKana('onna')).toBe('おんな'));
-    it('Triple N', () => expect(toKana('nnn')).toBe('んん'));
-    it('Triple N followed by N* syllable', () => expect(toKana('onnna')).toBe('おんな'));
-    it('Quadruple N', () => expect(toKana('nnnn')).toBe('んん'));
+    it('Triple N', () => expect(toKana('nnn')).toBe('んんん'));
+    it('Triple N followed by N* syllable', () => expect(toKana('onnna')).toBe('おんんな'));
+    it('Quadruple N', () => expect(toKana('nnnn')).toBe('んんんん'));
     it('nya -> にゃ', () => expect(toKana('nyan')).toBe('にゃん'));
-    it('nnya -> んにゃ', () => expect(toKana('nnyann')).toBe('んにゃん'));
-    it('nnnya -> んにゃ', () => expect(toKana('nnnyannn')).toBe('んにゃんん'));
+    it('nnya -> んにゃ', () => expect(toKana('nnyann')).toBe('んにゃんん'));
+    it('nnnya -> んにゃ', () => expect(toKana('nnnyannn')).toBe('んんにゃんんん'));
     it("n'ya -> んや", () => expect(toKana("n'ya")).toBe('んや'));
     it("kin'ya -> きんや", () => expect(toKana("kin'ya")).toBe('きんや'));
     it("shin'ya -> しんや", () => expect(toKana("shin'ya")).toBe('しんや'));
@@ -403,12 +431,10 @@ describe('Kana to Romaji', () => {
       expect(toRomaji('ワニカニ', { upcaseKatakana: true })).toBe('WANIKANI'));
 
     it('Use the upcaseKatakana flag to preserve casing. Works for mixed kana.', () =>
-      expect(toRomaji('ワニカニ　が　すごい　だ', { upcaseKatakana: true })).toBe(
-        'WANIKANI ga sugoi da'
-      ));
+      expect(toRomaji('ワニカニ　が　すごい　だ', { upcaseKatakana: true })).toBe('WANIKANI ga sugoi da'));
 
     it("Doesn't mangle the long dash 'ー' or slashdot '・'", () =>
-      expect(toRomaji('罰ゲーム・ばつげーむ')).toBe('罰ge-mu/batsuge-mu'));
+      expect(toRomaji('罰ゲーム・ばつげーむ')).toBe('罰geemu/batsuge-mu'));
 
     it('Spaces must be manually entered', () =>
       expect(toRomaji('わにかにがすごいだ')).not.toBe('wanikani ga sugoi da'));
@@ -429,13 +455,11 @@ describe('Kana to Romaji', () => {
     it('Double and single n', () => expect(toRomaji('きんにくまん')).toBe('kinnikuman'));
     it('N extravaganza', () => expect(toRomaji('んんにんにんにゃんやん')).toBe("nnninninnyan'yan"));
     it('Double consonants', () =>
-      expect(toRomaji('かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ')).toBe(
-        'kappa tatta shusshu chaccha yattsu'
-      ));
+      expect(toRomaji('かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ')).toBe('kappa tatta shusshu chatcha yattsu'));
   });
 
   describe('Small kana', () => {
-    it("Small tsu doesn't transliterate", () => expect(toRomaji('っ')).toBe(''));
+    it('Small tsu do transliterate', () => expect(toRomaji('っ')).toBe('tsu'));
     it('Small ya', () => expect(toRomaji('ゃ')).toBe('ya'));
     it('Small yu', () => expect(toRomaji('ゅ')).toBe('yu'));
     it('Small yo', () => expect(toRomaji('ょ')).toBe('yo'));
@@ -444,14 +468,21 @@ describe('Kana to Romaji', () => {
     it('Small u', () => expect(toRomaji('ぅ')).toBe('u'));
     it('Small e', () => expect(toRomaji('ぇ')).toBe('e'));
     it('Small o', () => expect(toRomaji('ぉ')).toBe('o'));
+    // https://en.wikipedia.org/wiki/Small_ke
     it('Small ke (ka)', () => expect(toRomaji('ヶ')).toBe('ka'));
     it('Small ka', () => expect(toRomaji('ヵ')).toBe('ka'));
     it('Small wa', () => expect(toRomaji('ゎ')).toBe('wa'));
   });
 
-  describe('Apostrophes in vague consonant vowel combos', () => {
+  describe('Apostrophes in ambiguous consonant vowel combos', () => {
     it('おんよみ', () => expect(toRomaji('おんよみ')).toBe("on'yomi"));
     it('んよ んあ んゆ', () => expect(toRomaji('んよ んあ んゆ')).toBe("n'yo n'a n'yu"));
+  });
+
+  describe('ん becomes m before labial consonants', () => {
+    expect(toRomaji('サンボマスタ')).toBe('sambomasuta');
+    expect(toRomaji('いっしょうけんめい')).toBe('isshoukemmei');
+    expect(toRomaji('さんぽする')).toBe('samposuru');
   });
 });
 
@@ -589,13 +620,11 @@ describe('Event listener helpers', () => {
     expect(inputField1.value).toEqual('かｔ');
     inputField1.value = 'かｔｔ';
     // have to fake it... no compositionupdate in jsdom
-    inputField1.dispatchEvent(
-      new CustomEvent('compositionupdate', {
-        bubbles: true,
-        cancellable: true,
-        detail: { data: 'かｔｔ' },
-      })
-    );
+    inputField1.dispatchEvent(new CustomEvent('compositionupdate', {
+      bubbles: true,
+      cancellable: true,
+      detail: { data: 'かｔｔ' },
+    }));
     simulant.fire(inputField1, 'input');
     expect(inputField1.value).toEqual('かｔｔ');
     unbind(inputField1);
@@ -646,33 +675,33 @@ describe('Event listener helpers', () => {
   });
 });
 
-describe('IMEMode', () => {
-  /**
-     * Simulate real typing by calling the function on every character in sequence
-     * @param  {String} input
-     * @param  {Object} options
-     * @return {String} converted romaji as kana
-     */
-  function testTyping(input, options) {
-    let pos = 1;
-    let text = input;
-    const len = text.length;
-    // console.log(`--${text}--`);
-    while (pos <= len) {
-      let buffer = text.slice(0, pos);
-      const rest = text.slice(pos);
-      buffer = toKana(buffer, options);
-      // console.log(`${pos}:${buffer} <-${rest}`);
-      text = buffer + rest;
-      pos += 1;
-    }
-    return text;
+/**
+ * Simulate real typing by calling the function on every character in sequence
+ * @param  {String} input
+ * @param  {Object} options
+ * @return {String} converted romaji as kana
+ */
+function testTyping(input, options) {
+  let pos = 1;
+  let text = input;
+  const len = text.length;
+  // console.log(`--${text}--`);
+  while (pos <= len) {
+    let buffer = text.slice(0, pos);
+    const rest = text.slice(pos);
+    buffer = toKana(buffer, options);
+    // console.log(`${pos}:${buffer} <-${rest}`);
+    text = buffer + rest;
+    pos += 1;
   }
+  return text;
+}
 
+describe('IMEMode', () => {
   it("Without IME mode, solo n's are transliterated.", () =>
     expect(toKana('n')).toBe('ん'));
   it("Without IME mode, double n's are transliterated.", () =>
-    expect(toKana('nn')).toBe('ん'));
+    expect(toKana('nn')).toBe('んん'));
 
   it("With IME mode, solo n's are not transliterated.", () =>
     expect(testTyping('n', { IMEMode: true })).toBe('n'));
