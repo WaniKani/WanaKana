@@ -30,13 +30,13 @@ Visit the [website](http://www.wanakana.com) to see WanaKana in action.
 yarn add wanakana
 # alternatively: npm install wanakana
 ```
-#### Or download the minified bundle for browser use
-[wanakana.min.js](https://raw.github.com/WaniKani/WanaKana/gh-pages/assets/js/wanakana.min.js)
+#### Or to get the minified browser (umd) bundle
+[unpkg.com/wanakana](unpkg.com/wanakana)
 
 #### HTML:
 ```html
 <input type="text" id="wanakana-input" autocapitalize="none" />
-<script src="node_modules/wanakana/lib/wanakana.min.js"></script>
+<script src="unpkg.com/wanakana"></script>
 <script>
   const textInput = document.querySelector('#wanakana-input');
   wanakana.bind(textInput); // uses IMEMode toKana() as default

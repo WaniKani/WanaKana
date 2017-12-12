@@ -35,6 +35,7 @@ const PACKAGE_JSON = {
   extraFields: {
     main: `${LIB_DIR}/wanakana.js`,
     browser: `${LIB_DIR}/wanakana.min.js`,
+    unpkg: `${LIB_DIR}/wanakana.min.js`,
     module: `${LIB_DIR}/wanakana.esm.js`,
   },
 };
@@ -50,7 +51,7 @@ try {
   if (execFail(exec('git diff-files --quiet'))) {
     logError(
       'You have unsaved changes in the working tree. ' +
-      'Commit or stash changes before releasing.'
+        'Commit or stash changes before releasing.'
     );
     exit(1);
   }
@@ -76,12 +77,7 @@ try {
   log('Compilation was successful.');
 
   log('Copying additional project files...');
-  const additionalProjectFiles = [
-    'README.md',
-    'CHANGELOG.md',
-    'package.json',
-    'LICENSE',
-  ];
+  const additionalProjectFiles = ['README.md', 'CHANGELOG.md', 'package.json', 'LICENSE'];
 
   additionalProjectFiles.forEach((filename) => {
     const src = path.resolve(process.cwd(), filename);
@@ -98,22 +94,19 @@ try {
     `Next version of ${PACKAGE_NAME} (current version is ${version}): `
   );
 
-  while (!(
-    !nextVersion ||
-    (semver.valid(nextVersion) && semver.gt(nextVersion, version))
-  )) {
+  while (
+    !(!nextVersion || (semver.valid(nextVersion) && semver.gt(nextVersion, version)))
+  ) {
     nextVersion = readline.question(
       `Must provide a valid version that is greater than ${version}, ` +
-      'or leave blank to skip: '
+        'or leave blank to skip: '
     );
   }
 
   log('Updating package.json...');
-  const updatedPackage = Object.assign({},
-    BASE_PACKAGE,
-    { version: nextVersion }
-  );
-  const releasePackage = Object.assign({},
+  const updatedPackage = Object.assign({}, BASE_PACKAGE, { version: nextVersion });
+  const releasePackage = Object.assign(
+    {},
     pick(updatedPackage, PACKAGE_JSON.keepFields),
     PACKAGE_JSON.extraFields
   );
@@ -137,7 +130,8 @@ try {
   fs.writeFileSync(versionLoc, `${nextVersion}\n`);
 
   log('Copying dynamic version for demo site');
-  fs.writeFileSync(path.resolve(SITE_JS_DIR, 'version.js'),
+  fs.writeFileSync(
+    path.resolve(SITE_JS_DIR, 'version.js'),
     `document.querySelector('#wk-version').textContent = '${nextVersion}'`
   );
 
