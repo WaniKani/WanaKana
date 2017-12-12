@@ -1,1 +1,1 @@
-document.querySelector('#wk-version').textContent = '2.3.2'
+document.querySelector('#wk-version').textContent = '2.3.3'
