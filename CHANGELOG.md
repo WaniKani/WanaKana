@@ -22,6 +22,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
+## [2.3.3] - 2017-12-12
+### Fixed
+- Add https to unpkg link
+
 ## [2.3.2] - 2017-12-12
 ### Added
 - Specify minified bundle in package.json for easy use with unpkg
@@ -108,6 +112,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `isRomaji()` allows hepburn romanisation long vowels. (IE. Tōkyō)
 
 
+[2.3.3]: https://github.com/WaniKani/WanaKana/compare/2.3.2...2.3.3
 [2.3.2]: https://github.com/WaniKani/WanaKana/compare/2.3.1...2.3.2
 [2.3.1]: https://github.com/WaniKani/WanaKana/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/WaniKani/WanaKana/compare/2.2.4...2.3.0

@@ -31,12 +31,12 @@ yarn add wanakana
 # alternatively: npm install wanakana
 ```
 #### Or to get the minified browser (umd) bundle
-[unpkg.com/wanakana](unpkg.com/wanakana)
+[https://unpkg.com/wanakana](https://unpkg.com/wanakana)
 
 #### HTML:
 ```html
 <input type="text" id="wanakana-input" autocapitalize="none" />
-<script src="unpkg.com/wanakana"></script>
+<script src="https://unpkg.com/wanakana"></script>
 <script>
   const textInput = document.querySelector('#wanakana-input');
   wanakana.bind(textInput); // uses IMEMode toKana() as default
