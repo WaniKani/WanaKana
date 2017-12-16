@@ -1,6 +1,6 @@
 {
   "name": "wanakana",
-  "version": "2.3.3",
+  "version": "2.3.4",
   "license": "MIT",
   "homepage": "http://www.wanakana.com",
   "description": "Utility library for checking and converting between Kanji, Hiragana, Katakana, and Romaji",
