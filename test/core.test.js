@@ -135,46 +135,77 @@ describe('Character conversion', () => {
     expect(toHiragana('WEHIMOSESUN', { useObsoleteKana: true })).toBe('ゑひもせすん'); // nor become intoxicated with the fake world anymore.'
   });
 
-  describe('Test every character with toHiragana() and toKatakana()', () => {
-    TEST_TABLE.forEach((item) => {
-      const [romaji, hiragana, katakana] = item;
-      it('converts to hiragana', () => {
-        const result = toHiragana(romaji);
-        expect(result).toBe(hiragana);
-        expect(result).toMatchSnapshot();
+  describe('Test every character with toKana(), toHiragana(), and toKatakana()', () => {
+    describe('toKana()', () => {
+      TEST_TABLE.forEach((item) => {
+        const [romaji, hiragana, katakana] = item;
+        const lower = toKana(romaji);
+        const upper = toKana(romaji.toUpperCase());
+        it(`${romaji} lowercase -> ${hiragana}`, () => expect(lower).toBe(hiragana));
+        it(`${romaji.toUpperCase()} uppercase -> ${katakana}`, () =>
+          expect(upper).toBe(katakana));
+        it(`${romaji} lowercase -> ${hiragana} snapshot`, () =>
+          expect(lower).toMatchSnapshot());
+        it(`${romaji.toUpperCase()} uppercase -> ${katakana} snapshot`, () =>
+          expect(upper).toMatchSnapshot());
       });
-      it('converts to katakana', () => {
-        const result = toKatakana(romaji.toUpperCase());
-        expect(result).toBe(katakana);
-        expect(result).toMatchSnapshot();
+    });
+
+    describe('toHiragana()', () => {
+      TEST_TABLE.forEach((item) => {
+        const [romaji, hiragana] = item;
+        const lower = toHiragana(romaji);
+        const upper = toHiragana(romaji.toUpperCase());
+        it(`${romaji} lowercase -> ${hiragana}`, () => expect(lower).toBe(hiragana));
+        it(`${romaji.toUpperCase()} uppercase -> ${hiragana}`, () =>
+          expect(upper).toBe(hiragana));
+        it(`${romaji} lowercase -> ${hiragana} snapshot`, () =>
+          expect(lower).toMatchSnapshot());
+        it(`${romaji.toUpperCase()} uppercase -> ${hiragana} snapshot`, () =>
+          expect(upper).toMatchSnapshot());
+      });
+    });
+
+    describe('toKatakana()', () => {
+      TEST_TABLE.forEach((item) => {
+        const [romaji, , katakana] = item;
+        const lower = toKatakana(romaji);
+        const upper = toKatakana(romaji.toUpperCase());
+        it(`${romaji} lowercase -> ${katakana}`, () => expect(lower).toBe(katakana));
+        it(`${romaji.toUpperCase()} uppercase -> ${katakana}`, () =>
+          expect(upper).toBe(katakana));
+        it(`${romaji} lowercase -> ${katakana} snapshot`, () =>
+          expect(lower).toMatchSnapshot());
+        it(`${romaji.toUpperCase()} uppercase -> ${katakana} snapshot`, () =>
+          expect(upper).toMatchSnapshot());
       });
     });
   });
 
   describe('Double consonants transliterate to glottal stops (small tsu)', () => {
-    it('double B', () => expect(toHiragana('babba')).toBe('ばっば'));
-    it('double C', () => expect(toHiragana('cacca')).toBe('かっか'));
-    it('double Ch', () => expect(toHiragana('chaccha')).toBe('ちゃっちゃ'));
-    it('double D', () => expect(toHiragana('dadda')).toBe('だっだ'));
-    it('double F', () => expect(toHiragana('fuffu')).toBe('ふっふ'));
-    it('double G', () => expect(toHiragana('gagga')).toBe('がっが'));
-    it('double H', () => expect(toHiragana('hahha')).toBe('はっは'));
-    it('double J', () => expect(toHiragana('jajja')).toBe('じゃっじゃ'));
-    it('double K', () => expect(toHiragana('kakka')).toBe('かっか'));
-    it('double L', () => expect(toHiragana('lalla')).toBe('らっら'));
-    it('double M', () => expect(toHiragana('mamma')).toBe('まっま'));
-    it('double N', () => expect(toHiragana('nanna')).toBe('なんな'));
-    it('double P', () => expect(toHiragana('pappa')).toBe('ぱっぱ'));
-    it('double Q', () => expect(toHiragana('qaqqa')).toBe('くぁっくぁ'));
-    it('double R', () => expect(toHiragana('rarra')).toBe('らっら'));
-    it('double S', () => expect(toHiragana('sassa')).toBe('さっさ'));
-    it('double Sh', () => expect(toHiragana('shassha')).toBe('しゃっしゃ'));
-    it('double T', () => expect(toHiragana('tatta')).toBe('たった'));
-    it('double Ts', () => expect(toHiragana('tsuttsu')).toBe('つっつ'));
-    it('double V', () => expect(toHiragana('vavva')).toBe('ゔぁっゔぁ'));
-    it('double W', () => expect(toHiragana('wawwa')).toBe('わっわ'));
-    it('double X', () => expect(toHiragana('yayya')).toBe('やっや'));
-    it('double Z', () => expect(toHiragana('zazza')).toBe('ざっざ'));
+    it('double B', () => expect(toKana('babba')).toBe('ばっば'));
+    it('double C', () => expect(toKana('cacca')).toBe('かっか'));
+    it('double Ch', () => expect(toKana('chaccha')).toBe('ちゃっちゃ'));
+    it('double D', () => expect(toKana('dadda')).toBe('だっだ'));
+    it('double F', () => expect(toKana('fuffu')).toBe('ふっふ'));
+    it('double G', () => expect(toKana('gagga')).toBe('がっが'));
+    it('double H', () => expect(toKana('hahha')).toBe('はっは'));
+    it('double J', () => expect(toKana('jajja')).toBe('じゃっじゃ'));
+    it('double K', () => expect(toKana('kakka')).toBe('かっか'));
+    it('double L', () => expect(toKana('lalla')).toBe('らっら'));
+    it('double M', () => expect(toKana('mamma')).toBe('まっま'));
+    it('double N', () => expect(toKana('nanna')).toBe('なんな'));
+    it('double P', () => expect(toKana('pappa')).toBe('ぱっぱ'));
+    it('double Q', () => expect(toKana('qaqqa')).toBe('くぁっくぁ'));
+    it('double R', () => expect(toKana('rarra')).toBe('らっら'));
+    it('double S', () => expect(toKana('sassa')).toBe('さっさ'));
+    it('double Sh', () => expect(toKana('shassha')).toBe('しゃっしゃ'));
+    it('double T', () => expect(toKana('tatta')).toBe('たった'));
+    it('double Ts', () => expect(toKana('tsuttsu')).toBe('つっつ'));
+    it('double V', () => expect(toKana('vavva')).toBe('ゔぁっゔぁ'));
+    it('double W', () => expect(toKana('wawwa')).toBe('わっわ'));
+    it('double X', () => expect(toKana('yayya')).toBe('やっや'));
+    it('double Z', () => expect(toKana('zazza')).toBe('ざっざ'));
   });
 
   describe('toKana()', () => {

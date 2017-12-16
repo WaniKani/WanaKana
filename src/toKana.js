@@ -34,12 +34,14 @@ import isKana from './isKana';
  * toKana('we', { useObsoleteKana: true })
  * // => 'ゑ'
  */
-export function toKana(input = '', options = {}, ignoreCase = false) {
+export function toKana(input = '', options = {}) {
   // just throw away the substring index information and just concatenate all the kana
-  return splitIntoKana(input, options, ignoreCase).map((kanaToken) => kanaToken[2]).join('');
+  return splitIntoKana(input, options)
+    .map((kanaToken) => kanaToken[2])
+    .join('');
 }
 
-export function splitIntoKana(input = '', options = {}, ignoreCase = false) {
+export function splitIntoKana(input = '', options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
   // Final output array containing arrays [start index of the translitterated substring, end index, kana]
   const kana = [];
@@ -62,7 +64,7 @@ export function splitIntoKana(input = '', options = {}, ignoreCase = false) {
       chunk = getChunk(input, cursor, cursor + chunkSize);
       chunkLC = chunk.toLowerCase();
       // Handle super-rare edge cases with 4 char chunks (like ltsu, chya, shya)
-      if (FOUR_CHAR_EDGECASES.includes(chunkLC) && (len - cursor) >= 4) {
+      if (FOUR_CHAR_EDGECASES.includes(chunkLC) && len - cursor >= 4) {
         chunkSize += 1;
         chunk = getChunk(input, cursor, cursor + chunkSize);
         chunkLC = chunk.toLowerCase();
@@ -82,7 +84,10 @@ export function splitIntoKana(input = '', options = {}, ignoreCase = false) {
             }
           }
           // Handle edge case of n followed by n and vowel
-          if (isCharConsonant(chunkLC.charAt(1), false) && isCharVowel(chunkLC.charAt(2))) {
+          if (
+            isCharConsonant(chunkLC.charAt(1), false) &&
+            isCharVowel(chunkLC.charAt(2))
+          ) {
             chunkSize = 1;
             chunk = getChunk(input, cursor, cursor + chunkSize);
             chunkLC = chunk.toLowerCase();
@@ -90,7 +95,8 @@ export function splitIntoKana(input = '', options = {}, ignoreCase = false) {
         }
 
         // Handle case of double consonants
-        if (chunkLC.charAt(0) !== 'n' &&
+        if (
+          chunkLC.charAt(0) !== 'n' &&
           isCharConsonant(chunkLC.charAt(0)) &&
           chunk.charAt(0) === chunk.charAt(1)
         ) {
@@ -132,9 +138,10 @@ export function splitIntoKana(input = '', options = {}, ignoreCase = false) {
     }
 
     if (!!config.IMEMode && chunkLC.charAt(0) === 'n') {
-      if ((input.charAt(cursor + 1).toLowerCase() === 'y' &&
-        isCharVowel(input.charAt(cursor + 2)) === false) ||
-        cursor === (len - 1) ||
+      if (
+        (input.charAt(cursor + 1).toLowerCase() === 'y' &&
+          isCharVowel(input.charAt(cursor + 2)) === false) ||
+        cursor === len - 1 ||
         isKana(input.charAt(cursor + 1))
       ) {
         // Don't transliterate this yet.
@@ -143,10 +150,8 @@ export function splitIntoKana(input = '', options = {}, ignoreCase = false) {
     }
 
     // Use katakana if first letter in chunk is uppercase
-    if (!ignoreCase) {
-      if (isCharUpperCase(chunk.charAt(0))) {
-        kanaChar = hiraganaToKatakana(kanaChar);
-      }
+    if (isCharUpperCase(chunk.charAt(0))) {
+      kanaChar = hiraganaToKatakana(kanaChar);
     }
 
     const nextCursor = cursor + (chunkSize || 1);
