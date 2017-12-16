@@ -22,6 +22,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
+## [2.3.4] - 2017-12-16
+### Fixed
+- *Uppercase* input with toHiragana() including a double consonant was incorrectly producing a katakana ッ instead of っ
+
 ## [2.3.3] - 2017-12-12
 ### Fixed
 - Add https to unpkg link
@@ -112,6 +116,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `isRomaji()` allows hepburn romanisation long vowels. (IE. Tōkyō)
 
 
+[2.3.4]: https://github.com/WaniKani/WanaKana/compare/2.3.3...2.3.4
 [2.3.3]: https://github.com/WaniKani/WanaKana/compare/2.3.2...2.3.3
 [2.3.2]: https://github.com/WaniKani/WanaKana/compare/2.3.1...2.3.2
 [2.3.1]: https://github.com/WaniKani/WanaKana/compare/2.3.0...2.3.1
