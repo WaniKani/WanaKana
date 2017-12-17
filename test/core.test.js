@@ -376,12 +376,6 @@ describe('Kana to Romaji', () => {
     it('おんよみ', () => expect(toRomaji('おんよみ')).toBe('on\'yomi'));
     it('んよ んあ んゆ', () => expect(toRomaji('んよ んあ んゆ')).toBe('n\'yo n\'a n\'yu'));
   });
-
-  describe('ん becomes m before labial consonants', () => {
-    expect(toRomaji('サンボマスタ')).toBe('sambomasuta');
-    expect(toRomaji('いっしょうけんめい')).toBe('isshoukemmei');
-    expect(toRomaji('さんぽする')).toBe('samposuru');
-  });
 });
 
 describe('stripOkurigana', () => {
