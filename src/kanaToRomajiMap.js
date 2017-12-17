@@ -146,15 +146,15 @@ function createKanaToHepburnMap() {
   for (const kan of ambig) {
     setTrans(`ん${kan}`, `n'${subtreeOf(kan)['']}`);
   }
-  // んば -> mbo
-  const labial = [
-    'ば', 'び', 'ぶ', 'べ', 'ぼ',
-    'ぱ', 'ぴ', 'ぷ', 'ぺ', 'ぽ',
-    'ま', 'み', 'む', 'め', 'も',
-  ];
-  for (const kan of labial) {
-    setTrans(`ん${kan}`, `m${subtreeOf(kan)['']}`);
-  }
+  // // んば -> mbo
+  // const labial = [
+  //   'ば', 'び', 'ぶ', 'べ', 'ぼ',
+  //   'ぱ', 'ぴ', 'ぷ', 'ぺ', 'ぽ',
+  //   'ま', 'み', 'む', 'め', 'も',
+  // ];
+  // for (const kan of labial) {
+  //   setTrans(`ん${kan}`, `m${subtreeOf(kan)['']}`);
+  // }
 
   return Object.freeze(JSON.parse(JSON.stringify(romajiTree)));
   /* eslint-enable no-alert, no-console */
