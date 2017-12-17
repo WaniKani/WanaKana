@@ -1,7 +1,4 @@
 import { transform, getSubTreeOf, createCustomMapping } from './kanaMappingUtils';
-import isCharUpperCase from './utils/isCharUpperCase';
-import hiraganaToKatakana from './utils/hiraganaToKatakana';
-
 let romajiToKanaMap = null;
 
 function createRomajiToKanaMap() {
@@ -230,27 +227,11 @@ function createRomajiToKanaMap() {
   return Object.freeze(JSON.parse(JSON.stringify(kanaTree)));
 }
 
-export function getRomajiToKanaTree(fullOptions) {
+export function getRomajiToKanaTree(config) {
   if (romajiToKanaMap === null) {
     romajiToKanaMap = createRomajiToKanaMap();
   }
   return romajiToKanaMap;
-}
-
-export function getKanaPostProcessing(fullOptions) {
-  return function postProcessing([romaji, parsed]) {
-    return [romaji, parsed.map((element) => {
-      const [start, end, kan] = element;
-      if (kan === null) {
-        // we encountered the last chunk, that should not be converted yet
-        return [start, end, romaji.slice(start)];
-      }
-      if (!fullOptions.ignoreCase && isCharUpperCase(romaji.charAt(start))) {
-        return [start, end, hiraganaToKatakana(kan)];
-      }
-      return element;
-    })];
-  };
 }
 
 export const USE_OBSOLETE_KANA_MAP = createCustomMapping({ wi: 'ゐ', we: 'ゑ' });

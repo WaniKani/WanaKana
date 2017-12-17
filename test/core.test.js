@@ -144,20 +144,10 @@ describe('Character conversion', () => {
   describe('Test custom mappings options', () => {
     expect(toKana('WanaKana', { customKanaMapping: createCustomMapping({ na: 'に', ka: 'Bana' }) }))
       .toBe('ワにBanaに');  // doing some silly custom mapping
-    expect(toKana('WanaKana', { customKanaPostProcessing:
-      ([romaji, parsed]) =>
-        [romaji, parsed.map(([start, end, kana]) =>
-          [start, end, isKatakana(kana)? `${kana}!`: kana])],
-    })).toBe('ワ!なカ!な');  // add an exclamation mark after every katakana
     expect(toRomaji('つじぎり', { romanization: 'it\'s called rōmaji!!!' }))
       .toBe('つじぎり');  // can't romanize without method
     expect(toRomaji('つじぎり', { customRomajiMapping: createCustomMapping({ じ: 'zi', つ: 'tu', り: 'li' }) }))
       .toBe('tuzigili');  // kunrei-shiki it up a bit
-    expect(toRomaji('ひさしぶり', { customRomajiPostProcessing:
-      ([kana, parsed]) =>
-        [kana, parsed.map(([start, end, romaji]) =>
-          [start, end, romaji.charAt(0) === 's'? `sss${romaji.slice(1)}`: romaji])],
-    })).toBe('hisssassshiburi');  // make it sound like a snake
   });
 
   describe('Test every character with toHiragana() and toKatakana()', () => {
