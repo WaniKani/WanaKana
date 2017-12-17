@@ -1,7 +1,7 @@
 import { DEFAULT_OPTIONS } from './constants';
 import convertFullwidthCharsToASCII from './utils/convertFullwidthCharsToASCII';
 import isCharConsonant from './utils/isCharConsonant';
-import { splitIntoKana } from './toKana';
+import { splitIntoKana, toKana } from './toKana';
 /* import { addDebugListeners, removeDebugListeners } from './utils/logInputEvents';*/
 
 const ELEMENTS = ['TEXTAREA', 'INPUT'];
@@ -73,7 +73,7 @@ function onInput(options) {
     const hiraOrKataString = setKanaType(normalizedInputString, config.IMEMode);
     const ensureIMEModeConfig = Object.assign({}, config, { IMEMode: true });
     const kanaTokens = splitIntoKana(hiraOrKataString, ensureIMEModeConfig);
-    const newText = kanaTokens.map((token) => token[2]).join('');
+    const newText = toKana(hiraOrKataString, ensureIMEModeConfig);
 
     if (normalizedInputString !== newText) {
       const selectionEnd = input.selectionEnd;
