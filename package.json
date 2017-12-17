@@ -1,6 +1,6 @@
 {
   "name": "wanakana",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "license": "MIT",
   "homepage": "http://www.wanakana.com",
   "description": "Utility library for checking and converting between Kanji, Hiragana, Katakana, and Romaji",
@@ -24,13 +24,13 @@
     "url": "https://github.com/WaniKani/WanaKana/issues"
   },
   "devEngines": {
-    "node": ">7"
+    "node": ">=8.9.1"
   },
   "scripts": {
     "prebuild": "rimraf ./dist",
     "build": "node ./scripts/buildDist.js",
+    "precommit": "lint-staged && npm run test",
     "commit": "git-cz",
-    "prepush": "npm run lint-staged",
     "predocs": "rimraf ./gh-pages/docs",
     "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
     "docs:watch": "onchange './src/**/*.js' -- npm run docs",
@@ -41,21 +41,16 @@
     "test:view": "opn ./coverage/lcov-report/index.html",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "release": "node ./scripts/release.js",
-    "lint": "eslint --color --fix ./src/**/*.js",
-    "lint:staged": "eslint --ignore-path ./.gitignore --ignore-pattern 'dist' --ignore-pattern 'gh-pages' --color",
-    "//": "following script is used by husky in git hooks (like prepush) to run the lint-staged config below which then references the lint:staged script above. Clunky but works ʕノ•ᴥ•ʔノ ︵ ┻━┻",
-    "lint-staged": "lint-staged"
+    "format": "prettier-eslint --write",
+    "lint": "eslint"
   },
   "lint-staged": {
     "*.js": [
-      "lint:staged"
+      "npm run format",
+      "npm run lint",
+      "git add"
     ]
   },
-  "//": "mirror .babelrc cjs browsers field until babel-preset-env 2.0 supports browserslist - then we can remove from .babelrc",
-  "browserslist": [
-    "last 4 versions",
-    ">1%"
-  ],
   "jest": {
     "bail": false,
     "verbose": false,
@@ -65,10 +60,10 @@
     "collectCoverage": true,
     "coverageThreshold": {
       "global": {
-        "branches": 98,
+        "branches": 95,
         "functions": 100,
-        "lines": 100,
-        "statements": 100
+        "lines": 95,
+        "statements": 95
       }
     },
     "coverageDirectory": "./coverage",
@@ -105,6 +100,7 @@
     "lint-staged": "4.0.0",
     "onchange": "3.2.1",
     "opn-cli": "3.1.0",
+    "prettier-eslint-cli": "4.4.0",
     "readline-sync": "1.4.7",
     "rimraf": "2.6.1",
     "rollup": "0.43.0",

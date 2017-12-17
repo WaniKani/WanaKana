@@ -1,6 +1,4 @@
-import {
-  DEFAULT_OPTIONS,
-} from './constants';
+import { DEFAULT_OPTIONS } from './constants';
 import {
   getRomajiToKanaTree,
   IME_MODE_MAP,
@@ -47,8 +45,8 @@ export function splitIntoKana(input = '', options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
 
   let map = getRomajiToKanaTree(config);
-  map = config.IMEMode? IME_MODE_MAP(map): map;
-  map = config.useObsoleteKana? USE_OBSOLETE_KANA_MAP(map): map;
+  map = config.IMEMode ? IME_MODE_MAP(map) : map;
+  map = config.useObsoleteKana ? USE_OBSOLETE_KANA_MAP(map) : map;
   map = config.customKanaMapping(map);
   return applyMapping(input.toLowerCase(), map, !config.IMEMode);
 }
