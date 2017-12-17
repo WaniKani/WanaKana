@@ -227,17 +227,8 @@ describe('Character conversion', () => {
     it('Lowercase with double consonants and double vowels are transliterated to hiragana.',
       () => expect(splitIntoKana('buttsuuji')).toEqual([[0, 2, 'ぶ'], [2, 6, 'っつ'], [6, 7, 'う'], [7, 9, 'じ']]));
 
-    it('Uppercase characters are transliterated to katakana.',
-      () => expect(splitIntoKana('ONAJI')).toEqual([[0, 1, 'オ'], [1, 3, 'ナ'], [3, 5, 'ジ']]));
-
-    it('Uppercase with double consonants and double vowels are transliterated to katakana.',
-      () => expect(splitIntoKana('BUTTSUUJI')).toEqual([[0, 2, 'ブ'], [2, 6, 'ッツ'], [6, 7, 'ウ'], [7, 9, 'ジ']]));
-
-    it('WaniKani -> ワにカに - Mixed case uses the first character for each syllable.',
-      () => expect(splitIntoKana('WaniKani')).toEqual([[0, 2, 'ワ'], [2, 4, 'に'], [4, 6, 'カ'], [6, 8, 'に']]));
-
     it('Non-romaji will be passed through.',
-      () => expect(splitIntoKana('ワニカニ AiUeO 鰐蟹 12345 @#$%')).toEqual([[0, 1, 'ワ'], [1, 2, 'ニ'], [2, 3, 'カ'], [3, 4, 'ニ'], [4, 5, ' '], [5, 6, 'ア'], [6, 7, 'い'], [7, 8, 'ウ'], [8, 9, 'え'], [9, 10, 'オ'], [10, 11, ' '], [11, 12, '鰐'], [12, 13, '蟹'], [13, 14, ' '], [14, 15, '1'], [15, 16, '2'], [16, 17, '3'], [17, 18, '4'], [18, 19, '5'], [19, 20, ' '], [20, 21, '@'], [21, 22, '#'], [22, 23, '$'], [23, 24, '%']]));
+      () => expect(splitIntoKana('ワニカニ AiUeO 鰐蟹 12345 @#$%')).toEqual([[0, 1, 'ワ'], [1, 2, 'ニ'], [2, 3, 'カ'], [3, 4, 'ニ'], [4, 5, ' '], [5, 6, 'あ'], [6, 7, 'い'], [7, 8, 'う'], [8, 9, 'え'], [9, 10, 'お'], [10, 11, ' '], [11, 12, '鰐'], [12, 13, '蟹'], [13, 14, ' '], [14, 15, '1'], [15, 16, '2'], [16, 17, '3'], [17, 18, '4'], [18, 19, '5'], [19, 20, ' '], [20, 21, '@'], [21, 22, '#'], [22, 23, '$'], [23, 24, '%']]));
 
     it('It handles mixed syllabaries',
       () => expect(splitIntoKana('座禅‘zazen’スタイル')).toEqual([[0, 1, '座'], [1, 2, '禅'], [2, 3, '「'], [3, 5, 'ざ'], [5, 7, 'ぜ'], [7, 8, 'ん'], [8, 9, '」'], [9, 10, 'ス'], [10, 11, 'タ'], [11, 12, 'イ'], [12, 13, 'ル']]));
