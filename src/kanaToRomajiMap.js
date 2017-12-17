@@ -8,7 +8,7 @@ export const methods = Object.freeze({
 
 let kanaToHepburnMap = null;
 
-function createKanaToHepburnMap() {
+export function createKanaToHepburnMap() {
   /* eslint-disable object-property-newline */
   const romajiTree = transform({
     あ: 'a', い: 'i', う: 'u', え: 'e', お: 'o',
@@ -139,6 +139,21 @@ function createKanaToHepburnMap() {
 
   for (const [kan, rom] of Object.entries(smallLetters)) {
     setTrans(kan, rom);
+  }
+
+  // んい -> n'i
+  const ambig = ['あ', 'い', 'う', 'え', 'お', 'や', 'ゆ', 'よ'];
+  for (const kan of ambig) {
+    setTrans(`ん${kan}`, `n'${subtreeOf(kan)['']}`);
+  }
+  // んば -> mbo
+  const labial = [
+    'ば', 'び', 'ぶ', 'べ', 'ぼ',
+    'ぱ', 'ぴ', 'ぷ', 'ぺ', 'ぽ',
+    'ま', 'み', 'む', 'め', 'も',
+  ];
+  for (const kan of labial) {
+    setTrans(`ん${kan}`, `m${subtreeOf(kan)['']}`);
   }
 
   return Object.freeze(JSON.parse(JSON.stringify(romajiTree)));
