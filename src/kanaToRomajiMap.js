@@ -31,6 +31,7 @@ function createKanaToHepburnMap() {
   });
 
   const subtreeOf = (string) => getSubTreeOf(romajiTree, string);
+  const setTrans = (string, transliteration) => { subtreeOf(string)[''] = transliteration; };
 
   const specialSymbols = {
     '。': '.', '、': ',',
@@ -54,7 +55,7 @@ function createKanaToHepburnMap() {
   const smallaiueo = { ぁ: 'a', ぃ: 'i', ぅ: 'u', ぇ: 'e', ぉ: 'o' };
 
   for (const [rom, kan] of Object.entries(smallY).concat(Object.entries(smallaiueo))) {
-    subtreeOf(rom)[''] = kan;
+    setTrans(rom, kan);
   }
 
   const yoonKana = ['き', 'に', 'ひ', 'み', 'り', 'ぎ', 'び', 'ぴ', 'ゔ', 'く', 'ふ'];
@@ -62,22 +63,22 @@ function createKanaToHepburnMap() {
   for (const kana of yoonKana) {
     const fistRomajiLetter = subtreeOf(kana)[''][0];
     for (const [yKan, yRom] of Object.entries(smallY)) {
-      subtreeOf(kana + yKan)[''] = fistRomajiLetter + yRom;
+      setTrans(kana + yKan, fistRomajiLetter + yRom);
     }
     // きぃ -> kyi
     for (const [yKan, yRom] of Object.entries(smallYExtra)) {
-      subtreeOf(kana + yKan)[''] = fistRomajiLetter + yRom;
+      setTrans(kana + yKan, fistRomajiLetter + yRom);
     }
   }
   const yoonExceptions = { し: 'sh', ち: 'ch', じ: 'j', ぢ: 'j' };
   for (const [kana, rom] of Object.entries(yoonExceptions)) {
     // じゃ -> ja
     for (const [yKan, yRom] of Object.entries(smallY)) {
-      subtreeOf(kana + yKan)[''] = rom + yRom[1];
+      setTrans(kana + yKan, rom + yRom[1]);
     }
     // じぃ -> jyi, じぇ -> je
-    subtreeOf(`${kana}ぃ`)[''] = `${rom}yi`;
-    subtreeOf(`${kana}ぇ`)[''] = `${rom}e`;
+    setTrans(`${kana}ぃ`, `${rom}yi`);
+    setTrans(`${kana}ぇ`, `${rom}e`);
   }
 
   // going with the intuitive (yet incorrect) solution where っや -> yya and っぃ -> ii
@@ -137,7 +138,7 @@ function createKanaToHepburnMap() {
   };
 
   for (const [kan, rom] of Object.entries(smallLetters)) {
-    subtreeOf(kan)[''] = rom;
+    setTrans(kan, rom);
   }
 
   return Object.freeze(JSON.parse(JSON.stringify(romajiTree)));
@@ -151,15 +152,6 @@ function getKanaToHepburnTree() {
   return kanaToHepburnMap;
 }
 
-export function getRomajiPostProcessing(fullOptions) {
-  switch (fullOptions.romanization) {
-    case methods.HEPBURN:
-      return getHepburnPostProcessing(fullOptions);
-    default:
-      return ([kana, parsed]) => [kana, parsed];
-  }
-}
-
 export function getKanaToRomajiTree(fullOptions) {
   switch (fullOptions.romanization) {
     case methods.HEPBURN:
@@ -167,38 +159,4 @@ export function getKanaToRomajiTree(fullOptions) {
     default:
       return {};
   }
-}
-
-function getHepburnPostProcessing(fullOptions) {
-  return function postProcessing([kana, parsed]) {
-    const labial = ['b', 'm', 'p'];
-    const vowels = ['a', 'i', 'u', 'e', 'o', 'y'];
-    const newParsed = JSON.parse(JSON.stringify(parsed));
-    for (let index = 0; index < parsed.length; index += 1) {
-      const start = parsed[index][0];
-      if (katakanaToHiragana(kana.charAt(start)) === 'ん') {
-        const nextElement = parsed[index + 1];
-        if (nextElement !== undefined) {
-          const nextChar = nextElement[2].charAt(0);
-          switch (true) {
-            // んば -> mba
-            case labial.includes(nextChar):
-              newParsed[index][2] = 'm';
-              break;
-            // んや -> n'ya
-            case vowels.includes(nextChar):
-              newParsed[index][2] = 'n\'';
-              break;
-          }
-        }
-      }
-      if (fullOptions.upcaseKatakana) {
-        const [begin, end, romaji] = newParsed[index];
-        if (isKatakana(kana.slice(begin, end))) {
-          newParsed[index][2] = romaji.toUpperCase();
-        }
-      }
-    }
-    return [kana, newParsed];
-  };
 }
