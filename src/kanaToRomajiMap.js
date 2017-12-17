@@ -8,7 +8,7 @@ export const methods = Object.freeze({
 
 let kanaToHepburnMap = null;
 
-export function createKanaToHepburnMap() {
+function createKanaToHepburnMap() {
   /* eslint-disable object-property-newline */
   const romajiTree = transform({
     あ: 'a', い: 'i', う: 'u', え: 'e', お: 'o',
