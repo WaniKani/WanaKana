@@ -30,9 +30,7 @@ export const DEFAULT_OPTIONS = {
   IMEMode: false,
   romanization: romanizations.HEPBURN,
   customKanaMapping: (map) => map,
-  customKanaPostProcessing: ([romaji, parsed]) => [romaji, parsed],
   customRomajiMapping: (map) => map,
-  customRomajiPostProcessing: ([kana, parsed]) => [kana, parsed],
 };
 
 // CharCode References

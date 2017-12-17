@@ -1,4 +1,4 @@
-export function applyMapping(string, mapping, convertEnding=true) {
+export function applyMapping(string, mapping, convertEnding) {
   const root = mapping;
 
   function nextSubtree(tree, nextChar) {

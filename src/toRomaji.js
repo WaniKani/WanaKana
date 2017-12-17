@@ -25,7 +25,7 @@ export function toRomaji(input = '', options = {}) {
   }).join('');
 }
 
-function splitIntoRomaji(input = '', config={}) {
+function splitIntoRomaji(input, config) {
   let map = getKanaToRomajiTree(config);
   map = config.customRomajiMapping(map);
   return applyMapping(toHiragana(input, { passRomaji: true }), map, !config.IMEMode);
