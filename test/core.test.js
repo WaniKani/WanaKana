@@ -12,7 +12,7 @@ import isMixed from '../src/isMixed';
 import { toKana, splitIntoKana } from '../src/toKana';
 import toKatakana from '../src/toKatakana';
 import toHiragana from '../src/toHiragana';
-import { toRomaji, splitIntoRomaji } from '../src/toRomaji';
+import toRomaji from '../src/toRomaji';
 import stripOkurigana from '../src/stripOkurigana';
 import tokenize from '../src/tokenize';
 import { bind, unbind } from '../src/domUtils';
@@ -28,7 +28,6 @@ describe('Methods should return valid defaults when given no input', () => {
   it('isMixed() with no input', () => expect(isMixed()).toBe(false));
   it('toKana() with no input', () => expect(toKana()).toBe(''));
   it('splitIntoKana() with no input', () => expect(splitIntoKana()).toEqual([]));
-  it('splitIntoRomaji() with no input', () => expect(splitIntoRomaji()).toEqual([]));
   it('toKatakana() with no input', () => expect(toKatakana()).toBe(''));
   it('toHiragana() with no input', () => expect(toHiragana()).toBe(''));
   it('toRomaji() with no input', () => expect(toRomaji()).toBe(''));
@@ -83,14 +82,12 @@ describe('Character type detection', () => {
     it('あア is japanese', () => expect(isJapanese('あア')).toBe(true));
     it('A泣き虫 is not japanese', () => expect(isJapanese('A泣き虫')).toBe(false));
     it('A is not japanese', () => expect(isJapanese('A')).toBe(false));
-    it('泣き虫。！〜 (w. zenkaku punctuation) is japanese', () =>
-      expect(isJapanese('泣き虫。！〜')).toBe(true));
-    it('泣き虫.!~ (w. romaji punctuation) is not japanese', () =>
-      expect(isJapanese('泣き虫.!~')).toBe(false));
-    it('zenkaku numbers are considered neutral', () =>
-      expect(isJapanese('０１２３４５６７８９')).toBe(true));
-    it('latin numbers are considered neutral', () =>
-      expect(isJapanese('0123456789')).toBe(true));
+    it('泣き虫。！〜 (w. zenkaku punctuation) is japanese',
+      () => expect(isJapanese('泣き虫。！〜')).toBe(true));
+    it('泣き虫.!~ (w. romaji punctuation) is not japanese',
+      () => expect(isJapanese('泣き虫.!~')).toBe(false));
+    it('zenkaku numbers are considered neutral', () => expect(isJapanese('０１２３４５６７８９')).toBe(true));
+    it('latin numbers are considered neutral', () => expect(isJapanese('0123456789')).toBe(true));
     it('mixed with numbers is japanese', () => expect(isJapanese('２０１１年')).toBe(true));
     it('hankaku katakana is allowed', () => expect(isJapanese('ﾊﾝｶｸｶﾀｶﾅ')).toBe(true));
   });
@@ -114,8 +111,7 @@ describe('Character type detection', () => {
     it('Aあア is mixed', () => expect(isMixed('Aあア')).toBe(true));
     it('２あア is not mixed', () => expect(isMixed('２あア')).toBe(false));
     it('お腹A is mixed', () => expect(isMixed('お腹A')).toBe(true));
-    it('お腹A is not mixed when { passKanji: false }', () =>
-      expect(isMixed('お腹A', { passKanji: false })).toBe(false));
+    it('お腹A is not mixed when { passKanji: false }', () => expect(isMixed('お腹A', { passKanji: false })).toBe(false));
     it('お腹 is not mixed', () => expect(isMixed('お腹')).toBe(false));
     it('腹 is not mixed', () => expect(isMixed('腹')).toBe(false));
     it('A is not mixed', () => expect(isMixed('A')).toBe(false));
@@ -125,24 +121,24 @@ describe('Character type detection', () => {
 });
 
 describe('Character conversion', () => {
-  // https://en.wikipedia.org/wiki/Iroha
   describe('Quick Brown Fox - Romaji to Hiragana', () => {
-    expect(toHiragana('IROHANIHOHETO', { useObsoleteKana: true })).toBe('いろはにほへと');
-    // Even the colorful fragrant flowers'
-    expect(toHiragana('CHIRINURUWO', { useObsoleteKana: true })).toBe('ちりぬるを');
-    // die sooner or later.'
-    expect(toHiragana('WAKAYOTARESO', { useObsoleteKana: true })).toBe('わかよたれそ');
-    // Us who live in this world'
-    expect(toHiragana('TSUNENARAMU', { useObsoleteKana: true })).toBe('つねならむ');
-    // cannot live forever, either.'
-    expect(toHiragana('UWINOOKUYAMA', { useObsoleteKana: true })).toBe('うゐのおくやま');
-    // This transient mountain with shifts and changes,'
-    expect(toHiragana('KEFUKOETE', { useObsoleteKana: true })).toBe('けふこえて');
-    // today we are going to overcome, and reach the world of enlightenment.'
-    expect(toHiragana('ASAKIYUMEMISHI', { useObsoleteKana: true })).toBe('あさきゆめみし');
-    // We are not going to have meaningless dreams'
-    expect(toHiragana('WEHIMOSESUN', { useObsoleteKana: true })).toBe('ゑひもせすん');
-    // nor become intoxicated with the fake world anymore.'
+    // thanks to Yuki http://www.yesjapan.com/YJ6/question/1099/is-there-a-group-of-sentences-that-uses-every-hiragana
+    expect(toHiragana('IROHANIHOHETO', { useObsoleteKana: true }))
+      .toBe('いろはにほへと'); // Even the colorful fragrant flowers'
+    expect(toHiragana('CHIRINURUWO', { useObsoleteKana: true }))
+      .toBe('ちりぬるを'); // die sooner or later.'
+    expect(toHiragana('WAKAYOTARESO', { useObsoleteKana: true }))
+      .toBe('わかよたれそ'); // Us who live in this world'
+    expect(toHiragana('TSUNENARAMU', { useObsoleteKana: true }))
+      .toBe('つねならむ'); // cannot live forever, either.'
+    expect(toHiragana('UWINOOKUYAMA', { useObsoleteKana: true }))
+      .toBe('うゐのおくやま'); // This transient mountain with shifts and changes,'
+    expect(toHiragana('KEFUKOETE', { useObsoleteKana: true }))
+      .toBe('けふこえて'); // today we are going to overcome, and reach the world of enlightenment.'
+    expect(toHiragana('ASAKIYUMEMISHI', { useObsoleteKana: true }))
+      .toBe('あさきゆめみし'); // We are not going to have meaningless dreams'
+    expect(toHiragana('WEHIMOSESUN', { useObsoleteKana: true }))
+      .toBe('ゑひもせすん'); // nor become intoxicated with the fake world anymore.'
   });
 
   describe('Test custom mappings options', () => {
@@ -196,32 +192,32 @@ describe('Character conversion', () => {
   });
 
   describe('toKana()', () => {
-    it('Lowercase characters are transliterated to hiragana.', () =>
-      expect(toKana('onaji')).toBe('おなじ'));
+    it('Lowercase characters are transliterated to hiragana.',
+      () => expect(toKana('onaji')).toBe('おなじ'));
 
-    it('Lowercase with double consonants and double vowels are transliterated to hiragana.', () =>
-      expect(toKana('buttsuuji')).toBe('ぶっつうじ'));
+    it('Lowercase with double consonants and double vowels are transliterated to hiragana.',
+      () => expect(toKana('buttsuuji')).toBe('ぶっつうじ'));
 
-    it('Uppercase characters are transliterated to katakana.', () =>
-      expect(toKana('ONAJI')).toBe('オナジ'));
+    it('Uppercase characters are transliterated to katakana.',
+      () => expect(toKana('ONAJI')).toBe('オナジ'));
 
-    it('Uppercase with double consonants and double vowels are transliterated to katakana.', () =>
-      expect(toKana('BUTTSUUJI')).toBe('ブッツウジ'));
+    it('Uppercase with double consonants and double vowels are transliterated to katakana.',
+      () => expect(toKana('BUTTSUUJI')).toBe('ブッツウジ'));
 
-    it('WaniKani -> ワにカに - Mixed case uses the first character for each syllable.', () =>
-      expect(toKana('WaniKani')).toBe('ワにカに'));
+    it('WaniKani -> ワにカに - Mixed case uses the first character for each syllable.',
+      () => expect(toKana('WaniKani')).toBe('ワにカに'));
 
-    it('Non-romaji will be passed through.', () =>
-      expect(toKana('ワニカニ AiUeO 鰐蟹 12345 @#$%')).toBe('ワニカニ アいウえオ 鰐蟹 12345 @#$%'));
+    it('Non-romaji will be passed through.',
+      () => expect(toKana('ワニカニ AiUeO 鰐蟹 12345 @#$%')).toBe('ワニカニ アいウえオ 鰐蟹 12345 @#$%'));
 
-    it('It handles mixed syllabaries', () =>
-      expect(toKana('座禅‘zazen’スタイル')).toBe('座禅「ざぜん」スタイル'));
+    it('It handles mixed syllabaries',
+      () => expect(toKana('座禅‘zazen’スタイル')).toBe('座禅「ざぜん」スタイル'));
 
-    it('Will convert short to long dashes', () =>
-      expect(toKana('batsuge-mu')).toBe('ばつげーむ'));
+    it('Will convert short to long dashes',
+      () => expect(toKana('batsuge-mu')).toBe('ばつげーむ'));
 
-    it('Will convert punctuation but pass through spaces', () =>
-      expect(toKana(EN_PUNC.join(' '))).toBe(JA_PUNC.join(' ')));
+    it('Will convert punctuation but pass through spaces',
+      () => expect(toKana(EN_PUNC.join(' '))).toBe(JA_PUNC.join(' ')));
   });
 
   describe('splitIntoKana()', () => {
@@ -248,62 +244,44 @@ describe('Character conversion', () => {
     it('k -> h', () => expect(toHiragana('バケル')).toBe('ばける'));
     it('h -> k', () => expect(toKatakana('ばける')).toBe('バケル'));
 
-    it('It survives only katakana toKatakana', () =>
-      expect(toKatakana('スタイル')).toBe('スタイル'));
-    it('It survives only hiragana toHiragana', () =>
-      expect(toHiragana('すたーいる')).toBe('すたーいる'));
-    it('Mixed kana converts every char k -> h', () =>
-      expect(toKatakana('アメリカじん')).toBe('アメリカジン'));
-    it('Mixed kana converts every char h -> k', () =>
-      expect(toHiragana('アメリカじん')).toBe('あめりかじん'));
+    it('It survives only katakana toKatakana', () => expect(toKatakana('スタイル')).toBe('スタイル'));
+    it('It survives only hiragana toHiragana', () => expect(toHiragana('すたーいる')).toBe('すたーいる'));
+    it('Mixed kana converts every char k -> h', () => expect(toKatakana('アメリカじん')).toBe('アメリカジン'));
+    it('Mixed kana converts every char h -> k', () => expect(toHiragana('アメリカじん')).toBe('あめりかじん'));
 
     describe('long vowels', () => {
-      it('Converts long vowels correctly from k -> h', () =>
-        expect(toHiragana('バツゴー')).toBe('ばつごう'));
-      it('Preserves long dash from h -> k', () =>
-        expect(toKatakana('ばつゲーム')).toBe('バツゲーム'));
-      it('Preserves long dash from h -> h', () =>
-        expect(toHiragana('ばつげーむ')).toBe('ばつげーむ'));
-      it('Preserves long dash from k -> k', () =>
-        expect(toKatakana('バツゲーム')).toBe('バツゲーム'));
-      it('Preserves long dash from mixed -> k', () =>
-        expect(toKatakana('バツゲーム')).toBe('バツゲーム'));
-      it('Preserves long dash from mixed -> k', () =>
-        expect(toKatakana('テスーと')).toBe('テスート'));
-      it('Preserves long dash from mixed -> h', () =>
-        expect(toHiragana('てすート')).toBe('てすーと'));
-      it('Preserves long dash from mixed -> h', () =>
-        expect(toHiragana('てすー戸')).toBe('てすー戸'));
-      it('Preserves long dash from mixed -> h', () =>
-        expect(toHiragana('手巣ート')).toBe('手巣ーと'));
-      it('Preserves long dash from mixed -> h', () =>
-        expect(toHiragana('tesート')).toBe('てsーと'));
-      it('Preserves long dash from mixed -> h', () =>
-        expect(toHiragana('ートtesu')).toBe('ーとてす'));
+      it('Converts long vowels correctly from k -> h', () => expect(toHiragana('バツゴー')).toBe('ばつごう'));
+      it('Preserves long dash from h -> k', () => expect(toKatakana('ばつゲーム')).toBe('バツゲーム'));
+      it('Preserves long dash from h -> h', () => expect(toHiragana('ばつげーむ')).toBe('ばつげーむ'));
+      it('Preserves long dash from k -> k', () => expect(toKatakana('バツゲーム')).toBe('バツゲーム'));
+      it('Preserves long dash from mixed -> k', () => expect(toKatakana('バツゲーム')).toBe('バツゲーム'));
+      it('Preserves long dash from mixed -> k', () => expect(toKatakana('テスーと')).toBe('テスート'));
+      it('Preserves long dash from mixed -> h', () => expect(toHiragana('てすート')).toBe('てすーと'));
+      it('Preserves long dash from mixed -> h', () => expect(toHiragana('てすー戸')).toBe('てすー戸'));
+      it('Preserves long dash from mixed -> h', () => expect(toHiragana('手巣ート')).toBe('手巣ーと'));
+      it('Preserves long dash from mixed -> h', () => expect(toHiragana('tesート')).toBe('てsーと'));
+      it('Preserves long dash from mixed -> h', () => expect(toHiragana('ートtesu')).toBe('ーとてす'));
     });
 
     describe('Mixed syllabaries', () => {
-      it('It passes non-katakana through when passRomaji is true k -> h', () =>
-        expect(toHiragana('座禅‘zazen’スタイル', { passRomaji: true })).toBe('座禅‘zazen’すたいる'));
+      it('It passes non-katakana through when passRomaji is true k -> h',
+        () => expect(toHiragana('座禅‘zazen’スタイル', { passRomaji: true })).toBe('座禅‘zazen’すたいる'));
 
-      it('It passes non-hiragana through when passRomaji is true h -> k', () =>
-        expect(toKatakana('座禅‘zazen’すたいる', { passRomaji: true })).toBe('座禅‘zazen’スタイル'));
+      it('It passes non-hiragana through when passRomaji is true h -> k',
+        () => expect(toKatakana('座禅‘zazen’すたいる', { passRomaji: true })).toBe('座禅‘zazen’スタイル'));
 
-      it('It converts non-katakana when passRomaji is false k -> h', () =>
-        expect(toHiragana('座禅‘zazen’スタイル')).toBe('座禅「ざぜん」すたいる'));
+      it('It converts non-katakana when passRomaji is false k -> h',
+        () => expect(toHiragana('座禅‘zazen’スタイル')).toBe('座禅「ざぜん」すたいる'));
 
-      it('It converts non-hiragana when passRomaji is false h -> k', () =>
-        expect(toKatakana('座禅‘zazen’すたいる')).toBe('座禅「ザゼン」スタイル'));
+      it('It converts non-hiragana when passRomaji is false h -> k',
+        () => expect(toKatakana('座禅‘zazen’すたいる')).toBe('座禅「ザゼン」スタイル'));
     });
   });
 
   describe('Case sensitivity', () => {
-    it("cAse DoEsn'T MatTER for toHiragana()", () =>
-      expect(toHiragana('aiueo')).toBe(toHiragana('AIUEO')));
-    it("cAse DoEsn'T MatTER for toKatakana()", () =>
-      expect(toKatakana('aiueo')).toBe(toKatakana('AIUEO')));
-    it('Case DOES matter for toKana()', () =>
-      expect(toKana('aiueo')).not.toBe(toKana('AIUEO')));
+    it("cAse DoEsn'T MatTER for toHiragana()", () => expect(toHiragana('aiueo')).toBe(toHiragana('AIUEO')));
+    it("cAse DoEsn'T MatTER for toKatakana()", () => expect(toKatakana('aiueo')).toBe(toKatakana('AIUEO')));
+    it('Case DOES matter for toKana()', () => expect(toKana('aiueo')).not.toBe(toKana('AIUEO')));
   });
 
   describe('N edge cases', () => {
@@ -322,8 +300,7 @@ describe('Character conversion', () => {
     it('kinyou -> きにょう', () => expect(toKana('kinyou')).toBe('きにょう'));
     it("kin'you -> きんよう", () => expect(toKana("kin'you")).toBe('きんよう'));
     it("kin'yu -> きんゆ", () => expect(toKana("kin'yu")).toBe('きんゆ'));
-    it('Properly add space after "n[space]"', () =>
-      expect(toKana('ichiban warui')).toBe('いちばん わるい'));
+    it('Properly add space after "n[space]"', () => expect(toKana('ichiban warui')).toBe('いちばん わるい'));
   });
 
   describe('Bogus 4 character sequences', () => {
@@ -336,31 +313,29 @@ describe('Character conversion', () => {
 
 describe('Kana to Romaji', () => {
   describe('toRomaji()', () => {
-    it('Convert katakana to romaji', () =>
-      expect(toRomaji('ワニカニ　ガ　スゴイ　ダ')).toBe('wanikani ga sugoi da'));
+    it('Convert katakana to romaji',
+     () => expect(toRomaji('ワニカニ　ガ　スゴイ　ダ')).toBe('wanikani ga sugoi da'));
 
-    it('Convert hiragana to romaji', () =>
-      expect(toRomaji('わにかに　が　すごい　だ')).toBe('wanikani ga sugoi da'));
+    it('Convert hiragana to romaji',
+     () => expect(toRomaji('わにかに　が　すごい　だ')).toBe('wanikani ga sugoi da'));
 
-    it('Convert mixed kana to romaji', () =>
-      expect(toRomaji('ワニカニ　が　すごい　だ')).toBe('wanikani ga sugoi da'));
+    it('Convert mixed kana to romaji',
+     () => expect(toRomaji('ワニカニ　が　すごい　だ')).toBe('wanikani ga sugoi da'));
 
-    it('Will convert punctuation and full-width spaces', () =>
-      expect(toRomaji(JA_PUNC.join(''))).toBe(EN_PUNC.join('')));
+    it('Will convert punctuation and full-width spaces',
+     () => expect(toRomaji(JA_PUNC.join(''))).toBe(EN_PUNC.join('')));
 
-    it('Use the upcaseKatakana flag to preserve casing. Works for katakana.', () =>
-      expect(toRomaji('ワニカニ', { upcaseKatakana: true })).toBe('WANIKANI'));
+    it('Use the upcaseKatakana flag to preserve casing. Works for katakana.',
+     () => expect(toRomaji('ワニカニ', { upcaseKatakana: true })).toBe('WANIKANI'));
 
-    it('Use the upcaseKatakana flag to preserve casing. Works for mixed kana.', () =>
-      expect(toRomaji('ワニカニ　が　すごい　だ', { upcaseKatakana: true })).toBe(
-        'WANIKANI ga sugoi da'
-      ));
+    it('Use the upcaseKatakana flag to preserve casing. Works for mixed kana.',
+     () => expect(toRomaji('ワニカニ　が　すごい　だ', { upcaseKatakana: true })).toBe('WANIKANI ga sugoi da'));
 
-    it("Doesn't mangle the long dash 'ー' or slashdot '・'", () =>
-      expect(toRomaji('罰ゲーム・ばつげーむ')).toBe('罰geemu/batsuge-mu'));
+    it("Doesn't mangle the long dash 'ー' or slashdot '・'",
+     () => expect(toRomaji('罰ゲーム・ばつげーむ')).toBe('罰geemu/batsuge-mu'));
 
-    it('Spaces must be manually entered', () =>
-      expect(toRomaji('わにかにがすごいだ')).not.toBe('wanikani ga sugoi da'));
+    it('Spaces must be manually entered',
+     () => expect(toRomaji('わにかにがすごいだ')).not.toBe('wanikani ga sugoi da'));
   });
 
   describe('Quick Brown Fox - Hiragana to Romaji', () => {
@@ -377,10 +352,8 @@ describe('Kana to Romaji', () => {
   describe("double n's and double consonants", () => {
     it('Double and single n', () => expect(toRomaji('きんにくまん')).toBe('kinnikuman'));
     it('N extravaganza', () => expect(toRomaji('んんにんにんにゃんやん')).toBe("nnninninnyan'yan"));
-    it('Double consonants', () =>
-      expect(toRomaji('かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ')).toBe(
-        'kappa tatta shusshu chatcha yattsu'
-      ));
+    it('Double consonants',
+      () => expect(toRomaji('かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ')).toBe('kappa tatta shusshu chatcha yattsu'));
   });
 
   describe('Small kana', () => {
@@ -400,15 +373,15 @@ describe('Kana to Romaji', () => {
   });
 
   describe('Apostrophes in ambiguous consonant vowel combos', () => {
-    it('おんよみ', () => expect(toRomaji('おんよみ')).toBe("on'yomi"));
-    it('んよ んあ んゆ', () => expect(toRomaji('んよ んあ んゆ')).toBe("n'yo n'a n'yu"));
+    it('おんよみ', () => expect(toRomaji('おんよみ')).toBe('on\'yomi'));
+    it('んよ んあ んゆ', () => expect(toRomaji('んよ んあ んゆ')).toBe('n\'yo n\'a n\'yu'));
   });
 
-  // describe('ん becomes m before labial consonants', () => {
-  //   expect(toRomaji('サンボマスタ')).toBe('sambomasuta');
-  //   expect(toRomaji('いっしょうけんめい')).toBe('isshoukemmei');
-  //   expect(toRomaji('さんぽする')).toBe('samposuru');
-  // });
+  describe('ん becomes m before labial consonants', () => {
+    expect(toRomaji('サンボマスタ')).toBe('sambomasuta');
+    expect(toRomaji('いっしょうけんめい')).toBe('isshoukemmei');
+    expect(toRomaji('さんぽする')).toBe('samposuru');
+  });
 });
 
 describe('stripOkurigana', () => {
@@ -438,15 +411,7 @@ describe('tokenize', () => {
     expect(tokenize('阮咸')).toEqual(['阮咸']);
     expect(tokenize('感じ')).toEqual(['感', 'じ']);
     expect(tokenize('私は悲しい')).toEqual(['私', 'は', '悲', 'しい']);
-    expect(tokenize('what the...私は「悲しい」。')).toEqual([
-      'what the...',
-      '私',
-      'は',
-      '「',
-      '悲',
-      'しい',
-      '」。',
-    ]);
+    expect(tokenize('what the...私は「悲しい」。')).toEqual(['what the...', '私', 'は', '「', '悲', 'しい', '」。']);
   });
 });
 
@@ -462,6 +427,15 @@ describe('Event listener helpers', () => {
   const inputField1 = document.querySelector('#ime');
   const inputField2 = document.querySelector('#ime2');
   const inputField3 = document.querySelector('.has-no-id');
+
+  it('should warn if invalid params passed', () => {
+    const consoleRef = global.console;
+    global.console = { warn: jest.fn() };
+    bind('not an element');
+    unbind(inputField1);
+    expect(console.warn).toHaveBeenCalledTimes(2); // eslint-disable-line no-console
+    global.console = consoleRef; // restore console
+  });
 
   it('adds onInput event listener', () => {
     bind(inputField1);
@@ -545,13 +519,7 @@ describe('Event listener helpers', () => {
     expect(inputField1.value).toEqual('かｔ');
     inputField1.value = 'かｔｔ';
     // have to fake it... no compositionupdate in jsdom
-    inputField1.dispatchEvent(
-      new CustomEvent('compositionupdate', {
-        bubbles: true,
-        cancellable: true,
-        detail: { data: 'かｔｔ' },
-      })
-    );
+    inputField1.dispatchEvent(new CustomEvent('compositionupdate', { bubbles: true, cancellable: true, detail: { data: 'かｔｔ' } }));
     simulant.fire(inputField1, 'input');
     expect(inputField1.value).toEqual('かｔｔ');
     unbind(inputField1);
@@ -573,7 +541,9 @@ describe('Event listener helpers', () => {
     bind(inputField1);
     const inputValue = 'sentaku';
     const expected = 'せんたく';
-    const expectedCursorPositions = [0, 1, 1, 2, 3, 3, 4, 4];
+    const expectedCursorPositions = [
+      0, 1, 1, 2, 3, 3, 4, 4,
+    ];
     for (let index = 0; index < expected.length; index += 1) {
       inputField1.value = inputValue;
       inputField1.setSelectionRange(index, index);
@@ -602,42 +572,37 @@ describe('Event listener helpers', () => {
   });
 });
 
-/**
- * Simulate real typing by calling the function on every character in sequence
- * @param  {String} input
- * @param  {Object} options
- * @return {String} converted romaji as kana
- */
-function testTyping(input, options) {
-  let pos = 1;
-  let text = input;
-  const len = text.length;
-  // console.log(`--${text}--`);
-  while (pos <= len) {
-    let buffer = text.slice(0, pos);
-    const rest = text.slice(pos);
-    buffer = toKana(buffer, options);
-    // console.log(`${pos}:${buffer} <-${rest}`);
-    text = buffer + rest;
-    pos += 1;
-  }
-  return text;
-}
 
 describe('IMEMode', () => {
-  it("Without IME mode, solo n's are transliterated.", () =>
-    expect(toKana('n')).toBe('ん'));
-  it("Without IME mode, double n's are transliterated.", () =>
-    expect(toKana('nn')).toBe('んん'));
+    /**
+     * Simulate real typing by calling the function on every character in sequence
+     * @param  {String} input
+     * @param  {Object} options
+     * @return {String} converted romaji as kana
+     */
+  function testTyping(input, options) {
+    let pos = 1;
+    let text = input;
+    const len = text.length;
+      // console.log(`--${text}--`);
+    while (pos <= len) {
+      let buffer = text.slice(0, pos);
+      const rest = text.slice(pos);
+      buffer = toKana(buffer, options);
+        // console.log(`${pos}:${buffer} <-${rest}`);
+      text = buffer + rest;
+      pos += 1;
+    }
+    return text;
+  }
 
-  it("With IME mode, solo n's are not transliterated.", () =>
-    expect(testTyping('n', { IMEMode: true })).toBe('n'));
-  it("With IME mode, double n's are transliterated.", () =>
-    expect(testTyping('nn', { IMEMode: true })).toBe('ん'));
-  it('With IME mode, n + space are transliterated.', () =>
-    expect(testTyping('n ', { IMEMode: true })).toBe('ん'));
-  it("With IME mode, n + ' are transliterated.", () =>
-    expect(testTyping("n'", { IMEMode: true })).toBe('ん'));
+  it("Without IME mode, solo n's are transliterated.", () => expect(toKana('n')).toBe('ん'));
+  it("Without IME mode, double n's are transliterated.", () => expect(toKana('nn')).toBe('んん'));
+
+  it("With IME mode, solo n's are not transliterated.", () => expect(testTyping('n', { IMEMode: true })).toBe('n'));
+  it("With IME mode, double n's are transliterated.", () => expect(testTyping('nn', { IMEMode: true })).toBe('ん'));
+  it('With IME mode, n + space are transliterated.', () => expect(testTyping('n ', { IMEMode: true })).toBe('ん'));
+  it("With IME mode, n + ' are transliterated.", () => expect(testTyping("n'", { IMEMode: true })).toBe('ん'));
   it('With IME mode, ni.', () => expect(testTyping('ni', { IMEMode: true })).toBe('に'));
 
   it('kan', () => expect(testTyping('kan', { IMEMode: true })).toBe('かn'));
@@ -645,55 +610,49 @@ describe('IMEMode', () => {
   it('kanpai!', () => expect(testTyping('kanpai', { IMEMode: true })).toBe('かんぱい'));
   it('nihongo', () => expect(testTyping('nihongo', { IMEMode: true })).toBe('にほんご'));
 
-  it("y doesn't count as a consonant for IME", () =>
-    expect(testTyping('ny', { IMEMode: true })).toBe('ny'));
-  it('nya works as expected', () =>
-    expect(testTyping('nya', { IMEMode: true })).toBe('にゃ'));
+  it("y doesn't count as a consonant for IME", () => expect(testTyping('ny', { IMEMode: true })).toBe('ny'));
+  it('nya works as expected', () => expect(testTyping('nya', { IMEMode: true })).toBe('にゃ'));
 
-  it("With IME mode, solo N's are not transliterated - katakana.", () =>
-    expect(testTyping('N', { IMEMode: true })).toBe('N'));
-  it("With IME mode, double N's are transliterated - katakana.", () =>
-    expect(testTyping('NN', { IMEMode: true })).toBe('ン'));
-  it('With IME mode, NI - katakana.', () =>
-    expect(testTyping('NI', { IMEMode: true })).toBe('ニ'));
-  it('With IME mode - KAN - katakana', () =>
-    expect(testTyping('KAN', { IMEMode: true })).toBe('カN'));
-  it('With IME mode - NIHONGO - katakana', () =>
-    expect(testTyping('NIHONGO', { IMEMode: true })).toBe('ニホンゴ'));
+  it("With IME mode, solo N's are not transliterated - katakana.", () => expect(testTyping('N', { IMEMode: true })).toBe('N'));
+  it("With IME mode, double N's are transliterated - katakana.", () => expect(testTyping('NN', { IMEMode: true })).toBe('ン'));
+  it('With IME mode, NI - katakana.', () => expect(testTyping('NI', { IMEMode: true })).toBe('ニ'));
+  it('With IME mode - KAN - katakana', () => expect(testTyping('KAN', { IMEMode: true })).toBe('カN'));
+  it('With IME mode - NIHONGO - katakana', () => expect(testTyping('NIHONGO', { IMEMode: true })).toBe('ニホンゴ'));
 });
 
 describe('Options', () => {
   describe('useObsoleteKana', () => {
     describe('toKana', () => {
-      it('useObsoleteKana is false by default', () => expect(toKana('wi')).toBe('うぃ'));
-      it('wi = ゐ (when useObsoleteKana is true)', () =>
-        expect(toKana('wi', { useObsoleteKana: true })).toBe('ゐ'));
-      it('we = ゑ (when useObsoleteKana is true)', () =>
-        expect(toKana('we', { useObsoleteKana: true })).toBe('ゑ'));
-      it('WI = ヰ (when useObsoleteKana is true)', () =>
-        expect(toKana('WI', { useObsoleteKana: true })).toBe('ヰ'));
-      it('WE = ヱ (when useObsoleteKana is true)', () =>
-        expect(toKana('WE', { useObsoleteKana: true })).toBe('ヱ'));
+      it('useObsoleteKana is false by default',
+      () => expect(toKana('wi')).toBe('うぃ'));
+      it('wi = ゐ (when useObsoleteKana is true)',
+      () => expect(toKana('wi', { useObsoleteKana: true })).toBe('ゐ'));
+      it('we = ゑ (when useObsoleteKana is true)',
+      () => expect(toKana('we', { useObsoleteKana: true })).toBe('ゑ'));
+      it('WI = ヰ (when useObsoleteKana is true)',
+      () => expect(toKana('WI', { useObsoleteKana: true })).toBe('ヰ'));
+      it('WE = ヱ (when useObsoleteKana is true)',
+      () => expect(toKana('WE', { useObsoleteKana: true })).toBe('ヱ'));
     });
 
     describe('toHiragana', () => {
-      it('useObsoleteKana is false by default', () =>
-        expect(toHiragana('wi')).toBe('うぃ'));
-      it('wi = ゐ (when useObsoleteKana is true)', () =>
-        expect(toHiragana('wi', { useObsoleteKana: true })).toBe('ゐ'));
-      it('we = ゑ (when useObsoleteKana is true)', () =>
-        expect(toHiragana('we', { useObsoleteKana: true })).toBe('ゑ'));
-      it('wi = うぃ when useObsoleteKana is false', () =>
-        expect(toHiragana('wi', { useObsoleteKana: false })).toBe('うぃ'));
+      it('useObsoleteKana is false by default',
+        () => expect(toHiragana('wi')).toBe('うぃ'));
+      it('wi = ゐ (when useObsoleteKana is true)',
+          () => expect(toHiragana('wi', { useObsoleteKana: true })).toBe('ゐ'));
+      it('we = ゑ (when useObsoleteKana is true)',
+          () => expect(toHiragana('we', { useObsoleteKana: true })).toBe('ゑ'));
+      it('wi = うぃ when useObsoleteKana is false',
+          () => expect(toHiragana('wi', { useObsoleteKana: false })).toBe('うぃ'));
     });
 
     describe('toKataKana', () => {
-      it('wi = ウィ when useObsoleteKana is false', () =>
-        expect(toKatakana('WI', { useObsoleteKana: false })).toBe('ウィ'));
-      it('WI = ヰ (when useObsoleteKana is true)', () =>
-        expect(toKatakana('wi', { useObsoleteKana: true })).toBe('ヰ'));
-      it('WE = ヱ (when useObsoleteKana is true)', () =>
-        expect(toKatakana('we', { useObsoleteKana: true })).toBe('ヱ'));
+      it('wi = ウィ when useObsoleteKana is false',
+        () => expect(toKatakana('WI', { useObsoleteKana: false })).toBe('ウィ'));
+      it('WI = ヰ (when useObsoleteKana is true)',
+          () => expect(toKatakana('wi', { useObsoleteKana: true })).toBe('ヰ'));
+      it('WE = ヱ (when useObsoleteKana is true)',
+          () => expect(toKatakana('we', { useObsoleteKana: true })).toBe('ヱ'));
     });
   });
 });

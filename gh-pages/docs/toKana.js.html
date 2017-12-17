@@ -73,14 +73,9 @@ import isKana from './isKana';
  * toKana('we', { useObsoleteKana: true })
  * // => 'ゑ'
  */
-export function toKana(input = '', options = {}, ignoreCase = false) {
-  // just throw away the substring index information and just concatenate all the kana
-  return splitIntoKana(input, options, ignoreCase).map((kanaToken) => kanaToken[2]).join('');
-}
-
-export function splitIntoKana(input = '', options = {}, ignoreCase = false) {
+function toKana(input = '', options = {}, ignoreCase = false) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
-  // Final output array containing arrays [start index of the translitterated substring, end index, kana]
+  // Final output array
   const kana = [];
   // Position in the string that is being evaluated
   let cursor = 0;
@@ -188,11 +183,11 @@ export function splitIntoKana(input = '', options = {}, ignoreCase = false) {
       }
     }
 
-    const nextCursor = cursor + (chunkSize || 1);
-    kana.push([cursor, nextCursor, kanaChar]);
-    cursor = nextCursor;
+    kana.push(kanaChar);
+    cursor += chunkSize || 1;
   }
-  return kana;
+
+  return kana.join('');
 }
 
 export default toKana;

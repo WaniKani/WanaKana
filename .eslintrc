@@ -83,16 +83,16 @@
         "args": "none"
       }
     ],
-    "no-param-reassign": [
-      1,
-      {
-        "props": false
-      }
-    ],
+    "no-param-reassign": 1,
     "prefer-template": 2,
     "quote-props": [
       1,
       "consistent-as-needed"
+    ],
+    "quotes": [
+      1,
+      "single",
+      "avoid-escape"
     ],
     "space-infix-ops": 0,
     "spaced-comment": [

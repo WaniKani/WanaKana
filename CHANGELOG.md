@@ -21,13 +21,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 <!--
 ## [Unreleased]
 ### Add any unpublished changes here as they are made, for easy reference come release time.
-### Changed
-- toRomaji: no more automatic conversion of small ヶ or ヵ since they don't actually function as kana when used in Japanese text
-- toRomaji: katakana long dashes modify vowel length. ゲーム => geemu
 -->
 ## [2.3.1] - 2017-10-17
 ### Changed
-- Set cursor in IME mode to the current position after conversion (rather than the end of all input)
+- Set cursor in IME mode to the correct position after conversion
 
 ## [2.3.0] - 2017-08-28
 ### Changed
@@ -107,7 +104,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `isRomaji()` allows hepburn romanisation long vowels. (IE. Tōkyō)
 
 
-[2.3.1]: https://github.com/WaniKani/WanaKana/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/WaniKani/WanaKana/compare/2.2.4...2.3.0
 [2.2.4]: https://github.com/WaniKani/WanaKana/compare/2.2.3...2.2.4
 [2.2.3]: https://github.com/WaniKani/WanaKana/compare/2.2.2...2.2.3

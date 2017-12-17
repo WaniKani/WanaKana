@@ -61,7 +61,7 @@ export function createKanaToHepburnMap() {
   const yoonKana = ['き', 'に', 'ひ', 'み', 'り', 'ぎ', 'び', 'ぴ', 'ゔ', 'く', 'ふ'];
   // きゃ -> kya
   for (const kana of yoonKana) {
-    const firstRomajiLetter = subtreeOf(kana)[''][0];
+    const fistRomajiLetter = subtreeOf(kana)[''][0];
     for (const [yKan, yRom] of Object.entries(smallY)) {
       setTrans(kana + yKan, fistRomajiLetter + yRom);
     }
@@ -71,7 +71,6 @@ export function createKanaToHepburnMap() {
     }
   }
   const yoonExceptions = { し: 'sh', ち: 'ch', じ: 'j', ぢ: 'j' };
-
   for (const [kana, rom] of Object.entries(yoonExceptions)) {
     // じゃ -> ja
     for (const [yKan, yRom] of Object.entries(smallY)) {

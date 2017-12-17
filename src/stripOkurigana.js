@@ -34,15 +34,11 @@ function stripOkurigana(input = '', options = { all: false }) {
   for (let i = 0, len = reverseChars.length; i < len; i += 1) {
     const char = reverseChars[i];
     // pass if it's punctuation
-    if (isCharPunctuation(char)) {
-      continue; // eslint-disable-line no-continue
-    }
+    if (isCharPunctuation(char)) continue; // eslint-disable-line no-continue
     // blank out if not kanji
     if (!isKanji(char)) {
       reverseChars[i] = '';
-    } else {
-      break; // stop when we hit a kanji char
-    }
+    } else break; // stop when we hit a kanji char
   }
 
   return reverseChars.reverse().join('');

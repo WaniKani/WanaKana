@@ -1,8 +1,6 @@
 import { transform, getSubTreeOf, createCustomMapping } from './kanaMappingUtils';
 let romajiToKanaMap = null;
 
-/* eslint-disable object-curly-newline */
-/* eslint object-property-newline: ["error", { "allowMultiplePropertiesPerLine": true }] */
 function createRomajiToKanaMap() {
   // not exactly kunrei shiki, for example ぢゃ -> dya instead of zya, to avoid name clashing
   const kunreiTree = {
@@ -112,19 +110,19 @@ function createRomajiToKanaMap() {
   }
 
   // different ways to write ん
-  for (const nvar of ['n', "n'", 'xn']) {
+  for (const nvar of ['n', 'n\'', 'xn']) {
     subtreeOf(nvar)[''] = 'ん';
   }
 
   // typing one should be the same as having typed the other instead
   const alternativeMappings = {
-    sh: 'sy', // sha -> sya
-    ch: 'ty', // cho -> tyo
-    cy: 'ty', // cyo -> tyo
-    chy: 'ty', // chyu -> tyu
-    shy: 'sy', // shya -> sya
-    j: 'zy', // ja -> zya
-    jy: 'zy', // jye -> zye
+    sh: 'sy',  // sha -> sya
+    ch: 'ty',  // cho -> tyo
+    cy: 'ty',  // cyo -> tyo
+    chy: 'ty',  // chyu -> tyu
+    shy: 'sy',  // shya -> sya
+    j: 'zy',  // ja -> zya
+    jy: 'zy',  // jye -> zye
 
     // exceptions to above rules
     shi: 'si',
@@ -145,12 +143,9 @@ function createRomajiToKanaMap() {
     parentTree[last] = JSON.parse(JSON.stringify(subtreeOf(alternative)));
   }
 
+
   // xtu -> っ
-  const smallLetters = Object.assign(
-    { tu: 'っ', wa: 'ゎ', ka: 'ヵ', ke: 'ヶ' },
-    smallaiueo,
-    smallY
-  );
+  const smallLetters = Object.assign({ tu: 'っ', wa: 'ゎ', ka: 'ヵ', ke: 'ヶ' }, smallaiueo, smallY);
 
   function getAlternatives(string) {
     const result = [];
@@ -213,11 +208,9 @@ function createRomajiToKanaMap() {
   function addTsu(tree) {
     const result = {};
     for (const [key, value] of Object.entries(tree)) {
-      if (!key) {
-        // we have reached the bottom of this branch
+      if (!key) {  // we have reached the bottom of this branch
         result[key] = `っ${value}`;
-      } else {
-        // more subtrees
+      } else {  // more subtrees
         result[key] = addTsu(value);
       }
     }
