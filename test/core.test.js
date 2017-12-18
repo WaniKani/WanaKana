@@ -1,6 +1,11 @@
 import simulant from 'jsdom-simulant';
 
-import { TO_HIRA_KATA, JA_PUNC, EN_PUNC } from './helpers/testTables';
+import {
+  ROMA_TO_HIRA_KATA,
+  HIRA_KATA_TO_ROMA,
+  JA_PUNC,
+  EN_PUNC,
+} from './helpers/testTables';
 
 import isKana from '../src/isKana';
 import isKanji from '../src/isKanji';
@@ -150,47 +155,32 @@ describe('Character conversion', () => {
 
   describe('Test every character with toKana(), toHiragana(), and toKatakana()', () => {
     describe('toKana()', () => {
-      TO_HIRA_KATA.forEach((item) => {
+      ROMA_TO_HIRA_KATA.forEach((item) => {
         const [romaji, hiragana, katakana] = item;
         const lower = toKana(romaji);
         const upper = toKana(romaji.toUpperCase());
-        it(`${romaji} lowercase -> ${hiragana}`, () => expect(lower).toBe(hiragana));
-        it(`${romaji.toUpperCase()} uppercase -> ${katakana}`, () =>
-          expect(upper).toBe(katakana));
-        it(`${romaji} lowercase -> ${hiragana} snapshot`, () =>
-          expect(lower).toMatchSnapshot());
-        it(`${romaji.toUpperCase()} uppercase -> ${katakana} snapshot`, () =>
-          expect(upper).toMatchSnapshot());
+        it(`${romaji}`, () => expect(lower).toBe(hiragana));
+        it(`${romaji.toUpperCase()}`, () => expect(upper).toBe(katakana));
       });
     });
 
     describe('toHiragana()', () => {
-      TO_HIRA_KATA.forEach((item) => {
+      ROMA_TO_HIRA_KATA.forEach((item) => {
         const [romaji, hiragana] = item;
         const lower = toHiragana(romaji);
         const upper = toHiragana(romaji.toUpperCase());
-        it(`${romaji} lowercase -> ${hiragana}`, () => expect(lower).toBe(hiragana));
-        it(`${romaji.toUpperCase()} uppercase -> ${hiragana}`, () =>
-          expect(upper).toBe(hiragana));
-        it(`${romaji} lowercase -> ${hiragana} snapshot`, () =>
-          expect(lower).toMatchSnapshot());
-        it(`${romaji.toUpperCase()} uppercase -> ${hiragana} snapshot`, () =>
-          expect(upper).toMatchSnapshot());
+        it(`${romaji}`, () => expect(lower).toBe(hiragana));
+        it(`${romaji.toUpperCase()}`, () => expect(upper).toBe(hiragana));
       });
     });
 
     describe('toKatakana()', () => {
-      TO_HIRA_KATA.forEach((item) => {
+      ROMA_TO_HIRA_KATA.forEach((item) => {
         const [romaji, , katakana] = item;
         const lower = toKatakana(romaji);
         const upper = toKatakana(romaji.toUpperCase());
-        it(`${romaji} lowercase -> ${katakana}`, () => expect(lower).toBe(katakana));
-        it(`${romaji.toUpperCase()} uppercase -> ${katakana}`, () =>
-          expect(upper).toBe(katakana));
-        it(`${romaji} lowercase -> ${katakana} snapshot`, () =>
-          expect(lower).toMatchSnapshot());
-        it(`${romaji.toUpperCase()} uppercase -> ${katakana} snapshot`, () =>
-          expect(upper).toMatchSnapshot());
+        it(`${romaji}`, () => expect(lower).toBe(katakana));
+        it(`${romaji.toUpperCase()}`, () => expect(upper).toBe(katakana));
       });
     });
   });
@@ -469,20 +459,28 @@ describe('Kana to Romaji', () => {
     it("Doesn't mangle the long dash 'ー' or slashdot '・'", () =>
       expect(toRomaji('罰ゲーム・ばつげーむ')).toBe('罰geemu/batsuge-mu'));
 
+    it("Doesn't mangle the long dash 'ー' or slashdot '・'", () =>
+      expect(toRomaji('罰ゲーム・ばつげーむ')).toBe('罰geemu/batsuge-mu'));
+
     it('Spaces must be manually entered', () =>
       expect(toRomaji('わにかにがすごいだ')).not.toBe('wanikani ga sugoi da'));
   });
 
-  describe('Quick Brown Fox - Hiragana to Romaji', () => {
-    // TODO: use a test table like TO_HIRA_KATA (but as [hira, kata, roma]) that includes other edge cases
-    expect(toRomaji('いろはにほへと')).toBe('irohanihoheto');
-    expect(toRomaji('ちりぬるを')).toBe('chirinuruwo');
-    expect(toRomaji('わかよたれそ')).toBe('wakayotareso');
-    expect(toRomaji('つねならむ')).toBe('tsunenaramu');
-    expect(toRomaji('うゐのおくやま')).toBe('uwinookuyama');
-    expect(toRomaji('けふこえて')).toBe('kefukoete');
-    expect(toRomaji('あさきゆめみし')).toBe('asakiyumemishi');
-    expect(toRomaji('ゑひもせすん')).toBe('wehimosesun');
+  describe('Test every character with toRomaji()', () => {
+    describe('Hiragana input toRomaji()', () => {
+      HIRA_KATA_TO_ROMA.forEach((item) => {
+        const [hiragana, , romaji] = item;
+        const result = toRomaji(hiragana);
+        it(`${hiragana}`, () => expect(result).toBe(romaji));
+      });
+    });
+    describe('Katakana input toRomaji()', () => {
+      HIRA_KATA_TO_ROMA.forEach((item) => {
+        const [, katakana, romaji] = item;
+        const result = toRomaji(katakana);
+        it(`${katakana}`, () => expect(result).toBe(romaji));
+      });
+    });
   });
 
   describe("double n's and double consonants", () => {
