@@ -14,19 +14,24 @@ import isKatakana from './isKatakana';
  * // => 'hiragana katakana'
  * toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
  * // => 'hiragana KATAKANA'
+ * toRomaji('つじぎり', { customRomajiMapping: createCustomMapping({ じ: 'zi', つ: 'tu', り: 'li' }) });
+ * // => 'tuzigili'
  */
 export function toRomaji(input = '', options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
   // just throw away the substring index information and just concatenate all the kana
-  return splitIntoRomaji(input, config).map((romajiToken) => {
-    const [start, end, romaji] = romajiToken;
-    const makeUpperCase = options.upcaseKatakana && isKatakana(input.slice(start, end));
-    return makeUpperCase? romaji.toUpperCase(): romaji;
-  }).join('');
+  return splitIntoRomaji(input, config)
+    .map((romajiToken) => {
+      const [start, end, romaji] = romajiToken;
+      const makeUpperCase = options.upcaseKatakana && isKatakana(input.slice(start, end));
+      return makeUpperCase ? romaji.toUpperCase() : romaji;
+    })
+    .join('');
 }
 
 function splitIntoRomaji(input, config) {
   let map = getKanaToRomajiTree(config);
+  // TODO: accept object or function, if object, use createCustomMapping automatically?
   map = config.customRomajiMapping(map);
   return applyMapping(toHiragana(input, { passRomaji: true }), map, !config.IMEMode);
 }

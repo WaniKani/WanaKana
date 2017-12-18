@@ -26,6 +26,8 @@ import hiraganaToKatakana from './utils/hiraganaToKatakana';
  * // => '！？。：・、〜ー「」『』［］（）｛｝'
  * toKana('we', { useObsoleteKana: true })
  * // => 'ゑ'
+ * toKana('WanaKana', { customKanaMapping: createCustomMapping({ na: 'に', ka: 'Bana' }) });
+ * // => 'ワにBanaに'
  */
 export function toKana(input = '', options = {}) {
   // just throw away the substring index information and just concatenate all the kana
@@ -48,6 +50,7 @@ export function splitIntoKana(input = '', options = {}) {
   let map = getRomajiToKanaTree(config);
   map = config.IMEMode ? IME_MODE_MAP(map) : map;
   map = config.useObsoleteKana ? USE_OBSOLETE_KANA_MAP(map) : map;
+  // TODO: accept object or function, if object, use createCustomMapping automatically?
   map = config.customKanaMapping(map);
   return applyMapping(input.toLowerCase(), map, !config.IMEMode);
 }
