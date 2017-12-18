@@ -5,38 +5,33 @@ const commonjs = require('rollup-plugin-commonjs');
 const uglify = require('rollup-plugin-uglify');
 const util = require('./util');
 const {
-  SOURCE_DIR,
-  OUT_DIR,
-  LIB_DIR,
-  PACKAGE_NAME,
+  SOURCE_DIR, OUT_DIR, LIB_DIR, PACKAGE_NAME,
 } = util;
 
 export default [
   {
-    entry: `${SOURCE_DIR}/index.js`,
-    moduleName: PACKAGE_NAME,
-    format: 'es',
-    dest: `${OUT_DIR}/${LIB_DIR}/${PACKAGE_NAME}.esm.js`,
+    input: `${SOURCE_DIR}/index.js`,
+    output: {
+      name: PACKAGE_NAME,
+      format: 'es',
+      file: `${OUT_DIR}/${LIB_DIR}/${PACKAGE_NAME}.esm.js`,
+    },
     plugins: [
       babel({
-        exclude: [
-          '**/node_modules/**',
-          '**/__tests__/**',
-        ],
+        exclude: ['**/node_modules/**', '**/__tests__/**'],
       }),
     ],
   },
   {
-    entry: `${SOURCE_DIR}/index.js`,
-    moduleName: PACKAGE_NAME,
-    format: 'umd',
-    dest: `${OUT_DIR}/${LIB_DIR}/${PACKAGE_NAME}.js`,
+    input: `${SOURCE_DIR}/index.js`,
+    output: {
+      name: PACKAGE_NAME,
+      format: 'umd',
+      file: `${OUT_DIR}/${LIB_DIR}/${PACKAGE_NAME}.js`,
+    },
     plugins: [
       babel({
-        exclude: [
-          '**/node_modules/**',
-          '**/__tests__/**',
-        ],
+        exclude: ['**/node_modules/**', '**/__tests__/**'],
       }),
       nodeResolve({
         jsnext: true,
@@ -48,16 +43,15 @@ export default [
     ],
   },
   {
-    entry: `${SOURCE_DIR}/index.js`,
-    moduleName: PACKAGE_NAME,
-    format: 'umd',
-    dest: `${OUT_DIR}/${LIB_DIR}/${PACKAGE_NAME}.min.js`,
+    input: `${SOURCE_DIR}/index.js`,
+    output: {
+      name: PACKAGE_NAME,
+      format: 'umd',
+      file: `${OUT_DIR}/${LIB_DIR}/${PACKAGE_NAME}.min.js`,
+    },
     plugins: [
       babel({
-        exclude: [
-          '**/node_modules/**',
-          '**/__tests__/**',
-        ],
+        exclude: ['**/node_modules/**', '**/__tests__/**'],
       }),
       nodeResolve({
         jsnext: true,

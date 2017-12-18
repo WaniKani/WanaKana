@@ -14,7 +14,7 @@
         ["env", {
           "loose": false,
           "targets": {
-            "node": 7,
+            "node": 8,
             "browsers": [
               "last 4 versions",
               ">1%"

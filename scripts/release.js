@@ -33,6 +33,7 @@ const PACKAGE_JSON = {
     'bugs',
   ],
   extraFields: {
+    engines: { "node": ">=8" },
     main: `${LIB_DIR}/wanakana.js`,
     browser: `${LIB_DIR}/wanakana.min.js`,
     unpkg: `${LIB_DIR}/wanakana.min.js`,
