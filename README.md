@@ -157,7 +157,6 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 ## Contributors
 - [Mims H. Wright](https://github.com/mimshwright) – Author
 - [Duncan Bay](https://github.com/DJTB) – Author
-- [Geggles](https://github.com/geggles) – Contributor
 - [James McNamee](https://github.com/dotfold) – Contributor
 
 ## Credits

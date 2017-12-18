@@ -30,29 +30,27 @@ export const DEFAULT_OPTIONS = {
   IMEMode: false,
   romanization: romanizations.HEPBURN,
   customKanaMapping: (map) => map,
-  customKanaPostProcessing: ([romaji, parsed]) => [romaji, parsed],
   customRomajiMapping: (map) => map,
-  customRomajiPostProcessing: ([kana, parsed]) => [kana, parsed],
 };
 
 // CharCode References
 // http://www.rikai.com/library/kanjitables/kanji_codes.unicode.shtml
 // http://unicode-table.com
 
-const CJK_SYMBOLS_PUNCTUATION = [0x3000, 0x303f];
-const KATAKANA_PUNCTUATION = [0x30fb, 0x30fc];
-const HIRAGANA_CHARS = [0x3040, 0x309f];
-const KATAKANA_CHARS = [0x30a0, 0x30ff];
-const ZENKAKU_NUMBERS = [0xff10, 0xff19];
-const ZENKAKU_PUNCTUATION_1 = [0xff01, 0xff0f];
-const ZENKAKU_PUNCTUATION_2 = [0xff1a, 0xff1f];
-const ZENKAKU_PUNCTUATION_3 = [0xff3b, 0xff3f];
-const ZENKAKU_PUNCTUATION_4 = [0xff5b, 0xff60];
-const ZENKAKU_SYMBOLS_CURRENCY = [0xffe0, 0xffee];
-const KANA_PUNCTUATION = [0xff61, 0xff65];
-const HANKAKU_KATAKANA = [0xff66, 0xff9f];
-const COMMON_CJK = [0x4e00, 0x9fff];
-const RARE_CJK = [0x3400, 0x4dbf];
+const CJK_SYMBOLS_PUNCTUATION = [0x3000, 0x303F];
+const KATAKANA_PUNCTUATION = [0x30FB, 0x30FC];
+const HIRAGANA_CHARS = [0x3040, 0x309F];
+const KATAKANA_CHARS = [0x30A0, 0x30FF];
+const ZENKAKU_NUMBERS = [0xFF10, 0xFF19];
+const ZENKAKU_PUNCTUATION_1 = [0xFF01, 0xFF0F];
+const ZENKAKU_PUNCTUATION_2 = [0xFF1A, 0xFF1F];
+const ZENKAKU_PUNCTUATION_3 = [0xFF3B, 0xFF3F];
+const ZENKAKU_PUNCTUATION_4 = [0xFF5B, 0xFF60];
+const ZENKAKU_SYMBOLS_CURRENCY = [0xFFE0, 0xFFEE];
+const KANA_PUNCTUATION = [0xFF61, 0xFF65];
+const HANKAKU_KATAKANA = [0xFF66, 0xFF9F];
+const COMMON_CJK = [0x4E00, 0x9FFF];
+const RARE_CJK = [0x3400, 0x4DBF];
 const LATIN_NUMBERS = [0x0030, 0x0039];
 const MODERN_ENGLISH = [0x0000, 0x007f];
 const HEPBURN_MACRON_RANGES = [
@@ -64,7 +62,7 @@ const HEPBURN_MACRON_RANGES = [
 ];
 const SMART_QUOTE_RANGES = [
   [0x2018, 0x2019], // ‘ ’
-  [0x201c, 0x201d], // “ ”
+  [0x201C, 0x201D], // “ ”
 ];
 
 // const FULL_LATIN_RANGES = [
@@ -85,7 +83,12 @@ export const JA_PUNCTUATION_RANGES = [
   ZENKAKU_SYMBOLS_CURRENCY,
 ];
 
-const KANA_RANGES = [HIRAGANA_CHARS, KATAKANA_CHARS, KANA_PUNCTUATION, HANKAKU_KATAKANA];
+const KANA_RANGES = [
+  HIRAGANA_CHARS,
+  KATAKANA_CHARS,
+  KANA_PUNCTUATION,
+  HANKAKU_KATAKANA,
+];
 
 /**
  * All Japanese unicode start and end ranges
@@ -117,29 +120,29 @@ export const ROMAJI_RANGES = [
 ];
 
 export const EN_PUNCTUATION_RANGES = [
-  [0x21, 0x2f],
-  [0x3a, 0x3f],
-  [0x5b, 0x60],
-  [0x7b, 0x7e],
+  [0x21, 0x2F],
+  [0x3A, 0x3F],
+  [0x5B, 0x60],
+  [0x7B, 0x7E],
   ...SMART_QUOTE_RANGES,
 ];
 
 export const LOWERCASE_START = 0x61;
-export const LOWERCASE_END = 0x7a;
+export const LOWERCASE_END = 0x7A;
 export const UPPERCASE_START = 0x41;
-export const UPPERCASE_END = 0x5a;
-export const LOWERCASE_FULLWIDTH_START = 0xff41;
-export const LOWERCASE_FULLWIDTH_END = 0xff5a;
-export const UPPERCASE_FULLWIDTH_START = 0xff21;
-export const UPPERCASE_FULLWIDTH_END = 0xff3a;
+export const UPPERCASE_END = 0x5A;
+export const LOWERCASE_FULLWIDTH_START = 0xFF41;
+export const LOWERCASE_FULLWIDTH_END = 0xFF5A;
+export const UPPERCASE_FULLWIDTH_START = 0xFF21;
+export const UPPERCASE_FULLWIDTH_END = 0xFF3A;
 export const HIRAGANA_START = 0x3041;
 export const HIRAGANA_END = 0x3096;
-export const KATAKANA_START = 0x30a1;
-export const KATAKANA_END = 0x30fc;
-export const KANJI_START = 0x4e00;
-export const KANJI_END = 0x9faf;
-export const PROLONGED_SOUND_MARK = 0x30fc;
-export const KANA_SLASH_DOT = 0x30fb;
+export const KATAKANA_START = 0x30A1;
+export const KATAKANA_END = 0x30FC;
+export const KANJI_START = 0x4E00;
+export const KANJI_END = 0x9FAF;
+export const PROLONGED_SOUND_MARK = 0x30FC;
+export const KANA_SLASH_DOT = 0x30FB;
 
 export const LONG_VOWELS = {
   a: 'あ',
@@ -386,12 +389,12 @@ export const TO_ROMAJI = {
   'ゎ': 'wa',
 
   // Ambiguous consonant vowel pairs
-  'んあ': "n'a",
-  'んい': "n'i",
-  'んう': "n'u",
-  'んえ': "n'e",
-  'んお': "n'o",
-  'んや': "n'ya",
-  'んゆ': "n'yu",
-  'んよ': "n'yo",
+  'んあ': 'n\'a',
+  'んい': 'n\'i',
+  'んう': 'n\'u',
+  'んえ': 'n\'e',
+  'んお': 'n\'o',
+  'んや': 'n\'ya',
+  'んゆ': 'n\'yu',
+  'んよ': 'n\'yo',
 };
