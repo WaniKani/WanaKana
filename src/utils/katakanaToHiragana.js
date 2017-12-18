@@ -1,13 +1,11 @@
-import {
-  LONG_VOWELS,
-  KATAKANA_START,
-  HIRAGANA_START,
-  TO_ROMAJI,
-} from '../constants';
+import { LONG_VOWELS, KATAKANA_START, HIRAGANA_START, TO_ROMAJI } from '../constants';
 
 import isCharLongDash from './isCharLongDash';
 import isCharSlashDot from './isCharSlashDot';
 import isCharKatakana from './isCharKatakana';
+const isCharInitialLongDash = (char, index) => isCharLongDash(char) && index < 1;
+const isCharInnerLongDash = (char, index) => isCharLongDash(char) && index > 0;
+const isKanaAsSymbol = (char) => ['ヶ', 'ヵ'].includes(char);
 
 /**
  * Convert [Katakana](https://en.wikipedia.org/wiki/Katakana) to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
@@ -27,16 +25,19 @@ function katakanaToHiragana(input = '') {
   const iterable = input.split('');
   for (let index = 0; index < iterable.length; index += 1) {
     const char = iterable[index];
-    const [slashDot, longDash] = [isCharSlashDot(char), isCharLongDash(char)];
     // Short circuit to avoid incorrect codeshift for 'ー' and '・'
-    if (slashDot || (longDash && index < 1)) {
+    if (
+      isCharSlashDot(char) ||
+      isCharInitialLongDash(char, index) ||
+      isKanaAsSymbol(char)
+    ) {
       hira.push(char);
       // Transform long vowels: 'オー' to 'おう'
-    } else if (previousKana && longDash && index > 0) {
+    } else if (previousKana && isCharInnerLongDash(char, index)) {
       // Transform previousKana back to romaji, and slice off the vowel
       const romaji = TO_ROMAJI[previousKana].slice(-1);
       hira.push(LONG_VOWELS[romaji]);
-    } else if (!longDash && isCharKatakana(char)) {
+    } else if (!isCharLongDash(char) && isCharKatakana(char)) {
       // Shift charcode.
       const code = char.charCodeAt(0) + (HIRAGANA_START - KATAKANA_START);
       const hiraChar = String.fromCharCode(code);
