@@ -685,23 +685,6 @@ describe('Event listener helpers', () => {
     }
     unbind(inputField1);
   });
-
-  it('should reset cursor to end of input values on IE < 9', () => {
-    const setSelRef = inputField1.setSelectionRange;
-    const collapseSpy = jest.fn();
-    const selectSpy = jest.fn();
-    inputField1.setSelectionRange = null;
-    inputField1.createTextRange = () => ({ collapse: collapseSpy, select: selectSpy });
-    bind(inputField1);
-    inputField1.value = 'sentaku';
-    simulant.fire(inputField1, 'input');
-    expect(inputField1.value).toEqual('せんたく');
-    expect(collapseSpy).toBeCalled();
-    expect(selectSpy).toBeCalled();
-    delete inputField1.createTextRange;
-    inputField1.setSelectionRange = setSelRef;
-    unbind(inputField1);
-  });
 });
 
 describe('IMEMode', () => {
