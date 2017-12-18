@@ -1,6 +1,4 @@
 import { transform, getSubTreeOf } from './kanaMappingUtils';
-import isKatakana from './isKatakana';
-import katakanaToHiragana from './utils/katakanaToHiragana';
 
 export const methods = Object.freeze({
   HEPBURN: 'hepburn',
@@ -9,40 +7,111 @@ export const methods = Object.freeze({
 let kanaToHepburnMap = null;
 
 function createKanaToHepburnMap() {
-  /* eslint-disable object-property-newline */
   const romajiTree = transform({
-    あ: 'a', い: 'i', う: 'u', え: 'e', お: 'o',
-    か: 'ka', き: 'ki', く: 'ku', け: 'ke', こ: 'ko',
-    さ: 'sa', し: 'shi', す: 'su', せ: 'se', そ: 'so',
-    た: 'ta', ち: 'chi', つ: 'tsu', て: 'te', と: 'to',
-    な: 'na', に: 'ni', ぬ: 'nu', ね: 'ne', の: 'no',
-    は: 'ha', ひ: 'hi', ふ: 'fu', へ: 'he', ほ: 'ho',
-    ま: 'ma', み: 'mi', む: 'mu', め: 'me', も: 'mo',
-    や: 'ya', ゆ: 'yu', よ: 'yo',
-    ら: 'ra', り: 'ri', る: 'ru', れ: 're', ろ: 'ro',
-    わ: 'wa', ゐ: 'wi', ゑ: 'we', を: 'wo',
-    が: 'ga', ぎ: 'gi', ぐ: 'gu', げ: 'ge', ご: 'go',
-    ざ: 'za', じ: 'ji', ず: 'zu', ぜ: 'ze', ぞ: 'zo',
-    だ: 'da', ぢ: 'ji', づ: 'zu', で: 'de', ど: 'do',
-    ば: 'ba', び: 'bi', ぶ: 'bu', べ: 'be', ぼ: 'bo',
-    ぱ: 'pa', ぴ: 'pi', ぷ: 'pu', ぺ: 'pe', ぽ: 'po',
-    ゔぁ: 'va', ゔぃ: 'vi', ゔ: 'vu', ゔぇ: 've', ゔぉ: 'vo',
+    あ: 'a',
+    い: 'i',
+    う: 'u',
+    え: 'e',
+    お: 'o',
+    か: 'ka',
+    き: 'ki',
+    く: 'ku',
+    け: 'ke',
+    こ: 'ko',
+    さ: 'sa',
+    し: 'shi',
+    す: 'su',
+    せ: 'se',
+    そ: 'so',
+    た: 'ta',
+    ち: 'chi',
+    つ: 'tsu',
+    て: 'te',
+    と: 'to',
+    な: 'na',
+    に: 'ni',
+    ぬ: 'nu',
+    ね: 'ne',
+    の: 'no',
+    は: 'ha',
+    ひ: 'hi',
+    ふ: 'fu',
+    へ: 'he',
+    ほ: 'ho',
+    ま: 'ma',
+    み: 'mi',
+    む: 'mu',
+    め: 'me',
+    も: 'mo',
+    や: 'ya',
+    ゆ: 'yu',
+    よ: 'yo',
+    ら: 'ra',
+    り: 'ri',
+    る: 'ru',
+    れ: 're',
+    ろ: 'ro',
+    わ: 'wa',
+    ゐ: 'wi',
+    ゑ: 'we',
+    を: 'wo',
+    が: 'ga',
+    ぎ: 'gi',
+    ぐ: 'gu',
+    げ: 'ge',
+    ご: 'go',
+    ざ: 'za',
+    じ: 'ji',
+    ず: 'zu',
+    ぜ: 'ze',
+    ぞ: 'zo',
+    だ: 'da',
+    ぢ: 'ji',
+    づ: 'zu',
+    で: 'de',
+    ど: 'do',
+    ば: 'ba',
+    び: 'bi',
+    ぶ: 'bu',
+    べ: 'be',
+    ぼ: 'bo',
+    ぱ: 'pa',
+    ぴ: 'pi',
+    ぷ: 'pu',
+    ぺ: 'pe',
+    ぽ: 'po',
+    ゔぁ: 'va',
+    ゔぃ: 'vi',
+    ゔ: 'vu',
+    ゔぇ: 've',
+    ゔぉ: 'vo',
     ん: 'n',
   });
 
   const subtreeOf = (string) => getSubTreeOf(romajiTree, string);
-  const setTrans = (string, transliteration) => { subtreeOf(string)[''] = transliteration; };
+  const setTrans = (string, transliteration) => {
+    subtreeOf(string)[''] = transliteration;
+  };
 
   const specialSymbols = {
-    '。': '.', '、': ',',
-    '：': ':', '・': '/',
-    '！': '!', '？': '?',
-    '〜': '~', 'ー': '-',
-    '「': '‘', '」': '’',
-    '『': '“', '』': '”',
-    '［': '[', '］': ']',
-    '（': '(', '）': ')',
-    '｛': '{', '｝': '}',
+    '。': '.',
+    '、': ',',
+    '：': ':',
+    '・': '/',
+    '！': '!',
+    '？': '?',
+    '〜': '~',
+    'ー': '-',
+    '「': '‘',
+    '」': '’',
+    '『': '“',
+    '』': '”',
+    '［': '[',
+    '］': ']',
+    '（': '(',
+    '）': ')',
+    '｛': '{',
+    '｝': '}',
     '　': ' ',
   };
 
@@ -50,6 +119,7 @@ function createKanaToHepburnMap() {
     subtreeOf(jsymbol)[''] = symbol;
   }
 
+  /* eslint-disable object-curly-newline */
   const smallY = { ゃ: 'ya', ゅ: 'yu', ょ: 'yo' };
   const smallYExtra = { ぃ: 'yi', ぇ: 'ye' };
   const smallaiueo = { ぁ: 'a', ぃ: 'i', ぅ: 'u', ぇ: 'e', ぉ: 'o' };
@@ -108,12 +178,13 @@ function createKanaToHepburnMap() {
   function resolveTsu(tree) {
     const result = {};
     for (const [key, value] of Object.entries(tree)) {
-      if (!key) {  // we have reached the bottom of this branch
+      if (!key) {
+        // we have reached the bottom of this branch
         const consonant = value.charAt(0);
-        result[key] = consonant in sokuonWhitelist?
-          sokuonWhitelist[consonant] + value:
-          value;
-      } else {  // more subtrees
+        result[key] =
+          consonant in sokuonWhitelist ? sokuonWhitelist[consonant] + value : value;
+      } else {
+        // more subtrees
         result[key] = resolveTsu(value);
       }
     }
@@ -124,9 +195,6 @@ function createKanaToHepburnMap() {
 
   const smallLetters = {
     っ: '',
-    ゎ: 'wa',
-    ゕ: 'ka',
-    ゖ: 'ka',  // because katakana is converted to hiragana before calling this function
     ゃ: 'ya',
     ゅ: 'yu',
     ょ: 'yo',
@@ -157,7 +225,6 @@ function createKanaToHepburnMap() {
   // }
 
   return Object.freeze(JSON.parse(JSON.stringify(romajiTree)));
-  /* eslint-enable no-alert, no-console */
 }
 
 function getKanaToHepburnTree() {
