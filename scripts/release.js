@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const { exec, exit, cp, test } = require('shelljs');
+const {
+  exec, exit, cp, test,
+} = require('shelljs');
 const semver = require('semver');
 const readline = require('readline-sync');
 const pick = require('lodash/pick');
@@ -17,7 +19,6 @@ const {
   log,
   logSuccess,
   logError,
-  execSuccess,
   execFail,
 } = require('./util');
 
@@ -33,7 +34,7 @@ const PACKAGE_JSON = {
     'bugs',
   ],
   extraFields: {
-    engines: { "node": ">=8" },
+    engines: { node: '>=8' },
     main: `${LIB_DIR}/wanakana.js`,
     browser: `${LIB_DIR}/wanakana.min.js`,
     unpkg: `${LIB_DIR}/wanakana.min.js`,
@@ -104,6 +105,10 @@ try {
     );
   }
 
+  const distTag = readline.question(
+    'Do you want to add an npm dist-tag other than latest? Leave blank to skip.'
+  );
+
   log('Updating package.json...');
   const updatedPackage = Object.assign({}, BASE_PACKAGE, { version: nextVersion });
   const releasePackage = Object.assign(
@@ -114,14 +119,16 @@ try {
 
   writePackage(OUT_DIR, releasePackage);
 
-  log(`About to publish ${PACKAGE_NAME}@${nextVersion} to npm.`);
+  log(
+    `About to publish ${PACKAGE_NAME}@${nextVersion}${distTag && `.${distTag}`} to npm.`
+  );
   if (!readline.keyInYN('Sound good? ')) {
     log('OK. Stopping release.');
     exit(0);
   }
 
   log('Publishing...');
-  if (execFail(exec(`cd ${OUT_DIR} && npm publish`))) {
+  if (execFail(exec(`cd ${OUT_DIR} && npm publish${distTag && ` --tag ${distTag}`}`))) {
     logError('Publish failed. Aborting release.');
     exit(1);
   }
@@ -146,31 +153,35 @@ try {
   }
 
   log('Rebuilding demo site');
-  buildSite(nextVersion);
+  buildSite(nextVersion + distTag && `.${distTag}`);
 
-  log('Publishing github-pages demo & docs');
-  ghpages.publish(SITE_DIR, (err) => {
-    if (err) {
-      logError(err);
-      logError('Publish github pages failed.');
-      exit(1);
-    } else {
-      logSuccess('Published demo and docs to gh-pages branch');
-      exit(0);
-    }
-  });
+  if (!distTag) {
+    log('Publishing github-pages demo & docs');
+    ghpages.publish(SITE_DIR, (err) => {
+      if (err) {
+        logError(err);
+        logError('Publish github pages failed.');
+        exit(1);
+      } else {
+        logSuccess('Published demo and docs to gh-pages branch');
+        exit(0);
+      }
+    });
+  }
 
   log('Committing changes...');
-  const newTagName = `${nextVersion}`;
+  const newTagName = `${nextVersion}${distTag && `.${distTag}`}`;
   exec(`git add ${versionLoc} package.json`);
   exec(`git commit -m "Version ${newTagName}"`);
 
-  log(`Tagging release... (${newTagName})`);
-  exec(`git tag ${newTagName}`);
+  if (!distTag) {
+    log(`Tagging release... (${newTagName})`);
+    exec(`git tag ${newTagName}`);
 
-  log('Pushing to GitHub...');
-  exec('git push');
-  exec('git push --tags');
+    log('Pushing to GitHub...');
+    exec('git push');
+    exec('git push --tags');
+  }
 
   logSuccess('Done.');
 } catch (error) {
