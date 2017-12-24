@@ -355,7 +355,7 @@ babel-core@^6.0.0, babel-core@^6.24.1:
     slash "^1.0.0"
     source-map "^0.5.0"
 
-babel-core@^6.26.0:
+babel-core@^6.20.0, babel-core@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-core/-/babel-core-6.26.0.tgz#af32f78b31a6fcef119c87b0fd8d9753f03a0bb8"
   dependencies:
@@ -743,6 +743,12 @@ babel-plugin-transform-es2015-unicode-regex@^6.22.0:
     babel-helper-regex "^6.24.1"
     babel-runtime "^6.22.0"
     regexpu-core "^2.0.0"
+
+babel-plugin-transform-es2017-object-entries@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2017-object-entries/-/babel-plugin-transform-es2017-object-entries-0.0.4.tgz#c5ca37c44d06fef63520e3057899fd4ca185b200"
+  dependencies:
+    babel-core "^6.20.0"
 
 babel-plugin-transform-exponentiation-operator@^6.22.0:
   version "6.24.1"

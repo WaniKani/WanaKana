@@ -7,14 +7,13 @@
   ],
   "env": {
     "test": {
-      "presets": [[ "env" ]]
+      "presets": [ "env" ]
     },
     "cjs": {
       "presets": [
         ["env", {
           "loose": false,
           "targets": {
-            "node": 8,
             "browsers": [
               "last 4 versions",
               ">1%"
@@ -25,7 +24,8 @@
     },
     "rollup": {
       "plugins": [
-        "external-helpers"
+        "external-helpers",
+        "transform-es2017-object-entries"
       ]
     }
   }

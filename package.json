@@ -80,6 +80,7 @@
     "babel-cli": "6.26.0",
     "babel-eslint": "8.0.3",
     "babel-plugin-external-helpers": "6.22.0",
+    "babel-plugin-transform-es2017-object-entries": "0.0.4",
     "babel-preset-env": "1.6.1",
     "benchmark": "2.1.4",
     "commitizen": "2.9.6",
