@@ -12,6 +12,8 @@ import isKatakana from './isKatakana';
  * @example
  * toRomaji('ひらがな　カタカナ')
  * // => 'hiragana katakana'
+ * toRomaji('げーむ　ゲーム')
+ * // => 'ge-mu geemu'
  * toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
  * // => 'hiragana KATAKANA'
  * toRomaji('つじぎり', { customRomajiMapping: createCustomMapping({ じ: 'zi', つ: 'tu', り: 'li' }) });
