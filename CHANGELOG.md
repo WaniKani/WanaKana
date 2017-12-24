@@ -22,6 +22,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
+## [3.0.0] - 2017-12-24
+### Changed
+- rewrite of conversion methods to allow custom mapping adapters
+- toRomaji() extends vowels for katakana chōonpu, IE: ゲーム => geemu, toHiragana() converts to hyphen => ge-mu
+- toKana() **without** IME mode converts 'nn' => 'んん'
+### Added
+- global option romanization for toRomaji() (currently only 'hepburn')
+- global option customKanaMapping for toKana()
+- global option customRomajiMapping for toRomaji()
+### Fixed
+- toRomaji() little ヶヵ used in words like 一ヶ月 are no longer converted since they are used as symbols (like the kanji) and do not actually denote kana. Previous behaviour: 一ヶ月 => 一ke月
+- toRomaji() no longer incorrectly duplicates non-glottal stops following っ. Previous behaviour: あっ、 -> a,,
+
 ## [2.3.4] - 2017-12-16
 ### Fixed
 - *Uppercase* input with toHiragana() including a double consonant was incorrectly producing a katakana ッ instead of っ
@@ -116,6 +129,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `isRomaji()` allows hepburn romanisation long vowels. (IE. Tōkyō)
 
 
+[3.0.0]: https://github.com/WaniKani/WanaKana/compare/2.3.4...3.0.0
 [2.3.4]: https://github.com/WaniKani/WanaKana/compare/2.3.3...2.3.4
 [2.3.3]: https://github.com/WaniKani/WanaKana/compare/2.3.2...2.3.3
 [2.3.2]: https://github.com/WaniKani/WanaKana/compare/2.3.1...2.3.2
