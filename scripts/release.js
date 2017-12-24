@@ -106,7 +106,7 @@ try {
   }
 
   const distTag = readline.question(
-    'Do you want to add an npm dist-tag other than latest? Leave blank to skip.'
+    'Do you want to add an npm dist-tag other than latest? Leave blank to skip: '
   );
 
   log('Updating package.json...');
