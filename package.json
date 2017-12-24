@@ -35,7 +35,7 @@
     "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
     "docs:watch": "onchange './src/**/*.js' -- npm run docs",
     "docs:view": "opn ./gh-pages/docs/index.html",
-    "ghpages:publish": "gh-pages -d gh-pages",
+    "demo:view": "npm run build && static-server ./gh-pages",
     "pretest": "rimraf ./coverage",
     "test": "jest",
     "test:watch": "npm run test -- --watch",
@@ -110,7 +110,8 @@
     "rollup-plugin-commonjs": "8.2.6",
     "rollup-plugin-node-resolve": "3.0.0",
     "rollup-plugin-replace": "2.0.0",
-    "rollup-plugin-uglify": "2.0.1"
+    "rollup-plugin-uglify": "2.0.1",
+    "static-server": "3.0.0"
   },
   "dependencies": {},
   "config": {
