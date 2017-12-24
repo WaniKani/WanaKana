@@ -2,8 +2,7 @@ import { DEFAULT_OPTIONS } from './constants';
 import convertFullwidthCharsToASCII from './utils/convertFullwidthCharsToASCII';
 import isCharConsonant from './utils/isCharConsonant';
 import { splitIntoKana, toKana } from './toKana';
-import { addDebugListeners, removeDebugListeners } from './utils/logInputEvents';
-const DEBUG = true;
+/* import { addDebugListeners, removeDebugListeners } from './utils/logInputEvents';*/
 
 const ELEMENTS = ['TEXTAREA', 'INPUT'];
 let LISTENERS = [];
@@ -25,16 +24,12 @@ export function bind(input, options = {}) {
   const listener = onInput(options);
   if (input instanceof Element && ELEMENTS.includes(input.nodeName)) {
     const id = newId();
+    /* addDebugListeners(input);*/
     input.setAttribute('data-wanakana-id', id);
     input.autocapitalize = 'none'; // eslint-disable-line no-param-reassign
     input.addEventListener('compositionupdate', onCompositionUpdate);
     input.addEventListener('input', listener);
     LISTENERS = trackListener(listener, id);
-    if (window && DEBUG) {
-      window.addDebugListeners = addDebugListeners;
-      window.removeDebugListeners = removeDebugListeners;
-      addDebugListeners(input);
-    }
   } else {
     console.warn('Element provided to Wanakana bind() was not a valid input field.'); // eslint-disable-line no-console
   }
@@ -47,13 +42,11 @@ export function bind(input, options = {}) {
 export function unbind(input) {
   const trackedListener = findListener(input);
   if (trackedListener != null) {
+    /* removeDebugListeners(input); */
     input.removeAttribute('data-wanakana-id');
     input.removeEventListener('compositionupdate', onCompositionUpdate);
     input.removeEventListener('input', trackedListener.handler);
     LISTENERS = untrackListener(trackedListener);
-    if (window && DEBUG) {
-      removeDebugListeners(input);
-    }
   } else {
     console.warn('Element provided to Wanakana unbind() had no listener registered.'); // eslint-disable-line no-console
   }
