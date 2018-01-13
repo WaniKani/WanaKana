@@ -35,7 +35,14 @@ yarn add wanakana
 
 #### HTML:
 ```html
-<input type="text" id="wanakana-input" autocapitalize="none" />
+<input
+  type="text"
+  id="wanakana-input"
+  autocapitalize="none"
+  autocorrect="off"
+  autocomplete="off"
+  spellcheck="false"
+/>
 <script src="https://unpkg.com/wanakana"></script>
 <script>
   const textInput = document.querySelector('#wanakana-input');
