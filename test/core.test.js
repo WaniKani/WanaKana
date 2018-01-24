@@ -1,11 +1,8 @@
 import simulant from 'jsdom-simulant';
 
-import {
-  ROMA_TO_HIRA_KATA,
-  HIRA_KATA_TO_ROMA,
-  JA_PUNC,
-  EN_PUNC,
-} from './helpers/testTables';
+import { TO_KANA_METHODS } from '../src/constants';
+
+import { ROMA_TO_HIRA_KATA, HIRA_KATA_TO_ROMA, JA_PUNC, EN_PUNC } from './helpers/testTables';
 
 import isKana from '../src/isKana';
 import isKanji from '../src/isKanji';
@@ -20,7 +17,8 @@ import toHiragana from '../src/toHiragana';
 import toRomaji from '../src/toRomaji';
 import stripOkurigana from '../src/stripOkurigana';
 import tokenize from '../src/tokenize';
-import { bind, unbind } from '../src/domUtils';
+import bind from '../src/bind';
+import unbind from '../src/unbind';
 import { createCustomMapping } from '../src/kanaMappingUtils';
 
 describe('Methods should return valid defaults when given no input', () => {
@@ -93,10 +91,8 @@ describe('Character type detection', () => {
       expect(isJapanese('泣き虫.!~')).toBe(false));
     it('zenkaku numbers are considered neutral', () =>
       expect(isJapanese('０１２３４５６７８９')).toBe(true));
-    it('latin numbers are considered neutral', () =>
-      expect(isJapanese('0123456789')).toBe(true));
-    it('mixed with numbers is japanese', () =>
-      expect(isJapanese('２０１１年')).toBe(true));
+    it('latin numbers are considered neutral', () => expect(isJapanese('0123456789')).toBe(true));
+    it('mixed with numbers is japanese', () => expect(isJapanese('２０１１年')).toBe(true));
     it('hankaku katakana is allowed', () => expect(isJapanese('ﾊﾝｶｸｶﾀｶﾅ')).toBe(true));
   });
 
@@ -193,9 +189,7 @@ describe('Character conversion', () => {
       })
     ).toBe('ワにBanaに');
     // can't romanize without method
-    expect(toRomaji('つじぎり', { romanization: "it's called rōmaji!!!" })).toBe(
-      'つじぎり'
-    );
+    expect(toRomaji('つじぎり', { romanization: "it's called rōmaji!!!" })).toBe('つじぎり');
     // kunrei-shiki it up a bit
     expect(
       toRomaji('つじぎり', {
@@ -221,15 +215,12 @@ describe('Character conversion', () => {
       expect(toKana('WaniKani')).toBe('ワにカに'));
 
     it('Non-romaji will be passed through.', () =>
-      expect(toKana('ワニカニ AiUeO 鰐蟹 12345 @#$%')).toBe(
-        'ワニカニ アいウえオ 鰐蟹 12345 @#$%'
-      ));
+      expect(toKana('ワニカニ AiUeO 鰐蟹 12345 @#$%')).toBe('ワニカニ アいウえオ 鰐蟹 12345 @#$%'));
 
     it('It handles mixed syllabaries', () =>
       expect(toKana('座禅‘zazen’スタイル')).toBe('座禅「ざぜん」スタイル'));
 
-    it('Will convert short to long dashes', () =>
-      expect(toKana('batsuge-mu')).toBe('ばつげーむ'));
+    it('Will convert short to long dashes', () => expect(toKana('batsuge-mu')).toBe('ばつげーむ'));
 
     it('Will convert punctuation but pass through spaces', () =>
       expect(toKana(EN_PUNC.join(' '))).toBe(JA_PUNC.join(' ')));
@@ -401,8 +392,7 @@ describe('Character conversion', () => {
       expect(toHiragana('aiueo')).toBe(toHiragana('AIUEO')));
     it("cAse DoEsn'T MatTER for toKatakana()", () =>
       expect(toKatakana('aiueo')).toBe(toKatakana('AIUEO')));
-    it('Case DOES matter for toKana()', () =>
-      expect(toKana('aiueo')).not.toBe(toKana('AIUEO')));
+    it('Case DOES matter for toKana()', () => expect(toKana('aiueo')).not.toBe(toKana('AIUEO')));
   });
 
   describe('N edge cases', () => {
@@ -410,8 +400,7 @@ describe('Character conversion', () => {
     it('double N', () => expect(toKana('onn')).toBe('おんん'));
     it('N followed by N* syllable', () => expect(toKana('onna')).toBe('おんな'));
     it('Triple N', () => expect(toKana('nnn')).toBe('んんん'));
-    it('Triple N followed by N* syllable', () =>
-      expect(toKana('onnna')).toBe('おんんな'));
+    it('Triple N followed by N* syllable', () => expect(toKana('onnna')).toBe('おんんな'));
     it('Quadruple N', () => expect(toKana('nnnn')).toBe('んんんん'));
     it('nya -> にゃ', () => expect(toKana('nyan')).toBe('にゃん'));
     it('nnya -> んにゃ', () => expect(toKana('nnyann')).toBe('んにゃんん'));
@@ -485,8 +474,7 @@ describe('Kana to Romaji', () => {
 
   describe("double n's and double consonants", () => {
     it('Double and single n', () => expect(toRomaji('きんにくまん')).toBe('kinnikuman'));
-    it('N extravaganza', () =>
-      expect(toRomaji('んんにんにんにゃんやん')).toBe("nnninninnyan'yan"));
+    it('N extravaganza', () => expect(toRomaji('んんにんにんにゃんやん')).toBe("nnninninnyan'yan"));
     it('Double consonants', () =>
       expect(toRomaji('かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ')).toBe(
         'kappa tatta shusshu chatcha yattsu'
@@ -600,8 +588,8 @@ describe('Event listener helpers', () => {
   });
 
   it('should allow conversion type selection', () => {
-    bind(inputField1, { IMEMode: 'toKatakana' });
-    bind(inputField2, { IMEMode: 'toHiragana' });
+    bind(inputField1, { IMEMode: TO_KANA_METHODS.KATAKANA });
+    bind(inputField2, { IMEMode: TO_KANA_METHODS.HIRAGANA });
     inputField1.value = 'amerika';
     inputField2.value = 'KURO';
     simulant.fire(inputField1, 'input');
@@ -708,10 +696,8 @@ describe('IMEMode', () => {
     return text;
   }
 
-  it("Without IME mode, solo n's are transliterated.", () =>
-    expect(toKana('n')).toBe('ん'));
-  it("Without IME mode, double n's are transliterated.", () =>
-    expect(toKana('nn')).toBe('んん'));
+  it("Without IME mode, solo n's are transliterated.", () => expect(toKana('n')).toBe('ん'));
+  it("Without IME mode, double n's are transliterated.", () => expect(toKana('nn')).toBe('んん'));
 
   it("With IME mode, solo n's are not transliterated.", () =>
     expect(testTyping('n', { IMEMode: true })).toBe('n'));
@@ -730,15 +716,13 @@ describe('IMEMode', () => {
 
   it("y doesn't count as a consonant for IME", () =>
     expect(testTyping('ny', { IMEMode: true })).toBe('ny'));
-  it('nya works as expected', () =>
-    expect(testTyping('nya', { IMEMode: true })).toBe('にゃ'));
+  it('nya works as expected', () => expect(testTyping('nya', { IMEMode: true })).toBe('にゃ'));
 
   it("With IME mode, solo N's are not transliterated - katakana.", () =>
     expect(testTyping('N', { IMEMode: true })).toBe('N'));
   it("With IME mode, double N's are transliterated - katakana.", () =>
     expect(testTyping('NN', { IMEMode: true })).toBe('ン'));
-  it('With IME mode, NI - katakana.', () =>
-    expect(testTyping('NI', { IMEMode: true })).toBe('ニ'));
+  it('With IME mode, NI - katakana.', () => expect(testTyping('NI', { IMEMode: true })).toBe('ニ'));
   it('With IME mode - KAN - katakana', () =>
     expect(testTyping('KAN', { IMEMode: true })).toBe('カN'));
   it('With IME mode - NIHONGO - katakana', () =>
@@ -760,8 +744,7 @@ describe('Options', () => {
     });
 
     describe('toHiragana', () => {
-      it('useObsoleteKana is false by default', () =>
-        expect(toHiragana('wi')).toBe('うぃ'));
+      it('useObsoleteKana is false by default', () => expect(toHiragana('wi')).toBe('うぃ'));
       it('wi = ゐ (when useObsoleteKana is true)', () =>
         expect(toHiragana('wi', { useObsoleteKana: true })).toBe('ゐ'));
       it('we = ゑ (when useObsoleteKana is true)', () =>

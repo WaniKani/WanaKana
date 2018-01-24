@@ -29,7 +29,12 @@
  * @type {DefaultOptions}
  * @ignore
  */
-import { methods as romanizations } from './kanaToRomajiMap';
+import { methods as ROMANIZATIONS } from './kanaToRomajiMap';
+
+export const TO_KANA_METHODS = {
+  HIRAGANA: 'toHiragana',
+  KATAKANA: 'toKatakana',
+};
 
 export const DEFAULT_OPTIONS = {
   useObsoleteKana: false,
@@ -37,7 +42,7 @@ export const DEFAULT_OPTIONS = {
   upcaseKatakana: false,
   ignoreCase: false,
   IMEMode: false,
-  romanization: romanizations.HEPBURN,
+  romanization: ROMANIZATIONS.HEPBURN,
   customKanaMapping: (map) => map,
   customRomajiMapping: (map) => map,
 };
@@ -117,11 +122,7 @@ export const JAPANESE_RANGES = [
  * @type {Array}
  * @ignore
  */
-export const ROMAJI_RANGES = [
-  MODERN_ENGLISH,
-  ...HEPBURN_MACRON_RANGES,
-  ...SMART_QUOTE_RANGES,
-];
+export const ROMAJI_RANGES = [MODERN_ENGLISH, ...HEPBURN_MACRON_RANGES, ...SMART_QUOTE_RANGES];
 
 export const EN_PUNCTUATION_RANGES = [
   [0x21, 0x2f],

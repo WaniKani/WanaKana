@@ -1,5 +1,6 @@
 // IME event listener DOM helpers
-export { bind, unbind } from './domUtils';
+export { default as bind } from './bind';
+export { default as unbind } from './unbind';
 
 // Writing system checks
 export { default as isRomaji } from './isRomaji';
@@ -20,5 +21,6 @@ export { default as toKatakana } from './toKatakana';
 export { default as stripOkurigana } from './stripOkurigana';
 export { default as tokenize } from './tokenize';
 
+// NOTE: necessary to export both of these?
+export { methods as ROMANIZATIONS } from './kanaToRomajiMap';
 export { createCustomMapping } from './kanaMappingUtils';
-export { methods } from './kanaToRomajiMap';
