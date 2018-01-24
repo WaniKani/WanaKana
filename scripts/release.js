@@ -43,17 +43,13 @@ const PACKAGE_JSON = {
 };
 
 const writePackage = (outDir, packageData) =>
-  fs.writeFileSync(
-    path.resolve(outDir, 'package.json'),
-    JSON.stringify(packageData, null, 2)
-  );
+  fs.writeFileSync(path.resolve(outDir, 'package.json'), JSON.stringify(packageData, null, 2));
 
 try {
   log('Preparing release...');
   if (execFail(exec('git diff-files --quiet'))) {
     logError(
-      'You have unsaved changes in the working tree. ' +
-        'Commit or stash changes before releasing.'
+      'You have unsaved changes in the working tree. Commit or stash changes before releasing.'
     );
     exit(1);
   }
@@ -96,12 +92,9 @@ try {
     `Next version of ${PACKAGE_NAME} (current version is ${version}): `
   );
 
-  while (
-    !(!nextVersion || (semver.valid(nextVersion) && semver.gt(nextVersion, version)))
-  ) {
+  while (!(!nextVersion || (semver.valid(nextVersion) && semver.gt(nextVersion, version)))) {
     nextVersion = readline.question(
-      `Must provide a valid version that is greater than ${version}, ` +
-        'or leave blank to skip: '
+      `Must provide a valid version that is greater than ${version}, or leave blank to skip: `
     );
   }
 
@@ -119,9 +112,7 @@ try {
 
   writePackage(OUT_DIR, releasePackage);
 
-  log(
-    `About to publish ${PACKAGE_NAME}@${nextVersion}${distTag && `.${distTag}`} to npm.`
-  );
+  log(`About to publish ${PACKAGE_NAME}@${nextVersion}${distTag && `.${distTag}`} to npm.`);
   if (!readline.keyInYN('Sound good? ')) {
     log('OK. Stopping release.');
     exit(0);
