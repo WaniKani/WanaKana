@@ -33,16 +33,12 @@ export function applyMapping(string, mapping, convertEnding) {
     }
 
     if (Object.keys(tree).length === 1) {
-      return [[lastCursor, currentCursor, tree['']]].concat(
-        newChunk(remaining, currentCursor)
-      );
+      return [[lastCursor, currentCursor, tree['']]].concat(newChunk(remaining, currentCursor));
     }
 
     const subtree = nextSubtree(tree, remaining.charAt(0));
     if (subtree === undefined) {
-      return [[lastCursor, currentCursor, tree['']]].concat(
-        newChunk(remaining, currentCursor)
-      );
+      return [[lastCursor, currentCursor, tree['']]].concat(newChunk(remaining, currentCursor));
     }
 
     // continue current branch
@@ -79,10 +75,10 @@ export function getSubTreeOf(tree, string) {
 }
 
 /**
- * creates a mapping tree, returns a function to accept a defaultMap to then merge with
+ * Creates a custom mapping tree, returns a function that accepts a defaultMap which the newly created customMapping will be merged with and returned
  * (customMap) => (defaultMap) => mergedMap
  * @param  {Object} customMap { 'ka' : 'な' }
- * @return {Function} (defaultMap) => mergedMap
+ * @return {Function} (defaultMap) => defaultMergedWithCustomMap
  * @example
  * const sillyMap = createCustomMapping({ 'ちゃ': 'time', '茎': 'cookie'　});
  * // sillyMap is passed defaultMapping to merge with when called in toRomaji()
