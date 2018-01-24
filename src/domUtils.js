@@ -85,7 +85,7 @@ function onInput(options) {
         input.setSelectionRange(input.value.length, input.value.length);
         let kanaLength = 0;
         for (let index = 0; index < kanaTokens.length; index += 1) {
-          const [, tokenEnd, tokenKana] = kanaTokens[index];
+          const [, tokenEnd, tokenKana = ''] = kanaTokens[index];
           kanaLength += tokenKana.length;
           if (tokenEnd >= selectionEnd) {
             input.setSelectionRange(kanaLength, kanaLength);
@@ -122,9 +122,7 @@ function trackListener(listener, id) {
 }
 
 function findListener(input) {
-  return (
-    input && LISTENERS.find(({ id }) => id === input.getAttribute('data-wanakana-id'))
-  );
+  return input && LISTENERS.find(({ id }) => id === input.getAttribute('data-wanakana-id'));
 }
 
 function untrackListener({ id: targetId }) {
