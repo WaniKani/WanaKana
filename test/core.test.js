@@ -182,20 +182,40 @@ describe('Character conversion', () => {
   });
 
   describe('Test custom mappings options', () => {
-    // doing some silly custom mapping
-    expect(
-      toKana('WanaKana', {
-        customKanaMapping: createCustomMapping({ na: 'に', ka: 'Bana' }),
-      })
-    ).toBe('ワにBanaに');
-    // can't romanize without method
-    expect(toRomaji('つじぎり', { romanization: "it's called rōmaji!!!" })).toBe('つじぎり');
-    // kunrei-shiki it up a bit
-    expect(
-      toRomaji('つじぎり', {
-        customRomajiMapping: createCustomMapping({ じ: 'zi', つ: 'tu', り: 'li' }),
-      })
-    ).toBe('tuzigili');
+    it('applies customKanaMapping', () => {
+      expect(
+        toKana('WanaKana', {
+          customKanaMapping: createCustomMapping({ na: 'に', ka: 'Bana' }),
+        })
+      ).toBe('ワにBanaに');
+    })
+
+    it("can't romanize with an invalid method", () => {
+      expect(toRomaji('つじぎり', { romanization: "it's called rōmaji!!!" })).toBe('つじぎり');
+    });
+
+    it('applies customRomajiMapping', () => {
+      expect(
+        toRomaji('つじぎり', {
+          customRomajiMapping: createCustomMapping({ じ: 'zi', つ: 'tu', り: 'li' }),
+        })
+      ).toBe('tuzigili');
+    })
+
+    it('will accept a plain object and merge it internally via createCustomMapping()', () => {
+      expect(
+        toKana('WanaKana', {
+          customKanaMapping: { na: 'に', ka: 'Bana' },
+        })
+      ).toBe('ワにBanaに');
+
+      expect(
+        toRomaji('つじぎり', {
+          customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' },
+        })
+      ).toBe('tuzigili');
+
+    });
   });
 
   describe('toKana()', () => {
@@ -701,6 +721,18 @@ describe('IMEMode', () => {
 
   it("With IME mode, solo n's are not transliterated.", () =>
     expect(testTyping('n', { IMEMode: true })).toBe('n'));
+  it("With IME mode, solo n's are not transliterated, even when cursor has been relocated.", () =>
+    // pretending k,a,n -> かん| then moving curosr to か|ん and typing 'n'
+    expect(testTyping('かnん', { IMEMode: true })).toBe('かnん'));
+
+  // NOTE: I think we need to store cursor location onInput, diff the text to remove any existing Japanese
+  // before it is sent to toKana(), rather than our current processing of ALL text through toKana
+  // then we can convert the new input as it is entered whilst
+  // re-applying the previous existing text around it when setting the input field value on conversion
+  // (all while setting the correct cursor location again :/ )
+  it("With IME mode, solo n's are not transliterated, even when cursor has been relocated.", () =>
+    // pretending k,a,n,a -> かな| then moving curosr to か|な and typing 'n,y'
+    expect(testTyping('かnyな', { IMEMode: true })).toBe('かnyな'));
   it("With IME mode, double n's are transliterated.", () =>
     expect(testTyping('nn', { IMEMode: true })).toBe('ん'));
   it('With IME mode, n + space are transliterated.', () =>

@@ -1,10 +1,7 @@
 import { DEFAULT_OPTIONS } from './constants';
-import {
-  getRomajiToKanaTree,
-  IME_MODE_MAP,
-  USE_OBSOLETE_KANA_MAP,
-} from './romajiToKanaMap';
-import { applyMapping } from './kanaMappingUtils';
+import { getRomajiToKanaTree, IME_MODE_MAP, USE_OBSOLETE_KANA_MAP } from './romajiToKanaMap';
+import { applyMapping, createCustomMapping } from './kanaMappingUtils';
+import typeOf from './utils/typeOf';
 import isCharUpperCase from './utils/isCharUpperCase';
 import hiraganaToKatakana from './utils/hiraganaToKatakana';
 
@@ -50,8 +47,14 @@ export function splitIntoKana(input = '', options = {}) {
   let map = getRomajiToKanaTree(config);
   map = config.IMEMode ? IME_MODE_MAP(map) : map;
   map = config.useObsoleteKana ? USE_OBSOLETE_KANA_MAP(map) : map;
-  // TODO: accept object or function, if object, use createCustomMapping automatically?
-  map = config.customKanaMapping(map);
+
+  // allow consumer to pass either function or object as customKanaMapping
+  if (typeOf(config.customKanaMapping) === 'function') {
+    map = config.customKanaMapping(map);
+  } else if (typeOf(config.customKanaMapping) === 'object') {
+    map = createCustomMapping(config.customKanaMapping)(map);
+  }
+
   return applyMapping(input.toLowerCase(), map, !config.IMEMode);
 }
 

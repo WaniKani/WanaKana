@@ -1,7 +1,8 @@
 import { DEFAULT_OPTIONS } from './constants';
-import { applyMapping } from './kanaMappingUtils';
-import toHiragana from './toHiragana';
 import { getKanaToRomajiTree } from './kanaToRomajiMap';
+import { applyMapping, createCustomMapping } from './kanaMappingUtils';
+import typeOf from './utils/typeOf';
+import toHiragana from './toHiragana';
 import isKatakana from './isKatakana';
 
 /**
@@ -33,8 +34,13 @@ export function toRomaji(input = '', options = {}) {
 
 function splitIntoRomaji(input, config) {
   let map = getKanaToRomajiTree(config);
-  // TODO: accept object or function, if object, use createCustomMapping automatically?
-  map = config.customRomajiMapping(map);
+  // allow consumer to pass either function or object as customKanaMapping
+  if (typeOf(config.customRomajiMapping) === 'function') {
+    map = config.customRomajiMapping(map);
+  } else if (typeOf(config.customRomajiMapping) === 'object') {
+    map = createCustomMapping(config.customRomajiMapping)(map);
+  }
+
   return applyMapping(toHiragana(input, { passRomaji: true }), map, !config.IMEMode);
 }
 

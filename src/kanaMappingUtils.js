@@ -1,6 +1,8 @@
+import typeOf from './utils/typeOf';
+import isJapanese from './isJapanese';
+
 export function applyMapping(string, mapping, convertEnding) {
   const root = mapping;
-
   function nextSubtree(tree, nextChar) {
     const subtree = tree[nextChar];
     if (subtree === undefined) {
@@ -13,6 +15,18 @@ export function applyMapping(string, mapping, convertEnding) {
   function newChunk(remaining, currentCursor) {
     // start parsing a new chunk
     const firstChar = remaining.charAt(0);
+    const secondChar = remaining.charAt(1);
+
+    // NOTE: rare case when cursor is moved within existing japanese text and a single 'n' is typed
+    // FIXME: can this be applied elsewhere (romajiToKanaMap?) instead of polluting this function?
+    if (firstChar === 'n' && isJapanese(secondChar)) {
+      return parse(
+        Object.assign({ '': firstChar + secondChar }, {}),
+        remaining.slice(2),
+        currentCursor + 1,
+        currentCursor + 2
+      );
+    }
     return parse(
       Object.assign({ '': firstChar }, root[firstChar]),
       remaining.slice(1),
@@ -52,7 +66,7 @@ export function applyMapping(string, mapping, convertEnding) {
 export function transform(tree) {
   const result = {};
   for (const [char, subtree] of Object.entries(tree)) {
-    if (typeof subtree === 'string') {
+    if (typeOf(subtree) === 'string') {
       // we have reached the bottom of this branch
       result[char] = { '': subtree };
     } else {
@@ -102,7 +116,7 @@ export function createCustomMapping(customMap = {}) {
     const mapCopy = JSON.parse(JSON.stringify(map));
     function transformMap(mapSubtree, customSubtree) {
       // replace the subtree
-      if (mapSubtree === undefined || typeof mapSubtree === 'string') {
+      if (mapSubtree === undefined || typeOf(mapSubtree) === 'string') {
         return customSubtree;
       }
       const result = mapSubtree;
