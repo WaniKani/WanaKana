@@ -1,6 +1,7 @@
 import { JA_PUNC, EN_PUNC } from './helpers/testTables';
 import { HIRAGANA_END, HIRAGANA_START } from '../src/constants';
 
+import typeOf from '../src/utils/typeOf';
 import convertFullwidthCharsToASCII from '../src/utils/convertFullwidthCharsToASCII';
 import getChunk from '../src/utils/getChunk';
 import getChunkSize from '../src/utils/getChunkSize';
@@ -47,8 +48,24 @@ describe('Methods should return sane defaults when given no input', () => {
   it('romajiToHiragana() with no input', () => expect(romajiToHiragana()).toBe(''));
   it('hiraganaToKatakana() with no input', () => expect(hiraganaToKatakana()).toBe(''));
   it('katakanaToHiragana() with no input', () => expect(katakanaToHiragana()).toBe(''));
+  it('typeof() with no input', () => expect(typeOf()).toBe('undefined'));
 });
 
+describe('typeOf', () => {
+  it('returns correct type strings', () => {
+    expect(typeOf({})).toBe('object');
+    expect(typeOf([])).toBe('array');
+    expect(typeOf(function() {})).toBe('function'); // eslint-disable-line
+    expect(typeOf(() => {})).toBe('function');
+    expect(typeOf(/a/)).toBe('regexp');
+    expect(typeOf(new Date())).toBe('date');
+    expect(typeOf(null)).toBe('null');
+    expect(typeOf(undefined)).toBe('undefined');
+    expect(typeOf('a')).toBe('string');
+    expect(typeOf(1)).toBe('number');
+    expect(typeOf(true)).toBe('boolean');
+  });
+});
 
 describe('isEmpty', () => {
   it('passes parameter tests', () => {
@@ -108,7 +125,9 @@ describe('isCharVowel', () => {
 
 describe('isCharConsonant', () => {
   it('passes parameter tests', () => {
-    [...'bcdfghjklmnpqrstvwxyz'].forEach((consonant) => expect(isCharConsonant(consonant)).toBe(true));
+    [...'bcdfghjklmnpqrstvwxyz'].forEach((consonant) =>
+      expect(isCharConsonant(consonant)).toBe(true)
+    );
     expect(isCharConsonant('y', false /* excludes 'y' as a consonant */)).toBe(false);
     expect(isCharConsonant('a')).toBe(false);
     expect(isCharConsonant('!')).toBe(false);
