@@ -1,9 +1,8 @@
 import { DEFAULT_OPTIONS } from './constants';
-import { getKanaToRomajiTree } from './kanaToRomajiMap';
-import { applyMapping, createCustomMapping } from './kanaMappingUtils';
-import typeOf from './utils/typeOf';
 import toHiragana from './toHiragana';
 import isKatakana from './isKatakana';
+import { getKanaToRomajiTree } from './utils/kanaToRomajiMap';
+import { applyMapping, mergeCustomMapping } from './utils/kanaMappingUtils';
 
 /**
  * Convert kana to romaji
@@ -17,7 +16,7 @@ import isKatakana from './isKatakana';
  * // => 'ge-mu geemu'
  * toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
  * // => 'hiragana KATAKANA'
- * toRomaji('つじぎり', { customRomajiMapping: createCustomMapping({ じ: 'zi', つ: 'tu', り: 'li' }) });
+ * toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' } });
  * // => 'tuzigili'
  */
 export function toRomaji(input = '', options = {}) {
@@ -35,11 +34,7 @@ export function toRomaji(input = '', options = {}) {
 function splitIntoRomaji(input, config) {
   let map = getKanaToRomajiTree(config);
   // allow consumer to pass either function or object as customKanaMapping
-  if (typeOf(config.customRomajiMapping) === 'function') {
-    map = config.customRomajiMapping(map);
-  } else if (typeOf(config.customRomajiMapping) === 'object') {
-    map = createCustomMapping(config.customRomajiMapping)(map);
-  }
+  map = mergeCustomMapping(map, config.customRomajiMapping);
 
   return applyMapping(toHiragana(input, { passRomaji: true }), map, !config.IMEMode);
 }

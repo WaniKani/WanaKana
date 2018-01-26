@@ -1,4 +1,5 @@
 import { transform, getSubTreeOf, createCustomMapping } from './kanaMappingUtils';
+
 let romajiToKanaMap = null;
 
 function createRomajiToKanaMap() {

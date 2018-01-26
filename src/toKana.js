@@ -1,6 +1,6 @@
 import { DEFAULT_OPTIONS } from './constants';
-import { getRomajiToKanaTree, IME_MODE_MAP, USE_OBSOLETE_KANA_MAP } from './romajiToKanaMap';
-import { applyMapping, createCustomMapping } from './kanaMappingUtils';
+import { getRomajiToKanaTree, IME_MODE_MAP, USE_OBSOLETE_KANA_MAP } from './utils/romajiToKanaMap';
+import { applyMapping, mergeCustomMapping } from './utils/kanaMappingUtils';
 import typeOf from './utils/typeOf';
 import isCharUpperCase from './utils/isCharUpperCase';
 import hiraganaToKatakana from './utils/hiraganaToKatakana';
@@ -23,7 +23,7 @@ import hiraganaToKatakana from './utils/hiraganaToKatakana';
  * // => '！？。：・、〜ー「」『』［］（）｛｝'
  * toKana('we', { useObsoleteKana: true })
  * // => 'ゑ'
- * toKana('WanaKana', { customKanaMapping: createCustomMapping({ na: 'に', ka: 'Bana' }) });
+ * toKana('WanaKana', { customKanaMapping: { na: 'に', ka: 'Bana' } });
  * // => 'ワにBanaに'
  */
 export function toKana(input = '', options = {}) {
@@ -47,13 +47,7 @@ export function splitIntoKana(input = '', options = {}) {
   let map = getRomajiToKanaTree(config);
   map = config.IMEMode ? IME_MODE_MAP(map) : map;
   map = config.useObsoleteKana ? USE_OBSOLETE_KANA_MAP(map) : map;
-
-  // allow consumer to pass either function or object as customKanaMapping
-  if (typeOf(config.customKanaMapping) === 'function') {
-    map = config.customKanaMapping(map);
-  } else if (typeOf(config.customKanaMapping) === 'object') {
-    map = createCustomMapping(config.customKanaMapping)(map);
-  }
+  map = mergeCustomMapping(map, config.customKanaMapping);
 
   return applyMapping(input.toLowerCase(), map, !config.IMEMode);
 }

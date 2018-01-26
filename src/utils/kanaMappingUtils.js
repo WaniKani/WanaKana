@@ -1,5 +1,5 @@
-import typeOf from './utils/typeOf';
-import isJapanese from './isJapanese';
+import typeOf from './typeOf';
+import isJapanese from '../isJapanese';
 
 export function applyMapping(string, mapping, convertEnding) {
   const root = mapping;
@@ -127,4 +127,14 @@ export function createCustomMapping(customMap = {}) {
     }
     return transformMap(mapCopy, customTree);
   };
+}
+
+// allow consumer to pass either function or object as customMapping
+export function mergeCustomMapping(map, customMapping) {
+  if (typeOf(customMapping) === 'function') {
+    return customMapping(map);
+  } else if (typeOf(customMapping) === 'object') {
+    return createCustomMapping(customMapping)(map);
+  }
+  return map;
 }

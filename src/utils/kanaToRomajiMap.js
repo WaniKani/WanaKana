@@ -1,8 +1,5 @@
 import { transform, getSubTreeOf } from './kanaMappingUtils';
-
-export const methods = Object.freeze({
-  HEPBURN: 'hepburn',
-});
+import { ROMANIZATIONS } from '../constants';
 
 let kanaToHepburnMap = null;
 
@@ -236,7 +233,7 @@ function getKanaToHepburnTree() {
 
 export function getKanaToRomajiTree(fullOptions) {
   switch (fullOptions.romanization) {
-    case methods.HEPBURN:
+    case ROMANIZATIONS.HEPBURN:
       return getKanaToHepburnTree(fullOptions);
     default:
       return {};

@@ -19,7 +19,7 @@ import stripOkurigana from '../src/stripOkurigana';
 import tokenize from '../src/tokenize';
 import bind from '../src/bind';
 import unbind from '../src/unbind';
-import { createCustomMapping } from '../src/kanaMappingUtils';
+import { createCustomMapping } from '../src/utils/kanaMappingUtils';
 
 describe('Methods should return valid defaults when given no input', () => {
   it('isKana() with no input', () => expect(isKana()).toBe(false));

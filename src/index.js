@@ -21,6 +21,4 @@ export { default as toKatakana } from './toKatakana';
 export { default as stripOkurigana } from './stripOkurigana';
 export { default as tokenize } from './tokenize';
 
-// NOTE: necessary to export both of these?
-export { methods as ROMANIZATIONS } from './kanaToRomajiMap';
-export { createCustomMapping } from './kanaMappingUtils';
+export { methods as ROMANIZATIONS } from './utils/kanaToRomajiMap';

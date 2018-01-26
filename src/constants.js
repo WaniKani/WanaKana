@@ -14,28 +14,30 @@
  * // => "hiragana KATAKANA"
  * @property {Boolean} [IMEMode=false] - Set to true, toHiragana(), or toKatakana() to handle conversion from a text input while it is being typed.
  * @property {String} [romanization='hepburn'] - choose toRomaji() romanization map (currently only hepburn)
- * @property {Function} [customKanaMapping=(defaultMap) => map] - merges custom map with default conversion
+ * @property {Object} [customKanaMapping={}] - custom map will be merged with default conversion
  * @example
- * toKana('WanaKana', { customKanaMapping: createCustomMapping({ na: 'に', ka: 'Bana' }) });
+ * toKana('WanaKana', { customKanaMapping: { na: 'に', ka: 'Bana' }) };
  * // => 'ワにBanaに'
- * @property {Function} [customRomajiMapping=(defaultMap) => map] - merges custom map with default conversion
+ * @property {Object} [customRomajiMapping={}] - custom map will be merged with default conversion
  * @example
- * toRomaji('つじぎり', { customRomajiMapping: createCustomMapping({ じ: 'zi', つ: 'tu', り: 'li' }) });
+ * toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' }) };
  * // => 'tuzigili'
  */
-
-/**
- * Default config for WanaKana, user passed options will be merged with this
- * @type {DefaultOptions}
- * @ignore
- */
-import { methods as ROMANIZATIONS } from './kanaToRomajiMap';
 
 export const TO_KANA_METHODS = {
   HIRAGANA: 'toHiragana',
   KATAKANA: 'toKatakana',
 };
 
+export const ROMANIZATIONS = Object.freeze({
+  HEPBURN: 'hepburn',
+});
+
+/**
+ * Default config for WanaKana, user passed options will be merged with this
+ * @type {DefaultOptions}
+ * @ignore
+ */
 export const DEFAULT_OPTIONS = {
   useObsoleteKana: false,
   passRomaji: false,
@@ -43,8 +45,8 @@ export const DEFAULT_OPTIONS = {
   ignoreCase: false,
   IMEMode: false,
   romanization: ROMANIZATIONS.HEPBURN,
-  customKanaMapping: (map) => map,
-  customRomajiMapping: (map) => map,
+  customKanaMapping: {},
+  customRomajiMapping: {},
 };
 
 // CharCode References
