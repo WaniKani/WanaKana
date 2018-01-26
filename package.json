@@ -3,7 +3,8 @@
   "version": "3.0.1",
   "license": "MIT",
   "homepage": "http://www.wanakana.com",
-  "description": "Utility library for checking and converting between Kanji, Hiragana, Katakana, and Romaji",
+  "description":
+    "Utility library for checking and converting between Kanji, Hiragana, Katakana, and Romaji",
   "keywords": [
     "english",
     "japanese",
@@ -46,18 +47,12 @@
     "lint": "eslint --color"
   },
   "lint-staged": {
-    "*.js": [
-      "npm run format",
-      "npm run lint",
-      "git add"
-    ]
+    "*.js": ["npm run format", "npm run lint", "git add"]
   },
   "jest": {
     "bail": false,
     "verbose": false,
-    "testMatch": [
-      "<rootDir>/test/**/*.test.js"
-    ],
+    "testMatch": ["<rootDir>/test/**/*.test.js"],
     "collectCoverage": true,
     "coverageThreshold": {
       "global": {
@@ -118,5 +113,8 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "quokka": {
+    "babel": true
   }
 }

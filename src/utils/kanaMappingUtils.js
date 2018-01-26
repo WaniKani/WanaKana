@@ -99,7 +99,7 @@ export function getSubTreeOf(tree, string) {
  * toRomaji("It's 茎 ちゃ よ", { customRomajiMapping: sillyMap });
  * // => 'It's cookie time yo';
  */
-export function createCustomMapping(customMap = {}) {
+export function createCustomMapping(customMap) {
   const customTree = {};
   for (const [rom, kan] of Object.entries(customMap)) {
     let subTree = customTree;
@@ -112,7 +112,7 @@ export function createCustomMapping(customMap = {}) {
     subTree[''] = kan;
   }
 
-  return function makeMap(map = {}) {
+  return function makeMap(map) {
     const mapCopy = JSON.parse(JSON.stringify(map));
     function transformMap(mapSubtree, customSubtree) {
       // replace the subtree
@@ -130,7 +130,7 @@ export function createCustomMapping(customMap = {}) {
 }
 
 // allow consumer to pass either function or object as customMapping
-export function mergeCustomMapping(map, customMapping) {
+export function mergeCustomMapping(map = {}, customMapping = {}) {
   if (typeOf(customMapping) === 'function') {
     return customMapping(map);
   } else if (typeOf(customMapping) === 'object') {

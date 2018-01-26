@@ -17,7 +17,7 @@ const newId = () => {
  */
 function bind(input, options = {}) {
   const listener = onInput(options);
-  if (input instanceof Element && ELEMENTS.includes(input.nodeName)) {
+  if (input instanceof HTMLElement && ELEMENTS.includes(input.nodeName)) {
     const id = newId();
     // eslint-disable-next-line no-underscore-dangle
     if (window && window.__DEBUG_WANAKANA) {

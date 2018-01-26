@@ -9,6 +9,8 @@
   typeOf('a'); // 'string'
   typeOf(1); // 'number'
   typeOf(true); // 'boolean'
+  typeOf(new Map()); // 'map'
+  typeOf(new Set()); // 'map'
 */
 function typeOf(obj) {
   if (obj === null) {

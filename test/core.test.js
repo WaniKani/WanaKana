@@ -571,6 +571,13 @@ describe('Event listener helpers', () => {
   const inputField2 = document.querySelector('#ime2');
   const inputField3 = document.querySelector('.has-no-id');
 
+  it('fails safely with console warning when invalid element passed', () => {
+    expect(() => bind()).not.toThrow();
+    expect(() => bind('nerp')).not.toThrow();
+    expect(() => unbind()).not.toThrow();
+    expect(() => unbind('nerp')).not.toThrow();
+  });
+
   it('adds onInput event listener', () => {
     bind(inputField1);
     inputField1.value = 'wanakana';
@@ -682,6 +689,20 @@ describe('Event listener helpers', () => {
     const inputValue = 'sentaku';
     const expected = 'せんたく';
     const expectedCursorPositions = [0, 1, 1, 2, 3, 3, 4, 4];
+    for (let index = 0; index < expected.length; index += 1) {
+      inputField1.value = inputValue;
+      inputField1.setSelectionRange(index, index);
+      simulant.fire(inputField1, 'input');
+      expect(inputField1.value).toEqual(expected);
+      expect(inputField1.selectionStart).toBe(expectedCursorPositions[index]);
+    }
+    unbind(inputField1);
+  });
+  it('should keep the cursor at the correct position even after conversion', () => {
+    bind(inputField1);
+    const inputValue = 'senshitaku';
+    const expected = 'せんしたく';
+    const expectedCursorPositions = [0, 1, 1, 2, 3, 3, 3, 4, 4, 5, 5];
     for (let index = 0; index < expected.length; index += 1) {
       inputField1.value = inputValue;
       inputField1.setSelectionRange(index, index);

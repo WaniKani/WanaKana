@@ -21,4 +21,4 @@ export { default as toKatakana } from './toKatakana';
 export { default as stripOkurigana } from './stripOkurigana';
 export { default as tokenize } from './tokenize';
 
-export { methods as ROMANIZATIONS } from './utils/kanaToRomajiMap';
+export { ROMANIZATIONS } from './constants';

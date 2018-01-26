@@ -24,6 +24,7 @@ import isCharUpperCase from '../src/utils/isCharUpperCase';
 import romajiToHiragana from '../src/utils/romajiToHiragana';
 import hiraganaToKatakana from '../src/utils/hiraganaToKatakana';
 import katakanaToHiragana from '../src/utils/katakanaToHiragana';
+import { mergeCustomMapping } from '../src/utils/kanaMappingUtils';
 
 describe('Methods should return sane defaults when given no input', () => {
   it('convertFullwidthCharsToASCII()', () => expect(convertFullwidthCharsToASCII()).toBe(''));
@@ -48,6 +49,7 @@ describe('Methods should return sane defaults when given no input', () => {
   it('romajiToHiragana() with no input', () => expect(romajiToHiragana()).toBe(''));
   it('hiraganaToKatakana() with no input', () => expect(hiraganaToKatakana()).toBe(''));
   it('katakanaToHiragana() with no input', () => expect(katakanaToHiragana()).toBe(''));
+  it('mergeCustomMapping() with no input', () => expect(mergeCustomMapping()).toEqual({}));
   it('typeof() with no input', () => expect(typeOf()).toBe('undefined'));
 });
 
@@ -59,6 +61,8 @@ describe('typeOf', () => {
     expect(typeOf(() => {})).toBe('function');
     expect(typeOf(/a/)).toBe('regexp');
     expect(typeOf(new Date())).toBe('date');
+    expect(typeOf(new Map())).toBe('map');
+    expect(typeOf(new Set())).toBe('set');
     expect(typeOf(null)).toBe('null');
     expect(typeOf(undefined)).toBe('undefined');
     expect(typeOf('a')).toBe('string');
