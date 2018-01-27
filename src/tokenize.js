@@ -49,21 +49,29 @@ export function getType(input, compact = false) {
   }
 }
 
-// FIXME: UPDATE DOCS && TESTS!
 /**
- * Splits input into array of [Kanji](https://en.wikipedia.org/wiki/Kanji), [Hiragana](https://en.wikipedia.org/wiki/Hiragana), [Katakana](https://en.wikipedia.org/wiki/Katakana), and [Romaji](https://en.wikipedia.org/wiki/Romaji) tokens.
- * Does not split into parts of speech!
+ * Splits input into array of strings separated by opinionated token types
+ * 'en', 'ja', 'englishNumeral', 'japaneseNumeral',
+ * 'englishPunctuation', 'japanesePunctuation',
+ * 'kanji', 'hiragana', 'katakana', 'space', 'other'
+ * If { compact: true } then many same-language tokens are combined (spaces + text, kanji + kana, numeral + punctuation)
+ * If { detailed: true } then return array will contain { type, value } instead of 'value'
  * @param  {String} input text
- * @return {Array} text split into tokens
+ * @param  {Object} [options={ compact: false, detailed: false}] options to modify output style
+ * @return {String|Object[]} text split into tokens containing values, or detailed object
  * @example
  * tokenize('ふふフフ')
  * // => ['ふふ', 'フフ']
  * tokenize('感じ')
  * // => ['感', 'じ']
- * tokenize('私は悲しい')
- * // => ['私', 'は', '悲', 'しい']
- * tokenize('what the...私は「悲しい」。')
- * // => ['what the...', '私', 'は', '「', '悲', 'しい', '」。']
+ * tokenize('truly 私は悲しい')
+ * // => ['truly', ' ', '私', 'は', '悲', 'しい']
+ * tokenize('truly 私は悲しい', { compact: true })
+ * // => ['truly ', '私は悲しい']
+ * tokenize('5romaji here...!?漢字ひらがな４カタ　カナ「ＳＨＩＯ」。！')
+ * // => [ '5', 'romaji', ' ', 'here', '...!?', '漢字', 'ひらがな', 'カタ', '　', 'カナ', '４', '「', 'ＳＨＩＯ', '」。！']
+ * tokenize('5romaji here...!?漢字ひらがな４カタ　カナ「ＳＨＩＯ」。！', { compact: true })
+ * // => [ '5', 'romaji here', '...!?', '漢字ひらがなカタ　カナ', '４「', 'ＳＨＩＯ', '」。！']
  */
 function tokenize(input, { compact = false, detailed = false } = {}) {
   if (input == null || isEmpty(input)) {

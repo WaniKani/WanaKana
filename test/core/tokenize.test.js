@@ -15,7 +15,7 @@ describe('tokenize', () => {
   });
 
   it('handles mixed input', () => {
-    expect(tokenize('5romaji here...!?漢字ひらがな４カタ　カナ「ＳＨＩＯ」。！')).toEqual([
+    expect(tokenize('5romaji here...!?漢字ひらがなカタ　カナ４「ＳＨＩＯ」。！')).toEqual([
       '5',
       'romaji',
       ' ',
@@ -23,10 +23,10 @@ describe('tokenize', () => {
       '...!?',
       '漢字',
       'ひらがな',
-      '４',
       'カタ',
       '　',
       'カナ',
+      '４',
       '「',
       'ＳＨＩＯ',
       '」。！',
@@ -36,15 +36,13 @@ describe('tokenize', () => {
   describe('options', () => {
     it('{compact: true}', () => {
       expect(
-        tokenize('5romaji here...!?漢字ひらがな４カタ　カナ「ＳＨＩＯ」。！', { compact: true })
+        tokenize('5romaji here...!?漢字ひらがなカタ　カナ４「ＳＨＩＯ」。！', { compact: true })
       ).toEqual([
         '5',
         'romaji here',
         '...!?',
-        '漢字ひらがな',
-        '４',
-        'カタ　カナ',
-        '「',
+        '漢字ひらがなカタ　カナ',
+        '４「',
         'ＳＨＩＯ',
         '」。！',
       ]);
@@ -52,7 +50,7 @@ describe('tokenize', () => {
 
     it('{detailed: true}', () => {
       expect(
-        tokenize('5romaji here...!?漢字ひらがな４カタ　カナ「ＳＨＩＯ」。！', { detailed: true })
+        tokenize('5romaji here...!?漢字ひらがなカタ　カナ４「ＳＨＩＯ」。！', { detailed: true })
       ).toEqual([
         { type: 'englishNumeral', value: '5' },
         { type: 'en', value: 'romaji' },
@@ -61,10 +59,10 @@ describe('tokenize', () => {
         { type: 'englishPunctuation', value: '...!?' },
         { type: 'kanji', value: '漢字' },
         { type: 'hiragana', value: 'ひらがな' },
-        { type: 'japaneseNumeral', value: '４' },
         { type: 'katakana', value: 'カタ' },
         { type: 'space', value: '　' },
         { type: 'katakana', value: 'カナ' },
+        { type: 'japaneseNumeral', value: '４' },
         { type: 'japanesePunctuation', value: '「' },
         { type: 'ja', value: 'ＳＨＩＯ' },
         { type: 'japanesePunctuation', value: '」。！' },
@@ -73,7 +71,7 @@ describe('tokenize', () => {
 
     it('{ compact: true, detailed: true}', () => {
       expect(
-        tokenize('5romaji here...!?漢字ひらがな４カタ　カナ「ＳＨＩＯ」。！', {
+        tokenize('5romaji here...!?漢字ひらがなカタ　カナ４「ＳＨＩＯ」。！', {
           compact: true,
           detailed: true,
         })
@@ -81,10 +79,8 @@ describe('tokenize', () => {
         { type: 'other', value: '5' },
         { type: 'en', value: 'romaji here' },
         { type: 'other', value: '...!?' },
-        { type: 'ja', value: '漢字ひらがな' },
-        { type: 'other', value: '４' },
-        { type: 'ja', value: 'カタ　カナ' },
-        { type: 'other', value: '「' },
+        { type: 'ja', value: '漢字ひらがなカタ　カナ' },
+        { type: 'other', value: '４「' },
         { type: 'ja', value: 'ＳＨＩＯ' },
         { type: 'other', value: '」。！' },
       ]);
