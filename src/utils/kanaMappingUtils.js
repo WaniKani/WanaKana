@@ -15,18 +15,7 @@ export function applyMapping(string, mapping, convertEnding) {
   function newChunk(remaining, currentCursor) {
     // start parsing a new chunk
     const firstChar = remaining.charAt(0);
-    const secondChar = remaining.charAt(1);
 
-    // NOTE: rare case when cursor is moved within existing japanese text and a single 'n' is typed
-    // FIXME: can this be applied elsewhere (romajiToKanaMap?) instead of polluting this function?
-    if (firstChar === 'n' && isJapanese(secondChar)) {
-      return parse(
-        Object.assign({ '': firstChar + secondChar }, {}),
-        remaining.slice(2),
-        currentCursor + 1,
-        currentCursor + 2
-      );
-    }
     return parse(
       Object.assign({ '': firstChar }, root[firstChar]),
       remaining.slice(1),

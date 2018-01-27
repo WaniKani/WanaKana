@@ -10,22 +10,50 @@ function createRomajiToKanaMap() {
     u: 'う',
     e: 'え',
     o: 'お',
-    k: { a: 'か', i: 'き', u: 'く', e: 'け', o: 'こ' },
-    s: { a: 'さ', i: 'し', u: 'す', e: 'せ', o: 'そ' },
-    t: { a: 'た', i: 'ち', u: 'つ', e: 'て', o: 'と' },
-    n: { a: 'な', i: 'に', u: 'ぬ', e: 'ね', o: 'の' },
-    h: { a: 'は', i: 'ひ', u: 'ふ', e: 'へ', o: 'ほ' },
-    m: { a: 'ま', i: 'み', u: 'む', e: 'め', o: 'も' },
+    k: {
+      a: 'か', i: 'き', u: 'く', e: 'け', o: 'こ',
+    },
+    s: {
+      a: 'さ', i: 'し', u: 'す', e: 'せ', o: 'そ',
+    },
+    t: {
+      a: 'た', i: 'ち', u: 'つ', e: 'て', o: 'と',
+    },
+    n: {
+      a: 'な', i: 'に', u: 'ぬ', e: 'ね', o: 'の',
+    },
+    h: {
+      a: 'は', i: 'ひ', u: 'ふ', e: 'へ', o: 'ほ',
+    },
+    m: {
+      a: 'ま', i: 'み', u: 'む', e: 'め', o: 'も',
+    },
     y: { a: 'や', u: 'ゆ', o: 'よ' },
-    r: { a: 'ら', i: 'り', u: 'る', e: 'れ', o: 'ろ' },
-    w: { a: 'わ', i: 'ゐ', e: 'ゑ', o: 'を' },
-    g: { a: 'が', i: 'ぎ', u: 'ぐ', e: 'げ', o: 'ご' },
-    z: { a: 'ざ', i: 'じ', u: 'ず', e: 'ぜ', o: 'ぞ' },
-    d: { a: 'だ', i: 'ぢ', u: 'づ', e: 'で', o: 'ど' },
-    b: { a: 'ば', i: 'び', u: 'ぶ', e: 'べ', o: 'ぼ' },
-    p: { a: 'ぱ', i: 'ぴ', u: 'ぷ', e: 'ぺ', o: 'ぽ' },
+    r: {
+      a: 'ら', i: 'り', u: 'る', e: 'れ', o: 'ろ',
+    },
+    w: {
+      a: 'わ', i: 'ゐ', e: 'ゑ', o: 'を',
+    },
+    g: {
+      a: 'が', i: 'ぎ', u: 'ぐ', e: 'げ', o: 'ご',
+    },
+    z: {
+      a: 'ざ', i: 'じ', u: 'ず', e: 'ぜ', o: 'ぞ',
+    },
+    d: {
+      a: 'だ', i: 'ぢ', u: 'づ', e: 'で', o: 'ど',
+    },
+    b: {
+      a: 'ば', i: 'び', u: 'ぶ', e: 'べ', o: 'ぼ',
+    },
+    p: {
+      a: 'ぱ', i: 'ぴ', u: 'ぷ', e: 'ぺ', o: 'ぽ',
+    },
 
-    v: { a: 'ゔぁ', i: 'ゔぃ', u: 'ゔ', e: 'ゔぇ', o: 'ゔぉ' },
+    v: {
+      a: 'ゔぁ', i: 'ゔぃ', u: 'ゔ', e: 'ゔぇ', o: 'ゔぉ',
+    },
   };
 
   const kanaTree = transform(kunreiTree);
@@ -51,8 +79,12 @@ function createRomajiToKanaMap() {
     f: 'ふ',
   };
 
-  const smallY = { ya: 'ゃ', yi: 'ぃ', yu: 'ゅ', ye: 'ぇ', yo: 'ょ' };
-  const smallaiueo = { a: 'ぁ', i: 'ぃ', u: 'ぅ', e: 'ぇ', o: 'ぉ' };
+  const smallY = {
+    ya: 'ゃ', yi: 'ぃ', yu: 'ゅ', ye: 'ぇ', yo: 'ょ',
+  };
+  const smallaiueo = {
+    a: 'ぁ', i: 'ぃ', u: 'ぅ', e: 'ぇ', o: 'ぉ',
+  };
 
   // add tya, sya, etc.
   for (const [consonant, yKana] of Object.entries(consonants)) {
@@ -111,19 +143,19 @@ function createRomajiToKanaMap() {
   }
 
   // different ways to write ん
-  for (const nvar of ['n', 'n\'', 'xn']) {
+  for (const nvar of ['n', "n'", 'xn']) {
     subtreeOf(nvar)[''] = 'ん';
   }
 
   // typing one should be the same as having typed the other instead
   const alternativeMappings = {
-    sh: 'sy',  // sha -> sya
-    ch: 'ty',  // cho -> tyo
-    cy: 'ty',  // cyo -> tyo
-    chy: 'ty',  // chyu -> tyu
-    shy: 'sy',  // shya -> sya
-    j: 'zy',  // ja -> zya
-    jy: 'zy',  // jye -> zye
+    sh: 'sy', // sha -> sya
+    ch: 'ty', // cho -> tyo
+    cy: 'ty', // cyo -> tyo
+    chy: 'ty', // chyu -> tyu
+    shy: 'sy', // shya -> sya
+    j: 'zy', // ja -> zya
+    jy: 'zy', // jye -> zye
 
     // exceptions to above rules
     shi: 'si',
@@ -144,9 +176,14 @@ function createRomajiToKanaMap() {
     parentTree[last] = JSON.parse(JSON.stringify(subtreeOf(alternative)));
   }
 
-
   // xtu -> っ
-  const smallLetters = Object.assign({ tu: 'っ', wa: 'ゎ', ka: 'ヵ', ke: 'ヶ' }, smallaiueo, smallY);
+  const smallLetters = Object.assign(
+    {
+      tu: 'っ', wa: 'ゎ', ka: 'ヵ', ke: 'ヶ',
+    },
+    smallaiueo,
+    smallY
+  );
 
   function getAlternatives(string) {
     const result = [];
@@ -209,9 +246,11 @@ function createRomajiToKanaMap() {
   function addTsu(tree) {
     const result = {};
     for (const [key, value] of Object.entries(tree)) {
-      if (!key) {  // we have reached the bottom of this branch
+      if (!key) {
+        // we have reached the bottom of this branch
         result[key] = `っ${value}`;
-      } else {  // more subtrees
+      } else {
+        // more subtrees
         result[key] = addTsu(value);
       }
     }

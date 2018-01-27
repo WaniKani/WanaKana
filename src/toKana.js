@@ -1,7 +1,6 @@
 import { DEFAULT_OPTIONS } from './constants';
 import { getRomajiToKanaTree, IME_MODE_MAP, USE_OBSOLETE_KANA_MAP } from './utils/romajiToKanaMap';
 import { applyMapping, mergeCustomMapping } from './utils/kanaMappingUtils';
-import typeOf from './utils/typeOf';
 import isCharUpperCase from './utils/isCharUpperCase';
 import hiraganaToKatakana from './utils/hiraganaToKatakana';
 
@@ -28,7 +27,7 @@ import hiraganaToKatakana from './utils/hiraganaToKatakana';
  */
 export function toKana(input = '', options = {}) {
   // just throw away the substring index information and just concatenate all the kana
-  return splitIntoKana(input, options)
+  return splitIntoConvertedKana(input, options)
     .map((kanaToken) => {
       const [start, , kana] = kanaToken;
       if (kana === null) {
@@ -41,7 +40,17 @@ export function toKana(input = '', options = {}) {
     .join('');
 }
 
-export function splitIntoKana(input = '', options = {}) {
+/**
+ *
+ * @param {String} [input=''] input text
+ * @param {Object} [options={}] toKana options
+ * @returns {Array[]} [[start, end, token]]
+ * @ignore
+ * @example
+ * splitIntoConvertedKana('buttsuuji')
+ * // => [[0, 2, 'ぶ'], [2, 6, 'っつ'], [6, 7, 'う'], [7, 9, 'じ']]
+ */
+export function splitIntoConvertedKana(input = '', options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
 
   let map = getRomajiToKanaTree(config);

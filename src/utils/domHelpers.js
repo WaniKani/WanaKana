@@ -1,10 +1,13 @@
 import { DEFAULT_OPTIONS, TO_KANA_METHODS } from '../constants';
-import { splitIntoKana, toKana } from '../toKana';
+import toKana from '../toKana';
+import isJapanese from '../isJapanese';
+import tokenize from '../tokenize';
 import convertFullwidthCharsToASCII from './convertFullwidthCharsToASCII';
 import isCharConsonant from './isCharConsonant';
 
 let LISTENERS = [];
 let ignoreMicrosoftIMEDoubleConsonant = false;
+let state = {};
 
 /**
  * Automagically replaces input values with converted text to kana
@@ -15,38 +18,58 @@ let ignoreMicrosoftIMEDoubleConsonant = false;
  */
 export function onInput(options) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
+
   return function listener(event) {
     const input = event.target;
+    let text = input.value;
 
-    if (ignoreMicrosoftIMEDoubleConsonant) {
+    const isComposing = false; // TODO: continue functionality from react-wanakana
+
+    if (ignoreMicrosoftIMEDoubleConsonant || isComposing || isJapanese(text)) {
       ignoreMicrosoftIMEDoubleConsonant = false;
       return;
     }
 
-    const normalizedInputString = convertFullwidthCharsToASCII(input.value);
+    // allows splicing mid-string text conversion: わび わs|び わsa|び -> わさ|び
+    const tokens = tokenize(text);
+    const currentChar = text.charAt(input.selectionStart - 1);
+    let tokenIndex = state.currentTokenIndex > 0 ? state.currentTokenIndex : null;
+    if (tokenIndex != null && tokenIndex <= tokens.length) {
+      if (!(tokens[tokenIndex] || '').endsWith(currentChar)) {
+        tokenIndex = tokens.findIndex((tok, i) => i !== tokenIndex && tok.endsWith(currentChar));
+      }
+    } else {
+      // NOTE: sometimes "wrong" if two positions have the same starting romaji char
+      // こsこs|こ might select こ*s*こsこ internally but when the second char is input
+      // こsこso|こ -> こsこそ|こ it'll replace the right token
+      tokenIndex = tokens.findIndex((tok) => tok.endsWith(currentChar));
+    }
+    console.log(tokenize(text, { simple: true, detailed: true }));
+    console.log(tokenize(text, { detailed: true }));
+    // NOTE: numbers break stuff if in first token due to way tokenize groups romaji/numbers :/
+    const numbersInStartingTokenEdgeCase = tokenIndex === -1 && /\d+/.test(tokens[0]);
+    if (numbersInStartingTokenEdgeCase) {
+      tokenIndex = 0;
+    }
+
+    text = tokens[tokenIndex] || text;
+
+    state = {
+      head: tokens.slice(0, tokenIndex).join(''),
+      currentTokenIndex: tokenIndex,
+      tail: tokens.slice(tokenIndex + 1).join(''),
+    };
+
+    const normalizedInputString = convertFullwidthCharsToASCII(text);
     const hiraOrKataString = setKanaType(normalizedInputString, config.IMEMode);
     const ensureIMEModeConfig = Object.assign({}, config, { IMEMode: true });
-    const kanaTokens = splitIntoKana(hiraOrKataString, ensureIMEModeConfig);
     const newText = toKana(hiraOrKataString, ensureIMEModeConfig);
 
     if (normalizedInputString !== newText) {
-      const { selectionEnd } = input;
-      input.value = newText;
-
-      if (selectionEnd === 0) {
-        input.setSelectionRange(0, 0);
-      } else {
-        input.setSelectionRange(input.value.length, input.value.length);
-        let kanaLength = 0;
-        for (let index = 0; index < kanaTokens.length; index += 1) {
-          const [, tokenEnd, tokenKana = ''] = kanaTokens[index];
-          kanaLength += (tokenKana != null && tokenKana.length) || 0;
-          if (tokenEnd >= selectionEnd) {
-            input.setSelectionRange(kanaLength, kanaLength);
-            break;
-          }
-        }
-      }
+      input.value = state.head + newText + state.tail;
+      const newCursor = state.head.length + newText.length;
+      input.setSelectionRange(newCursor, newCursor);
+      state = {};
     }
   };
 }
@@ -58,7 +81,8 @@ export function onInput(options) {
  * @ignore
  */
 export function onCompositionUpdate(event) {
-  const data = event.data || (event.detail && event.detail.data); // have to use custom event with detail in tests
+  // allow using custom event with "detail" key in tests
+  const data = event.data || (event.detail && event.detail.data);
   const finalTwoChars = (data && data.slice(-2)) || '';
   const isFirstLetterN = finalTwoChars[0] === 'n';
   const isDoubleConsonant = convertFullwidthCharsToASCII(finalTwoChars)
