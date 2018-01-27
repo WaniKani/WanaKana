@@ -1,20 +1,55 @@
+import { TOKEN_TYPES } from './constants';
 import isEmpty from './utils/isEmpty';
+import isCharEnglishPunctuation from './utils/isCharEnglishPunctuation';
 import isCharJapanesePunctuation from './utils/isCharJapanesePunctuation';
+import isCharRomaji from './utils/isCharRomaji';
 import isCharKanji from './utils/isCharKanji';
 import isCharHiragana from './utils/isCharHiragana';
 import isCharKatakana from './utils/isCharKatakana';
+import isCharJapanese from './utils/isCharJapanese';
 
-// TODO: worth splitting into utils? so far not used anywhere else
-function getType(input) {
-  switch (true) {
-    case (isCharJapanesePunctuation(input)): return 'japanesePunctuation';
-    case (isCharKanji(input)): return 'kanji';
-    case (isCharHiragana(input)): return 'hiragana';
-    case (isCharKatakana(input)): return 'katakana';
-    default: return 'romaji';
+const isCharEnSpace = (x) => x === ' ';
+const isCharJaSpace = (x) => x === '　';
+const isCharJaNum = (x) => /[０-９]/.test(x);
+const isCharEnNum = (x) => /[0-9]/.test(x);
+
+// prettier-ignore
+export function getType(input, simple = false) {
+  const {
+    EN, JA, EN_NUM, JA_NUM, EN_PUNC, JA_PUNC, KANJI, HIRAGANA, KATAKANA, ROMAJI, SPACE, OTHER,
+  } = TOKEN_TYPES;
+
+  if (simple) {
+    switch (true) {
+      case isCharJaNum(input): return OTHER;
+      case isCharEnNum(input): return OTHER;
+      case isCharEnSpace(input): return EN;
+      case isCharEnglishPunctuation(input): return OTHER;
+      case isCharJaSpace(input): return JA;
+      case isCharJapanesePunctuation(input): return OTHER;
+      case isCharJapanese(input): return JA;
+      case isCharRomaji(input): return EN;
+      default: return OTHER;
+    }
+  } else {
+    switch (true) {
+      case isCharJaSpace(input): return SPACE;
+      case isCharEnSpace(input): return SPACE;
+      case isCharJaNum(input): return JA_NUM;
+      case isCharEnNum(input): return EN_NUM;
+      case isCharEnglishPunctuation(input): return EN_PUNC;
+      case isCharJapanesePunctuation(input): return JA_PUNC;
+      case isCharKanji(input): return KANJI;
+      case isCharHiragana(input): return HIRAGANA;
+      case isCharKatakana(input): return KATAKANA;
+      case isCharJapanese(input): return JA;
+      case isCharRomaji(input): return ROMAJI;
+      default: return OTHER;
+    }
   }
 }
 
+// FIXME: UPDATE DOCS && TESTS!
 /**
  * Splits input into array of [Kanji](https://en.wikipedia.org/wiki/Kanji), [Hiragana](https://en.wikipedia.org/wiki/Hiragana), [Katakana](https://en.wikipedia.org/wiki/Katakana), and [Romaji](https://en.wikipedia.org/wiki/Romaji) tokens.
  * Does not split into parts of speech!
@@ -30,23 +65,29 @@ function getType(input) {
  * tokenize('what the...私は「悲しい」。')
  * // => ['what the...', '私', 'は', '「', '悲', 'しい', '」。']
  */
-function tokenize(input = '') {
+function tokenize(input = '', { simple = false, detailed = false } = {}) {
   if (isEmpty(input)) return [''];
   const chars = [...input];
   const head = chars.shift();
-  let prevType = getType(head);
+  let prevType = getType(head, simple);
 
-  const result = chars.reduce((tokens, char) => {
-    const currType = getType(char);
-    const sameType = currType === prevType;
-    prevType = getType(char);
-    if (sameType) {
-      const prev = tokens.pop();
-      return tokens.concat(prev.concat(char));
-    }
-    return tokens.concat(char);
-  }, [head]);
+  let result = chars.reduce(
+    (tokens, char) => {
+      const currType = getType(char, simple);
+      const sameType = currType === prevType;
+      prevType = getType(char, simple);
+      if (sameType) {
+        const prev = tokens.pop();
+        return tokens.concat(prev.concat(char));
+      }
+      return tokens.concat(char);
+    },
+    [head]
+  );
 
+  if (detailed) {
+    result = result.map((text) => ({ type: getType(text, simple), value: text }));
+  }
   return result;
 }
 

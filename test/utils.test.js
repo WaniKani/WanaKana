@@ -232,6 +232,7 @@ describe('isCharJapanesePunctuation', () => {
   it('passes parameter tests', () => {
     expect(JA_PUNC.every((char) => isCharJapanesePunctuation(char))).toBe(true);
     expect(EN_PUNC.every((char) => isCharJapanesePunctuation(char))).toBe(false);
+    expect(isCharJapanesePunctuation('　')).toBe(true);
     expect(isCharJapanesePunctuation('?')).toBe(false);
     expect(isCharJapanesePunctuation('a')).toBe(false);
     expect(isCharJapanesePunctuation('ふ')).toBe(false);
@@ -244,6 +245,7 @@ describe('isCharEnglishPunctuation', () => {
   it('passes parameter tests', () => {
     expect(EN_PUNC.every((char) => isCharEnglishPunctuation(char))).toBe(true);
     expect(JA_PUNC.every((char) => isCharEnglishPunctuation(char))).toBe(false);
+    expect(isCharEnglishPunctuation(' ')).toBe(true);
     expect(isCharEnglishPunctuation('a')).toBe(false);
     expect(isCharEnglishPunctuation('ふ')).toBe(false);
     expect(isCharEnglishPunctuation('字')).toBe(false);
@@ -255,6 +257,8 @@ describe('isCharPunctuation', () => {
   it('passes parameter tests', () => {
     expect(JA_PUNC.every((char) => isCharPunctuation(char))).toBe(true);
     expect(EN_PUNC.every((char) => isCharPunctuation(char))).toBe(true);
+    expect(isCharPunctuation(' ')).toBe(true);
+    expect(isCharPunctuation('　')).toBe(true);
     expect(isCharPunctuation('a')).toBe(false);
     expect(isCharPunctuation('ふ')).toBe(false);
     expect(isCharPunctuation('字')).toBe(false);

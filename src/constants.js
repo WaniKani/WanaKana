@@ -24,6 +24,21 @@
  * // => 'tuzigili'
  */
 
+export const TOKEN_TYPES = {
+  EN: 'en',
+  JA: 'ja',
+  EN_NUM: 'englishNumeral',
+  JA_NUM: 'japaneseNumeral',
+  EN_PUNC: 'englishPunctuation',
+  JA_PUNC: 'japanesePunctuation',
+  KANJI: 'kanji',
+  HIRAGANA: 'hiragana',
+  KATAKANA: 'katakana',
+  ROMAJI: 'romaji',
+  SPACE: 'space',
+  OTHER: 'other',
+};
+
 export const TO_KANA_METHODS = {
   HIRAGANA: 'toHiragana',
   KATAKANA: 'toKatakana',
@@ -58,6 +73,8 @@ const KATAKANA_PUNCTUATION = [0x30fb, 0x30fc];
 const HIRAGANA_CHARS = [0x3040, 0x309f];
 const KATAKANA_CHARS = [0x30a0, 0x30ff];
 const ZENKAKU_NUMBERS = [0xff10, 0xff19];
+const ZENKAKU_LETTERS_1 = [0xff21, 0xff3a];
+const ZENKAKU_LETTERS_2 = [0xff41, 0xff5a];
 const ZENKAKU_PUNCTUATION_1 = [0xff01, 0xff0f];
 const ZENKAKU_PUNCTUATION_2 = [0xff1a, 0xff1f];
 const ZENKAKU_PUNCTUATION_3 = [0xff3b, 0xff3f];
@@ -103,8 +120,7 @@ const KANA_RANGES = [HIRAGANA_CHARS, KATAKANA_CHARS, KANA_PUNCTUATION, HANKAKU_K
 
 /**
  * All Japanese unicode start and end ranges
- * Includes full-width punctuation and number ranges.
- * Incudes latin numbers since they are used in Japanese text as well.
+ * Includes full-width (zenkaku) latin chars, punctuation and number ranges.
  * @type {Array}
  * @ignore
  */
@@ -112,6 +128,8 @@ export const JAPANESE_RANGES = [
   ...KANA_RANGES,
   ...JA_PUNCTUATION_RANGES,
   LATIN_NUMBERS,
+  ZENKAKU_LETTERS_1,
+  ZENKAKU_LETTERS_2,
   ZENKAKU_NUMBERS,
   COMMON_CJK,
   RARE_CJK,
