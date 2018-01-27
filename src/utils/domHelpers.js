@@ -2,7 +2,7 @@ import { DEFAULT_OPTIONS, TO_KANA_METHODS } from '../constants';
 import toKana from '../toKana';
 import isJapanese from '../isJapanese';
 import tokenize from '../tokenize';
-import convertFullwidthCharsToASCII from './convertFullwidthCharsToASCII';
+import zenkakuToASCII from './zenkakuToASCII';
 import isCharConsonant from './isCharConsonant';
 
 let LISTENERS = [];
@@ -44,7 +44,7 @@ export function onInput(options) {
       // こsこso|こ -> こsこそ|こ it'll replace the right token
       tokenIndex = tokens.findIndex((tok) => tok.endsWith(currentChar));
     }
-    console.log(tokenize(text, { simple: true, detailed: true }));
+    console.log(tokenize(text, { compact: true, detailed: true }));
     console.log(tokenize(text, { detailed: true }));
     // NOTE: numbers break stuff if in first token due to way tokenize groups romaji/numbers :/
     const numbersInStartingTokenEdgeCase = tokenIndex === -1 && /\d+/.test(tokens[0]);
@@ -60,7 +60,7 @@ export function onInput(options) {
       tail: tokens.slice(tokenIndex + 1).join(''),
     };
 
-    const normalizedInputString = convertFullwidthCharsToASCII(text);
+    const normalizedInputString = zenkakuToASCII(text);
     const hiraOrKataString = setKanaType(normalizedInputString, config.IMEMode);
     const ensureIMEModeConfig = Object.assign({}, config, { IMEMode: true });
     const newText = toKana(hiraOrKataString, ensureIMEModeConfig);
@@ -85,7 +85,7 @@ export function onCompositionUpdate(event) {
   const data = event.data || (event.detail && event.detail.data);
   const finalTwoChars = (data && data.slice(-2)) || '';
   const isFirstLetterN = finalTwoChars[0] === 'n';
-  const isDoubleConsonant = convertFullwidthCharsToASCII(finalTwoChars)
+  const isDoubleConsonant = zenkakuToASCII(finalTwoChars)
     .split('')
     .every(isCharConsonant);
 

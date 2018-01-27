@@ -14,12 +14,12 @@ const isCharJaNum = (x) => /[０-９]/.test(x);
 const isCharEnNum = (x) => /[0-9]/.test(x);
 
 // prettier-ignore
-export function getType(input, simple = false) {
+export function getType(input, compact = false) {
   const {
-    EN, JA, EN_NUM, JA_NUM, EN_PUNC, JA_PUNC, KANJI, HIRAGANA, KATAKANA, ROMAJI, SPACE, OTHER,
+    EN, JA, EN_NUM, JA_NUM, EN_PUNC, JA_PUNC, KANJI, HIRAGANA, KATAKANA, SPACE, OTHER,
   } = TOKEN_TYPES;
 
-  if (simple) {
+  if (compact) {
     switch (true) {
       case isCharJaNum(input): return OTHER;
       case isCharEnNum(input): return OTHER;
@@ -43,7 +43,7 @@ export function getType(input, simple = false) {
       case isCharHiragana(input): return HIRAGANA;
       case isCharKatakana(input): return KATAKANA;
       case isCharJapanese(input): return JA;
-      case isCharRomaji(input): return ROMAJI;
+      case isCharRomaji(input): return EN;
       default: return OTHER;
     }
   }
@@ -65,17 +65,19 @@ export function getType(input, simple = false) {
  * tokenize('what the...私は「悲しい」。')
  * // => ['what the...', '私', 'は', '「', '悲', 'しい', '」。']
  */
-function tokenize(input = '', { simple = false, detailed = false } = {}) {
-  if (isEmpty(input)) return [''];
+function tokenize(input, { compact = false, detailed = false } = {}) {
+  if (input == null || isEmpty(input)) {
+    return [];
+  }
   const chars = [...input];
   const head = chars.shift();
-  let prevType = getType(head, simple);
+  let prevType = getType(head, compact);
 
   let result = chars.reduce(
     (tokens, char) => {
-      const currType = getType(char, simple);
+      const currType = getType(char, compact);
       const sameType = currType === prevType;
-      prevType = getType(char, simple);
+      prevType = getType(char, compact);
       if (sameType) {
         const prev = tokens.pop();
         return tokens.concat(prev.concat(char));
@@ -86,7 +88,7 @@ function tokenize(input = '', { simple = false, detailed = false } = {}) {
   );
 
   if (detailed) {
-    result = result.map((text) => ({ type: getType(text, simple), value: text }));
+    result = result.map((text) => ({ type: getType(text, compact), value: text }));
   }
   return result;
 }

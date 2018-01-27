@@ -29,14 +29,18 @@ describe('Performance', () => {
   });
 
   it('mean hiragana ToRomaji speed < 10ms', () => {
-    const bench = Benchmark(() => toRomaji('あいうえおさしすせそなにぬねのかきくけこ'), { maxTime });
+    const bench = Benchmark(() => toRomaji('あいうえおさしすせそなにぬねのかきくけこ'), {
+      maxTime,
+    });
     bench.run();
     log('hiragana toRomaji', bench);
     expect(bench.stats.mean).toBeLessThan(TEN_MS);
   });
 
   it('mean katakana ToRomaji speed < 10ms', () => {
-    const bench = Benchmark(() => toRomaji('アイウエオサシスセソナニヌネノカキクケコ'), { maxTime });
+    const bench = Benchmark(() => toRomaji('アイウエオサシスセソナニヌネノカキクケコ'), {
+      maxTime,
+    });
     bench.run();
     log('katakana ToRomaji', bench);
     expect(bench.stats.mean).toBeLessThan(TEN_MS);

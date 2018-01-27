@@ -34,7 +34,6 @@ export const TOKEN_TYPES = {
   KANJI: 'kanji',
   HIRAGANA: 'hiragana',
   KATAKANA: 'katakana',
-  ROMAJI: 'romaji',
   SPACE: 'space',
   OTHER: 'other',
 };
@@ -68,19 +67,38 @@ export const DEFAULT_OPTIONS = {
 // http://www.rikai.com/library/kanjitables/kanji_codes.unicode.shtml
 // http://unicode-table.com
 
+// older constants we should clean up
+export const LOWERCASE_START = 0x61;
+export const LOWERCASE_END = 0x7a;
+export const UPPERCASE_START = 0x41;
+export const UPPERCASE_END = 0x5a;
+export const LOWERCASE_ZENKAKU_START = 0xff41;
+export const LOWERCASE_ZENKAKU_END = 0xff5a;
+export const UPPERCASE_ZENKAKU_START = 0xff21;
+export const UPPERCASE_ZENKAKU_END = 0xff3a;
+export const HIRAGANA_START = 0x3041;
+export const HIRAGANA_END = 0x3096;
+export const KATAKANA_START = 0x30a1;
+export const KATAKANA_END = 0x30fc;
+export const KANJI_START = 0x4e00;
+export const KANJI_END = 0x9faf;
+export const PROLONGED_SOUND_MARK = 0x30fc;
+export const KANA_SLASH_DOT = 0x30fb;
+
 const CJK_SYMBOLS_PUNCTUATION = [0x3000, 0x303f];
 const KATAKANA_PUNCTUATION = [0x30fb, 0x30fc];
 const HIRAGANA_CHARS = [0x3040, 0x309f];
 const KATAKANA_CHARS = [0x30a0, 0x30ff];
 const ZENKAKU_NUMBERS = [0xff10, 0xff19];
-const ZENKAKU_LETTERS_1 = [0xff21, 0xff3a];
-const ZENKAKU_LETTERS_2 = [0xff41, 0xff5a];
+const ZENKAKU_UPPERCASE = [UPPERCASE_ZENKAKU_START, UPPERCASE_ZENKAKU_END];
+const ZENKAKU_LOWERCASE = [LOWERCASE_ZENKAKU_START, LOWERCASE_ZENKAKU_END];
 const ZENKAKU_PUNCTUATION_1 = [0xff01, 0xff0f];
 const ZENKAKU_PUNCTUATION_2 = [0xff1a, 0xff1f];
 const ZENKAKU_PUNCTUATION_3 = [0xff3b, 0xff3f];
 const ZENKAKU_PUNCTUATION_4 = [0xff5b, 0xff60];
 const ZENKAKU_SYMBOLS_CURRENCY = [0xffe0, 0xffee];
 const KANA_PUNCTUATION = [0xff61, 0xff65];
+
 const HANKAKU_KATAKANA = [0xff66, 0xff9f];
 const COMMON_CJK = [0x4e00, 0x9fff];
 const RARE_CJK = [0x3400, 0x4dbf];
@@ -128,8 +146,8 @@ export const JAPANESE_RANGES = [
   ...KANA_RANGES,
   ...JA_PUNCTUATION_RANGES,
   LATIN_NUMBERS,
-  ZENKAKU_LETTERS_1,
-  ZENKAKU_LETTERS_2,
+  ZENKAKU_UPPERCASE,
+  ZENKAKU_LOWERCASE,
   ZENKAKU_NUMBERS,
   COMMON_CJK,
   RARE_CJK,
@@ -151,23 +169,6 @@ export const EN_PUNCTUATION_RANGES = [
   [0x7b, 0x7e],
   ...SMART_QUOTE_RANGES,
 ];
-
-export const LOWERCASE_START = 0x61;
-export const LOWERCASE_END = 0x7a;
-export const UPPERCASE_START = 0x41;
-export const UPPERCASE_END = 0x5a;
-export const LOWERCASE_FULLWIDTH_START = 0xff41;
-export const LOWERCASE_FULLWIDTH_END = 0xff5a;
-export const UPPERCASE_FULLWIDTH_START = 0xff21;
-export const UPPERCASE_FULLWIDTH_END = 0xff3a;
-export const HIRAGANA_START = 0x3041;
-export const HIRAGANA_END = 0x3096;
-export const KATAKANA_START = 0x30a1;
-export const KATAKANA_END = 0x30fc;
-export const KANJI_START = 0x4e00;
-export const KANJI_END = 0x9faf;
-export const PROLONGED_SOUND_MARK = 0x30fc;
-export const KANA_SLASH_DOT = 0x30fb;
 
 export const LONG_VOWELS = {
   a: 'あ',
