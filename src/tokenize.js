@@ -78,26 +78,27 @@ function tokenize(input, { compact = false, detailed = false } = {}) {
     return [];
   }
   const chars = [...input];
-  const head = chars.shift();
-  let prevType = getType(head, compact);
+  let initial = chars.shift();
+  let prevType = getType(initial, compact);
+  initial = detailed ? { type: prevType, value: initial } : initial;
 
-  let result = chars.reduce(
+  const result = chars.reduce(
     (tokens, char) => {
       const currType = getType(char, compact);
       const sameType = currType === prevType;
-      prevType = getType(char, compact);
-      if (sameType) {
-        const prev = tokens.pop();
-        return tokens.concat(prev.concat(char));
-      }
-      return tokens.concat(char);
-    },
-    [head]
-  );
+      prevType = currType;
+      let newValue = char;
 
-  if (detailed) {
-    result = result.map((text) => ({ type: getType(text, compact), value: text }));
-  }
+      if (sameType) {
+        newValue = (detailed ? tokens.pop().value : tokens.pop()) + newValue;
+      }
+
+      return detailed
+        ? tokens.concat({ type: currType, value: newValue })
+        : tokens.concat(newValue);
+    },
+    [initial]
+  );
   return result;
 }
 
