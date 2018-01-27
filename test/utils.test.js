@@ -1,4 +1,4 @@
-import { JA_PUNC, EN_PUNC } from './helpers/testTables';
+import { JA_PUNC, EN_PUNC } from './helpers/conversionTables';
 import { HIRAGANA_END, HIRAGANA_START } from '../src/constants';
 
 import typeOf from '../src/utils/typeOf';
