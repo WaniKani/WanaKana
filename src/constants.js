@@ -163,7 +163,7 @@ export const JAPANESE_RANGES = [
 export const ROMAJI_RANGES = [MODERN_ENGLISH, ...HEPBURN_MACRON_RANGES, ...SMART_QUOTE_RANGES];
 
 export const EN_PUNCTUATION_RANGES = [
-  [0x21, 0x2f],
+  [0x20, 0x2f],
   [0x3a, 0x3f],
   [0x5b, 0x60],
   [0x7b, 0x7e],

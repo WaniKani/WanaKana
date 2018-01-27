@@ -37,7 +37,7 @@ describe('toKana()', () => {
 describe('splitIntoConvertedKana()', () => {
   it('sane defaults', () => {
     expect(splitIntoConvertedKana()).toEqual([]);
-    expect(splitIntoConvertedKana('')).toEqual(['']);
+    expect(splitIntoConvertedKana('')).toEqual([]);
   });
   it('Lowercase characters are transliterated to hiragana.', () =>
     expect(splitIntoConvertedKana('onaji')).toEqual([[0, 1, 'お'], [1, 3, 'な'], [3, 5, 'じ']]));

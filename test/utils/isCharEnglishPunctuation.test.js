@@ -14,6 +14,5 @@ describe('isCharEnglishPunctuation', () => {
     expect(isCharEnglishPunctuation('a')).toBe(false);
     expect(isCharEnglishPunctuation('ふ')).toBe(false);
     expect(isCharEnglishPunctuation('字')).toBe(false);
-    expect(isCharEnglishPunctuation('')).toBe(false);
   });
 });

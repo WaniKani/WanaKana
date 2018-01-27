@@ -24,14 +24,14 @@ export function onInput(options) {
     let text = input.value;
 
     const isComposing = false; // TODO: continue functionality from react-wanakana
-
-    if (ignoreMicrosoftIMEDoubleConsonant || isComposing || isJapanese(text)) {
+    if (ignoreMicrosoftIMEDoubleConsonant || isComposing) {
       ignoreMicrosoftIMEDoubleConsonant = false;
       return;
     }
 
     // allows splicing mid-string text conversion: わび わs|び わsa|び -> わさ|び
     const tokens = tokenize(text);
+
     const currentChar = text.charAt(input.selectionStart - 1);
     let tokenIndex = state.currentTokenIndex > 0 ? state.currentTokenIndex : null;
     if (tokenIndex != null && tokenIndex <= tokens.length) {
@@ -44,13 +44,6 @@ export function onInput(options) {
       // こsこso|こ -> こsこそ|こ it'll replace the right token
       tokenIndex = tokens.findIndex((tok) => tok.endsWith(currentChar));
     }
-    console.log(tokenize(text, { compact: true, detailed: true }));
-    console.log(tokenize(text, { detailed: true }));
-    // NOTE: numbers break stuff if in first token due to way tokenize groups romaji/numbers :/
-    const numbersInStartingTokenEdgeCase = tokenIndex === -1 && /\d+/.test(tokens[0]);
-    if (numbersInStartingTokenEdgeCase) {
-      tokenIndex = 0;
-    }
 
     text = tokens[tokenIndex] || text;
 
@@ -62,7 +55,7 @@ export function onInput(options) {
 
     const normalizedInputString = zenkakuToASCII(text);
     const hiraOrKataString = setKanaType(normalizedInputString, config.IMEMode);
-    const ensureIMEModeConfig = Object.assign({}, config, { IMEMode: true });
+    const ensureIMEModeConfig = Object.assign({}, config, { IMEMode: config.IMEMode || true });
     const newText = toKana(hiraOrKataString, ensureIMEModeConfig);
 
     if (normalizedInputString !== newText) {
