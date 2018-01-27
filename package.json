@@ -28,9 +28,9 @@
     "node": ">=8"
   },
   "scripts": {
-    "prebuild": "rimraf ./dist",
+    "prebuild": "npm run test && rimraf ./dist",
     "build": "node ./scripts/buildDist.js",
-    "precommit": "lint-staged && npm run test",
+    "precommit": "lint-staged",
     "cz": "git-cz",
     "predocs": "rimraf ./gh-pages/docs",
     "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
