@@ -40,6 +40,7 @@
     "pretest": "rimraf ./coverage",
     "test": "jest",
     "test:watch": "npm run test -- --watch",
+    "test:coverage": "npm run test -- --coverage",
     "test:view": "opn ./coverage/lcov-report/index.html",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "release": "node ./scripts/release.js",
@@ -53,7 +54,6 @@
     "bail": false,
     "verbose": false,
     "testMatch": ["<rootDir>/test/**/*.test.js"],
-    "collectCoverage": true,
     "coverageThreshold": {
       "global": {
         "branches": 95,

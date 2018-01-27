@@ -5,7 +5,7 @@ node_js:
   - node # latest
 
 script:
-  - npm run test
+  - npm run test:coverage
 
 notifications:
   email:
