@@ -2,17 +2,17 @@ const wk = require('../../dist/lib/wanakana');
 
 Cypress.config({
   baseUrl: 'http://localhost:9080',
-  videoUploadOnPasses: false,
+  videoUploadOnPasses: true,
 });
 
 /* eslint-disable no-sequences */
 Cypress.Commands.add('wkBind', { prevSubject: true }, ($el, options) => {
-  wk.bind($el.get(0), options);
+  wk.bind($el.get(0), options, true);
   return $el;
 });
 
 Cypress.Commands.add('wkUnbind', { prevSubject: true }, ($el) => {
-  wk.unbind($el.get(0));
+  wk.unbind($el.get(0), true);
   return $el;
 });
 
@@ -27,115 +27,117 @@ Cypress.Commands.add('setRange', { prevSubject: true }, ($el) => {
 });
 /* eslint-enable no-sequences */
 
-describe('input tests', () => {
+describe('binding & unbinding', () => {
   before(() => {
     cy.visit('');
   });
-
-  describe('binding & unbinding', () => {
-    it('throws if invalid element passed to bind()', () => {
-      cy.get('form').then(($el) => {
-        expect(() => wk.bind('nah')).throws(Error);
-        expect(() => wk.bind([])).throws(Error);
-        expect(() => wk.bind($el.get(0))).throws(Error);
-      });
+  it('throws if invalid element passed to bind()', () => {
+    cy.get('form').then(($el) => {
+      expect(() => wk.bind('nah')).throws(Error);
+      expect(() => wk.bind([])).throws(Error);
+      expect(() => wk.bind($el.get(0))).throws(Error);
     });
+  });
 
-    it('throws if invalid element passed to unbind()', () => {
-      cy.get('#input').then(($el) => {
-        expect(() => wk.unbind('nah')).throws(Error);
-        expect(() => wk.unbind([])).throws(Error);
-        expect(() => wk.unbind($el.get(0))).throws(Error);
-      });
+  it('throws if invalid element passed to unbind()', () => {
+    cy.get('#input').then(($el) => {
+      expect(() => wk.unbind('nah')).throws(Error);
+      expect(() => wk.unbind([])).throws(Error);
+      expect(() => wk.unbind($el.get(0))).throws(Error);
     });
+  });
 
-    describe('binds & unbinds', () => {
-      it('forces IMEMode true and converts for input', () => {
-        cy
-          .get('#input')
-          .wkBind()
-          .type('wanakana')
-          .should('have.value', 'わなかな')
-          .wkUnbind()
-          .clear()
-          .type('wanakana')
-          .should('have.value', 'wanakana')
-          .clear();
-      });
+  it('forces IMEMode true and converts for input', () => {
+    cy
+      .get('#input')
+      .wkBind()
+      .type('wanakana')
+      .should('have.value', 'わなかな')
+      .wkUnbind()
+      .clear()
+      .type('wanakana')
+      .should('have.value', 'wanakana')
+      .clear();
+  });
 
-      it('forces IMEMode true and converts for textarea', () => {
-        cy
-          .get('#textarea')
-          .wkBind()
-          .type('wanakana')
-          .should('have.value', 'わなかな')
-          .wkUnbind()
-          .clear()
-          .type('wanakana')
-          .should('have.value', 'wanakana')
-          .clear();
-      });
+  it('forces IMEMode true and converts for textarea', () => {
+    cy
+      .get('#textarea')
+      .wkBind()
+      .type('wanakana')
+      .should('have.value', 'わなかな')
+      .wkUnbind()
+      .clear()
+      .type('wanakana')
+      .should('have.value', 'wanakana')
+      .clear();
+  });
 
-      it('should handle concurrent separate bindings', () => {
-        const [sel1, sel2] = ['#input', '#input2'];
-        cy
-          .get(sel1)
-          .wkBind()
-          .get(sel2)
-          .wkBind()
-          .get(sel1)
-          .type('wana')
-          .should('have.value', 'わな')
-          .get(sel2)
-          .type('kana')
-          .should('have.value', 'かな')
-          .get(sel1)
-          .wkUnbind()
-          .clear()
-          .get(sel2)
-          .wkUnbind()
-          .clear();
-      });
+  it('should handle concurrent separate bindings', () => {
+    const [sel1, sel2, sel3] = ['#input', '#input2', '#textarea'];
+    cy
+      .get(sel1)
+      .wkBind()
+      .get(sel2)
+      .wkBind()
+      .get(sel3)
+      .wkBind()
+      .get(sel1)
+      .type('wana')
+      .should('have.value', 'わな')
+      .get(sel2)
+      .type('kana')
+      .should('have.value', 'かな')
+      .get(sel3)
+      .type('banana')
+      .should('have.value', 'ばなな')
+      .get(sel1)
+      .wkUnbind()
+      .clear()
+      .get(sel2)
+      .wkUnbind()
+      .clear()
+      .get(sel3)
+      .wkUnbind()
+      .clear();
+  });
 
-      it('should apply IMEMode toKana method selection', () => {
-        cy
-          .get('#input')
-          .wkBind({ IMEMode: wk.TO_KANA_METHODS.KATAKANA })
-          .type('amerika')
-          .should('have.value', 'アメリカ')
-          .wkUnbind()
-          .clear()
-          .wkBind({ IMEMode: wk.TO_KANA_METHODS.HIRAGANA })
-          .type('KURO')
-          .debug()
-          .should('have.value', 'くろ')
-          .wkUnbind()
-          .clear();
-      });
+  it('should apply IMEMode toKana method selection', () => {
+    cy
+      .get('#input')
+      .wkBind({ IMEMode: wk.TO_KANA_METHODS.KATAKANA })
+      .type('amerika')
+      .should('have.value', 'アメリカ')
+      .wkUnbind()
+      .clear()
+      .wkBind({ IMEMode: wk.TO_KANA_METHODS.HIRAGANA })
+      .type('KURO')
+      .should('have.value', 'くろ')
+      .wkUnbind()
+      .clear();
+  });
 
-      it('should apply useObsoleteKana if specified', () => {
-        cy
-          .get('#input')
-          .wkBind({ useObsoleteKana: true })
-          .type('wiweWIWEwo')
-          .should('have.value', 'ゐゑヰヱを')
-          .wkUnbind()
-          .clear();
-      });
-    });
+  it('should apply useObsoleteKana if specified', () => {
+    cy
+      .get('#input')
+      .wkBind({ useObsoleteKana: true })
+      .type('wiweWIWEwo')
+      .should('have.value', 'ゐゑヰヱを')
+      .wkUnbind()
+      .clear();
   });
 });
 
 describe('default IME conversions', () => {
   before(() => {
-    cy
-      .visit('')
-      .get('#input')
-      .wkBind();
+    cy.get('#input').wkBind();
   });
 
   beforeEach(() => {
-    cy.get('#input').clear();
+    cy
+      .get('#input')
+      .clear()
+      .setRange(0, 0);
   });
 
   it('should ignore nonascii/zenkaku latin', () => {
@@ -298,16 +300,7 @@ describe('default IME conversions', () => {
       .type('{leftArrow}{leftArrow}shi')
       .setRange(5, 5)
       .trigger('input')
-      .should('have.value', 'わなしかな')
-      // NOTE: once upon a time there was an edgecase for inserting new input before an initial number
-      .clear()
-      .type('2{leftArrow}w{leftArrow}')
-      .setRange(1, 1)
-      .trigger('input')
-      .type('a')
-      .setRange(2, 2)
-      .trigger('input')
-      .should('have.value', 'わ2');
+      .should('have.value', 'わなしかな');
   });
 
   it('converts correct partial when multiple similar tokens', () => {
@@ -329,10 +322,325 @@ describe('default IME conversions', () => {
       .should('have.value', 'かｔ')
       .type('ｔ')
       .should('have.value', 'かｔｔ')
-      .trigger('compositionupdate', {
-        data: 'かｔｔ',
-      })
+      .trigger('compositionupdate')
       .should('have.value', 'かｔｔ')
       .setRange(3, 3);
   });
+});
+
+describe('IME inconsistencies - emulate composition event differences', () => {
+  // before(() => {
+  //   cy
+  //     .get('#input')
+  //     .wkBind();
+  // });
+
+// FIXME: apply other results from user tests with different IME/keyboards
+// NOTE: some will have zenkaku instead of latin letters!
+// NOTE: some will have early sokuon before terminal kana vowel ｔｔ -> っ vs ｔｔ -> ｔｔ
+
+  describe('Mozc IME', () => {
+    beforeEach(() => {
+      cy
+        .get('#input')
+        .clear()
+        .setRange(0, 0);
+    });
+    it('ChromeLessThan53', () => {
+      cy
+        .get('#input')
+        .invoke('val', 'ｋ')
+        .setRange(1, 1)
+        .trigger('keydown')
+        .trigger('compositionstart')
+        .trigger('compositionupdate')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', 'ｋ')
+        .invoke('val', 'か')
+        .setRange(1, 1)
+        .trigger('keydown')
+        .trigger('compositionupdate')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', 'か')
+        .invoke('val', 'かｔ')
+        .setRange(2, 2)
+        .trigger('keydown')
+        .trigger('compositionupdate')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', 'かｔ')
+        .invoke('val', 'かっｔ')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('compositionupdate')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', 'かっｔ')
+        .invoke('val', 'かった')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('compositionupdate')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', 'かった')
+        .invoke('val', '買った')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('compositionend')
+        .trigger('textinput')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', '買った');
+    });
+    it('Chrome', () => {
+      cy
+        .get('#input')
+        .invoke('val', 'ｋ')
+        .setRange(1, 1)
+        .trigger('keydown')
+        .trigger('compositionstart')
+        .trigger('compositionupdate')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', 'ｋ')
+        .invoke('val', 'か')
+        .setRange(1, 1)
+        .trigger('keydown')
+        .trigger('compositionupdate')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', 'か')
+        .invoke('val', 'かｔ')
+        .setRange(2, 2)
+        .trigger('keydown')
+        .trigger('compositionupdate')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', 'かｔ')
+        .invoke('val', 'かっｔ')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('compositionupdate')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', 'かっｔ')
+        .invoke('val', 'かった')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('compositionupdate')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', 'かった')
+        .invoke('val', '買った')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('compositionupdate')
+        .trigger('textinput')
+        .trigger('input')
+        .trigger('compositionend')
+        .trigger('keyup')
+        .should('have.value', '買った');
+    });
+    it('Firefox', () => {
+      cy
+        .get('#input')
+        .invoke('val', 'ｋ')
+        .setRange(1, 1)
+        .trigger('keydown')
+        .trigger('compositionstart')
+        .trigger('compositionupdate')
+        .trigger('input')
+        .should('have.value', 'ｋ')
+        .invoke('val', 'か')
+        .setRange(1, 1)
+        .trigger('compositionupdate')
+        .trigger('input')
+        .should('have.value', 'か')
+        .invoke('val', 'かｔ')
+        .setRange(2, 2)
+        .trigger('compositionupdate')
+        .trigger('input')
+        .should('have.value', 'かｔ')
+        .invoke('val', 'かっｔ')
+        .setRange(3, 3)
+        .trigger('compositionupdate')
+        .trigger('input')
+        .should('have.value', 'かっｔ')
+        .invoke('val', 'かった')
+        .setRange(3, 3)
+        .trigger('compositionupdate')
+        .trigger('input')
+        .should('have.value', 'かった')
+        .invoke('val', '買った')
+        .setRange(3, 3)
+        .trigger('compositionupdate')
+        .trigger('compositionend')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', '買った');
+    });
+    it('IE9', () => {
+      cy
+        .get('#input')
+        .invoke('val', 'ｋ')
+        .setRange(1, 1)
+        .trigger('keydown')
+        .trigger('compositionstart')
+        .trigger('compositionupdate')
+        .trigger('keyup')
+        .should('have.value', 'ｋ')
+        .invoke('val', 'か')
+        .setRange(1, 1)
+        .trigger('keydown')
+        .trigger('compositionupdate')
+        .trigger('keyup')
+        .should('have.value', 'か')
+        .invoke('val', 'かｔ')
+        .setRange(2, 2)
+        .trigger('keydown')
+        .trigger('compositionupdate')
+        .trigger('keyup')
+        .should('have.value', 'かｔ')
+        .invoke('val', 'かっｔ')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('compositionupdate')
+        .trigger('keyup')
+        .should('have.value', 'かっｔ')
+        .invoke('val', 'かった')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('compositionupdate')
+        .trigger('keyup')
+        .should('have.value', 'かった')
+        .invoke('val', '買った')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('input')
+        .trigger('compositionupdate')
+        .trigger('compositionend')
+        .trigger('keyup')
+        .should('have.value', '買った');
+    });
+    it('IE10', () => {
+      cy
+        .get('#input')
+        .invoke('val', 'ｋ')
+        .setRange(1, 1)
+        .trigger('keydown')
+        .trigger('compositionstart')
+        .trigger('keyup')
+        .should('have.value', 'ｋ')
+        .invoke('val', 'か')
+        .setRange(1, 1)
+        .trigger('keydown')
+        .trigger('keyup')
+        .should('have.value', 'か')
+        .invoke('val', 'かｔ')
+        .setRange(2, 2)
+        .trigger('keydown')
+        .trigger('keyup')
+        .should('have.value', 'かｔ')
+        .invoke('val', 'かっｔ')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('keyup')
+        .should('have.value', 'かっｔ')
+        .invoke('val', 'かった')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('keyup')
+        .should('have.value', 'かった')
+        .invoke('val', '買った')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('keyup')
+        .trigger('keydown')
+        .trigger('compositionend')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', '買った');
+    });
+    it('IE11', () => {
+      cy
+        .get('#input')
+        .invoke('val', 'ｋ')
+        .setRange(1, 1)
+        .trigger('keydown')
+        .trigger('compositionstart')
+        .trigger('compositionupdate')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', 'ｋ')
+        .invoke('val', 'か')
+        .setRange(1, 1)
+        .trigger('keydown')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', 'か')
+        .invoke('val', 'かｔ')
+        .setRange(2, 2)
+        .trigger('keydown')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', 'かｔ')
+        .invoke('val', 'かっｔ')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', 'かっｔ')
+        .invoke('val', 'かった')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', 'かった')
+        .invoke('val', '買った')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('compositionend')
+        .trigger('input')
+        .trigger('keyup')
+        .should('have.value', '買った');
+    });
+    it('Edge', () => {
+      cy
+        .get('#input')
+        .invoke('val', 'ｋ')
+        .setRange(1, 1)
+        .trigger('keydown')
+        .trigger('compositionstart')
+        .trigger('keyup')
+        .invoke('val', 'か')
+        .setRange(1, 1)
+        .trigger('keydown')
+        .trigger('keyup')
+        .should('have.value', 'か')
+        .invoke('val', 'かｔ')
+        .setRange(2, 2)
+        .trigger('keydown')
+        .trigger('keyup')
+        .should('have.value', 'かｔ')
+        .invoke('val', 'かっｔ')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('keyup')
+        .should('have.value', 'かっｔ')
+        .invoke('val', 'かった')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('keyup')
+        .should('have.value', 'かった')
+        .invoke('val', '買った')
+        .setRange(3, 3)
+        .trigger('keydown')
+        .trigger('compositionend')
+        .trigger('input')
+        .should('have.value', '買った');
+    });
+  });
+
 });

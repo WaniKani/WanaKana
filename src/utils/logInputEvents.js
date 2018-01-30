@@ -1,17 +1,17 @@
 /* eslint-disable no-console */
-const onBeforeInput = ({ data, target: { value } }) => console.log(`beforeinput data ${data}, value: ${value}`);
 const onInput = ({ target }) => console.log(`input: ${target.value}`);
-const onChange = ({ target }) => console.log(`change: ${target.value}`);
-const onKeypress = ({ which }) => console.log(`keypress: ${String.fromCharCode(which)}`);
+const onTextInput = ({ target }) => console.log(`textinput: ${target.value}`);
+const onKeyDown = ({ key, which }) => console.log(`keydown: key: ${key} which: ${which}`);
+const onKeyUp = ({ key, which }) => console.log(`keyup: key: ${key} which: ${which}`);
 const onCompositionStart = () => console.log('compositionstart');
 const onCompositionEnd = () => console.log('compositionend');
-const onCompositionUpdate = (event) => console.log(`compositionupdate: ${event.data}`);
+const onCompositionUpdate = (event) => console.log(`compositionupdate: data: ${event.data}`);
 
 const events = {
-  beforeinput: onBeforeInput,
   input: onInput,
-  change: onChange,
-  keypress: onKeypress,
+  textinput: onTextInput,
+  keydown: onKeyDown,
+  keyup: onKeyUp,
   compositionstart: onCompositionStart,
   compositionend: onCompositionEnd,
   compositionupdate: onCompositionUpdate,

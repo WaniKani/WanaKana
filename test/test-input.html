@@ -32,9 +32,9 @@
     // This is not used in cypress tests, this is just here if you want to open this page
     // and pop wkbind() in devtools console without having to write out the full bind each page refresh
     wkbind = () => {
-      wanakana.bind(document.getElementById('input'));
-      wanakana.bind(document.getElementById('input2'));
-      wanakana.bind(document.getElementById('textarea'));
+      wanakana.bind(document.getElementById('input'), {}, true);
+      wanakana.bind(document.getElementById('input2'), { IMEMode: 'toKatakana' }, true);
+      wanakana.bind(document.getElementById('textarea'), {}, true);
     }
   </script>
 </body>

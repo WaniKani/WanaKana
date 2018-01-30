@@ -7,42 +7,62 @@ let LISTENERS = [];
 
 /**
  * Automagically replaces input values with converted text to kana
- * @param  {Object} event DOM event to listen to
  * @param  {defaultOptions} [options] user config overrides, default conversion is toKana()
  * @return {Function} event handler with bound options
  * @ignore
  */
-export function onInput(options) {
+export function makeOnInput(options, el) {
   const mergedConfig = Object.assign({}, mergeWithDefaultOptions(options), {
     IMEMode: options.IMEMode || true,
   });
 
-  return function listener(event) {
-    const input = event.target;
-    const text = input.value;
-    const [head, textToConvert, tail] = splitInput(text, input.selectionEnd, mergedConfig);
+  return function onInput({ target }) {
+    const { dataset, value, selectionEnd } = target;
+    if (dataset.isComposing) {
+      console.log('early exit');
+      return;
+    }
+    const [head, textToConvert, tail] = splitInput(value, selectionEnd, mergedConfig);
     const convertedText = toKana(textToConvert, mergedConfig);
-
     if (textToConvert !== convertedText) {
-      input.value = head + convertedText + tail;
+      target.value = head + convertedText + tail;
       const newCursor = head.length + convertedText.length;
-      input.setSelectionRange(newCursor, newCursor);
+      target.setSelectionRange(newCursor, newCursor);
     }
   };
 }
 
-export function trackListener(listener, id) {
+export function onComposition({ target, type }) {
+  const isChrome = window && !!window.chrome && !!window.chrome.webstore;
+
+  if (type === 'compositionend') {
+    target.dataset.isComposing = false;
+
+    // Chrome fires 'compositionEnd' event after 'input' event.
+    // https://chromium.googlesource.com/chromium/src/+/afce9d93e76f2ff81baaa088a4ea25f67d1a76b3%5E%21/
+    if (isChrome) {
+      const inputEvent = new Event('input');
+      target.dispatchEvent(inputEvent);
+    }
+  } else {
+    // in composition
+    target.dataset.isComposing = true;
+  }
+}
+
+export function trackListeners(id, inputHandler, compositionHandler) {
   LISTENERS = LISTENERS.concat({
     id,
-    handler: listener,
+    inputHandler,
+    compositionHandler,
   });
 }
 
-export function untrackListener({ id: targetId }) {
+export function untrackListeners({ id: targetId }) {
   LISTENERS = LISTENERS.filter(({ id }) => id !== targetId);
 }
 
-export function findListener(el) {
+export function findListeners(el) {
   return el && LISTENERS.find(({ id }) => id === el.getAttribute('data-wanakana-id'));
 }
 
