@@ -15,4 +15,5 @@ describe('isRomaji()', () => {
   it('passes latin numbers', () => expect(isRomaji('0123456789')).toBe(true));
   it('fails zenkaku punctuation', () => expect(isRomaji('a！b&cーd')).toBe(false));
   it('fails zenkaku latin', () => expect(isRomaji('ｈｅｌｌｏ')).toBe(false));
+  it('accepts optional allowed chars', () => expect(isRomaji('a！b&cーd', /[！ー]/)).toBe(true));
 });

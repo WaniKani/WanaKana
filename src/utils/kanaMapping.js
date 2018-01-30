@@ -1,5 +1,4 @@
 import typeOf from './typeOf';
-import isJapanese from '../isJapanese';
 
 export function applyMapping(string, mapping, convertEnding) {
   const root = mapping;

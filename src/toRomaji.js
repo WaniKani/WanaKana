@@ -1,8 +1,8 @@
-import { DEFAULT_OPTIONS } from './constants';
+import mergeWithDefaultOptions from './utils/mergeWithDefaultOptions';
 import toHiragana from './toHiragana';
 import isKatakana from './isKatakana';
 import { getKanaToRomajiTree } from './utils/kanaToRomajiMap';
-import { applyMapping, mergeCustomMapping } from './utils/kanaMappingUtils';
+import { applyMapping, mergeCustomMapping } from './utils/kanaMapping';
 
 /**
  * Convert kana to romaji
@@ -20,9 +20,9 @@ import { applyMapping, mergeCustomMapping } from './utils/kanaMappingUtils';
  * // => 'tuzigili'
  */
 export function toRomaji(input = '', options = {}) {
-  const config = Object.assign({}, DEFAULT_OPTIONS, options);
+  const mergedOptions = mergeWithDefaultOptions(options);
   // just throw away the substring index information and just concatenate all the kana
-  return splitIntoRomaji(input, config)
+  return splitIntoRomaji(input, mergedOptions)
     .map((romajiToken) => {
       const [start, end, romaji] = romajiToken;
       const makeUpperCase = options.upcaseKatakana && isKatakana(input.slice(start, end));
@@ -31,12 +31,11 @@ export function toRomaji(input = '', options = {}) {
     .join('');
 }
 
-function splitIntoRomaji(input, config) {
-  let map = getKanaToRomajiTree(config);
-  // allow consumer to pass either function or object as customKanaMapping
-  map = mergeCustomMapping(map, config.customRomajiMapping);
+function splitIntoRomaji(input, options) {
+  let map = getKanaToRomajiTree(options);
+  map = mergeCustomMapping(map, options.customRomajiMapping);
 
-  return applyMapping(toHiragana(input, { passRomaji: true }), map, !config.IMEMode);
+  return applyMapping(toHiragana(input, { passRomaji: true }), map, !options.IMEMode);
 }
 
 export default toRomaji;

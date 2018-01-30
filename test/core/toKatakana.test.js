@@ -6,7 +6,7 @@ describe('toKatakana()', () => {
     expect(toKatakana('')).toBe('');
   });
 
-  it.only('Quick Brown Fox - Romaji to Katakana', () => {
+  it('Quick Brown Fox - Romaji to Katakana', () => {
     const options = { useObsoleteKana: true };
     // https://en.wikipedia.org/wiki/Iroha
     // Even the colorful fragrant flowers'
@@ -27,5 +27,13 @@ describe('toKatakana()', () => {
     expect(toKatakana('WEHIMOSESU', options)).toBe('ヱヒモセス'); // ゑひもせす
     // *not in iroha*
     expect(toKatakana('NLTU')).toBe('ンッ'); // んっ
+  });
+
+  describe('useObsoleteKana', () => {
+    it('useObsoleteKana is false by default', () => expect(toKatakana('wi')).toBe('ウィ'));
+    it('WI = ヰ (when useObsoleteKana is true)', () =>
+      expect(toKatakana('wi', { useObsoleteKana: true })).toBe('ヰ'));
+    it('WE = ヱ (when useObsoleteKana is true)', () =>
+      expect(toKatakana('we', { useObsoleteKana: true })).toBe('ヱ'));
   });
 });

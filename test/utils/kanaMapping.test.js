@@ -1,6 +1,6 @@
 import toKana from '../../src/toKana';
 import toRomaji from '../../src/toRomaji';
-import { createCustomMapping } from '../../src/utils/kanaMappingUtils';
+import { createCustomMapping } from '../../src/utils/kanaMapping';
 
 describe('Test custom mappings options', () => {
   it('applies customKanaMapping', () => {

@@ -1,24 +1,27 @@
-import { findListener, onCompositionUpdate, untrackListener } from './utils/domHelpers';
+import { findListener, untrackListener } from './utils/dom';
 import { removeDebugListeners } from './utils/logInputEvents';
 
 /**
  * Unbinds eventListener from input field
- * @param  {HTMLElement} input textarea, input[type="text"] etc
+ * @param  {HTMLElement} input <textarea>, <input>
  */
 export function unbind(input) {
   const trackedListener = findListener(input);
-  if (trackedListener != null) {
-    // eslint-disable-next-line no-underscore-dangle
-    if (window && window.__DEBUG_WANAKANA) {
-      removeDebugListeners(input);
-    }
+  if (trackedListener == null) {
+    throw new Error(
+      `Element provided to Wanakana unbind() had no listener registered.\n Received: ${JSON.stringify(
+        input
+      )}`
+    );
+  }
 
-    input.removeAttribute('data-wanakana-id');
-    input.removeEventListener('compositionupdate', onCompositionUpdate);
-    input.removeEventListener('input', trackedListener.handler);
-    untrackListener(trackedListener);
-  } else {
-    console.warn('Element provided to Wanakana unbind() had no listener registered.'); // eslint-disable-line no-console
+  input.removeAttribute('data-wanakana-id');
+  input.removeEventListener('input', trackedListener.handler);
+  untrackListener(trackedListener);
+
+  // eslint-disable-next-line no-underscore-dangle
+  if (window && window.__DEBUG_WANAKANA) {
+    removeDebugListeners(input);
   }
 }
 

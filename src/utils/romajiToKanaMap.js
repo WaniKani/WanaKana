@@ -1,4 +1,4 @@
-import { transform, getSubTreeOf, createCustomMapping } from './kanaMappingUtils';
+import { transform, getSubTreeOf, createCustomMapping } from './kanaMapping';
 
 let romajiToKanaMap = null;
 
@@ -11,48 +11,103 @@ function createRomajiToKanaMap() {
     e: 'え',
     o: 'お',
     k: {
-      a: 'か', i: 'き', u: 'く', e: 'け', o: 'こ',
+      a: 'か',
+      i: 'き',
+      u: 'く',
+      e: 'け',
+      o: 'こ',
     },
     s: {
-      a: 'さ', i: 'し', u: 'す', e: 'せ', o: 'そ',
+      a: 'さ',
+      i: 'し',
+      u: 'す',
+      e: 'せ',
+      o: 'そ',
     },
     t: {
-      a: 'た', i: 'ち', u: 'つ', e: 'て', o: 'と',
+      a: 'た',
+      i: 'ち',
+      u: 'つ',
+      e: 'て',
+      o: 'と',
     },
     n: {
-      a: 'な', i: 'に', u: 'ぬ', e: 'ね', o: 'の',
+      a: 'な',
+      i: 'に',
+      u: 'ぬ',
+      e: 'ね',
+      o: 'の',
     },
     h: {
-      a: 'は', i: 'ひ', u: 'ふ', e: 'へ', o: 'ほ',
+      a: 'は',
+      i: 'ひ',
+      u: 'ふ',
+      e: 'へ',
+      o: 'ほ',
     },
     m: {
-      a: 'ま', i: 'み', u: 'む', e: 'め', o: 'も',
+      a: 'ま',
+      i: 'み',
+      u: 'む',
+      e: 'め',
+      o: 'も',
     },
     y: { a: 'や', u: 'ゆ', o: 'よ' },
     r: {
-      a: 'ら', i: 'り', u: 'る', e: 'れ', o: 'ろ',
+      a: 'ら',
+      i: 'り',
+      u: 'る',
+      e: 'れ',
+      o: 'ろ',
     },
     w: {
-      a: 'わ', i: 'ゐ', e: 'ゑ', o: 'を',
+      a: 'わ',
+      i: 'ゐ',
+      e: 'ゑ',
+      o: 'を',
     },
     g: {
-      a: 'が', i: 'ぎ', u: 'ぐ', e: 'げ', o: 'ご',
+      a: 'が',
+      i: 'ぎ',
+      u: 'ぐ',
+      e: 'げ',
+      o: 'ご',
     },
     z: {
-      a: 'ざ', i: 'じ', u: 'ず', e: 'ぜ', o: 'ぞ',
+      a: 'ざ',
+      i: 'じ',
+      u: 'ず',
+      e: 'ぜ',
+      o: 'ぞ',
     },
     d: {
-      a: 'だ', i: 'ぢ', u: 'づ', e: 'で', o: 'ど',
+      a: 'だ',
+      i: 'ぢ',
+      u: 'づ',
+      e: 'で',
+      o: 'ど',
     },
     b: {
-      a: 'ば', i: 'び', u: 'ぶ', e: 'べ', o: 'ぼ',
+      a: 'ば',
+      i: 'び',
+      u: 'ぶ',
+      e: 'べ',
+      o: 'ぼ',
     },
     p: {
-      a: 'ぱ', i: 'ぴ', u: 'ぷ', e: 'ぺ', o: 'ぽ',
+      a: 'ぱ',
+      i: 'ぴ',
+      u: 'ぷ',
+      e: 'ぺ',
+      o: 'ぽ',
     },
 
     v: {
-      a: 'ゔぁ', i: 'ゔぃ', u: 'ゔ', e: 'ゔぇ', o: 'ゔぉ',
+      a: 'ゔぁ',
+      i: 'ゔぃ',
+      u: 'ゔ',
+      e: 'ゔぇ',
+      o: 'ゔぉ',
     },
   };
 
@@ -80,10 +135,18 @@ function createRomajiToKanaMap() {
   };
 
   const smallY = {
-    ya: 'ゃ', yi: 'ぃ', yu: 'ゅ', ye: 'ぇ', yo: 'ょ',
+    ya: 'ゃ',
+    yi: 'ぃ',
+    yu: 'ゅ',
+    ye: 'ぇ',
+    yo: 'ょ',
   };
   const smallaiueo = {
-    a: 'ぁ', i: 'ぃ', u: 'ぅ', e: 'ぇ', o: 'ぉ',
+    a: 'ぁ',
+    i: 'ぃ',
+    u: 'ぅ',
+    e: 'ぇ',
+    o: 'ぉ',
   };
 
   // add tya, sya, etc.
@@ -179,7 +242,10 @@ function createRomajiToKanaMap() {
   // xtu -> っ
   const smallLetters = Object.assign(
     {
-      tu: 'っ', wa: 'ゎ', ka: 'ヵ', ke: 'ヶ',
+      tu: 'っ',
+      wa: 'ゎ',
+      ka: 'ヵ',
+      ke: 'ヶ',
     },
     smallaiueo,
     smallY

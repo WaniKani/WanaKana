@@ -1,4 +1,4 @@
-import { onInput, trackListener, onCompositionUpdate } from './utils/domHelpers';
+import { onInput, trackListener } from './utils/dom';
 import { addDebugListeners } from './utils/logInputEvents';
 
 const ELEMENTS = ['TEXTAREA', 'INPUT'];
@@ -15,21 +15,23 @@ const newId = () => {
  * @param  {HTMLElement} input textarea, input[type="text"] etc
  * @param  {DefaultOptions} [options=defaultOptions] defaults to { IMEMode: true } using `toKana`
  */
-function bind(input, options = {}) {
+function bind(input = {}, options = {}) {
+  if (!ELEMENTS.includes(input.nodeName)) {
+    throw new Error(
+      `Element provided to Wanakana bind() was not a valid input or textarea element.\n Received: (${JSON.stringify(
+        input
+      )})`
+    );
+  }
   const listener = onInput(options);
-  if (input instanceof HTMLElement && ELEMENTS.includes(input.nodeName)) {
-    const id = newId();
-    // eslint-disable-next-line no-underscore-dangle
-    if (window && window.__DEBUG_WANAKANA) {
-      addDebugListeners(input);
-    }
-    input.setAttribute('data-wanakana-id', id);
-    input.autocapitalize = 'none'; // eslint-disable-line no-param-reassign
-    input.addEventListener('compositionupdate', onCompositionUpdate);
-    input.addEventListener('input', listener);
-    trackListener(listener, id);
-  } else {
-    console.warn('Element provided to Wanakana bind() was not a valid input field.'); // eslint-disable-line no-console
+  const id = newId();
+  input.setAttribute('data-wanakana-id', id);
+  input.autocapitalize = 'none'; // eslint-disable-line no-param-reassign
+  input.addEventListener('input', listener);
+  trackListener(listener, id);
+  // eslint-disable-next-line no-underscore-dangle
+  if (window && window.__DEBUG_WANAKANA) {
+    addDebugListeners(input);
   }
 }
 

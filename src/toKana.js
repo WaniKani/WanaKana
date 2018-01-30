@@ -1,6 +1,7 @@
-import { DEFAULT_OPTIONS } from './constants';
+import mergeWithDefaultOptions from './utils/mergeWithDefaultOptions';
 import { getRomajiToKanaTree, IME_MODE_MAP, USE_OBSOLETE_KANA_MAP } from './utils/romajiToKanaMap';
-import { applyMapping, mergeCustomMapping } from './utils/kanaMappingUtils';
+import { applyMapping, mergeCustomMapping } from './utils/kanaMapping';
+import isEmpty from './utils/isEmpty';
 import isCharUpperCase from './utils/isCharUpperCase';
 import hiraganaToKatakana from './utils/hiraganaToKatakana';
 
@@ -26,7 +27,10 @@ import hiraganaToKatakana from './utils/hiraganaToKatakana';
  * // => 'ワにBanaに'
  */
 export function toKana(input = '', options = {}) {
-  // just throw away the substring index information and just concatenate all the kana
+  if (isEmpty(input)) {
+    return input;
+  }
+  // throw away the substring index information and just concatenate all the kana
   return splitIntoConvertedKana(input, options)
     .map((kanaToken) => {
       const [start, , kana] = kanaToken;
@@ -40,6 +44,13 @@ export function toKana(input = '', options = {}) {
     .join('');
 }
 
+export function createRomajiToKanaMap(config = {}) {
+  let map = getRomajiToKanaTree(config);
+  map = config.IMEMode ? IME_MODE_MAP(map) : map;
+  map = config.useObsoleteKana ? USE_OBSOLETE_KANA_MAP(map) : map;
+  return mergeCustomMapping(map, config.customKanaMapping);
+}
+
 /**
  *
  * @param {String} [input=''] input text
@@ -51,13 +62,8 @@ export function toKana(input = '', options = {}) {
  * // => [[0, 2, 'ぶ'], [2, 6, 'っつ'], [6, 7, 'う'], [7, 9, 'じ']]
  */
 export function splitIntoConvertedKana(input = '', options = {}) {
-  const config = Object.assign({}, DEFAULT_OPTIONS, options);
-
-  let map = getRomajiToKanaTree(config);
-  map = config.IMEMode ? IME_MODE_MAP(map) : map;
-  map = config.useObsoleteKana ? USE_OBSOLETE_KANA_MAP(map) : map;
-  map = mergeCustomMapping(map, config.customKanaMapping);
-
+  const config = mergeWithDefaultOptions(options);
+  const map = createRomajiToKanaMap(config);
   return applyMapping(input.toLowerCase(), map, !config.IMEMode);
 }
 

@@ -1,4 +1,4 @@
-import { DEFAULT_OPTIONS } from './constants';
+import mergeWithDefaultOptions from './utils/mergeWithDefaultOptions';
 import katakanaToHiragana from './utils/katakanaToHiragana';
 import romajiToHiragana from './utils/romajiToHiragana';
 import isRomaji from './isRomaji';
@@ -18,11 +18,15 @@ import isMixed from './isMixed';
  * // => 'うぃ'
  * toHiragana('wi', { useObsoleteKana: true })
  * // => 'ゐ'
-*/
+ */
 function toHiragana(input = '', options = {}) {
-  const config = Object.assign({}, DEFAULT_OPTIONS, options);
-  if (config.passRomaji) return katakanaToHiragana(input);
-  if (isRomaji(input)) return romajiToHiragana(input, config);
+  const config = mergeWithDefaultOptions(options);
+  if (config.passRomaji) {
+    return katakanaToHiragana(input);
+  }
+  if (isRomaji(input)) {
+    return romajiToHiragana(input, config);
+  }
   if (isMixed(input, { passKanji: true })) {
     const romaji = katakanaToHiragana(input);
     return romajiToHiragana(romaji, config);

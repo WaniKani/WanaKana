@@ -1,4 +1,3 @@
-import { TOKEN_TYPES } from './constants';
 import isEmpty from './utils/isEmpty';
 import isCharEnglishPunctuation from './utils/isCharEnglishPunctuation';
 import isCharJapanesePunctuation from './utils/isCharJapanesePunctuation';
@@ -12,6 +11,20 @@ const isCharEnSpace = (x) => x === ' ';
 const isCharJaSpace = (x) => x === '　';
 const isCharJaNum = (x) => /[０-９]/.test(x);
 const isCharEnNum = (x) => /[0-9]/.test(x);
+
+export const TOKEN_TYPES = {
+  EN: 'en',
+  JA: 'ja',
+  EN_NUM: 'englishNumeral',
+  JA_NUM: 'japaneseNumeral',
+  EN_PUNC: 'englishPunctuation',
+  JA_PUNC: 'japanesePunctuation',
+  KANJI: 'kanji',
+  HIRAGANA: 'hiragana',
+  KATAKANA: 'katakana',
+  SPACE: 'space',
+  OTHER: 'other',
+};
 
 // prettier-ignore
 export function getType(input, compact = false) {

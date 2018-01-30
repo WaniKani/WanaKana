@@ -29,15 +29,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 * bind and unbind are now flat modules (wanakana/bind) rather than named exports from domUtils
-* domUtils moved to utils/domHelpers and not exposed to npm lib
+* domUtils moved to utils/dom and not exposed to npm lib
 * rewrite of conversion methods to allow custom mapping adapters
+* toKana() no longer converts zenkaku latin toKana ('ｉｍｉ imi' => 'ｉｍｉ いみ')
 * toRomaji() extends vowels for katakana chōonpu, IE: ゲーム => geemu, toHiragana() converts to hyphen => ge-mu
-* toKana() **without** IME mode converts 'nn' => 'んん'
-  ### Added
+* toKana() **without** IME mode converts lone 'n' => 'ん', 'nn' => 'んん' _if no other chars present_
+* isJapanese() now returns false for latin numbers (201) (still true for zenkaku ２０１)
+
+### Added
+
+* isJapanese and isRomaji now accept a second param, a regexp that will also pass the check
 * global option romanization for toRomaji() (currently only 'hepburn')
 * global option customKanaMapping for toKana()
 * global option customRomajiMapping for toRomaji()
-  ### Fixed
+
+### Fixed
+
 * toRomaji() little ヶヵ used in words like 一ヶ月 are no longer converted since they are used as symbols (like the kanji) and do not actually denote kana. Previous behaviour: 一ヶ月 => 一 ke 月
 * toRomaji() no longer incorrectly duplicates non-glottal stops following っ. Previous behaviour: あっ、 -> a,,
 

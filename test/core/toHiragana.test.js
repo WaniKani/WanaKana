@@ -28,4 +28,14 @@ describe('toHiragana()', () => {
     // *not in iroha*
     expect(toHiragana('NLTU')).toBe('んっ');
   });
+
+  describe('useObsoleteKana', () => {
+    it('useObsoleteKana is false by default', () => expect(toHiragana('wi')).toBe('うぃ'));
+    it('wi = ゐ (when useObsoleteKana is true)', () =>
+      expect(toHiragana('wi', { useObsoleteKana: true })).toBe('ゐ'));
+    it('we = ゑ (when useObsoleteKana is true)', () =>
+      expect(toHiragana('we', { useObsoleteKana: true })).toBe('ゑ'));
+    it('wi = うぃ when useObsoleteKana is false', () =>
+      expect(toHiragana('wi', { useObsoleteKana: false })).toBe('うぃ'));
+  });
 });

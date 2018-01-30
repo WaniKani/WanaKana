@@ -1,4 +1,4 @@
-import { transform, getSubTreeOf } from './kanaMappingUtils';
+import { transform, getSubTreeOf } from './kanaMapping';
 import { ROMANIZATIONS } from '../constants';
 
 let kanaToHepburnMap = null;
@@ -178,8 +178,7 @@ function createKanaToHepburnMap() {
       if (!key) {
         // we have reached the bottom of this branch
         const consonant = value.charAt(0);
-        result[key] =
-          consonant in sokuonWhitelist ? sokuonWhitelist[consonant] + value : value;
+        result[key] = consonant in sokuonWhitelist ? sokuonWhitelist[consonant] + value : value;
       } else {
         // more subtrees
         result[key] = resolveTsu(value);
@@ -211,6 +210,7 @@ function createKanaToHepburnMap() {
   for (const kan of ambig) {
     setTrans(`ん${kan}`, `n'${subtreeOf(kan)['']}`);
   }
+  // NOTE: could be re-enabled with an option?
   // // んば -> mbo
   // const labial = [
   //   'ば', 'び', 'ぶ', 'べ', 'ぼ',

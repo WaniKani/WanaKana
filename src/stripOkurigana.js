@@ -23,11 +23,15 @@ import isKanji from './isKanji';
  * // => '祝'
  */
 function stripOkurigana(input = '', options = { all: false }) {
-  if (isEmpty(input) || !isJapanese(input) || isKana(input)) return input;
+  if (isEmpty(input) || !isJapanese(input) || isKana(input)) {
+    return input;
+  }
   const chars = [...input];
 
   // strip every kana
-  if (options.all) return chars.filter((char) => !isCharKana(char)).join('');
+  if (options.all) {
+    return chars.filter((char) => !isCharKana(char)).join('');
+  }
 
   // strip trailing only
   const reverseChars = chars.reverse();

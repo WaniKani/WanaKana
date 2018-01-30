@@ -32,6 +32,41 @@ describe('toKana()', () => {
 
   it('Will convert punctuation but pass through spaces', () =>
     expect(toKana(EN_PUNC.join(' '))).toBe(JA_PUNC.join(' ')));
+
+  describe('without IME Mode', () => {
+    it("solo n's are transliterated regardless of following chars", () => {
+      expect(toKana('n')).toBe('ん');
+      expect(toKana('shin')).toBe('しん');
+    });
+    it("double n's are transliterated to double ん", () => expect(toKana('nn')).toBe('んん'));
+  });
+
+  describe('with IME Mode', () => {
+    it("solo n's are not transliterated unless chars follow", () => {
+      expect(toKana('n', { IMEMode: true })).toBe('n');
+      expect(toKana('shin', { IMEMode: true })).toBe('しn');
+      expect(toKana('shinyou', { IMEMode: true })).toBe('しにょう');
+      expect(toKana("shin'you", { IMEMode: true })).toBe('しんよう');
+      expect(toKana('shin you', { IMEMode: true })).toBe('しんよう');
+    });
+    it("double n's are transliterated to single　ん", () =>
+      expect(toKana('nn', { IMEMode: true })).toBe('ん'));
+  });
+
+  describe('useObsoleteKana', () => {
+    it('useObsoleteKana is false by default', () => {
+      expect(toKana('wi')).toBe('うぃ');
+      expect(toKana('WI')).toBe('ウィ');
+    });
+    it('wi = ゐ (when useObsoleteKana is true)', () =>
+      expect(toKana('wi', { useObsoleteKana: true })).toBe('ゐ'));
+    it('we = ゑ (when useObsoleteKana is true)', () =>
+      expect(toKana('we', { useObsoleteKana: true })).toBe('ゑ'));
+    it('WI = ヰ (when useObsoleteKana is true)', () =>
+      expect(toKana('WI', { useObsoleteKana: true })).toBe('ヰ'));
+    it('WE = ヱ (when useObsoleteKana is true)', () =>
+      expect(toKana('WE', { useObsoleteKana: true })).toBe('ヱ'));
+  });
 });
 
 describe('splitIntoConvertedKana()', () => {
@@ -39,6 +74,7 @@ describe('splitIntoConvertedKana()', () => {
     expect(splitIntoConvertedKana()).toEqual([]);
     expect(splitIntoConvertedKana('')).toEqual([]);
   });
+
   it('Lowercase characters are transliterated to hiragana.', () =>
     expect(splitIntoConvertedKana('onaji')).toEqual([[0, 1, 'お'], [1, 3, 'な'], [3, 5, 'じ']]));
 
