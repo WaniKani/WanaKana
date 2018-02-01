@@ -1,9 +1,15 @@
 import toHiragana from '../../src/toHiragana';
+import romajiToHiragana from '../../src/utils/romajiToHiragana';
+import katakanaToHiragana from '../../src/utils/katakanaToHiragana';
 
 describe('toHiragana()', () => {
   it('sane defaults', () => {
     expect(toHiragana()).toBe('');
     expect(toHiragana('')).toBe('');
+    expect(romajiToHiragana()).toBe('');
+    expect(romajiToHiragana('')).toBe('');
+    expect(katakanaToHiragana()).toBe('');
+    expect(katakanaToHiragana('')).toBe('');
   });
 
   it('Quick Brown Fox - Romaji to Hiragana', () => {

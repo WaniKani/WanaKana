@@ -1,9 +1,12 @@
 import toKatakana from '../../src/toKatakana';
+import hiraganaToKatakana from '../../src/utils/hiraganaToKatakana';
 
 describe('toKatakana()', () => {
   it('sane defaults', () => {
     expect(toKatakana()).toBe('');
     expect(toKatakana('')).toBe('');
+    expect(hiraganaToKatakana()).toBe('');
+    expect(hiraganaToKatakana('')).toBe('');
   });
 
   it('Quick Brown Fox - Romaji to Katakana', () => {

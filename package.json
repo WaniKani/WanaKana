@@ -3,7 +3,8 @@
   "version": "3.0.1",
   "license": "MIT",
   "homepage": "http://www.wanakana.com",
-  "description": "Utility library for checking and converting between Kanji, Hiragana, Katakana, and Romaji",
+  "description":
+    "Utility library for checking and converting between Kanji, Hiragana, Katakana, and Romaji",
   "keywords": [
     "english",
     "japanese",
@@ -35,8 +36,8 @@
     "cz": "git-cz",
     "cypress:server": "static-server -p 9080 -i './test/test-input.html'",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "cypress:test": "run-p --race build:bundles:watch cypress:server cypress:run",
+    "cypress:run": "cypress run --record",
+    "cypress:test": "npm-run-all build --parallel --race cypress:server cypress:run",
     "cypress:watch": "run-p --race build:bundles:watch cypress:server cypress:open",
     "predocs": "rimraf ./gh-pages/docs",
     "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
@@ -54,18 +55,12 @@
     "lint": "eslint --color"
   },
   "lint-staged": {
-    "*.js": [
-      "npm run format",
-      "npm run lint",
-      "git add"
-    ]
+    "*.js": ["npm run format", "npm run lint", "git add"]
   },
   "jest": {
     "bail": false,
     "verbose": false,
-    "testMatch": [
-      "<rootDir>/test/**/*.test.js"
-    ],
+    "testMatch": ["<rootDir>/test/**/*.test.js"],
     "coverageThreshold": {
       "global": {
         "branches": 95,
@@ -77,10 +72,13 @@
     "coverageDirectory": "./coverage",
     "collectCoverageFrom": [
       "src/**/*.js",
-      "!src/**/logInputEvents.js",
-      "!src/**/index.js",
       "!**/node_modules/**",
-      "!**/test/**"
+      "!**/test/**",
+      "!src/**/index.js",
+      "!src/**/bind.js",
+      "!src/**/unbind.js",
+      "!src/**/dom.js",
+      "!src/**/logInputEvents.js"
     ]
   },
   "devDependencies": {

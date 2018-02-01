@@ -87,17 +87,20 @@ export function getSubTreeOf(tree, string) {
  * toRomaji("It's 茎 ちゃ よ", { customRomajiMapping: sillyMap });
  * // => 'It's cookie time yo';
  */
-export function createCustomMapping(customMap) {
+export function createCustomMapping(customMap = {}) {
   const customTree = {};
-  for (const [rom, kan] of Object.entries(customMap)) {
-    let subTree = customTree;
-    for (const char of rom) {
-      if (subTree[char] === undefined) {
-        subTree[char] = {};
+
+  if (typeOf(customMap) === 'object') {
+    for (const [rom, kan] of Object.entries(customMap)) {
+      let subTree = customTree;
+      for (const char of rom) {
+        if (subTree[char] === undefined) {
+          subTree[char] = {};
+        }
+        subTree = subTree[char];
       }
-      subTree = subTree[char];
+      subTree[''] = kan;
     }
-    subTree[''] = kan;
   }
 
   return function makeMap(map) {

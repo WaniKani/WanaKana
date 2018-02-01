@@ -11,6 +11,9 @@
   <a href="https://coveralls.io/github/WaniKani/WanaKana">
     <img src="https://img.shields.io/coveralls/WaniKani/WanaKana.svg" alt="Test Coverage" />
   </a>
+  <a href="https://dashboard.cypress.io/#/projects/tmdhov/runs">
+    <img src="https://img.shields.io/badge/cypress-dashboard-brightgreen.svg" alt="Cypress Dashboard" />
+  </a>
 </div>
 
 <div align="center">

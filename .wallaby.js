@@ -4,7 +4,7 @@ module.exports = (wallaby) => {
   console.log(wallaby);
   return {
     files: ['src/**/*.js', 'test/helpers/*.js', 'package.json'],
-    tests: ['test/**/performance.test.js'],
+    tests: ['test/**/*.test.js'],
 
     env: {
       type: 'node',

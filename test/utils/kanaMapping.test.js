@@ -1,8 +1,18 @@
 import toKana from '../../src/toKana';
 import toRomaji from '../../src/toRomaji';
-import { createCustomMapping } from '../../src/utils/kanaMapping';
+import { mergeCustomMapping, createCustomMapping } from '../../src/utils/kanaMapping';
 
 describe('Test custom mappings options', () => {
+  it('safe defaults', () => {
+    expect(() => createCustomMapping()).not.toThrow();
+    expect(() => createCustomMapping({})).not.toThrow();
+    expect(() => createCustomMapping(null)).not.toThrow();
+    expect(() => mergeCustomMapping()).not.toThrow();
+    expect(() => mergeCustomMapping({})).not.toThrow();
+    expect(() => mergeCustomMapping({}, null)).not.toThrow();
+    expect(() => mergeCustomMapping(null, null)).not.toThrow();
+  });
+
   it('applies customKanaMapping', () => {
     expect(
       toKana('WanaKana', {
