@@ -1,8 +1,10 @@
 import mergeWithDefaultOptions from './utils/mergeWithDefaultOptions';
 import hiraganaToKatakana from './utils/hiraganaToKatakana';
 import romajiToHiragana from './utils/romajiToHiragana';
+import isCharEnglishPunctuation from './utils/isCharEnglishPunctuation';
 import isRomaji from './isRomaji';
 import isMixed from './isMixed';
+import isHiragana from './isHiragana';
 
 /**
  * Convert input to [Katakana](https://en.wikipedia.org/wiki/Katakana)
@@ -24,10 +26,12 @@ function toKatakana(input = '', options = {}) {
   if (mergedOptions.passRomaji) {
     return hiraganaToKatakana(input);
   }
-  if (isRomaji(input) || isMixed(input)) {
+
+  if (isMixed(input) || isRomaji(input) || isCharEnglishPunctuation(input)) {
     const romaji = romajiToHiragana(input, mergedOptions);
     return hiraganaToKatakana(romaji);
   }
+
   return hiraganaToKatakana(input);
 }
 

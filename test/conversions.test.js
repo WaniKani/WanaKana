@@ -28,6 +28,7 @@ describe('character conversions', () => {
         const [romaji, , katakana] = item;
         const lower = toKatakana(romaji);
         const upper = toKatakana(romaji.toUpperCase());
+
         it(`${romaji}`, () => expect(lower).toBe(katakana));
         it(`${romaji.toUpperCase()}`, () => expect(upper).toBe(katakana));
       });
