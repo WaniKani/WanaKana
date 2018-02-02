@@ -1,7 +1,7 @@
 ## Repo specific
 dist
 # too many merge conflicts, always rebuilt before release/gh-pages publish anyway
-gh-pages/assets/js/wanakana.min.js
+gh-pages/assets/js/wanakana*.*
 gh-pages/docs/
 **/sandbox*.*
 

@@ -48,6 +48,7 @@ export default [
       name: PACKAGE_NAME,
       format: 'umd',
       file: `${OUT_DIR}/${LIB_DIR}/${PACKAGE_NAME}.min.js`,
+      sourcemap: true,
     },
     plugins: [
       babel({

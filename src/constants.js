@@ -1,3 +1,5 @@
+export const VERSION = '3.0.1';
+
 /**
  * @typedef {Object} DefaultOptions
  * @property {Boolean} [useObsoleteKana=false] - Set to true to use obsolete characters, such as ゐ and ゑ.

@@ -1,31 +1,40 @@
 const path = require('path');
-const { exec, exit, cp, test } = require('shelljs');
+const {
+  exec, exit, cp, test,
+} = require('shelljs');
 const {
   SITE_JS_DIR,
   OUT_DIR,
   LIB_DIR,
   PACKAGE_NAME,
+  log,
   logError,
-  logSuccess,
   execSuccess,
 } = require('./util.js');
 
-const BROWSER_BUNDLE = path.resolve(OUT_DIR, LIB_DIR, `${PACKAGE_NAME}.min.js`);
+const BROWSER_BUNDLES = [
+  path.resolve(OUT_DIR, LIB_DIR, `${PACKAGE_NAME}.min.js`),
+  path.resolve(OUT_DIR, LIB_DIR, `${PACKAGE_NAME}.js`),
+  path.resolve(OUT_DIR, LIB_DIR, `${PACKAGE_NAME}.min.js.map`),
+];
+
 const exists = (file) => test('-e', file);
 
 function buildSite(version) {
-  if (!exists(BROWSER_BUNDLE)) {
-    logError('Compiled browser bundle not found. Have the dist packages been built?');
+  if (BROWSER_BUNDLES.some((bundle) => !exists(bundle))) {
+    logError('Compiled browser bundles not found. Have the dist packages been built?');
     exit(1);
   }
 
-  if (execSuccess(cp('-Rf', BROWSER_BUNDLE, SITE_JS_DIR))) {
-    exec('git add gh-pages');
-    logSuccess('Copied browser bundle to demo dir');
-  } else {
-    logError('Failed to copy browser bundle to demo dir.');
-    exit(1);
-  }
+  BROWSER_BUNDLES.forEach((bundle) => {
+    if (execSuccess(cp('-Rf', bundle, SITE_JS_DIR))) {
+      exec('git add gh-pages');
+      log(`Copied ${bundle} to to gh-pages`);
+    } else {
+      logError(`Failed to copy ${bundle} bundle to gh-pages`);
+      exit(1);
+    }
+  });
   return true;
 }
 

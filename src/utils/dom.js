@@ -19,7 +19,7 @@ export function makeOnInput(options, el) {
   return function onInput({ target }) {
     const { dataset, value, selectionEnd } = target;
     if (dataset.isComposing) {
-      console.log('early exit');
+      console.log(`isComposing: early exit for value: ${value}`);
       return;
     }
     const [head, textToConvert, tail] = splitInput(value, selectionEnd, mergedConfig);

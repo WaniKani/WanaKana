@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Wanakana Input Test Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="device-test/wanakana.min.js"></script>
+  <script src="https://cdn.ravenjs.com/3.22.1/raven.min.js" crossorigin="anonymous"></script>
+  <style>
+    li {
+      line-height: 1.3rem;
+    }
+
+    input,
+    button,
+    select {
+      margin: .5rem;
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+
+    select {
+      font-size: 1.15rem;
+    }
+
+    input {
+      display: block;
+      cursor: inherit;
+      height: 3rem;
+      max-width: 100vw;
+      line-height: 3rem;
+      font-size: 2rem;
+    }
+
+    #info {
+      display: block;
+      padding: .5rem;
+      margin: 1rem .5rem .5rem;
+    }
+
+    #thanks {
+      display: inline-block;
+      font-size: 1.5rem;
+      margin: .5rem;
+    }
+
+    .bg {
+      padding: .15em;
+      background-color: rgba(183, 184, 184, 0.15)
+    }
+
+    .hidden {
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <form id="report">
+    <select name="user" id="user">
+      <option disabled selected value="nada">Select User/Device</option>
+      <optgroup label="animecanuck">
+        <option value="xp-ime-firefox">xp-ime-firefox</option>
+        <option value="xp-ime-chrome">xp-ime-chrome</option>
+        <option value="xp-ime-opera">xp-ime-opera</option>
+      </optgroup>
+      <optgroup label="belthazar">
+        <option value="ms-ime-firefox">ms-ime-firefox</option>
+        <option value="ios-ime-en-safari">ios-ime-en-safari</option>
+        <option value="ios-ime-kana-safari">ios-ime-kana-safari</option>
+      </optgroup>
+      <optgroup label="bladepoint">
+        <option value="ios-ime-en-chrome">ios-ime-en-chrome</option>
+        <option value="ios-ime-kana-chrome">ios-ime-kana-chrome</option>
+      </optgroup>
+      <optgroup label="carlostdev">
+        <option value="mac-ime-firefox">mac-ime-firefox</option>
+      </optgroup>
+      <optgroup label="feoya">
+        <option value="ms-ime-vivaldi">ms-ime-vivaldi</option>
+        <option value="android-sony-chrome">android-sony-chrome</option>
+        <option value="android-sony-firefox">android-sony-firefox</option>
+      </optgroup>
+      <optgroup label="finnra">
+        <option value="android-samsung-ime-en-chrome">android-samsung-ime-en-chrome</option>
+        <option value="android-samsung-ime-kana-chrome">android-samsung-ime-kana-chrome</option>
+        <option value="android-samsung-ime-en-samsung">android-samsung-ime-en-samsung</option>
+        <option value="android-samsung-ime-kana-samsung">android-samsung-ime-kana-samsung</option>
+      </optgroup>
+      <optgroup label="fl0rm">
+        <option value="android-google-ime-en-firefox">android-google-ime-en-firefox</option>
+        <option value="android-google-ime-kana-firefox">android-google-ime-kana-firefox</option>
+      </optgroup>
+      <optgroup label="jnk1296">
+        <option value="ms-ime-ie11">ms-ime-ie11</option>
+        <option value="android-google-en-chrome">android-google-en-chrome</option>
+        <option value="android-google-kana-chrome">android-google-kana-chrome</option>
+      </optgroup>
+      <optgroup label="kumirei">
+        <option value="ms-ime-edge">ms-ime-edge</option>
+        <option value="google-ime-edge">google-ime-edge</option>
+        <option value="google-ime-chrome">google-ime-chrome</option>
+        <option value="google-ime-firefox">google-ime-firefox</option>
+        <option value="android-swiftkey-ime-chrome">android-swiftkey-ime-chrome</option>
+        <option value="android-swiftkey-ime-firefox">android-swiftkey-ime-firefox</option>
+      </optgroup>
+      <optgroup label="nath">
+        <option value="kanakanji-ime-chrome">kanakanji-ime-chrome</option>
+      </optgroup>
+      <optgroup label="rodrigowaick">
+        <option value="android-samsung-ime-en-firefox">android-samsung-ime-en-firefox</option>
+        <option value="android-samsung-ime-kana-firefox">android-samsung-ime-kana-firefox</option>
+      </optgroup>
+      <optgroup label="seanblue">
+        <option value="ms-ime-chrome">ms-ime-chrome</option>
+      </optgroup>
+      <optgroup label="syphus">
+        <option value="mac-ime-chrome">mac-ime-chrome</option>
+        <option value="mac-ime-safari">mac-ime-safari</option>
+      </optgroup>
+    </select>
+    <input id="input" type="text" lang="ja" autocapitalize="none" autocorrect="none" autocomplete="off" spellcheck="false" />
+    <textarea name="info" id="info" cols="48" rows="6" placeholder="Additional info:"></textarea>
+    <button type="submit">Submit events</button>
+    <p id="thanks" class="hidden">Thanks! 😍</p>
+  </form>
+  <div>
+    <h3>On Desktop:</h3>
+    <ol>
+      <li>Normal keyboard to EN text please input
+        <span class="bg">katta</span> then submit. </li>
+      <li>IME EN keyboard to JA text please input
+        <span class="bg">かった</span> &#8658; select 買った (via tab, arrow, spacebar w/e) then submit.</li>
+    </ol>
+
+    <h3>On Mobile:</h3>
+    <ol>
+      <li>Normal keyboard to EN text please input
+        <span class="bg">katta</span> then submit. </li>
+      <li>IME EN keyboard to JA text please input
+        <span class="bg">かった</span> then submit. </li>
+      <li>IME Kana keyboard to JA text please input
+        <span class="bg">かった</span> &#8658; select 買った from completions then submit.</li>
+    </ol>
+  </div>
+  <script>
+    Raven.config('https://78b33007112e4175818a287f2050d4ed@sentry.io/281720', {
+      release: wanakana.VERSION,
+      ignoreErrors: [
+        // Random plugins/extensions
+        'top.GLOBALS',
+        // See: http://blog.errorception.com/2012/03/tale-of-unfindable-js-error. html
+        'originalCreateNotification',
+        'canvas.contentDocument',
+        'MyApp_RemoveAllHighlights',
+        'http://tt.epicplay.com',
+        'Can\'t find variable: ZiteReader',
+        'jigsaw is not defined',
+        'ComboSearch is not defined',
+        'http://loading.retry.widdit.com/',
+        'atomicFindClose',
+        // Facebook borked
+        'fb_xd_fragment',
+        // ISP "optimizing" proxy - `Cache-Control: no-transform` seems to
+        // reduce this. (thanks @acdha)
+        // See http://stackoverflow.com/questions/4113268
+        'bmi_SafeAddOnload',
+        'EBCallBackMessageReceived',
+        // See http://toolbar.conduit.com/Developer/HtmlAndGadget/Methods/JSInjection.aspx
+        'conduitPage'
+      ],
+      ignoreUrls: [
+        // Facebook flakiness
+        /graph\.facebook\.com/i,
+        // Facebook blocked
+        /connect\.facebook\.net\/en_US\/all\.js/i,
+        // Woopra flakiness
+        /eatdifferent\.com\.woopra-ns\.com/i,
+        /static\.woopra\.com\/js\/woopra\.js/i,
+        // Chrome extensions
+        /extensions\//i,
+        /^chrome:\/\//i,
+        // Other plugins
+        /127\.0\.0\.1:4001\/isrunning/i,  // Cacaoweb
+        /webappstoolbarba\.texthelp\.com\//i,
+        /metrics\.itunes\.apple\.com\.edgesuite\.net\//i
+      ]
+    }).install();
+
+    Raven.context(function () {
+      try {
+        var input = document.getElementById('input');
+        var user = document.getElementById('user');
+        var info = document.getElementById('info');
+        var thanks = document.getElementById('thanks');
+        var repor = document.getElementById('report');
+        wanakana.bind(input, {}, true);
+        report.addEventListener('submit', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          if (user.value === 'nada') {
+            window.alert('You forgot to choose your user/device!')
+            return;
+          }
+          if (info.value) {
+            Raven.captureBreadcrumb({
+              message: 'Extra info',
+              category: 'log',
+              data: {
+                message: info.value
+              }
+            });
+          }
+          Raven.captureException(new Error('Event report'));
+          input.value = '';
+          info.value = '';
+          thanks.classList.remove('hidden');
+          setTimeout(() => {
+            thanks.classList.add('hidden');
+          }, 2000);
+        })
+      } catch (err) {
+        Raven.captureException(err);
+        // Raven.showReportDialog();
+      }
+    });
+  </script>
+</body>
+
+</html>

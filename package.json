@@ -46,6 +46,7 @@
     "demo:view": "npm run build && static-server ./gh-pages",
     "pretest": "rimraf ./coverage",
     "test": "jest",
+    "test:devices": "static-server -p 9080 -i './device-test/index.html'",
     "test:watch": "npm run test -- --watch",
     "test:coverage": "npm run test -- --coverage",
     "test:view": "opn ./coverage/lcov-report/index.html",
