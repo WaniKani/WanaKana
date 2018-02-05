@@ -23,15 +23,16 @@ describe('toRomaji()', () => {
     expect(toRomaji('ワニカニ', { upcaseKatakana: true })).toBe('WANIKANI'));
 
   it('Use the upcaseKatakana flag to preserve casing. Works for mixed kana.', () =>
-    expect(toRomaji('ワニカニ　が　すごい　だ', { upcaseKatakana: true })).toBe(
-      'WANIKANI ga sugoi da'
-    ));
+    expect(toRomaji('ワニカニ　が　すごい　だ', { upcaseKatakana: true })).toBe('WANIKANI ga sugoi da'));
 
-  it("Doesn't mangle the long dash 'ー' or slashdot '・'", () =>
-    expect(toRomaji('罰ゲーム・ばつげーむ')).toBe('罰geemu/batsuge-mu'));
+  it("Converts long dash 'ー' in hiragana to hyphen", () =>
+    expect(toRomaji('ばつげーむ')).toBe('batsuge-mu'));
 
-  it("Doesn't mangle the long dash 'ー' or slashdot '・'", () =>
-    expect(toRomaji('罰ゲーム・ばつげーむ')).toBe('罰geemu/batsuge-mu'));
+  it("Doesn't confuse '一' (one kanji) for long dash 'ー'", () =>
+    expect(toRomaji('一抹げーむ')).toBe('一抹ge-mu'));
+
+  it("Converts long dash 'ー' (chōonpu) in katakana to long vowel", () =>
+    expect(toRomaji('スーパー')).toBe('suupaa'));
 
   it('Spaces must be manually entered', () =>
     expect(toRomaji('わにかにがすごいだ')).not.toBe('wanikani ga sugoi da'));
@@ -40,13 +41,13 @@ describe('toRomaji()', () => {
     it('Double and single n', () => expect(toRomaji('きんにくまん')).toBe('kinnikuman'));
     it('N extravaganza', () => expect(toRomaji('んんにんにんにゃんやん')).toBe("nnninninnyan'yan"));
     it('Double consonants', () =>
-      expect(toRomaji('かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ')).toBe(
-        'kappa tatta shusshu chatcha yattsu'
-      ));
+      expect(toRomaji('かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ')).toBe('kappa tatta shusshu chatcha yattsu'));
   });
 
   describe('Small kana', () => {
     it("Small tsu doesn't transliterate", () => expect(toRomaji('っ')).toBe(''));
+    it("Small kata ke doesn't transliterate", () => expect(toRomaji('ヶ')).toBe('ヶ'));
+    it("Small kata ka doesn't transliterate", () => expect(toRomaji('ヵ')).toBe('ヵ'));
     it('Small ya', () => expect(toRomaji('ゃ')).toBe('ya'));
     it('Small yu', () => expect(toRomaji('ゅ')).toBe('yu'));
     it('Small yo', () => expect(toRomaji('ょ')).toBe('yo'));
@@ -60,5 +61,6 @@ describe('toRomaji()', () => {
   describe('Apostrophes in ambiguous consonant vowel combos', () => {
     it('おんよみ', () => expect(toRomaji('おんよみ')).toBe("on'yomi"));
     it('んよ んあ んゆ', () => expect(toRomaji('んよ んあ んゆ')).toBe("n'yo n'a n'yu"));
+    it('シンヨ', () => expect(toRomaji('シンヨ')).toBe("shin'yo"));
   });
 });
