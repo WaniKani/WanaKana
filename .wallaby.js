@@ -1,7 +1,6 @@
 process.env.BABEL_ENV = 'test';
 
 module.exports = (wallaby) => {
-  console.log(wallaby);
   return {
     files: ['src/**/*.js', 'test/helpers/*.js', 'package.json'],
     tests: ['test/**/*.test.js'],
