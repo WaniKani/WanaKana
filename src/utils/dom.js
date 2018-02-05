@@ -7,11 +7,12 @@ let LISTENERS = [];
 
 /**
  * Automagically replaces input values with converted text to kana
+ * @param  {HTMLElement} [el] input/textarea element
  * @param  {defaultOptions} [options] user config overrides, default conversion is toKana()
  * @return {Function} event handler with bound options
  * @ignore
  */
-export function makeOnInput(options, el) {
+export function makeOnInput(el, options) {
   const mergedConfig = Object.assign({}, mergeWithDefaultOptions(options), {
     IMEMode: options.IMEMode || true,
   });
@@ -24,6 +25,7 @@ export function makeOnInput(options, el) {
     }
     const [head, textToConvert, tail] = splitInput(value, selectionEnd, mergedConfig);
     const convertedText = toKana(textToConvert, mergedConfig);
+
     if (textToConvert !== convertedText) {
       target.value = head + convertedText + tail;
       const newCursor = head.length + convertedText.length;

@@ -23,7 +23,7 @@ function bind(input = {}, options = {}, debug = false) {
       )})`
     );
   }
-  const onInput = makeOnInput(options, input);
+  const onInput = makeOnInput(input, options);
   const id = newId();
   input.setAttribute('data-wanakana-id', id);
   //  input.autocapitalize = 'none'; // eslint-disable-line no-param-reassign
