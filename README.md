@@ -22,21 +22,28 @@
 </div>
 
 ## Demo
+
 Visit the [website](http://www.wanakana.com) to see WanaKana in action.
 
 ## Documentation
+
 [Extended API reference](http://www.wanakana.com/docs/global.html)
 
 ## Quick Start
+
 #### Install
+
 ```shell
 yarn add wanakana
 # alternatively: npm install wanakana
 ```
+
 #### Or to get the minified browser (umd) bundle
+
 [https://unpkg.com/wanakana](https://unpkg.com/wanakana)
 
 #### HTML:
+
 ```html
 <input type="text" id="wanakana-input" autocapitalize="none" />
 <script src="https://unpkg.com/wanakana"></script>
@@ -47,6 +54,7 @@ yarn add wanakana
 ```
 
 #### JavaScript:
+
 ```javascript
 /* UMD/CommonJS */
 const wanakana = require('wanakana');
@@ -68,16 +76,26 @@ import isKanji from 'wanakana/isKanji';
   upcaseKatakana: false,
   // Convert characters from a text input while being typed.
   IMEMode: false, // alternatives are: true, 'toHiragana', or 'toKatakana'
+  // Choose toRomaji() romanization map
+  romanization: 'hepburn' // (currently only hepburn)
+  // custom map will be merged with default conversion
+  customKanaMapping: {}
+  // toKana('wanikani', { customKanaMapping: { na: 'に', ka: 'Bana' }) });
+  // => 'ワにBanaに'
+  customRomajiMapping: {}
+  // toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' }) };
+  // => 'tuzigili'
 }
 
 /*** DOM HELPERS ***/
 // Automatically converts text using an eventListener on input
+// Handles cursor positioning, mid-text insertion, passthrough native IME composition
 // bind() uses option: { IMEMode: true } with `toKana()` by default
 // Alternatives are: 'toHiragana' or 'toKatakana' to enforce kana type
-wanakana.bind(domElement [, options]);
+wanakana.bind(HTMLElement [, options]);
 
 // Removes event listener
-wanakana.unbind(domElement);
+wanakana.unbind(HTMLElement);
 
 
 /*** TEXT CHECKING UTILITIES ***/
@@ -155,17 +173,22 @@ wanakana.tokenize('I said "私は悲しい"')
 ```
 
 ## Contributing
+
 Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Contributors
-- [Mims H. Wright](https://github.com/mimshwright) – Author
-- [Duncan Bay](https://github.com/DJTB) – Author
-- [Geggles](https://github.com/geggles) – Contributor
-- [James McNamee](https://github.com/dotfold) – Contributor
+
+* [Mims H. Wright](https://github.com/mimshwright) – Author
+* [Duncan Bay](https://github.com/DJTB) – Author
+* [Geggles](https://github.com/geggles) – Contributor
+* [James McNamee](https://github.com/dotfold) – Contributor
 
 ## Credits
+
 Project sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wanikani.com)
 
 ## Ports
-  The following are ports created by the community:
-  - Java ([MasterKale/WanaKanaJava](https://github.com/MasterKale/WanaKanaJava))
+
+The following are ports created by the community:
+
+* Java ([MasterKale/WanaKanaJava](https://github.com/MasterKale/WanaKanaJava))
