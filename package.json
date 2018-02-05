@@ -1,10 +1,9 @@
 {
   "name": "wanakana",
-  "version": "3.0.1",
+  "version": "3.0.2-beta.0",
   "license": "MIT",
   "homepage": "http://www.wanakana.com",
-  "description":
-    "Utility library for checking and converting between Kanji, Hiragana, Katakana, and Romaji",
+  "description": "Utility library for checking and converting between Kanji, Hiragana, Katakana, and Romaji",
   "keywords": [
     "english",
     "japanese",
@@ -39,8 +38,7 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --record",
     "cypress:test": "npm-run-all build --parallel --race cypress:server cypress:run",
-    "cypress:watch":
-      "npm-run-all --parallel --race build:bundles:watch cypress:server cypress:open",
+    "cypress:watch": "npm-run-all --parallel --race build:bundles:watch cypress:server cypress:open",
     "predocs": "rimraf ./gh-pages/docs",
     "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
     "docs:watch": "onchange './src/**/*.js' -- npm run docs",
@@ -57,12 +55,18 @@
     "lint": "eslint --color"
   },
   "lint-staged": {
-    "*.js": ["npm run format", "npm run lint", "git add"]
+    "*.js": [
+      "npm run format",
+      "npm run lint",
+      "git add"
+    ]
   },
   "jest": {
     "bail": false,
     "verbose": false,
-    "testMatch": ["<rootDir>/test/**/*.test.js"],
+    "testMatch": [
+      "<rootDir>/test/**/*.test.js"
+    ],
     "coverageThreshold": {
       "global": {
         "branches": 95,
