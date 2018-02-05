@@ -22,7 +22,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#bind">bind</a></li><li><a href="global.html#unbind">unbind</a></li><li><a href="global.html#isHiragana">isHiragana</a></li><li><a href="global.html#isJapanese">isJapanese</a></li><li><a href="global.html#isKana">isKana</a></li><li><a href="global.html#isKanji">isKanji</a></li><li><a href="global.html#isKatakana">isKatakana</a></li><li><a href="global.html#isMixed">isMixed</a></li><li><a href="global.html#isRomaji">isRomaji</a></li><li><a href="global.html#createCustomMapping">createCustomMapping</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li><li><a href="global.html#toHiragana">toHiragana</a></li><li><a href="global.html#toKana">toKana</a></li><li><a href="global.html#toKatakana">toKatakana</a></li><li><a href="global.html#toRomaji">toRomaji</a></li><li><a href="global.html#tokenize">tokenize</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#bind">bind</a></li><li><a href="global.html#unbind">unbind</a></li><li><a href="global.html#onCompositionUpdate">onCompositionUpdate</a></li><li><a href="global.html#isHiragana">isHiragana</a></li><li><a href="global.html#isJapanese">isJapanese</a></li><li><a href="global.html#isKana">isKana</a></li><li><a href="global.html#isKanji">isKanji</a></li><li><a href="global.html#isKatakana">isKatakana</a></li><li><a href="global.html#isMixed">isMixed</a></li><li><a href="global.html#isRomaji">isRomaji</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li><li><a href="global.html#toHiragana">toHiragana</a></li><li><a href="global.html#toKana">toKana</a></li><li><a href="global.html#toKatakana">toKatakana</a></li><li><a href="global.html#toRomaji">toRomaji</a></li><li><a href="global.html#tokenize">tokenize</a></li></ul>
 </nav>
 
 <div id="main">
@@ -40,7 +40,7 @@
             <pre class="prettyprint source linenums"><code>import { DEFAULT_OPTIONS } from './constants';
 import convertFullwidthCharsToASCII from './utils/convertFullwidthCharsToASCII';
 import isCharConsonant from './utils/isCharConsonant';
-import { splitIntoKana, toKana } from './toKana';
+import { splitIntoKana } from './toKana';
 /* import { addDebugListeners, removeDebugListeners } from './utils/logInputEvents';*/
 
 const ELEMENTS = ['TEXTAREA', 'INPUT'];
@@ -65,12 +65,13 @@ export function bind(input, options = {}) {
     const id = newId();
     /* addDebugListeners(input);*/
     input.setAttribute('data-wanakana-id', id);
-    input.autocapitalize = 'none'; // eslint-disable-line no-param-reassign
+    input.autocapitalize = 'none';
     input.addEventListener('compositionupdate', onCompositionUpdate);
     input.addEventListener('input', listener);
     LISTENERS = trackListener(listener, id);
   } else {
-    console.warn('Element provided to Wanakana bind() was not a valid input field.'); // eslint-disable-line no-console
+    // eslint-disable-next-line no-console
+    console.warn('Input provided to Wanakana bind() was not a valid input field.');
   }
 }
 
@@ -87,7 +88,7 @@ export function unbind(input) {
     input.removeEventListener('input', trackedListener.handler);
     LISTENERS = untrackListener(trackedListener);
   } else {
-    console.warn('Element provided to Wanakana unbind() had no listener registered.'); // eslint-disable-line no-console
+    console.warn('Input called with Wanakana unbind() had no listener registered.'); // eslint-disable-line no-console
   }
 }
 
@@ -100,6 +101,7 @@ export function unbind(input) {
  */
 function onInput(options) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
+
   return function listener(event) {
     const input = event.target;
 
@@ -112,25 +114,38 @@ function onInput(options) {
     const hiraOrKataString = setKanaType(normalizedInputString, config.IMEMode);
     const ensureIMEModeConfig = Object.assign({}, config, { IMEMode: true });
     const kanaTokens = splitIntoKana(hiraOrKataString, ensureIMEModeConfig);
-    const newText = toKana(hiraOrKataString, ensureIMEModeConfig);
+    const newText = kanaTokens.map((token) => token[2]).join('');
 
     if (normalizedInputString !== newText) {
       const { selectionEnd } = input;
       input.value = newText;
 
-      if (selectionEnd === 0) {
-        input.setSelectionRange(0, 0);
-      } else {
-        input.setSelectionRange(input.value.length, input.value.length);
-        let kanaLength = 0;
-        for (let index = 0; index &lt; kanaTokens.length; index += 1) {
-          const [, tokenEnd, tokenKana] = kanaTokens[index];
-          kanaLength += tokenKana.length;
-          if (tokenEnd >= selectionEnd) {
-            input.setSelectionRange(kanaLength, kanaLength);
-            break;
+      // Modern browsers
+      if (input.setSelectionRange != null &amp;&amp; typeof input.selectionStart === 'number') {
+        if (selectionEnd === 0) {
+          input.setSelectionRange(0, 0);
+        } else {
+          input.setSelectionRange(input.value.length, input.value.length);
+          let kanaLength = 0;
+          for (let index = 0; index &lt; kanaTokens.length; index += 1) {
+            const currentToken = kanaTokens[index];
+            const tokenEnd = currentToken[1];
+            const tokenKana = currentToken[2];
+            kanaLength += tokenKana.length;
+            if (tokenEnd >= selectionEnd) {
+              input.setSelectionRange(kanaLength, kanaLength);
+              break;
+            }
           }
         }
+        return;
+      }
+      // &lt; IE 9
+      if (input.createTextRange != null) {
+        input.focus();
+        const range = input.createTextRange();
+        range.collapse(false);
+        range.select();
       }
     }
   };
@@ -140,15 +155,12 @@ function onInput(options) {
  * Sets a flag on compositionupdate for a once-off ignore in onInput
  * see https://github.com/WaniKani/WanaKana/issues/48
  * @param  {object} event compositionupdate event
- * @ignore
  */
 function onCompositionUpdate(event) {
   const data = event.data || (event.detail &amp;&amp; event.detail.data); // have to use custom event with detail in tests
   const finalTwoChars = (data &amp;&amp; data.slice(-2)) || '';
   const isFirstLetterN = finalTwoChars[0] === 'n';
-  const isDoubleConsonant = convertFullwidthCharsToASCII(finalTwoChars)
-    .split('')
-    .every(isCharConsonant);
+  const isDoubleConsonant = convertFullwidthCharsToASCII(finalTwoChars).split('').every(isCharConsonant);
 
   ignoreMicrosoftIMEDoubleConsonant = !isFirstLetterN &amp;&amp; isDoubleConsonant;
 }
@@ -161,9 +173,7 @@ function trackListener(listener, id) {
 }
 
 function findListener(input) {
-  return (
-    input &amp;&amp; LISTENERS.find(({ id }) => id === input.getAttribute('data-wanakana-id'))
-  );
+  return input &amp;&amp; LISTENERS.find(({ id }) => id === input.getAttribute('data-wanakana-id'));
 }
 
 function untrackListener({ id: targetId }) {
@@ -173,12 +183,9 @@ function untrackListener({ id: targetId }) {
 // easy way to still use `toKana` to handle IME input - but with forced conversion type
 function setKanaType(input, flag) {
   switch (true) {
-    case flag === 'toHiragana':
-      return input.toLowerCase();
-    case flag === 'toKatakana':
-      return input.toUpperCase();
-    default:
-      return input;
+    case flag === 'toHiragana': return input.toLowerCase();
+    case flag === 'toKatakana': return input.toUpperCase();
+    default: return input;
   }
 }
 </code></pre>

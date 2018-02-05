@@ -22,7 +22,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#bind">bind</a></li><li><a href="global.html#unbind">unbind</a></li><li><a href="global.html#isHiragana">isHiragana</a></li><li><a href="global.html#isJapanese">isJapanese</a></li><li><a href="global.html#isKana">isKana</a></li><li><a href="global.html#isKanji">isKanji</a></li><li><a href="global.html#isKatakana">isKatakana</a></li><li><a href="global.html#isMixed">isMixed</a></li><li><a href="global.html#isRomaji">isRomaji</a></li><li><a href="global.html#createCustomMapping">createCustomMapping</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li><li><a href="global.html#toHiragana">toHiragana</a></li><li><a href="global.html#toKana">toKana</a></li><li><a href="global.html#toKatakana">toKatakana</a></li><li><a href="global.html#toRomaji">toRomaji</a></li><li><a href="global.html#tokenize">tokenize</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#bind">bind</a></li><li><a href="global.html#unbind">unbind</a></li><li><a href="global.html#onCompositionUpdate">onCompositionUpdate</a></li><li><a href="global.html#isHiragana">isHiragana</a></li><li><a href="global.html#isJapanese">isJapanese</a></li><li><a href="global.html#isKana">isKana</a></li><li><a href="global.html#isKanji">isKanji</a></li><li><a href="global.html#isKatakana">isKatakana</a></li><li><a href="global.html#isMixed">isMixed</a></li><li><a href="global.html#isRomaji">isRomaji</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li><li><a href="global.html#toHiragana">toHiragana</a></li><li><a href="global.html#toKana">toKana</a></li><li><a href="global.html#toKatakana">toKatakana</a></li><li><a href="global.html#toRomaji">toRomaji</a></li><li><a href="global.html#tokenize">tokenize</a></li></ul>
 </nav>
 
 <div id="main">
@@ -315,7 +315,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="domUtils.js.html">domUtils.js</a>, <a href="domUtils.js.html#line42">line 42</a>
+        <a href="domUtils.js.html">domUtils.js</a>, <a href="domUtils.js.html#line43">line 43</a>
     </li></ul></dd>
     
 
@@ -410,6 +410,139 @@
             
 
             <td class="description last"><p>textarea, input[type=&quot;text&quot;] etc</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="onCompositionUpdate"><span class="type-signature"></span>onCompositionUpdate<span class="signature">(event)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="domUtils.js.html">domUtils.js</a>, <a href="domUtils.js.html#line120">line 120</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Sets a flag on compositionupdate for a once-off ignore in onInput<br>see https://github.com/WaniKani/WanaKana/issues/48</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>compositionupdate event</p></td>
         </tr>
 
     
@@ -1792,169 +1925,6 @@ isRomaji('a！b&amp;cーd') // Full-width punctuation fails
 
     
 
-    <h4 class="name" id="createCustomMapping"><span class="type-signature"></span>createCustomMapping<span class="signature">(customMap)</span><span class="type-signature"> &rarr; {function}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="kanaMappingUtils.js.html">kanaMappingUtils.js</a>, <a href="kanaMappingUtils.js.html#line92">line 92</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>creates a mapping tree, returns a function to accept a defaultMap to then merge with<br>(customMap) =&gt; (defaultMap) =&gt; mergedMap</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const sillyMap = createCustomMapping({ 'ちゃ': 'time', '茎': 'cookie'　});
-// sillyMap is passed defaultMapping to merge with when called in toRomaji()
-toRomaji("It's 茎 ちゃ よ", { customRomajiMapping: sillyMap });
-// => 'It's cookie time yo';</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>customMap</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{ 'ka' : 'な' }</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>(defaultMap) =&gt; mergedMap</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
     <h4 class="name" id="stripOkurigana"><span class="type-signature"></span>stripOkurigana<span class="signature">(input, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
 
     
@@ -2417,7 +2387,7 @@ toHiragana('wi', { useObsoleteKana: true })
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="toKana.js.html">toKana.js</a>, <a href="toKana.js.html#line32">line 32</a>
+        <a href="toKana.js.html">toKana.js</a>, <a href="toKana.js.html#line37">line 37</a>
     </li></ul></dd>
     
 
@@ -2481,9 +2451,7 @@ toKana('batsuge-mu')
 toKana('!?.:/,~-‘’“”[](){}') // Punctuation conversion
 // => '！？。：・、〜ー「」『』［］（）｛｝'
 toKana('we', { useObsoleteKana: true })
-// => 'ゑ'
-toKana('WanaKana', { customKanaMapping: createCustomMapping({ na: 'に', ka: 'Bana' }) });
-// => 'ワにBanaに'</code></pre>
+// => 'ゑ'</code></pre>
 
 
 
@@ -2930,12 +2898,8 @@ toKatakana('wi', { useObsoleteKana: true })
     
     <pre class="prettyprint"><code>toRomaji('ひらがな　カタカナ')
 // => 'hiragana katakana'
-toRomaji('げーむ　ゲーム')
-// => 'ge-mu geemu'
 toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
-// => 'hiragana KATAKANA'
-toRomaji('つじぎり', { customRomajiMapping: createCustomMapping({ じ: 'zi', つ: 'tu', り: 'li' }) });
-// => 'tuzigili'</code></pre>
+// => 'hiragana KATAKANA'</code></pre>
 
 
 
@@ -3474,118 +3438,7 @@ tokenize('what the...私は「悲しい」。')
                 </td>
             
 
-            <td class="description last"><p>Set to true, toHiragana(), or toKatakana() to handle conversion from a text input while it is being typed.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>romanization</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>'hepburn'</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>choose toRomaji() romanization map (currently only hepburn)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>customKanaMapping</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>(defaultMap) => map</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>merges custom map with default conversion</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>customRomajiMapping</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>(defaultMap) => map</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>merges custom map with default conversion</p></td>
+            <td class="description last"><p>Set to true, 'toHiragana', or 'toKatakana' to handle conversion from a text input while it is being typed</p></td>
         </tr>
 
     
@@ -3623,12 +3476,6 @@ tokenize('what the...私は「悲しい」。')
 
     <pre class="prettyprint"><code>toRomaji('ひらがな カタカナ', { upcaseKatakana: true })
 // => "hiragana KATAKANA"</code></pre>
-
-    <pre class="prettyprint"><code>toKana('WanaKana', { customKanaMapping: createCustomMapping({ na: 'に', ka: 'Bana' }) });
-// => 'ワにBanaに'</code></pre>
-
-    <pre class="prettyprint"><code>toRomaji('つじぎり', { customRomajiMapping: createCustomMapping({ じ: 'zi', つ: 'tu', り: 'li' }) });
-// => 'tuzigili'</code></pre>
 
 
 
