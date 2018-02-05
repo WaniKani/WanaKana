@@ -15,6 +15,7 @@
     "conversion",
     "transliteration",
     "input",
+    "ime",
     "wanikani"
   ],
   "repository": {
@@ -34,11 +35,12 @@
     "build:bundles:watch": "onchange './src/**/*.js' -- npm run build:bundles",
     "precommit": "lint-staged",
     "cz": "git-cz",
-    "cypress:server": "static-server -p 9080 -i './test/test-input.html'",
+    "cypress:server": "static-server -p 9080 -i './cypress/fixtures/test-input.html'",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --record",
     "cypress:test": "npm-run-all build --parallel --race cypress:server cypress:run",
-    "cypress:watch": "run-p --race build:bundles:watch cypress:server cypress:open",
+    "cypress:watch":
+      "npm-run-all --parallel --race build:bundles:watch cypress:server cypress:open",
     "predocs": "rimraf ./gh-pages/docs",
     "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
     "docs:watch": "onchange './src/**/*.js' -- npm run docs",
@@ -46,7 +48,6 @@
     "demo:view": "npm run build && static-server ./gh-pages",
     "pretest": "rimraf ./coverage",
     "test": "jest",
-    "test:devices": "static-server -p 9080 -i './device-test/index.html'",
     "test:watch": "npm run test -- --watch",
     "test:coverage": "npm run test -- --coverage",
     "test:view": "opn ./coverage/lcov-report/index.html",
@@ -102,7 +103,6 @@
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.5.1",
     "gh-pages": "1.1.0",
-    "http-server": "0.10.0",
     "husky": "0.14.3",
     "jest": "21.2.1",
     "jsdoc": "3.5.5",

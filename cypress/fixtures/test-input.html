@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Wanakana Input Test Page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="../dist/lib/wanakana.js"></script>
+  <script src="../../dist/lib/wanakana.js"></script>
   <style>
     input,
     textarea {
@@ -29,8 +29,9 @@
     <textarea id="textarea" lang="ja" autocapitalize="none" autocorrect="none" autocomplete="off" spellcheck="false"></textarea>
   </form>
   <script>
-    // This is not used in cypress tests, this is just here if you want to open this page
-    // and pop wkbind() in devtools console without having to write out the full bind each page refresh
+    // This is not used in cypress tests, this is just here as a shortcut
+    // if you want to open this page and pop wkbind() in devtools console
+    // to enable the inputs without having to write this out each page refresh.
     wkbind = () => {
       wanakana.bind(document.getElementById('input'), {}, true);
       wanakana.bind(document.getElementById('input2'), { IMEMode: 'toKatakana' }, true);
