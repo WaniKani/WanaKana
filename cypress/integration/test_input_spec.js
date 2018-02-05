@@ -21,8 +21,8 @@ Cypress.Commands.add('wk', { prevSubject: true }, ($el, method, options) => {
   return $el;
 });
 
-Cypress.Commands.add('setRange', { prevSubject: true }, ($el) => {
-  $el.get(0).setSelectionRange(5, 5);
+Cypress.Commands.add('setRange', { prevSubject: true }, ($el, start, end) => {
+  $el.get(0).setSelectionRange(start, end);
   return $el;
 });
 /* eslint-enable no-sequences */
@@ -166,25 +166,22 @@ describe('default IME conversions', () => {
   it("solo n's are not transliterated, even when cursor has been relocated.", () => {
     cy
       .get('#input')
-      .type('かな{leftArrow}n')
+      .type('kana')
+      .type('{leftArrow}n')
+      .should('have.value', 'かnな')
       .setRange(2, 2)
       .trigger('input')
+      .should('have.value', 'かnな')
       .type('y')
+      .should('have.value', 'かnyな')
       .setRange(3, 3)
       .trigger('input')
-      .should('have.value', 'かnyな');
-  });
-
-  it("solo n's are not transliterated, even when cursor has been relocated.", () => {
-    cy
-      .get('#input')
-      .type('かん')
-      .setRange(2, 2)
+      .should('have.value', 'かnyな')
+      .type('a')
+      .should('have.value', 'かnyaな')
+      .setRange(4, 4)
       .trigger('input')
-      .type('{leftArrow}n')
-      .setRange(2, 2)
-      .trigger('input')
-      .should('have.value', 'かnん');
+      .should('have.value', 'かにゃな');
   });
 
   it("double n's are transliterated.", () => {
@@ -298,6 +295,7 @@ describe('default IME conversions', () => {
       .type('wanakana')
       .should('have.value', 'わなかな')
       .type('{leftArrow}{leftArrow}shi')
+      .should('have.value', 'わなshiかな')
       .setRange(5, 5)
       .trigger('input')
       .should('have.value', 'わなしかな');
@@ -309,6 +307,7 @@ describe('default IME conversions', () => {
       .type('koskoskosko')
       .should('have.value', 'こsこsこsこ')
       .type('{leftArrow}{leftArrow}{leftArrow}o')
+      .should('have.value', 'こsこsoこsこ')
       .setRange(5, 5)
       .trigger('input')
       .should('have.value', 'こsこそこsこ');
@@ -335,9 +334,10 @@ describe('IME inconsistencies - emulate composition event differences', () => {
   //     .wkBind();
   // });
 
-// FIXME: apply other results from user tests with different IME/keyboards
-// NOTE: some will have zenkaku instead of latin letters!
-// NOTE: some will have early sokuon before terminal kana vowel ｔｔ -> っ vs ｔｔ -> ｔｔ
+  // TODO: can likely remove all the keydown/keyups if we don't ever use logic related to them
+  // FIXME: apply other results from user tests with different IME/keyboards
+  // NOTE: some will have zenkaku instead of latin letters!
+  // NOTE: some will have early sokuon before terminal kana vowel ｔｔ -> っ vs ｔｔ -> ｔｔ
 
   describe('Mozc IME', () => {
     beforeEach(() => {
@@ -642,5 +642,4 @@ describe('IME inconsistencies - emulate composition event differences', () => {
         .should('have.value', '買った');
     });
   });
-
 });
