@@ -9,8 +9,9 @@ describe('splitInput', () => {
       expect(splitInput('12１２aaａａ.。')).toEqual(['12１２', 'aa', 'ａａ.。']));
     it('わn', () => expect(splitInput("わn'な")).toEqual(['わ', "n'", 'な']));
     it('わn', () => expect(splitInput('わn な')).toEqual(['わ', 'n ', 'な']));
-    it('わshinな', () => expect(splitInput('わshinな')).toEqual(['わ', 'shin', 'な']));
-    it('わRA', () => expect(splitInput('わRA-MENな')).toEqual(['わ', 'RA-MEN', 'な']));
+    it('わshinな', () => expect(splitInput('わshinな', 5)).toEqual(['わ', 'shin', 'な']));
+    it('かnyaな', () => expect(splitInput('かnyaな', 4)).toEqual(['か', 'nya', 'な']));
+    it('わRA-MENな', () => expect(splitInput('わRA-MENな')).toEqual(['わ', 'RA-MEN', 'な']));
     it('こsこrこsこ', () => expect(splitInput('こsこrこsこ')).toEqual(['こ', 's', 'こrこsこ']));
     it('こsこrこshiこ', () =>
       expect(splitInput('こsこrこshiこ', 8)).toEqual(['こsこrこ', 'shi', 'こ']));
