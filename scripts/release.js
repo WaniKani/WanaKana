@@ -92,17 +92,20 @@ try {
     `Next version of ${PACKAGE_NAME} (current version is ${version}): `
   );
 
+  const distTag = readline.question(
+    'Do you want to add an npm dist-tag other than latest(beta.0, rc.1 etc)? Leave blank to skip: '
+  );
+
+  if (distTag) {
+    nextVersion = `${nextVersion}-${distTag}`;
+  }
+
   while (!(!nextVersion || (semver.valid(nextVersion) && semver.gt(nextVersion, version)))) {
     nextVersion = readline.question(
       `Must provide a valid version that is greater than ${version}, or leave blank to skip: `
     );
   }
-
-  const distTag = readline.question(
-    'Do you want to add an npm dist-tag other than latest? Leave blank to skip: '
-  );
-
-  log('Updating package.json...');
+  log('Updating release package.json...');
   const updatedPackage = Object.assign({}, BASE_PACKAGE, { version: nextVersion });
   const releasePackage = Object.assign(
     {},
@@ -112,7 +115,7 @@ try {
 
   writePackage(OUT_DIR, releasePackage);
 
-  log(`About to publish ${PACKAGE_NAME}@${nextVersion}${distTag && `.${distTag}`} to npm.`);
+  log(`About to publish ${PACKAGE_NAME}@${nextVersion} to npm.`);
   if (!readline.keyInYN('Sound good? ')) {
     log('OK. Stopping release.');
     exit(0);
@@ -144,7 +147,7 @@ try {
   }
 
   log('Rebuilding demo site');
-  buildSite(nextVersion + distTag && `.${distTag}`);
+  buildSite(nextVersion);
 
   if (!distTag) {
     log('Publishing github-pages demo & docs');
@@ -161,13 +164,12 @@ try {
   }
 
   log('Committing changes...');
-  const newTagName = `${nextVersion}${distTag && `.${distTag}`}`;
   exec(`git add ${versionLoc} package.json`);
-  exec(`git commit -m "Version ${newTagName}"`);
+  exec(`git commit -m "Version ${nextVersion}"`);
 
   if (!distTag) {
-    log(`Tagging release... (${newTagName})`);
-    exec(`git tag ${newTagName}`);
+    log(`Tagging release... (${nextVersion})`);
+    exec(`git tag ${nextVersion}`);
 
     log('Pushing to GitHub...');
     exec('git push');
