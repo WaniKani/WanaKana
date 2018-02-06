@@ -60,6 +60,12 @@ try {
     exit(0);
   }
 
+  log('Have you updated the VERSION in constants.js?');
+  if (!readline.keyInYN('Yes I have!')) {
+    log('OK. Do that, then try again!');
+    exit(0);
+  }
+
   log('Running tests...');
   if (execFail(exec('npm run lint && npm test'))) {
     logError('The test command did not exit cleanly. Aborting release.');
