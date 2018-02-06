@@ -19,7 +19,7 @@ export function makeOnInput(el, options) {
 
   return function onInput({ target }) {
     const { dataset, value, selectionEnd } = target;
-    if (dataset.isComposing) {
+    if (dataset.isComposing === 'true') {
       console.log(`isComposing: early exit for value: ${value}`);
       return;
     }
@@ -38,7 +38,7 @@ export function onComposition({ target, type }) {
   const isChrome = window && !!window.chrome && !!window.chrome.webstore;
 
   if (type === 'compositionend') {
-    target.dataset.isComposing = false;
+    target.dataset.isComposing = 'false';
 
     // Chrome fires 'compositionEnd' event after 'input' event.
     // https://chromium.googlesource.com/chromium/src/+/afce9d93e76f2ff81baaa088a4ea25f67d1a76b3%5E%21/
@@ -48,7 +48,7 @@ export function onComposition({ target, type }) {
     }
   } else {
     // in composition
-    target.dataset.isComposing = true;
+    target.dataset.isComposing = 'true';
   }
 }
 
