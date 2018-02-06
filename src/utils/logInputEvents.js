@@ -1,28 +1,15 @@
 /* eslint-disable no-console */
-const onInput = ({ target }) => console.log(`input: ${target.value}`);
-const onTextInput = ({ target }) => console.log(`textinput: ${target.value}`);
-const onKeyDown = ({ key, which }) => {
-  const char = String.fromCharCode(which);
-  const message = `which: ${which}${/[a-z]/i.test(char) ? ` char: ${char}` : ''}`;
-  console.log(`keydown: ${message}`);
-};
-const onKeyUp = ({ key, which }) => {
-  const char = String.fromCharCode(which);
-  const message = `which: ${which}${/[a-z]/i.test(char) ? ` char: ${char}` : ''}`;
-  console.log(`keyup: ${message}`);
-};
+const onInput = ({ target, data }) =>
+  console.log(`input: { data: ${data}, target.value: ${target.value} }`);
 const onCompositionStart = () => console.log('compositionstart');
-const onCompositionEnd = () => console.log('compositionend');
 const onCompositionUpdate = ({ data }) => console.log(`compositionupdate: data: ${data}`);
+const onCompositionEnd = () => console.log('compositionend');
 
 const events = {
   input: onInput,
-  textinput: onTextInput,
-  keydown: onKeyDown,
-  keyup: onKeyUp,
   compositionstart: onCompositionStart,
-  compositionend: onCompositionEnd,
   compositionupdate: onCompositionUpdate,
+  compositionend: onCompositionEnd,
 };
 
 export const addDebugListeners = (input) => {

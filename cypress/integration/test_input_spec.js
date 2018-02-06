@@ -7,12 +7,12 @@ Cypress.config({
 
 /* eslint-disable no-sequences */
 Cypress.Commands.add('wkBind', { prevSubject: true }, ($el, options) => {
-  wk.bind($el.get(0), options, true);
+  wk.bind($el.get(0), options);
   return $el;
 });
 
 Cypress.Commands.add('wkUnbind', { prevSubject: true }, ($el) => {
-  wk.unbind($el.get(0), true);
+  wk.unbind($el.get(0));
   return $el;
 });
 
@@ -268,6 +268,13 @@ describe('default IME conversions', () => {
       .should('have.value', 'ン');
   });
 
+  it("doesn't apply toKatakana if mora are mixed case", () => {
+    cy
+      .get('#input')
+      .type('KanA')
+      .should('have.value', 'かな');
+  });
+
   it('NI - katakana.', () => {
     cy
       .get('#input')
@@ -312,32 +319,20 @@ describe('default IME conversions', () => {
       .trigger('input')
       .should('have.value', 'こsこそこsこ');
   });
-
-  // Microsoft IME style (Google converts to sokuon early -> かっｔ)
-  it('ignores double consonants following compositionupdate', () => {
-    cy
-      .get('#input')
-      .type('かｔ')
-      .should('have.value', 'かｔ')
-      .type('ｔ')
-      .should('have.value', 'かｔｔ')
-      .trigger('compositionupdate')
-      .should('have.value', 'かｔｔ')
-      .setRange(3, 3);
-  });
 });
 
-describe('IME inconsistencies - emulate composition event differences', () => {
+describe('emulate device keyboards and IMEs', () => {
   // before(() => {
   //   cy
   //     .get('#input')
   //     .wkBind();
   // });
-
-  // TODO: can likely remove all the keydown/keyups if we don't ever use logic related to them
-  // FIXME: apply other results from user tests with different IME/keyboards
-  // NOTE: some will have zenkaku instead of latin letters!
-  // NOTE: some will have early sokuon before terminal kana vowel ｔｔ -> っ vs ｔｔ -> ｔｔ
+  beforeEach(() => {
+    cy
+      .get('#input')
+      .clear()
+      .setRange(0, 0);
+  });
 
   describe('Mozc IME', () => {
     beforeEach(() => {
@@ -351,47 +346,35 @@ describe('IME inconsistencies - emulate composition event differences', () => {
         .get('#input')
         .invoke('val', 'ｋ')
         .setRange(1, 1)
-        .trigger('keydown')
         .trigger('compositionstart')
-        .trigger('compositionupdate')
+        .trigger('compositionupdate', { data: 'ｋ' })
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', 'ｋ')
+        .trigger('compositionupdate', { data: 'か' })
         .invoke('val', 'か')
         .setRange(1, 1)
-        .trigger('keydown')
-        .trigger('compositionupdate')
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', 'か')
+        .trigger('compositionupdate', { data: 'かｔ' })
         .invoke('val', 'かｔ')
         .setRange(2, 2)
-        .trigger('keydown')
-        .trigger('compositionupdate')
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', 'かｔ')
+        .trigger('compositionupdate', { data: 'かっｔ' })
         .invoke('val', 'かっｔ')
         .setRange(3, 3)
-        .trigger('keydown')
-        .trigger('compositionupdate')
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', 'かっｔ')
+        .trigger('compositionupdate', { data: 'かった' })
         .invoke('val', 'かった')
         .setRange(3, 3)
-        .trigger('keydown')
-        .trigger('compositionupdate')
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', 'かった')
+        .trigger('compositionend')
         .invoke('val', '買った')
         .setRange(3, 3)
-        .trigger('keydown')
-        .trigger('compositionend')
         .trigger('textinput')
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', '買った');
     });
     it('Chrome', () => {
@@ -399,48 +382,35 @@ describe('IME inconsistencies - emulate composition event differences', () => {
         .get('#input')
         .invoke('val', 'ｋ')
         .setRange(1, 1)
-        .trigger('keydown')
         .trigger('compositionstart')
-        .trigger('compositionupdate')
+        .trigger('compositionupdate', { data: 'ｋ' })
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', 'ｋ')
         .invoke('val', 'か')
         .setRange(1, 1)
-        .trigger('keydown')
-        .trigger('compositionupdate')
+        .trigger('compositionupdate', { data: 'か' })
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', 'か')
         .invoke('val', 'かｔ')
         .setRange(2, 2)
-        .trigger('keydown')
-        .trigger('compositionupdate')
+        .trigger('compositionupdate', { data: 'かｔ' })
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', 'かｔ')
         .invoke('val', 'かっｔ')
         .setRange(3, 3)
-        .trigger('keydown')
-        .trigger('compositionupdate')
+        .trigger('compositionupdate', { data: 'かっｔ' })
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', 'かっｔ')
         .invoke('val', 'かった')
         .setRange(3, 3)
-        .trigger('keydown')
-        .trigger('compositionupdate')
+        .trigger('compositionupdate', { data: 'かった' })
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', 'かった')
         .invoke('val', '買った')
         .setRange(3, 3)
-        .trigger('keydown')
-        .trigger('compositionupdate')
-        .trigger('textinput')
+        .trigger('compositionupdate', { data: '買った' })
         .trigger('input')
         .trigger('compositionend')
-        .trigger('keyup')
         .should('have.value', '買った');
     });
     it('Firefox', () => {
@@ -448,37 +418,35 @@ describe('IME inconsistencies - emulate composition event differences', () => {
         .get('#input')
         .invoke('val', 'ｋ')
         .setRange(1, 1)
-        .trigger('keydown')
         .trigger('compositionstart')
-        .trigger('compositionupdate')
+        .trigger('compositionupdate', { data: 'ｋ' })
         .trigger('input')
         .should('have.value', 'ｋ')
         .invoke('val', 'か')
         .setRange(1, 1)
-        .trigger('compositionupdate')
+        .trigger('compositionupdate', { data: 'か' })
         .trigger('input')
         .should('have.value', 'か')
         .invoke('val', 'かｔ')
         .setRange(2, 2)
-        .trigger('compositionupdate')
+        .trigger('compositionupdate', { data: 'かｔ' })
         .trigger('input')
         .should('have.value', 'かｔ')
         .invoke('val', 'かっｔ')
         .setRange(3, 3)
-        .trigger('compositionupdate')
+        .trigger('compositionupdate', { data: 'かっｔ' })
         .trigger('input')
         .should('have.value', 'かっｔ')
         .invoke('val', 'かった')
         .setRange(3, 3)
-        .trigger('compositionupdate')
+        .trigger('compositionupdate', { data: 'かった' })
         .trigger('input')
         .should('have.value', 'かった')
         .invoke('val', '買った')
         .setRange(3, 3)
-        .trigger('compositionupdate')
+        .trigger('compositionupdate', { data: '買った' })
         .trigger('compositionend')
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', '買った');
     });
     it('IE9', () => {
@@ -486,42 +454,30 @@ describe('IME inconsistencies - emulate composition event differences', () => {
         .get('#input')
         .invoke('val', 'ｋ')
         .setRange(1, 1)
-        .trigger('keydown')
         .trigger('compositionstart')
-        .trigger('compositionupdate')
-        .trigger('keyup')
+        .trigger('compositionupdate', { data: 'ｋ' })
         .should('have.value', 'ｋ')
         .invoke('val', 'か')
         .setRange(1, 1)
-        .trigger('keydown')
-        .trigger('compositionupdate')
-        .trigger('keyup')
+        .trigger('compositionupdate', { data: 'か' })
         .should('have.value', 'か')
         .invoke('val', 'かｔ')
         .setRange(2, 2)
-        .trigger('keydown')
-        .trigger('compositionupdate')
-        .trigger('keyup')
+        .trigger('compositionupdate', { data: 'かｔ' })
         .should('have.value', 'かｔ')
         .invoke('val', 'かっｔ')
         .setRange(3, 3)
-        .trigger('keydown')
-        .trigger('compositionupdate')
-        .trigger('keyup')
+        .trigger('compositionupdate', { data: 'かっｔ' })
         .should('have.value', 'かっｔ')
         .invoke('val', 'かった')
         .setRange(3, 3)
-        .trigger('keydown')
-        .trigger('compositionupdate')
-        .trigger('keyup')
+        .trigger('compositionupdate', { data: 'かった' })
         .should('have.value', 'かった')
         .invoke('val', '買った')
         .setRange(3, 3)
-        .trigger('keydown')
         .trigger('input')
-        .trigger('compositionupdate')
+        .trigger('compositionupdate', { data: '買った' })
         .trigger('compositionend')
-        .trigger('keyup')
         .should('have.value', '買った');
     });
     it('IE10', () => {
@@ -529,38 +485,24 @@ describe('IME inconsistencies - emulate composition event differences', () => {
         .get('#input')
         .invoke('val', 'ｋ')
         .setRange(1, 1)
-        .trigger('keydown')
         .trigger('compositionstart')
-        .trigger('keyup')
         .should('have.value', 'ｋ')
         .invoke('val', 'か')
         .setRange(1, 1)
-        .trigger('keydown')
-        .trigger('keyup')
         .should('have.value', 'か')
         .invoke('val', 'かｔ')
         .setRange(2, 2)
-        .trigger('keydown')
-        .trigger('keyup')
         .should('have.value', 'かｔ')
         .invoke('val', 'かっｔ')
         .setRange(3, 3)
-        .trigger('keydown')
-        .trigger('keyup')
         .should('have.value', 'かっｔ')
         .invoke('val', 'かった')
         .setRange(3, 3)
-        .trigger('keydown')
-        .trigger('keyup')
         .should('have.value', 'かった')
         .invoke('val', '買った')
         .setRange(3, 3)
-        .trigger('keydown')
-        .trigger('keyup')
-        .trigger('keydown')
         .trigger('compositionend')
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', '買った');
     });
     it('IE11', () => {
@@ -568,42 +510,30 @@ describe('IME inconsistencies - emulate composition event differences', () => {
         .get('#input')
         .invoke('val', 'ｋ')
         .setRange(1, 1)
-        .trigger('keydown')
         .trigger('compositionstart')
-        .trigger('compositionupdate')
+        .trigger('compositionupdate', { data: 'ｋ' })
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', 'ｋ')
         .invoke('val', 'か')
         .setRange(1, 1)
-        .trigger('keydown')
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', 'か')
         .invoke('val', 'かｔ')
         .setRange(2, 2)
-        .trigger('keydown')
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', 'かｔ')
         .invoke('val', 'かっｔ')
         .setRange(3, 3)
-        .trigger('keydown')
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', 'かっｔ')
         .invoke('val', 'かった')
         .setRange(3, 3)
-        .trigger('keydown')
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', 'かった')
         .invoke('val', '買った')
         .setRange(3, 3)
-        .trigger('keydown')
         .trigger('compositionend')
         .trigger('input')
-        .trigger('keyup')
         .should('have.value', '買った');
     });
     it('Edge', () => {
@@ -611,35 +541,33 @@ describe('IME inconsistencies - emulate composition event differences', () => {
         .get('#input')
         .invoke('val', 'ｋ')
         .setRange(1, 1)
-        .trigger('keydown')
         .trigger('compositionstart')
-        .trigger('keyup')
         .invoke('val', 'か')
         .setRange(1, 1)
-        .trigger('keydown')
-        .trigger('keyup')
         .should('have.value', 'か')
         .invoke('val', 'かｔ')
         .setRange(2, 2)
-        .trigger('keydown')
-        .trigger('keyup')
         .should('have.value', 'かｔ')
         .invoke('val', 'かっｔ')
         .setRange(3, 3)
-        .trigger('keydown')
-        .trigger('keyup')
         .should('have.value', 'かっｔ')
         .invoke('val', 'かった')
         .setRange(3, 3)
-        .trigger('keydown')
-        .trigger('keyup')
         .should('have.value', 'かった')
         .invoke('val', '買った')
         .setRange(3, 3)
-        .trigger('keydown')
         .trigger('compositionend')
         .trigger('input')
         .should('have.value', '買った');
     });
   });
+
+  describe('Mobile English Keyboards', () => {
+    it('android samsung (test not written)', () => {
+      cy
+        .get('#input')
+        .should('have.value', 'かった');
+    });
+  });
+
 });

@@ -1,32 +1,45 @@
 {
   "presets": [
-    ["env", {
-      "loose": false,
-      "modules": false
-    }]
+    [
+      "env",
+      {
+        "loose": false,
+        "modules": false
+      }
+    ]
   ],
   "env": {
     "test": {
-      "presets": [ "env" ]
+      "presets": ["env"]
     },
     "cjs": {
       "presets": [
-        ["env", {
-          "loose": false,
-          "targets": {
-            "browsers": [
-              "last 4 versions",
-              ">1%"
-            ]
+        [
+          "env",
+          {
+            "loose": false,
+            "debug": true,
+            "targets": {
+              "browsers": ["last 4 versions"]
+            }
           }
-        }]
+        ]
       ]
     },
     "rollup": {
-      "plugins": [
-        "external-helpers",
-        "transform-es2017-object-entries"
-      ]
+      "presets": [
+        [
+          "env",
+          {
+            "modules": false,
+            "debug": true,
+            "targets": {
+              "browsers": ["last 4 versions"]
+            }
+          }
+        ]
+      ],
+      "plugins": ["external-helpers"]
     }
   }
 }

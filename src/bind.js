@@ -1,4 +1,4 @@
-import { makeOnInput, onComposition, trackListeners } from './utils/dom';
+import { makeOnInput, makeOnComposition, trackListeners } from './utils/dom';
 import { addDebugListeners } from './utils/logInputEvents';
 
 const ELEMENTS = ['TEXTAREA', 'INPUT'];
@@ -23,13 +23,13 @@ function bind(input = {}, options = {}, debug = false) {
       )})`
     );
   }
-  const onInput = makeOnInput(input, options);
+  const onInput = makeOnInput(options);
+  const onComposition = makeOnComposition(options);
   const id = newId();
   input.setAttribute('data-wanakana-id', id);
-  //  input.autocapitalize = 'none'; // eslint-disable-line no-param-reassign
   input.addEventListener('input', onInput);
   input.addEventListener('compositionstart', onComposition);
-  input.addEventListener('compositionchange', onComposition);
+  input.addEventListener('compositionupdate', onComposition);
   input.addEventListener('compositionend', onComposition);
   trackListeners(id, onInput, onComposition);
   if (debug === true) {

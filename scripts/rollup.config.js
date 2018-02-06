@@ -18,7 +18,7 @@ export default [
     },
     plugins: [
       babel({
-        exclude: ['**/node_modules/**', '**/__tests__/**'],
+        exclude: ['**/node_modules/**'],
       }),
     ],
   },
@@ -30,13 +30,13 @@ export default [
       file: `${OUT_DIR}/${LIB_DIR}/${PACKAGE_NAME}.js`,
     },
     plugins: [
-      babel({
-        exclude: ['**/node_modules/**', '**/__tests__/**'],
-      }),
       nodeResolve({
         jsnext: true,
       }),
       commonjs(),
+      babel({
+        exclude: ['**/node_modules/**'],
+      }),
       replace({
         'process.env.NODE_ENV': JSON.stringify('development'),
       }),
@@ -51,13 +51,13 @@ export default [
       sourcemap: true,
     },
     plugins: [
-      babel({
-        exclude: ['**/node_modules/**', '**/__tests__/**'],
-      }),
       nodeResolve({
         jsnext: true,
       }),
       commonjs(),
+      babel({
+        exclude: ['**/node_modules/**'],
+      }),
       replace({
         'process.env.NODE_ENV': JSON.stringify('production'),
       }),

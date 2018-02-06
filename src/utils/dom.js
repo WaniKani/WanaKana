@@ -7,49 +7,67 @@ let LISTENERS = [];
 
 /**
  * Automagically replaces input values with converted text to kana
- * @param  {HTMLElement} [el] input/textarea element
  * @param  {defaultOptions} [options] user config overrides, default conversion is toKana()
  * @return {Function} event handler with bound options
  * @ignore
  */
-export function makeOnInput(el, options) {
+export function makeOnInput(options) {
   const mergedConfig = Object.assign({}, mergeWithDefaultOptions(options), {
     IMEMode: options.IMEMode || true,
   });
 
-  return function onInput({ target }) {
-    const { dataset, value, selectionEnd } = target;
-    if (dataset.isComposing === 'true') {
-      console.log(`isComposing: early exit for value: ${value}`);
+  return function onInput(event) {
+    if (event.target.dataset.ignoreComposition === 'true') {
       return;
     }
-    const [head, textToConvert, tail] = splitInput(value, selectionEnd, mergedConfig);
-    const convertedText = toKana(textToConvert, mergedConfig);
 
-    if (textToConvert !== convertedText) {
-      target.value = head + convertedText + tail;
-      const newCursor = head.length + convertedText.length;
-      target.setSelectionRange(newCursor, newCursor);
-    }
+    convertAndSetValue(event, { options: mergedConfig });
   };
 }
 
-export function onComposition({ target, type }) {
-  const isChrome = window && !!window.chrome && !!window.chrome.webstore;
+export function convertAndSetValue({ type, target }, { options }) {
+  const [head, textToConvert, tail] = splitInput(target.value, target.selectionEnd, options);
+  const convertedText = toKana(textToConvert, options);
 
-  if (type === 'compositionend') {
-    target.dataset.isComposing = 'false';
-
-    // Chrome fires 'compositionEnd' event after 'input' event.
-    // https://chromium.googlesource.com/chromium/src/+/afce9d93e76f2ff81baaa088a4ea25f67d1a76b3%5E%21/
-    if (isChrome) {
-      const inputEvent = new Event('input');
-      target.dispatchEvent(inputEvent);
-    }
-  } else {
-    // in composition
-    target.dataset.isComposing = 'true';
+  if (textToConvert !== convertedText) {
+    const newCursor = head.length + convertedText.length;
+    target.value = head + convertedText + tail;
+    setTimeout(() => {
+      target.setSelectionRange(newCursor, newCursor);
+    });
   }
+}
+
+/**
+ * Sets flags used in onInput() due to composition events
+ * @param  {defaultOptions} [options] user config overrides
+ * @return {Function} event handler with bound options
+ * @ignore
+ */
+export function makeOnComposition(options) {
+  let isComposing = false;
+
+  return function onComposition(event) {
+    const { type, target } = event;
+
+    if (type === 'compositionend') {
+      isComposing = false;
+      target.dataset.ignoreComposition = 'false';
+      // some mobile EN keyboards (and older Chrome) don't fire input after compositionEnd
+      setTimeout(() => {
+        const inputEvent = new Event('input');
+        target.dispatchEvent(inputEvent);
+      });
+      // }
+    } else {
+      // in composition
+      isComposing = true;
+    }
+
+    if (type === 'compositionupdate' && isComposing && isJapanese(event.data)) {
+      target.dataset.ignoreComposition = 'true';
+    }
+  };
 }
 
 export function trackListeners(id, inputHandler, compositionHandler) {
@@ -72,24 +90,23 @@ export function findListeners(el) {
 // | -> わ| -> わび| -> わ|び -> わs|び -> わsh|び -> わshi|び -> わし|び
 // or multiple ambiguous positioning (IE select which "s" to work from)
 // こsこs|こsこ -> こsこso|こsこ -> こsこそ|こsこ
-export function splitInput(text = '', startIndex = 0, config = {}) {
+export function splitInput(text = '', cursor = 0, config = {}) {
   let head;
   let toConvert;
   let tail;
   let triggers = Object.keys(createRomajiToKanaMap(config));
   triggers = [...triggers, ...triggers.map((char) => char.toUpperCase())];
 
-  if (startIndex === 0 && triggers.includes(text[0])) {
+  if (cursor === 0 && triggers.includes(text[0])) {
     [head, toConvert, tail] = workFromStart(text, triggers);
-    // NOTE: maybe we can just *always* work backwards?
-  } else if (startIndex > 0) {
-    [head, toConvert, tail] = workBackwards(text, startIndex);
+  } else if (cursor > 0) {
+    [head, toConvert, tail] = workBackwards(text, cursor);
   } else {
     [head, toConvert] = takeWhileAndSlice(text, (char) => !triggers.includes(char));
     [toConvert, tail] = takeWhileAndSlice(toConvert, (char) => !isJapanese(char));
   }
 
-  return [head, setKanaType(toConvert, config), tail];
+  return [head, enforceKanaType(toConvert, config), tail];
 }
 
 function workFromStart(text, catalystChars) {
@@ -128,14 +145,17 @@ function takeWhileAndSlice(source = {}, predicate = (x) => !!x) {
   return [result.join(''), source.slice(i)];
 }
 
-// allow us to to continue use `toKana` to handle IME input with forced conversion type
-function setKanaType(input = '', { IMEMode } = {}) {
+function enforceKanaType(text = '', { IMEMode } = {}) {
+  // Some keyboards autocapitalize first letter of input,
+  // so enforce hiragana if all mora are not uppercase
+  const mixedCase = /^[A-Z]+[a-z]+/.test(text);
+
   switch (true) {
-    case IMEMode === TO_KANA_METHODS.HIRAGANA:
-      return input.toLowerCase();
     case IMEMode === TO_KANA_METHODS.KATAKANA:
-      return input.toUpperCase();
+      return text.toUpperCase();
+    case IMEMode === TO_KANA_METHODS.HIRAGANA || mixedCase:
+      return text.toLowerCase();
     default:
-      return input;
+      return text;
   }
 }
