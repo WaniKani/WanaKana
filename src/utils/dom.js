@@ -25,16 +25,14 @@ export function makeOnInput(options) {
   };
 }
 
-export function convertAndSetValue({ type, target }, { options }) {
+export function convertAndSetValue({ target }, { options }) {
   const [head, textToConvert, tail] = splitInput(target.value, target.selectionEnd, options);
   const convertedText = toKana(textToConvert, options);
 
   if (textToConvert !== convertedText) {
     const newCursor = head.length + convertedText.length;
     target.value = head + convertedText + tail;
-    setTimeout(() => {
-      target.setSelectionRange(newCursor, newCursor);
-    });
+    target.setSelectionRange(newCursor, newCursor);
   }
 }
 
@@ -53,12 +51,6 @@ export function makeOnComposition(options) {
     if (type === 'compositionend') {
       isComposing = false;
       target.dataset.ignoreComposition = 'false';
-      // some mobile EN keyboards (and older Chrome) don't fire input after compositionEnd
-      setTimeout(() => {
-        const inputEvent = new Event('input');
-        target.dispatchEvent(inputEvent);
-      });
-      // }
     } else {
       // in composition
       isComposing = true;

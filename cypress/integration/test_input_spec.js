@@ -2,7 +2,7 @@ const wk = require('../../dist/lib/wanakana');
 
 Cypress.config({
   baseUrl: 'http://localhost:9080',
-  videoUploadOnPasses: true,
+  videoUploadOnPasses: false,
 });
 
 /* eslint-disable no-sequences */
@@ -327,14 +327,46 @@ describe('emulate device keyboards and IMEs', () => {
   //     .get('#input')
   //     .wkBind();
   // });
-  beforeEach(() => {
-    cy
-      .get('#input')
-      .clear()
-      .setRange(0, 0);
+  describe("Doesn't interfere with Mobile Kana (flick/tap) Japanese IMEs", () => {
+    beforeEach(() => {
+      cy
+        .get('#input')
+        .clear()
+        .setRange(0, 0);
+    });
+
+    it('Chrome', () => {
+      cy
+        .get('#input')
+        .invoke('val', 'か')
+        .setRange(1, 1)
+        .trigger('compositionstart')
+        .trigger('compositionupdate', { data: 'か' })
+        .trigger('input')
+        .should('have.value', 'か')
+        .trigger('compositionupdate', { data: 'た' })
+        .trigger('input')
+        .should('have.value', 'か')
+        .invoke('val', 'かっ')
+        .setRange(2, 2)
+        .trigger('compositionupdate', { data: 'っ' })
+        .trigger('input')
+        .should('have.value', 'かっ')
+        .invoke('val', 'かった')
+        .setRange(3, 3)
+        .trigger('compositionupdate', { data: 'た' })
+        .trigger('input')
+        .should('have.value', 'かった')
+        .invoke('val', '買った')
+        .setRange(3, 3)
+        .trigger('compositionupdate', { data: '買った' })
+        .trigger('input')
+        .trigger('compositionend')
+        .should('have.value', '買った');
+    });
   });
 
-  describe('Mozc IME', () => {
+  describe("Doesn't interfere with Desktop (Hiragana mode) Japanese IMEs (modelled on MOZC)", () => {
     beforeEach(() => {
       cy
         .get('#input')
@@ -449,62 +481,6 @@ describe('emulate device keyboards and IMEs', () => {
         .trigger('input')
         .should('have.value', '買った');
     });
-    it('IE9', () => {
-      cy
-        .get('#input')
-        .invoke('val', 'ｋ')
-        .setRange(1, 1)
-        .trigger('compositionstart')
-        .trigger('compositionupdate', { data: 'ｋ' })
-        .should('have.value', 'ｋ')
-        .invoke('val', 'か')
-        .setRange(1, 1)
-        .trigger('compositionupdate', { data: 'か' })
-        .should('have.value', 'か')
-        .invoke('val', 'かｔ')
-        .setRange(2, 2)
-        .trigger('compositionupdate', { data: 'かｔ' })
-        .should('have.value', 'かｔ')
-        .invoke('val', 'かっｔ')
-        .setRange(3, 3)
-        .trigger('compositionupdate', { data: 'かっｔ' })
-        .should('have.value', 'かっｔ')
-        .invoke('val', 'かった')
-        .setRange(3, 3)
-        .trigger('compositionupdate', { data: 'かった' })
-        .should('have.value', 'かった')
-        .invoke('val', '買った')
-        .setRange(3, 3)
-        .trigger('input')
-        .trigger('compositionupdate', { data: '買った' })
-        .trigger('compositionend')
-        .should('have.value', '買った');
-    });
-    it('IE10', () => {
-      cy
-        .get('#input')
-        .invoke('val', 'ｋ')
-        .setRange(1, 1)
-        .trigger('compositionstart')
-        .should('have.value', 'ｋ')
-        .invoke('val', 'か')
-        .setRange(1, 1)
-        .should('have.value', 'か')
-        .invoke('val', 'かｔ')
-        .setRange(2, 2)
-        .should('have.value', 'かｔ')
-        .invoke('val', 'かっｔ')
-        .setRange(3, 3)
-        .should('have.value', 'かっｔ')
-        .invoke('val', 'かった')
-        .setRange(3, 3)
-        .should('have.value', 'かった')
-        .invoke('val', '買った')
-        .setRange(3, 3)
-        .trigger('compositionend')
-        .trigger('input')
-        .should('have.value', '買った');
-    });
     it('IE11', () => {
       cy
         .get('#input')
@@ -562,12 +538,9 @@ describe('emulate device keyboards and IMEs', () => {
     });
   });
 
-  describe('Mobile English Keyboards', () => {
+  describe('Converts Mobile English Keyboards', () => {
     it('android samsung (test not written)', () => {
-      cy
-        .get('#input')
-        .should('have.value', 'かった');
+      cy.get('#input').should('have.value', 'かった');
     });
   });
-
 });
