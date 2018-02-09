@@ -99,7 +99,7 @@
     "core-js": "2.5.3",
     "coveralls": "3.0.0",
     "cross-env": "5.1.1",
-    "cypress": "1.4.1",
+    "cypress": "1.4.2",
     "cz-conventional-changelog": "2.1.0",
     "docdash": "0.4.0",
     "eslint": "4.13.1",
