@@ -1,8 +1,14 @@
 /* eslint-disable no-console */
-const onInput = ({ target, data }) =>
-  console.log(`input: { data: ${data}, target.value: ${target.value} }`);
+const onInput = ({ target: { value, selectionStart, selectionEnd } }) =>
+  console.log('input:', { value, selectionStart, selectionEnd });
 const onCompositionStart = () => console.log('compositionstart');
-const onCompositionUpdate = ({ data }) => console.log(`compositionupdate: data: ${data}`);
+const onCompositionUpdate = ({ target: { value, selectionStart, selectionEnd }, data }) =>
+  console.log('compositionupdate', {
+    data,
+    value,
+    selectionStart,
+    selectionEnd,
+  });
 const onCompositionEnd = () => console.log('compositionend');
 
 const events = {

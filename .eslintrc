@@ -55,6 +55,7 @@
       }
     ],
     "no-cond-assign": [2, "except-parens"],
+    "no-unused-expressions": [1, { "allowTernary": true }],
     "no-unused-vars": [
       1,
       {

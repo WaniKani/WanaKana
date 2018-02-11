@@ -4,6 +4,7 @@ import toKana, { createRomajiToKanaMap } from '../toKana';
 import mergeWithDefaultOptions from './mergeWithDefaultOptions';
 
 let LISTENERS = [];
+const isAndroidChrome = /android.*chrome/i.test(navigator && navigator.userAgent);
 
 /**
  * Automagically replaces input values with converted text to kana
@@ -17,49 +18,34 @@ export function makeOnInput(options) {
   });
 
   return function onInput(event) {
-    if (event.target.dataset.ignoreComposition === 'true') {
-      return;
+    if (event.target.dataset.ignoreComposition !== 'true') {
+      convertInput(event, { options: mergedConfig });
     }
-
-    convertAndSetValue(event, { options: mergedConfig });
   };
 }
 
-export function convertAndSetValue({ target }, { options }) {
+export function convertInput({ target }, { options }) {
   const [head, textToConvert, tail] = splitInput(target.value, target.selectionEnd, options);
   const convertedText = toKana(textToConvert, options);
 
   if (textToConvert !== convertedText) {
     const newCursor = head.length + convertedText.length;
     target.value = head + convertedText + tail;
-    target.setSelectionRange(newCursor, newCursor);
+    // push later on event loop (otherwise mid-text insertion can be 1 char too far to the right (chrome/latin composition))
+    tail.length
+      ? setTimeout(() => target.setSelectionRange(newCursor, newCursor), 1)
+      : target.setSelectionRange(newCursor, newCursor);
   }
 }
 
-/**
- * Sets flags used in onInput() due to composition events
- * @param  {defaultOptions} [options] user config overrides
- * @return {Function} event handler with bound options
- * @ignore
- */
-export function makeOnComposition(options) {
-  let isComposing = false;
+export function onComposition({ type, target, data }) {
+  if (type === 'compositionupdate' && isJapanese(data)) {
+    target.dataset.ignoreComposition = 'true';
+  }
 
-  return function onComposition(event) {
-    const { type, target } = event;
-
-    if (type === 'compositionend') {
-      isComposing = false;
-      target.dataset.ignoreComposition = 'false';
-    } else {
-      // in composition
-      isComposing = true;
-    }
-
-    if (type === 'compositionupdate' && isComposing && isJapanese(event.data)) {
-      target.dataset.ignoreComposition = 'true';
-    }
-  };
+  if (type === 'compositionend') {
+    target.dataset.ignoreComposition = 'false';
+  }
 }
 
 export function trackListeners(id, inputHandler, compositionHandler) {

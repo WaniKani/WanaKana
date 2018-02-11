@@ -1,4 +1,4 @@
-import { makeOnInput, makeOnComposition, trackListeners } from './utils/dom';
+import { makeOnInput, onComposition, trackListeners } from './utils/dom';
 import { addDebugListeners } from './utils/logInputEvents';
 
 const ELEMENTS = ['TEXTAREA', 'INPUT'];
@@ -24,7 +24,6 @@ function bind(input = {}, options = {}, debug = false) {
     );
   }
   const onInput = makeOnInput(options);
-  const onComposition = makeOnComposition(options);
   const id = newId();
   input.setAttribute('data-wanakana-id', id);
   input.addEventListener('input', onInput);
