@@ -2,6 +2,7 @@ import typeOf from './typeOf';
 
 export function applyMapping(string, mapping, convertEnding) {
   const root = mapping;
+
   function nextSubtree(tree, nextChar) {
     const subtree = tree[nextChar];
     if (subtree === undefined) {
@@ -30,7 +31,8 @@ export function applyMapping(string, mapping, convertEnding) {
         // so as to not have an empty element at the end of the result
         return tree[''] ? [[lastCursor, currentCursor, tree['']]] : [];
       }
-      // if we don't want to convert the ending, because there are still possible continuations left, just return null as the final node value
+      // if we don't want to convert the ending, because there are still possible continuations
+      // return null as the final node value
       return [[lastCursor, currentCursor, null]];
     }
 
@@ -39,41 +41,34 @@ export function applyMapping(string, mapping, convertEnding) {
     }
 
     const subtree = nextSubtree(tree, remaining.charAt(0));
+
     if (subtree === undefined) {
       return [[lastCursor, currentCursor, tree['']]].concat(newChunk(remaining, currentCursor));
     }
-
     // continue current branch
     return parse(subtree, remaining.slice(1), lastCursor, currentCursor + 1);
   }
+
   return newChunk(string, 0);
 }
 
 // transform the tree, so that for example hepburnTree['ゔ']['ぁ'][''] === 'va'
 // or kanaTree['k']['y']['a'][''] === 'きゃ'
 export function transform(tree) {
-  const result = {};
-  for (const [char, subtree] of Object.entries(tree)) {
-    if (typeOf(subtree) === 'string') {
-      // we have reached the bottom of this branch
-      result[char] = { '': subtree };
-    } else {
-      // more subtrees to go through
-      result[char] = transform(subtree);
-    }
-  }
-  return result;
+  return Object.entries(tree).reduce((map, [char, subtree]) => {
+    const endOfBranch = typeOf(subtree) === 'string';
+    map[char] = endOfBranch ? { '': subtree } : transform(subtree);
+    return map;
+  }, {});
 }
 
 export function getSubTreeOf(tree, string) {
-  let correctSubTree = tree;
-  for (const char of string) {
+  return string.split('').reduce((correctSubTree, char) => {
     if (correctSubTree[char] === undefined) {
       correctSubTree[char] = {};
     }
-    correctSubTree = correctSubTree[char];
-  }
-  return correctSubTree;
+    return correctSubTree[char];
+  }, tree);
 }
 
 /**
@@ -91,31 +86,31 @@ export function createCustomMapping(customMap = {}) {
   const customTree = {};
 
   if (typeOf(customMap) === 'object') {
-    for (const [rom, kan] of Object.entries(customMap)) {
+    Object.entries(customMap).forEach(([roma, kana]) => {
       let subTree = customTree;
-      for (const char of rom) {
+      roma.split('').forEach((char) => {
         if (subTree[char] === undefined) {
           subTree[char] = {};
         }
         subTree = subTree[char];
-      }
-      subTree[''] = kan;
-    }
+      });
+      subTree[''] = kana;
+    });
   }
 
   return function makeMap(map) {
     const mapCopy = JSON.parse(JSON.stringify(map));
-    function transformMap(mapSubtree, customSubtree) {
-      // replace the subtree
+
+    function transformMap(mapSubtree, customSubtree) {    
       if (mapSubtree === undefined || typeOf(mapSubtree) === 'string') {
         return customSubtree;
       }
-      const result = mapSubtree;
-      for (const [char, subtree] of Object.entries(customSubtree)) {
-        result[char] = transformMap(mapSubtree[char], subtree);
-      }
-      return result;
+      return Object.entries(customSubtree).reduce((newSubtree, [char, subtree]) => {
+        newSubtree[char] = transformMap(mapSubtree[char], subtree);
+        return newSubtree;
+      }, mapSubtree);
     }
+
     return transformMap(mapCopy, customTree);
   };
 }
