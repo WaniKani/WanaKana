@@ -28,32 +28,31 @@ const LONG_VOWELS = {
  * @ignore
  */
 function katakanaToHiragana(input = '') {
-  const hira = [];
   let previousKana = '';
-  const iterable = input.split('');
-  for (let index = 0; index < iterable.length; index += 1) {
-    const char = iterable[index];
-    // Short circuit to avoid incorrect codeshift for 'ー' and '・'
-    if (isCharSlashDot(char) || isCharInitialLongDash(char, index) || isKanaAsSymbol(char)) {
-      hira.push(char);
-      // Transform long vowels: 'オー' to 'おう'
-    } else if (previousKana && isCharInnerLongDash(char, index)) {
-      // Transform previousKana back to romaji, and slice off the vowel
-      const romaji = toRomaji(previousKana).slice(-1);
-      hira.push(LONG_VOWELS[romaji]);
-    } else if (!isCharLongDash(char) && isCharKatakana(char)) {
-      // Shift charcode.
-      const code = char.charCodeAt(0) + (HIRAGANA_START - KATAKANA_START);
-      const hiraChar = String.fromCharCode(code);
-      hira.push(hiraChar);
-      previousKana = hiraChar;
-    } else {
+
+  return input
+    .split('')
+    .reduce((hira, char, index) => {
+      // Short circuit to avoid incorrect codeshift for 'ー' and '・'
+      if (isCharSlashDot(char) || isCharInitialLongDash(char, index) || isKanaAsSymbol(char)) {
+        return hira.concat(char);
+        // Transform long vowels: 'オー' to 'おう'
+      } else if (previousKana && isCharInnerLongDash(char, index)) {
+        // Transform previousKana back to romaji, and slice off the vowel
+        const romaji = toRomaji(previousKana).slice(-1);
+        return hira.concat(LONG_VOWELS[romaji]);
+      } else if (!isCharLongDash(char) && isCharKatakana(char)) {
+        // Shift charcode.
+        const code = char.charCodeAt(0) + (HIRAGANA_START - KATAKANA_START);
+        const hiraChar = String.fromCharCode(code);
+        previousKana = hiraChar;
+        return hira.concat(hiraChar);
+      }
       // Pass non katakana chars through
-      hira.push(char);
       previousKana = '';
-    }
-  }
-  return hira.join('');
+      return hira.concat(char);
+    }, [])
+    .join('');
 }
 
 export default katakanaToHiragana;
