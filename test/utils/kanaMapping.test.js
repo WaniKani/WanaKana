@@ -15,10 +15,10 @@ describe('Test custom mappings options', () => {
 
   it('applies customKanaMapping', () => {
     expect(
-      toKana('WanaKana', {
+      toKana('wanakana', {
         customKanaMapping: createCustomMapping({ na: 'に', ka: 'Bana' }),
       })
-    ).toBe('ワにBanaに');
+    ).toBe('わにBanaに');
   });
 
   it("can't romanize with an invalid method", () => {
@@ -35,10 +35,10 @@ describe('Test custom mappings options', () => {
 
   it('will accept a plain object and merge it internally via createCustomMapping()', () => {
     expect(
-      toKana('WanaKana', {
+      toKana('wanakana', {
         customKanaMapping: { na: 'に', ka: 'Bana' },
       })
-    ).toBe('ワにBanaに');
+    ).toBe('わにBanaに');
 
     expect(
       toRomaji('つじぎり', {

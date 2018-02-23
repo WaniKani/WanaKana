@@ -1,3 +1,6 @@
+// TODO: take a look at other libs configs since we're running into issues
+// perhaps https://github.com/styled-components/styled-components/
+
 const nodeResolve = require('rollup-plugin-node-resolve');
 const babel = require('rollup-plugin-babel');
 const replace = require('rollup-plugin-replace');
@@ -17,6 +20,9 @@ export default [
       file: `${OUT_DIR}/${LIB_DIR}/${PACKAGE_NAME}.esm.js`,
     },
     plugins: [
+      replace({
+        'process.env.BABEL_ENV': 'es',
+      }),
       babel({
         exclude: ['**/node_modules/**'],
       }),
@@ -37,9 +43,6 @@ export default [
       babel({
         exclude: ['**/node_modules/**'],
       }),
-      replace({
-        'process.env.NODE_ENV': JSON.stringify('development'),
-      }),
     ],
   },
   {
@@ -57,9 +60,6 @@ export default [
       commonjs(),
       babel({
         exclude: ['**/node_modules/**'],
-      }),
-      replace({
-        'process.env.NODE_ENV': JSON.stringify('production'),
       }),
       uglify({
         compress: {

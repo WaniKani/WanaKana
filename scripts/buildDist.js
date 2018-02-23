@@ -17,7 +17,7 @@ function buildFlatModules() {
 
   return exec(
     `cd ${SOURCE_DIR} && ` +
-      'cross-env BABEL_ENV=cjs ' +
+      'cross-env BABEL_ENV=es ' +
       `${BIN}/babel ${sourceFiles.join(' ')} ` +
       `--out-dir ${OUT_DIR}`
   );

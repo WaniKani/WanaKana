@@ -1,7 +1,7 @@
+import { TO_KANA_METHODS } from './constants';
 import mergeWithDefaultOptions from './utils/mergeWithDefaultOptions';
 import { getRomajiToKanaTree, IME_MODE_MAP, USE_OBSOLETE_KANA_MAP } from './utils/romajiToKanaMap';
 import { applyMapping, mergeCustomMapping } from './utils/kanaMapping';
-import isEmpty from './utils/isEmpty';
 import isCharUpperCase from './utils/isCharUpperCase';
 import hiraganaToKatakana from './utils/hiraganaToKatakana';
 
@@ -26,29 +26,31 @@ import hiraganaToKatakana from './utils/hiraganaToKatakana';
  * toKana('WanaKana', { customKanaMapping: { na: 'に', ka: 'Bana' } });
  * // => 'ワにBanaに'
  */
-export function toKana(input = '', options = {}) {
-  if (isEmpty(input)) {
-    return input;
+export function toKana(input = '', options = {}, map) {
+  let config;
+  if (!map) {
+    config = mergeWithDefaultOptions(options);
+    map = createRomajiToKanaMap(config);
+  } else {
+    config = options;
   }
+
   // throw away the substring index information and just concatenate all the kana
-  return splitIntoConvertedKana(input, options)
+  return splitIntoConvertedKana(input, config, map)
     .map((kanaToken) => {
-      const [start, , kana] = kanaToken;
+      const [start, end, kana] = kanaToken;
       if (kana === null) {
         // haven't converted the end of the string, since we are in IME mode
         return input.slice(start);
       }
-      // make katakana, if the first letter of the syllable is upper case
-      return isCharUpperCase(input.charAt(start)) ? hiraganaToKatakana(kana) : kana;
+      const enforceHiragana = config.IMEMode === TO_KANA_METHODS.HIRAGANA;
+      const enforceKatakana =
+        config.IMEMode === TO_KANA_METHODS.KATAKANA ||
+        [...input.slice(start, end)].every(isCharUpperCase);
+
+      return enforceHiragana || !enforceKatakana ? kana : hiraganaToKatakana(kana);
     })
     .join('');
-}
-
-export function createRomajiToKanaMap(config = {}) {
-  let map = getRomajiToKanaTree(config);
-  map = config.IMEMode ? IME_MODE_MAP(map) : map;
-  map = config.useObsoleteKana ? USE_OBSOLETE_KANA_MAP(map) : map;
-  return mergeCustomMapping(map, config.customKanaMapping);
 }
 
 /**
@@ -61,10 +63,18 @@ export function createRomajiToKanaMap(config = {}) {
  * splitIntoConvertedKana('buttsuuji')
  * // => [[0, 2, 'ぶ'], [2, 6, 'っつ'], [6, 7, 'う'], [7, 9, 'じ']]
  */
-export function splitIntoConvertedKana(input = '', options = {}) {
-  const config = mergeWithDefaultOptions(options);
-  const map = createRomajiToKanaMap(config);
-  return applyMapping(input.toLowerCase(), map, !config.IMEMode);
+export function splitIntoConvertedKana(input = '', options = {}, map) {
+  if (!map) {
+    map = createRomajiToKanaMap(options);
+  }
+  return applyMapping(input.toLowerCase(), map, !options.IMEMode);
+}
+
+export function createRomajiToKanaMap(config = {}) {
+  let map = getRomajiToKanaTree();
+  map = config.IMEMode ? IME_MODE_MAP(map) : map;
+  map = config.useObsoleteKana ? USE_OBSOLETE_KANA_MAP(map) : map;
+  return mergeCustomMapping(map, config.customKanaMapping);
 }
 
 export default toKana;

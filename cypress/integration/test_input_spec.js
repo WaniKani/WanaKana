@@ -322,11 +322,6 @@ describe('default IME conversions', () => {
 });
 
 describe('emulate device keyboards and IMEs', () => {
-  // before(() => {
-  //   cy
-  //     .get('#input')
-  //     .wkBind();
-  // });
   describe("Doesn't interfere with Mobile Kana (flick/tap) Japanese IMEs", () => {
     beforeEach(() => {
       cy
@@ -535,12 +530,6 @@ describe('emulate device keyboards and IMEs', () => {
         .trigger('compositionend')
         .trigger('input')
         .should('have.value', '買った');
-    });
-  });
-
-  describe('Converts Mobile English Keyboards', () => {
-    it('android samsung (test not written)', () => {
-      cy.get('#input').should('have.value', 'かった');
     });
   });
 });

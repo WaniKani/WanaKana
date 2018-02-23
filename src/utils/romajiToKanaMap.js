@@ -1,7 +1,5 @@
 import { transform, getSubTreeOf, createCustomMapping } from './kanaMapping';
 
-let romajiToKanaMap = null;
-
 // NOTE: not exactly kunrei shiki, for example ぢゃ -> dya instead of zya, to avoid name clashing
 /* eslint-disable */
 // prettier-ignore
@@ -227,8 +225,10 @@ function createRomajiToKanaMap() {
   return Object.freeze(JSON.parse(JSON.stringify(kanaTree)));
 }
 
-export function getRomajiToKanaTree(config) {
-  if (romajiToKanaMap === null) {
+let romajiToKanaMap = null;
+
+export function getRomajiToKanaTree() {
+  if (romajiToKanaMap == null) {
     romajiToKanaMap = createRomajiToKanaMap();
   }
   return romajiToKanaMap;

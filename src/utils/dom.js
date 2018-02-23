@@ -1,11 +1,8 @@
-import { TO_KANA_METHODS } from '../constants';
 import isJapanese from '../isJapanese';
 import toKana, { createRomajiToKanaMap } from '../toKana';
 import mergeWithDefaultOptions from './mergeWithDefaultOptions';
 
 let LISTENERS = [];
-const isAndroidChrome = /android.*chrome/i.test(navigator && navigator.userAgent);
-
 /**
  * Automagically replaces input values with converted text to kana
  * @param  {defaultOptions} [options] user config overrides, default conversion is toKana()
@@ -13,28 +10,39 @@ const isAndroidChrome = /android.*chrome/i.test(navigator && navigator.userAgent
  * @ignore
  */
 export function makeOnInput(options) {
+  let prevInput;
   const mergedConfig = Object.assign({}, mergeWithDefaultOptions(options), {
     IMEMode: options.IMEMode || true,
   });
+  const preConfiguredMap = createRomajiToKanaMap(mergedConfig);
+  const triggers = [
+    ...Object.keys(preConfiguredMap),
+    ...Object.keys(preConfiguredMap).map((char) => char.toUpperCase()),
+  ];
 
-  return function onInput(event) {
-    if (event.target.dataset.ignoreComposition !== 'true') {
-      convertInput(event, { options: mergedConfig });
+  return function onInput({ target }) {
+    if (target.value !== prevInput && target.dataset.ignoreComposition !== 'true') {
+      convertInput(target, mergedConfig, preConfiguredMap, triggers, prevInput);
     }
   };
 }
 
-export function convertInput({ target }, { options }) {
-  const [head, textToConvert, tail] = splitInput(target.value, target.selectionEnd, options);
-  const convertedText = toKana(textToConvert, options);
+export function convertInput(target, options, map, triggers, prevInput) {
+  const [head, textToConvert, tail] = splitInput(target.value, target.selectionEnd, triggers);
+  const convertedText = toKana(textToConvert, options, map);
 
   if (textToConvert !== convertedText) {
     const newCursor = head.length + convertedText.length;
-    target.value = head + convertedText + tail;
-    // push later on event loop (otherwise mid-text insertion can be 1 char too far to the right (chrome/latin composition))
-    tail.length
-      ? setTimeout(() => target.setSelectionRange(newCursor, newCursor), 1)
-      : target.setSelectionRange(newCursor, newCursor);
+    const newValue = head + convertedText + tail;
+    target.value = newValue;
+    prevInput = newValue;
+
+    // push later on event loop (otherwise mid-text insertion can be 1 char too far to the right)
+    // tail.length
+    //   ? setTimeout(() => target.setSelectionRange(newCursor, newCursor), 1) :
+    target.setSelectionRange(newCursor, newCursor);
+  } else {
+    prevInput = target.value;
   }
 }
 
@@ -68,12 +76,10 @@ export function findListeners(el) {
 // | -> わ| -> わび| -> わ|び -> わs|び -> わsh|び -> わshi|び -> わし|び
 // or multiple ambiguous positioning (IE select which "s" to work from)
 // こsこs|こsこ -> こsこso|こsこ -> こsこそ|こsこ
-export function splitInput(text = '', cursor = 0, config = {}) {
+export function splitInput(text = '', cursor = 0, triggers = []) {
   let head;
   let toConvert;
   let tail;
-  let triggers = Object.keys(createRomajiToKanaMap(config));
-  triggers = [...triggers, ...triggers.map((char) => char.toUpperCase())];
 
   if (cursor === 0 && triggers.includes(text[0])) {
     [head, toConvert, tail] = workFromStart(text, triggers);
@@ -84,7 +90,7 @@ export function splitInput(text = '', cursor = 0, config = {}) {
     [toConvert, tail] = takeWhileAndSlice(toConvert, (char) => !isJapanese(char));
   }
 
-  return [head, enforceKanaType(toConvert, config), tail];
+  return [head, toConvert, tail];
 }
 
 function workFromStart(text, catalystChars) {
@@ -121,19 +127,4 @@ function takeWhileAndSlice(source = {}, predicate = (x) => !!x) {
     i += 1;
   }
   return [result.join(''), source.slice(i)];
-}
-
-function enforceKanaType(text = '', { IMEMode } = {}) {
-  // Some keyboards autocapitalize first letter of input,
-  // so enforce hiragana if all mora are not uppercase
-  const mixedCase = /^[A-Z]+[a-z]+/.test(text);
-
-  switch (true) {
-    case IMEMode === TO_KANA_METHODS.KATAKANA:
-      return text.toUpperCase();
-    case IMEMode === TO_KANA_METHODS.HIRAGANA || mixedCase:
-      return text.toLowerCase();
-    default:
-      return text;
-  }
 }

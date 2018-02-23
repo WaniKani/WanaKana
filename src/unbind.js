@@ -16,7 +16,7 @@ export function unbind(input, debug = false) {
   }
   const { inputHandler, compositionHandler } = listeners;
   input.removeAttribute('data-wanakana-id');
-  input.removeAttribute('data-is-composing');
+  input.removeAttribute('data-ignore-composition');
   input.removeEventListener('input', inputHandler);
   input.removeEventListener('compositionstart', compositionHandler);
   input.removeEventListener('compositionupdate', compositionHandler);

@@ -12,16 +12,18 @@
     "test": {
       "presets": ["env"]
     },
-    "cjs": {
+    "es": {
       "presets": [
         [
           "env",
           {
-            "loose": false,
             "debug": true,
+            "useBuiltIns": "usage",
             "targets": {
-              "browsers": ["last 4 versions"]
-            }
+              "browsers": ["last 2 versions", "> 1%", "not IE < 11"],
+              "node": "8.9"
+            },
+            "exclude": ["transform-regenerator"]
           }
         ]
       ]
@@ -33,9 +35,11 @@
           {
             "modules": false,
             "debug": true,
+            "useBuiltIns": "entry",
             "targets": {
-              "browsers": ["last 4 versions"]
-            }
+              "browsers": ["last 2 versions", "> 1%", "not IE < 11"]
+            },
+            "exclude": ["transform-regenerator"]
           }
         ]
       ],

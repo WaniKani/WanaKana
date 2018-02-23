@@ -16,11 +16,11 @@ export const VERSION = '3.0.2-beta.3';
  * // => "hiragana KATAKANA"
  * @property {Boolean} [IMEMode=false] - Set to true, 'toHiragana', or 'toKatakana' to handle conversion from a text input while it is being typed.
  * @property {String} [romanization='hepburn'] - choose toRomaji() romanization map (currently only hepburn)
- * @property {Object} [customKanaMapping={}] - custom map will be merged with default conversion
+ * @property {Object} [customKanaMapping] - custom map will be merged with default conversion
  * @example
  * toKana('WanaKana', { customKanaMapping: { na: 'に', ka: 'Bana' }) };
  * // => 'ワにBanaに'
- * @property {Object} [customRomajiMapping={}] - custom map will be merged with default conversion
+ * @property {Object} [customRomajiMapping] - custom map will be merged with default conversion
  * @example
  * toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' }) };
  * // => 'tuzigili'
@@ -47,8 +47,6 @@ export const DEFAULT_OPTIONS = {
   ignoreCase: false,
   IMEMode: false,
   romanization: ROMANIZATIONS.HEPBURN,
-  customKanaMapping: {},
-  customRomajiMapping: {},
 };
 
 // CharCode References

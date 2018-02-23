@@ -1,6 +1,4 @@
-// NOTE: if we want to go for IE11 & QQBrowser etc
-// import 'babel-polyfill';
-// + { useBuiltIns: true } for cjs / rollup in babelrc
+import 'babel-polyfill';
 
 // IME event listener DOM helpers
 export { default as bind } from './bind';

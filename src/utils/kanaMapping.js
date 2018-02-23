@@ -101,7 +101,7 @@ export function createCustomMapping(customMap = {}) {
   return function makeMap(map) {
     const mapCopy = JSON.parse(JSON.stringify(map));
 
-    function transformMap(mapSubtree, customSubtree) {    
+    function transformMap(mapSubtree, customSubtree) {
       if (mapSubtree === undefined || typeOf(mapSubtree) === 'string') {
         return customSubtree;
       }
@@ -116,11 +116,11 @@ export function createCustomMapping(customMap = {}) {
 }
 
 // allow consumer to pass either function or object as customMapping
-export function mergeCustomMapping(map = {}, customMapping = {}) {
-  if (typeOf(customMapping) === 'function') {
-    return customMapping(map);
-  } else if (typeOf(customMapping) === 'object') {
-    return createCustomMapping(customMapping)(map);
+export function mergeCustomMapping(map, customMapping) {
+  if (!customMapping) {
+    return map;
   }
-  return map;
+  return typeOf(customMapping) === 'function'
+    ? customMapping(map)
+    : createCustomMapping(customMapping)(map);
 }
