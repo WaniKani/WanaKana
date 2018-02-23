@@ -1,4 +1,4 @@
-export const VERSION = '3.1.0-beta.1';
+export const VERSION = '3.1.0-rc.2';
 
 export const TO_KANA_METHODS = {
   HIRAGANA: 'toHiragana',
