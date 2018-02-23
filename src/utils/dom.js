@@ -38,9 +38,9 @@ export function convertInput(target, options, map, triggers, prevInput) {
     prevInput = newValue;
 
     // push later on event loop (otherwise mid-text insertion can be 1 char too far to the right)
-    // tail.length
-    //   ? setTimeout(() => target.setSelectionRange(newCursor, newCursor), 1) :
-    target.setSelectionRange(newCursor, newCursor);
+    tail.length
+      ? setTimeout(() => target.setSelectionRange(newCursor, newCursor), 1)
+      : target.setSelectionRange(newCursor, newCursor);
   } else {
     prevInput = target.value;
   }
