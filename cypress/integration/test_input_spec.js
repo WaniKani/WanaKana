@@ -1,4 +1,4 @@
-const wk = require('../../dist/lib/wanakana');
+const wk = require('../../dist/umd/wanakana');
 
 Cypress.config({
   baseUrl: 'http://localhost:9080',
@@ -123,6 +123,16 @@ describe('binding & unbinding', () => {
       .wkBind({ useObsoleteKana: true })
       .type('wiweWIWEwo')
       .should('have.value', 'ゐゑヰヱを')
+      .wkUnbind()
+      .clear();
+  });
+
+  it('should apply custom kana mappings if specified', () => {
+    cy
+      .get('#input')
+      .wkBind({ customKanaMapping: { ka: 'ばな' } })
+      .type('wanikani')
+      .should('have.value', 'わにばなに')
       .wkUnbind()
       .clear();
   });

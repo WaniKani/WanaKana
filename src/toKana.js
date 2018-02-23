@@ -23,8 +23,8 @@ import hiraganaToKatakana from './utils/hiraganaToKatakana';
  * // => '！？。：・、〜ー「」『』［］（）｛｝'
  * toKana('we', { useObsoleteKana: true })
  * // => 'ゑ'
- * toKana('WanaKana', { customKanaMapping: { na: 'に', ka: 'Bana' } });
- * // => 'ワにBanaに'
+ * toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'bana' } });
+ * // => 'わにbanaに'
  */
 export function toKana(input = '', options = {}, map) {
   let config;
@@ -70,11 +70,21 @@ export function splitIntoConvertedKana(input = '', options = {}, map) {
   return applyMapping(input.toLowerCase(), map, !options.IMEMode);
 }
 
-export function createRomajiToKanaMap(config = {}) {
+let customMapping = null;
+export function createRomajiToKanaMap(options = {}) {
   let map = getRomajiToKanaTree();
-  map = config.IMEMode ? IME_MODE_MAP(map) : map;
-  map = config.useObsoleteKana ? USE_OBSOLETE_KANA_MAP(map) : map;
-  return mergeCustomMapping(map, config.customKanaMapping);
+
+  map = options.IMEMode ? IME_MODE_MAP(map) : map;
+  map = options.useObsoleteKana ? USE_OBSOLETE_KANA_MAP(map) : map;
+
+  if (options.customKanaMapping) {
+    if (customMapping == null) {
+      customMapping = mergeCustomMapping(map, options.customKanaMapping);
+    }
+    map = customMapping;
+  }
+
+  return map;
 }
 
 export default toKana;

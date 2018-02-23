@@ -31,9 +31,16 @@ export function toRomaji(input = '', options = {}) {
     .join('');
 }
 
+let customMapping = null;
 function splitIntoRomaji(input, options) {
   let map = getKanaToRomajiTree(options);
-  map = mergeCustomMapping(map, options.customRomajiMapping);
+
+  if (options.customRomajiMapping) {
+    if (customMapping == null) {
+      customMapping = mergeCustomMapping(map, options.customRomajiMapping);
+    }
+    map = customMapping;
+  }
 
   return applyMapping(toHiragana(input, { passRomaji: true }), map, !options.IMEMode);
 }

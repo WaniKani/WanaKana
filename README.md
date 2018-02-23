@@ -42,10 +42,10 @@ yarn add wanakana
 
 [https://unpkg.com/wanakana](https://unpkg.com/wanakana)
 
-#### HTML:
+#### Browser:
 
 ```html
-<input type="text" id="wanakana-input" autocapitalize="none" />
+<input type="text" id="wanakana-input" />
 <script src="https://unpkg.com/wanakana"></script>
 <script>
   const textInput = document.querySelector('#wanakana-input');
@@ -56,17 +56,13 @@ yarn add wanakana
 #### JavaScript:
 
 ```javascript
-/* UMD/CommonJS */
-const wanakana = require('wanakana');
-
-/* ES modules */
 import wanakana from 'wanakana';
 // with destructuring
 import { toKana, isRomaji } from 'wanakana';
-// or directly reference single methods for smaller builds:
+// directly reference single methods for smaller builds:
 import isKanji from 'wanakana/isKanji';
 
-/*** DEFAULT OPTIONS ***/
+/*** OPTIONS ***/
 {
   // Use obsolete kana characters, such as ゐ and ゑ.
   useObsoleteKana: false,
@@ -80,8 +76,8 @@ import isKanji from 'wanakana/isKanji';
   romanization: 'hepburn' // (currently only hepburn)
   // custom map will be merged with default conversion
   customKanaMapping: {}
-  // toKana('wanikani', { customKanaMapping: { na: 'に', ka: 'Bana' }) });
-  // => 'ワにBanaに'
+  // toKana('wanikani', { customKanaMapping: { na: 'に', ka: 'bana' }) });
+  // => 'わにbanaに'
   customRomajiMapping: {}
   // toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' }) };
   // => 'tuzigili'
@@ -99,7 +95,7 @@ wanakana.unbind(HTMLElement);
 
 
 /*** TEXT CHECKING UTILITIES ***/
-wanakana.isJapanese('泣き虫。！〜２￥')
+wanakana.isJapanese('泣き虫。！〜２￥ｚｅｎｋａｋｕ')
 // => true
 
 wanakana.isKana('あーア')
@@ -112,9 +108,6 @@ wanakana.isKatakana('ゲーム')
 // => true
 
 wanakana.isKanji('切腹')
-// => true
-
-wanakana.isMixed('お腹A')
 // => true
 
 wanakana.isRomaji('Tōkyō and Ōsaka')
@@ -171,6 +164,10 @@ wanakana.tokenize('感じ')
 wanakana.tokenize('I said "私は悲しい"')
 // => ['I said "','私', 'は', '悲', 'しい', '"']
 ```
+
+## Important
+
+Only the browser build via unpkg or `wanakana/umd/*.js` include polyfills for older browsers.
 
 ## Contributing
 

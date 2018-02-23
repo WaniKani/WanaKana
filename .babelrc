@@ -1,13 +1,4 @@
 {
-  "presets": [
-    [
-      "env",
-      {
-        "loose": false,
-        "modules": false
-      }
-    ]
-  ],
   "env": {
     "test": {
       "presets": ["env"]
@@ -18,12 +9,27 @@
           "env",
           {
             "debug": true,
+            "loose": true,
+            "modules": false,
             "useBuiltIns": "usage",
             "targets": {
-              "browsers": ["last 2 versions", "> 1%", "not IE < 11"],
-              "node": "8.9"
-            },
-            "exclude": ["transform-regenerator"]
+              "node": true
+            }
+          }
+        ]
+      ]
+    },
+    "cjs": {
+      "presets": [
+        [
+          "env",
+          {
+            "debug": true,
+            "loose": true,
+            "useBuiltIns": "usage",
+            "targets": {
+              "node": "8"
+            }
           }
         ]
       ]
@@ -38,8 +44,7 @@
             "useBuiltIns": "entry",
             "targets": {
               "browsers": ["last 2 versions", "> 1%", "not IE < 11"]
-            },
-            "exclude": ["transform-regenerator"]
+            }
           }
         ]
       ],

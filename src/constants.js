@@ -18,8 +18,8 @@ export const VERSION = '3.0.2-beta.3';
  * @property {String} [romanization='hepburn'] - choose toRomaji() romanization map (currently only hepburn)
  * @property {Object} [customKanaMapping] - custom map will be merged with default conversion
  * @example
- * toKana('WanaKana', { customKanaMapping: { na: 'に', ka: 'Bana' }) };
- * // => 'ワにBanaに'
+ * toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'Bana' }) };
+ * // => 'わにBanaに'
  * @property {Object} [customRomajiMapping] - custom map will be merged with default conversion
  * @example
  * toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' }) };

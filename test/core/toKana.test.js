@@ -19,7 +19,7 @@ describe('toKana()', () => {
   it('Uppercase with double consonants and double vowels are transliterated to katakana.', () =>
     expect(toKana('BUTTSUUJI')).toBe('ブッツウジ'));
 
-  it('WaniKani -> わにかに - Mixed case returns hiragana (katakana only if both mora are uppercased).', () =>
+  it('WaniKani -> わにかに - Mixed case returns hiragana (katakana only if all letters of mora are uppercased).', () =>
     expect(toKana('WaniKani')).toBe('わにかに'));
 
   it('Non-romaji will be passed through.', () =>

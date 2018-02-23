@@ -12,7 +12,6 @@ const ghpages = require('gh-pages');
 const {
   BASE_PACKAGE,
   PACKAGE_NAME,
-  LIB_DIR,
   OUT_DIR,
   SITE_DIR,
   SITE_JS_DIR,
@@ -35,10 +34,10 @@ const PACKAGE_JSON = {
   ],
   extraFields: {
     engines: { node: '>=8' },
-    main: `${LIB_DIR}/wanakana.js`,
-    browser: `${LIB_DIR}/wanakana.min.js`,
-    unpkg: `${LIB_DIR}/wanakana.min.js`,
-    module: `${LIB_DIR}/wanakana.esm.js`,
+    main: 'index.js',
+    module: 'es/index.js',
+    browser: 'umd/wanakana.min.js',
+    unpkg: 'umd/wanakana.min.js',
   },
 };
 

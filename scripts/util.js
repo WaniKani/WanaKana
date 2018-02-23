@@ -7,7 +7,6 @@ const PACKAGE_NAME = process.env.npm_package_name;
 const BIN = path.resolve('./node_modules/.bin');
 const SOURCE_DIR = path.resolve('./src');
 const OUT_DIR = path.resolve('./dist');
-const LIB_DIR = 'lib';
 const SITE_DIR = path.resolve('./gh-pages');
 const SITE_JS_DIR = path.resolve(SITE_DIR, 'assets', 'js');
 
@@ -25,7 +24,6 @@ module.exports = {
   BIN,
   SOURCE_DIR,
   OUT_DIR,
-  LIB_DIR,
   SITE_DIR,
   SITE_JS_DIR,
   log,

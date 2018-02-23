@@ -3,19 +3,13 @@ const {
   exec, exit, cp, test,
 } = require('shelljs');
 const {
-  SITE_JS_DIR,
-  OUT_DIR,
-  LIB_DIR,
-  PACKAGE_NAME,
-  log,
-  logError,
-  execSuccess,
+  SITE_JS_DIR, OUT_DIR, PACKAGE_NAME, log, logError, execSuccess,
 } = require('./util.js');
 
 const BROWSER_BUNDLES = [
-  path.resolve(OUT_DIR, LIB_DIR, `${PACKAGE_NAME}.min.js`),
-  path.resolve(OUT_DIR, LIB_DIR, `${PACKAGE_NAME}.js`),
-  path.resolve(OUT_DIR, LIB_DIR, `${PACKAGE_NAME}.min.js.map`),
+  path.resolve(OUT_DIR, 'umd', `${PACKAGE_NAME}.min.js`),
+  path.resolve(OUT_DIR, 'umd', `${PACKAGE_NAME}.js`),
+  path.resolve(OUT_DIR, 'umd', `${PACKAGE_NAME}.min.js.map`),
 ];
 
 const exists = (file) => test('-e', file);
