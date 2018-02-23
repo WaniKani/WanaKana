@@ -24,17 +24,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
-## [3.0.0] - 2017-12-24
+## [3.1.0] - 2017-2-23
 
 ### Changed
 
 * bind and unbind are now flat modules (wanakana/bind) rather than named exports from domUtils
-* domUtils moved to utils/dom and not exposed to npm lib
+* domUtils moved to utils/dom
 * rewrite of conversion methods to allow custom mapping adapters
-* toKana() no longer converts zenkaku latin toKana ('ｉｍｉ imi' => 'ｉｍｉ いみ')
+* toKana() no longer converts zenkaku latin toKana now: ('ｉｍｉ imi' => 'ｉｍｉ いみ')
 * toRomaji() extends vowels for katakana chōonpu, IE: ゲーム => geemu, toHiragana() converts to hyphen => ge-mu
 * toKana() **without** IME mode converts lone 'n' => 'ん', 'nn' => 'んん' _if no other chars present_
 * isJapanese() now returns false for latin numbers (201) (still true for zenkaku ２０１)
+* tokenize() splits into finer categories, view tests for full examples
 
 ### Added
 
@@ -45,6 +46,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
+* inserting text between already existing characters in a bind() IME input field now properly sets cursor to correct position after conversion
 * toRomaji() little ヶヵ used in words like 一ヶ月 are no longer converted since they are used as symbols (like the kanji) and do not actually denote kana. Previous behaviour: 一ヶ月 => 一 ke 月
 * toRomaji() no longer incorrectly duplicates non-glottal stops following っ. Previous behaviour: あっ、 -> a,,
 
@@ -178,7 +180,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * `isJapanese()` & `isRomaji()` check major punctuation.
 * `isRomaji()` allows hepburn romanisation long vowels. (IE. Tōkyō)
 
-[3.0.0]: https://github.com/WaniKani/WanaKana/compare/2.3.4...3.0.0
+[3.1.0]: https://github.com/WaniKani/WanaKana/compare/2.3.4...3.1.0
 [2.3.4]: https://github.com/WaniKani/WanaKana/compare/2.3.3...2.3.4
 [2.3.3]: https://github.com/WaniKani/WanaKana/compare/2.3.2...2.3.3
 [2.3.2]: https://github.com/WaniKani/WanaKana/compare/2.3.1...2.3.2

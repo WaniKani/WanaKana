@@ -1,4 +1,13 @@
-export const VERSION = '3.0.2-beta.3';
+export const VERSION = '3.1.0-beta.1';
+
+export const TO_KANA_METHODS = {
+  HIRAGANA: 'toHiragana',
+  KATAKANA: 'toKatakana',
+};
+
+export const ROMANIZATIONS = {
+  HEPBURN: 'hepburn',
+};
 
 /**
  * @typedef {Object} DefaultOptions
@@ -25,15 +34,6 @@ export const VERSION = '3.0.2-beta.3';
  * toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' }) };
  * // => 'tuzigili'
  */
-
-export const TO_KANA_METHODS = {
-  HIRAGANA: 'toHiragana',
-  KATAKANA: 'toKatakana',
-};
-
-export const ROMANIZATIONS = Object.freeze({
-  HEPBURN: 'hepburn',
-});
 
 /**
  * Default config for WanaKana, user passed options will be merged with this
