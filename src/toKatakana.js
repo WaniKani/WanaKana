@@ -4,7 +4,6 @@ import romajiToHiragana from './utils/romajiToHiragana';
 import isCharEnglishPunctuation from './utils/isCharEnglishPunctuation';
 import isRomaji from './isRomaji';
 import isMixed from './isMixed';
-import isHiragana from './isHiragana';
 
 /**
  * Convert input to [Katakana](https://en.wikipedia.org/wiki/Katakana)
