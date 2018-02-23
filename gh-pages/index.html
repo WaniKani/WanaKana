@@ -174,57 +174,55 @@ wanakana.bind(input);</code></pre>
                 <td>wanakana.bind(
                   <span class="type">element</span>
                   <span class="options">[,
-                    <span class="type">options</span>]</span>)</td>
-                <td>Automatically bind IME functionality to a form textarea or input.</td>
+                    <span class="type">options</span>]</span> )</td>
+                <td>Automatically bind IME (toKana) functionality to a form textarea or input.</td>
               </tr>
               <tr>
                 <td>wanakana.unbind(
-                  <span class="type">element</span>)</td>
+                  <span class="type">element</span> )</td>
                 <td>Unbind IME from element.</td>
               </tr>
               <tr>
                 <td>wanakana.isKana(
-                  <span class="type">string</span>)</td>
-                <td>Returns false if string contains characters outside of the kana family, otherwise true if Hiragana and/or
-                  Katakana.
-                </td>
+                  <span class="type">string</span> )</td>
+                <td>Returns true if string contains only Hiragana and/or Katakana.</td>
               </tr>
               <tr>
                 <td>wanakana.isHiragana(
-                  <span class="type">string</span>)</td>
+                  <span class="type">string</span> )</td>
                 <td>Returns false if string contains mixed characters, otherwise true if Hiragana.</td>
               </tr>
               <tr>
                 <td>wanakana.isKatakana(
-                  <span class="type">string</span>)</td>
+                  <span class="type">string</span> )</td>
                 <td>Returns false if string contains mixed characters, otherwise true if Katakana.</td>
               </tr>
               <tr>
                 <td>wanakana.toKana(
                   <span class="type">string</span>
                   <span class="options">[,
-                    <span class="type">options</span>]</span>)</td>
-                <td>Convert Romaji to Kana. Lowcase entries output Hiragana, while upcase entries output Katakana.</td>
+                    <span class="type">options</span>]</span> )</td>
+                <td>Convert Romaji to Kana. outputs Hiragana by default; uppercase text outputs Katakana.</td>
               </tr>
               <tr>
                 <td>wanakana.toHiragana(
                   <span class="type">string</span>
                   <span class="options">[,
-                    <span class="type">options</span>]</span>)</td>
+                    <span class="type">options</span>]</span> )</td>
                 <td>Convert Katakana or Romaji to Hiragana.</td>
               </tr>
               <tr>
                 <td>wanakana.toKatakana(
                   <span class="type">string</span>
                   <span class="options">[,
-                    <span class="type">options</span>]</span>)</td>
+                    <span class="type">options</span>]</span> )</td>
                 <td>Convert Hiragana or Romaji to Katakana.</td>
               </tr>
               <tr>
                 <td>wanakana.toRomaji(
                   <span class="type">string</span>
                   <span class="options">[,
-                    <span class="type">options</span>]</span>)</td>
+                    <span class="type">options</span>]</span> )</td>
                 <td>Convert Kana to Romaji.</td>
               </tr>
               <tr>
@@ -246,14 +244,15 @@ wanakana.bind(input);</code></pre>
                   }
                 </td>
                 <td>
-                  <p>Optional 'options' with their defaults.</p>
                   <p>
                     IMEMode: Set true, 'toHiragana', or 'toKatakana' to convert input from a text input as it is typed.
-                    <br/> useObsoleteKana: Set true to use obsolete characters, such as
+                  </p>
+                  <p>useObsoleteKana: Set true to use obsolete characters, such as
                     <span lang="ja">ゐ</span> and
-                    <span lang="ja">ゑ</span>. passRomaji: Pass through romaji when using toKatakana() or toHiragana()
-                    <br/> upcaseKatakana: Convert katakana to uppercase when using toRomaji()
-                    <br/>
+                    <span lang="ja">ゑ</span>
+                  </p>
+                  <p>passRomaji: Pass through romaji when using toKatakana() or toHiragana()</p>
+                  <p>upcaseKatakana: Convert katakana to uppercase when using toRomaji()</p>
                   </p>
                 </td>
               </tr>
