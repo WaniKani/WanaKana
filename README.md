@@ -31,37 +31,44 @@ Visit the [website](http://www.wanakana.com) to see WanaKana in action.
 
 ## Quick Start
 
-#### Install
+### Browser
 
-```shell
-yarn add wanakana
-# alternatively: npm install wanakana
-```
-
-#### Or to get the minified browser (umd) bundle
+#### Use the minified (UMD) bundle (with legacy browser polyfills)
 
 [https://unpkg.com/wanakana](https://unpkg.com/wanakana)
 
-#### Browser:
-
 ```html
-<input type="text" id="wanakana-input" />
-<script src="https://unpkg.com/wanakana"></script>
-<script>
-  const textInput = document.querySelector('#wanakana-input');
-  wanakana.bind(textInput); // uses IMEMode toKana() as default
-</script>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/wanakana"></script>
+</head>
+<body>
+  <input type="text" id="wanakana-input" />
+  <script>
+    var textInput = document.getElementById('wanakana-input');
+    wanakana.bind(textInput, /* options */); // uses IMEMode with toKana() as default
+    // to remove event listeners: wanakana.unbind(textInput);
+  </script>
+</body>
 ```
 
-#### JavaScript:
+### Node
+
+#### Install
+
+```shell
+npm install wanakana
+```
 
 ```javascript
 import wanakana from 'wanakana';
-// with destructuring
+// or
 import { toKana, isRomaji } from 'wanakana';
-// directly reference single methods for smaller builds:
-import isKanji from 'wanakana/isKanji';
+```
 
+## Usage
+
+```javascript
 /*** OPTIONS ***/
 {
   // Use obsolete kana characters, such as ゐ and ゑ.
@@ -82,17 +89,6 @@ import isKanji from 'wanakana/isKanji';
   // toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' }) };
   // => 'tuzigili'
 }
-
-/*** DOM HELPERS ***/
-// Automatically converts text using an eventListener on input
-// Handles cursor positioning, mid-text insertion, passthrough native IME composition
-// bind() uses option: { IMEMode: true } with `toKana()` by default
-// Alternatives are: 'toHiragana' or 'toKatakana' to enforce kana type
-wanakana.bind(HTMLElement [, options]);
-
-// Removes event listener
-wanakana.unbind(HTMLElement);
-
 
 /*** TEXT CHECKING UTILITIES ***/
 wanakana.isJapanese('泣き虫。！〜２￥ｚｅｎｋａｋｕ')
