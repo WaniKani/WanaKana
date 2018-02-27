@@ -17,35 +17,6 @@
           }
         ]
       ]
-    },
-    "cjs": {
-      "presets": [
-        [
-          "env",
-          {
-            "loose": true,
-            "useBuiltIns": "usage",
-            "targets": {
-              "node": "8"
-            }
-          }
-        ]
-      ]
-    },
-    "rollup": {
-      "presets": [
-        [
-          "env",
-          {
-            "modules": false,
-            "useBuiltIns": "entry",
-            "targets": {
-              "browsers": ["last 2 versions", "> 1%", "not IE < 11"]
-            }
-          }
-        ]
-      ],
-      "plugins": ["external-helpers"]
     }
   }
 }

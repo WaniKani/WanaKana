@@ -5,7 +5,56 @@ const uglify = require('rollup-plugin-uglify');
 const util = require('./util');
 const { SOURCE_DIR, OUT_DIR, PACKAGE_NAME } = util;
 
+const cjsConfig = {
+  presets: [
+    [
+      'env',
+      {
+        modules: false,
+        useBuiltIns: 'entry',
+        targets: {
+          node: '8',
+        },
+      },
+    ],
+  ],
+  plugins: ['external-helpers'],
+};
+
+const umdConfig = {
+  presets: [
+    [
+      'env',
+      {
+        modules: false,
+        useBuiltIns: 'entry',
+        targets: {
+          browsers: ['last 2 versions', '> 1%', 'not IE < 11'],
+        },
+      },
+    ],
+  ],
+  plugins: ['external-helpers'],
+};
+
 export default [
+  {
+    input: `${SOURCE_DIR}/index.js`,
+    output: {
+      name: PACKAGE_NAME,
+      format: 'cjs',
+      file: `${OUT_DIR}/${PACKAGE_NAME}.js`,
+    },
+    plugins: [
+      resolve(),
+      commonjs(),
+      babel({
+        babelrc: false,
+        exclude: 'node_modules/**',
+        ...cjsConfig,
+      }),
+    ],
+  },
   {
     input: `${SOURCE_DIR}/index.js`,
     output: {
@@ -17,7 +66,9 @@ export default [
       resolve(),
       commonjs(),
       babel({
-        exclude: ['**/node_modules/**'],
+        babelrc: false,
+        exclude: 'node_modules/**',
+        ...umdConfig,
       }),
     ],
   },
@@ -33,7 +84,9 @@ export default [
       resolve(),
       commonjs(),
       babel({
-        exclude: ['**/node_modules/**'],
+        babelrc: false,
+        exclude: 'node_modules/**',
+        ...umdConfig,
       }),
       uglify({
         compress: {

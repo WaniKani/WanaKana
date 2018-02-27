@@ -30,16 +30,17 @@
   },
   "scripts": {
     "prebuild": "rimraf ./dist",
-    "build": "node ./scripts/buildDist.js",
-    "build:umd": "cross-env BABEL_ENV=rollup rollup -c ./scripts/rollup.config.js",
-    "build:umd:watch": "onchange './src/**/*.js' -- npm run build:umd",
+    "build": "npm-run-all --parallel build:es build:rollup",
+    "build:es": "cross-env BABEL_ENV=es babel ./src -d ./dist/es",
+    "build:rollup": "rollup -c ./scripts/rollup.config.js",
+    "build:watch": "onchange './src/**/*.js' -- npm run build",
     "precommit": "lint-staged",
     "cz": "git-cz",
     "cypress:server": "static-server -p 9080 -i './cypress/fixtures/test-input.html'",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --record",
     "cypress:test": "npm-run-all build --parallel --race cypress:server cypress:run",
-    "cypress:watch": "npm-run-all --parallel --race build:umd:watch cypress:server cypress:open",
+    "cypress:watch": "npm-run-all --parallel --race build:watch cypress:server cypress:open",
     "predocs": "rimraf ./gh-pages/docs",
     "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
     "docs:watch": "onchange './src/**/*.js' -- npm run docs",
@@ -53,7 +54,8 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "release": "node ./scripts/release.js",
     "format": "prettier-eslint --write",
-    "lint": "eslint --color"
+    "lint": "eslint --color",
+    "lint:js": "npm run lint -- ./src/**/*.js"
   },
   "lint-staged": {
     "*.js": ["npm run format --", "npm run lint --", "git add"]
@@ -70,6 +72,9 @@
         "statements": 95
       }
     },
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
     "coverageDirectory": "./coverage",
     "collectCoverageFrom": [
       "src/**/*.js",
@@ -84,7 +89,9 @@
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
+    "babel-core": "6",
     "babel-eslint": "8.2.2",
+    "babel-jest": "22.4.1",
     "babel-plugin-external-helpers": "6.22.0",
     "babel-plugin-transform-es2017-object-entries": "0.0.4",
     "babel-polyfill": "6.26.0",
@@ -113,6 +120,7 @@
     "opn-cli": "3.1.0",
     "prettier-eslint-cli": "4.7.1",
     "readline-sync": "1.4.9",
+    "replace-in-file": "3.1.1",
     "rimraf": "2.6.2",
     "rollup": "0.56.2",
     "rollup-plugin-babel": "3.0.3",

@@ -5,6 +5,7 @@ const {
 } = require('shelljs');
 const semver = require('semver');
 const readline = require('readline-sync');
+const replace = require('replace-in-file');
 const pick = require('lodash/pick');
 const buildSite = require('./buildSite');
 const ghpages = require('gh-pages');
@@ -12,9 +13,9 @@ const ghpages = require('gh-pages');
 const {
   BASE_PACKAGE,
   PACKAGE_NAME,
+  SOURCE_DIR,
   OUT_DIR,
   SITE_DIR,
-  SITE_JS_DIR,
   log,
   logSuccess,
   logError,
@@ -34,7 +35,7 @@ const PACKAGE_JSON = {
   ],
   extraFields: {
     engines: { node: '>=8' },
-    main: 'index.js',
+    main: 'wanakana.js',
     module: 'es/index.js',
     browser: 'umd/wanakana.min.js',
     unpkg: 'umd/wanakana.min.js',
@@ -59,25 +60,52 @@ try {
     exit(0);
   }
 
-  log('Have you updated the VERSION in constants.js?');
-  if (!readline.keyInYN('Yes I have!')) {
-    log('OK. Do that, then try again!');
-    exit(0);
-  }
-
   log('Running tests...');
-  if (execFail(exec('npm run lint && npm test'))) {
+  if (execFail(exec('npm-run-all lint:js test'))) {
     logError('The test command did not exit cleanly. Aborting release.');
     exit(1);
   }
   logSuccess('Tests were successful.');
 
+  const versionLoc = path.resolve('VERSION');
+  const version = fs.readFileSync(versionLoc, 'utf8').trim();
+  let nextVersion = readline.question(
+    `Current version of ${PACKAGE_NAME} is ${version}.\nNext version (exclude dist-tags like '-beta.1'): `
+  );
+
+  const distTag = readline.question(
+    'Do you want to add an npm dist-tag other than latest (alpha.3, beta.0, rc.1)? Leave blank to skip: '
+  );
+
+  if (distTag) {
+    nextVersion = `${nextVersion}-${distTag}`;
+  }
+
+  while (!(!nextVersion || (semver.valid(nextVersion) && semver.gt(nextVersion, version)))) {
+    nextVersion = readline.question(
+      `Must provide a valid version that is greater than ${version}, or leave blank to skip: `
+    );
+  }
+
+  try {
+    replace.sync({
+      files: `${path.resolve(SOURCE_DIR, 'constants.js')}`,
+      from: /VERSION = '.*'/,
+      to: `VERSION = '${nextVersion}'`,
+    });
+    log('Updated VERSION in Wanakana constants');
+  } catch (error) {
+    logError('Error occurred replacing version:', error);
+    exit(1);
+  }
+
   log('Building dist files...');
   if (execFail(exec('npm run build'))) {
     logError('The build command did not exit cleanly. Aborting release.');
     exit(1);
+  } else {
+    log('Compilation was successful.');
   }
-  log('Compilation was successful.');
 
   log('Copying additional project files...');
   const additionalProjectFiles = ['README.md', 'CHANGELOG.md', 'package.json', 'LICENSE'];
@@ -91,25 +119,6 @@ try {
     cp('-Rf', src, path.resolve(OUT_DIR));
   });
 
-  const versionLoc = path.resolve('VERSION');
-  const version = fs.readFileSync(versionLoc, 'utf8').trim();
-  let nextVersion = readline.question(
-    `Next version of ${PACKAGE_NAME} (current version is ${version}): `
-  );
-
-  const distTag = readline.question(
-    'Do you want to add an npm dist-tag other than latest(beta.0, rc.1 etc)? Leave blank to skip: '
-  );
-
-  if (distTag) {
-    nextVersion = `${nextVersion}-${distTag}`;
-  }
-
-  while (!(!nextVersion || (semver.valid(nextVersion) && semver.gt(nextVersion, version)))) {
-    nextVersion = readline.question(
-      `Must provide a valid version that is greater than ${version}, or leave blank to skip: `
-    );
-  }
   log('Updating release package.json...');
   const updatedPackage = Object.assign({}, BASE_PACKAGE, { version: nextVersion });
   const releasePackage = Object.assign(
@@ -135,12 +144,6 @@ try {
 
   log('Updating VERSION file...');
   fs.writeFileSync(versionLoc, `${nextVersion}\n`);
-
-  log('Copying dynamic version for demo site');
-  fs.writeFileSync(
-    path.resolve(SITE_JS_DIR, 'version.js'),
-    `document.querySelector('#wk-version').textContent = '${nextVersion}'`
-  );
 
   log('Updating repo package.json');
   writePackage(process.cwd(), updatedPackage);
