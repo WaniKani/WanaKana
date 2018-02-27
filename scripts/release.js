@@ -171,8 +171,8 @@ try {
     });
   }
 
-  log('Committing changes...');
-  exec(`git add ${versionLoc} package.json`);
+  log('Committing version changes...');
+  exec(`git add ${versionLoc} package.json src/constants.js`);
   exec(`git commit -m "Version ${nextVersion}"`);
 
   if (!distTag) {
