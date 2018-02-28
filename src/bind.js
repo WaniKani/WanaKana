@@ -26,8 +26,12 @@ function bind(input = {}, options = {}, debug = false) {
   const onInput = makeOnInput(options);
   const id = newId();
   input.setAttribute('data-wanakana-id', id);
+  input.setAttribute('lang', 'ja');
+  input.setAttribute('autoCapitalize', 'none');
+  input.setAttribute('autoCorrect', 'off');
+  input.setAttribute('autoComplete', 'off');
+  input.setAttribute('spellCheck', 'false');
   input.addEventListener('input', onInput);
-  input.addEventListener('compositionstart', onComposition);
   input.addEventListener('compositionupdate', onComposition);
   input.addEventListener('compositionend', onComposition);
   trackListeners(id, onInput, onComposition);
