@@ -1,12 +1,9 @@
 import toKatakana from '../../src/toKatakana';
-import hiraganaToKatakana from '../../src/utils/hiraganaToKatakana';
 
 describe('toKatakana()', () => {
   it('sane defaults', () => {
     expect(toKatakana()).toBe('');
     expect(toKatakana('')).toBe('');
-    expect(hiraganaToKatakana()).toBe('');
-    expect(hiraganaToKatakana('')).toBe('');
   });
 
   it('Quick Brown Fox - Romaji to Katakana', () => {
@@ -38,5 +35,12 @@ describe('toKatakana()', () => {
       expect(toKatakana('wi', { useObsoleteKana: true })).toBe('ヰ'));
     it('WE = ヱ (when useObsoleteKana is true)', () =>
       expect(toKatakana('we', { useObsoleteKana: true })).toBe('ヱ'));
+  });
+
+  describe('passRomaji', () => {
+    it('false by default', () => {
+      expect(toKatakana('only かな')).toEqual('オンly カナ');
+      expect(toKatakana('only かな', { passRomaji: true })).toEqual('only カナ');
+    });
   });
 });

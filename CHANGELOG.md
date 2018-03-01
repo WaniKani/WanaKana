@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
-## [3.1.0] - 2017-2-23
+## [3.1.0] - 2017-03-01
 
 ### Changed
 
@@ -40,7 +40,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 * isJapanese and isRomaji now accept a second param, a regexp that will also pass the check
-* global option romanization for toRomaji() (currently only 'hepburn')
+* global option romanization for toRomaji() (currently only 'hepburn' however)
 * global option customKanaMapping for toKana()
 * global option customRomajiMapping for toRomaji()
 

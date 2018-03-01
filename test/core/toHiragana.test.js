@@ -46,7 +46,16 @@ describe('toHiragana()', () => {
     });
   });
 
+  describe('katakana choōnpu', () => {
+    it('converts to hiragana long vowels', () => {
+      expect(toHiragana('スーパー')).toEqual('すうぱあ');
+      expect(toHiragana('バンゴー')).toEqual('ばんごう');
+    });
+  });
+
   describe('mixed input', () => {
-    expect(toHiragana('#22 toukyou, オオサカ')).toEqual('#22 とうきょう、 おおさか');
+    expect(toHiragana('#22 ２２漢字、toukyou, オオサカ')).toEqual(
+      '#22 ２２漢字、とうきょう、 おおさか'
+    );
   });
 });
