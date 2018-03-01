@@ -1,15 +1,9 @@
 import toHiragana from '../../src/toHiragana';
-import romajiToHiragana from '../../src/utils/romajiToHiragana';
-import katakanaToHiragana from '../../src/utils/katakanaToHiragana';
 
 describe('toHiragana()', () => {
   it('sane defaults', () => {
     expect(toHiragana()).toBe('');
     expect(toHiragana('')).toBe('');
-    expect(romajiToHiragana()).toBe('');
-    expect(romajiToHiragana('')).toBe('');
-    expect(katakanaToHiragana()).toBe('');
-    expect(katakanaToHiragana('')).toBe('');
   });
 
   it('Quick Brown Fox - Romaji to Hiragana', () => {
@@ -43,5 +37,16 @@ describe('toHiragana()', () => {
       expect(toHiragana('we', { useObsoleteKana: true })).toBe('ゑ'));
     it('wi = うぃ when useObsoleteKana is false', () =>
       expect(toHiragana('wi', { useObsoleteKana: false })).toBe('うぃ'));
+  });
+
+  describe('passRomaji', () => {
+    it('false by default', () => {
+      expect(toHiragana('only カナ')).toEqual('おんly かな');
+      expect(toHiragana('only カナ', { passRomaji: true })).toEqual('only かな');
+    });
+  });
+
+  describe('mixed input', () => {
+    expect(toHiragana('#22 toukyou, オオサカ')).toEqual('#22 とうきょう、 おおさか');
   });
 });

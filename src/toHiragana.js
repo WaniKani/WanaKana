@@ -1,9 +1,10 @@
 import mergeWithDefaultOptions from './utils/mergeWithDefaultOptions';
 import katakanaToHiragana from './utils/katakanaToHiragana';
-import romajiToHiragana from './utils/romajiToHiragana';
 import isCharEnglishPunctuation from './utils/isCharEnglishPunctuation';
 import isRomaji from './isRomaji';
 import isMixed from './isMixed';
+import toKana from './toKana';
+import toRomaji from './toRomaji';
 
 /**
  * Convert input to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
@@ -23,19 +24,19 @@ import isMixed from './isMixed';
 function toHiragana(input = '', options = {}) {
   const config = mergeWithDefaultOptions(options);
   if (config.passRomaji) {
-    return katakanaToHiragana(input);
-  }
-
-  if (isRomaji(input) || isCharEnglishPunctuation(input)) {
-    return romajiToHiragana(input, config);
+    return katakanaToHiragana(input, toRomaji);
   }
 
   if (isMixed(input, { passKanji: true })) {
-    const romaji = katakanaToHiragana(input);
-    return romajiToHiragana(romaji, config);
+    const convertedKatakana = katakanaToHiragana(input, toRomaji);
+    return toKana(convertedKatakana.toLowerCase(), config);
   }
 
-  return katakanaToHiragana(input);
+  if (isRomaji(input) || isCharEnglishPunctuation(input)) {
+    return toKana(input.toLowerCase(), config);
+  }
+
+  return katakanaToHiragana(input, toRomaji);
 }
 
 export default toHiragana;

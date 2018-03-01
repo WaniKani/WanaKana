@@ -1,5 +1,4 @@
 import { KATAKANA_START, HIRAGANA_START } from '../constants';
-import toRomaji from '../toRomaji';
 
 import isCharLongDash from './isCharLongDash';
 import isCharSlashDot from './isCharSlashDot';
@@ -15,19 +14,8 @@ const LONG_VOWELS = {
   o: 'う',
 };
 
-/**
- * Convert [Katakana](https://en.wikipedia.org/wiki/Katakana) to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
- * Passes through any non-katakana chars
- * @param  {String} [input=''] text input
- * @return {String} converted text
- * @example
- * katakanaToHiragana('カタカナ')
- * // => "かたかな"
- * katakanaToHiragana('カタカナ is a type of kana')
- * // => "かたかな is a type of kana"
- * @ignore
- */
-function katakanaToHiragana(input = '') {
+// inject toRomaji to avoid circular dependency between toRomaji <-> katakanaToHiragana
+function katakanaToHiragana(input = '', toRomaji) {
   let previousKana = '';
 
   return input

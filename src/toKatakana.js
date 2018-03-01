@@ -1,7 +1,7 @@
 import mergeWithDefaultOptions from './utils/mergeWithDefaultOptions';
 import hiraganaToKatakana from './utils/hiraganaToKatakana';
-import romajiToHiragana from './utils/romajiToHiragana';
 import isCharEnglishPunctuation from './utils/isCharEnglishPunctuation';
+import toKana from './toKana';
 import isRomaji from './isRomaji';
 import isMixed from './isMixed';
 
@@ -27,8 +27,8 @@ function toKatakana(input = '', options = {}) {
   }
 
   if (isMixed(input) || isRomaji(input) || isCharEnglishPunctuation(input)) {
-    const romaji = romajiToHiragana(input, mergedOptions);
-    return hiraganaToKatakana(romaji);
+    const hiragana = toKana(input.toLowerCase(), mergedOptions);
+    return hiraganaToKatakana(hiragana);
   }
 
   return hiraganaToKatakana(input);

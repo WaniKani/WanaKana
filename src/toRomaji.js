@@ -1,5 +1,5 @@
 import mergeWithDefaultOptions from './utils/mergeWithDefaultOptions';
-import toHiragana from './toHiragana';
+import katakanaToHiragana from './utils/katakanaToHiragana';
 import isKatakana from './isKatakana';
 import { getKanaToRomajiTree } from './utils/kanaToRomajiMap';
 import { applyMapping, mergeCustomMapping } from './utils/kanaMapping';
@@ -42,7 +42,7 @@ function splitIntoRomaji(input, options) {
     map = customMapping;
   }
 
-  return applyMapping(toHiragana(input, { passRomaji: true }), map, !options.IMEMode);
+  return applyMapping(katakanaToHiragana(input, toRomaji), map, !options.IMEMode);
 }
 
 export default toRomaji;
