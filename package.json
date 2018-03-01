@@ -1,6 +1,6 @@
 {
   "name": "wanakana",
-  "version": "3.1.0-rc.3",
+  "version": "3.1.0-rc.4",
   "license": "MIT",
   "homepage": "http://www.wanakana.com",
   "description": "Utility library for converting between Kanji, Hiragana, Katakana, and Romaji",
@@ -57,12 +57,18 @@
     "lint:js": "npm run lint -- ./src/**/*.js"
   },
   "lint-staged": {
-    "*.js": ["npm run format --", "npm run lint --", "git add"]
+    "*.js": [
+      "npm run format --",
+      "npm run lint --",
+      "git add"
+    ]
   },
   "jest": {
     "bail": false,
     "verbose": false,
-    "testMatch": ["<rootDir>/test/**/*.test.js"],
+    "testMatch": [
+      "<rootDir>/test/**/*.test.js"
+    ],
     "coverageThreshold": {
       "global": {
         "branches": 95,
