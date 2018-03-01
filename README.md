@@ -25,11 +25,7 @@
 
 Visit the [website](http://www.wanakana.com) to see WanaKana in action.
 
-## Documentation
-
-[Extended API reference](http://www.wanakana.com/docs/global.html)
-
-## Quick Start
+## Usage
 
 ### Browser
 
@@ -66,29 +62,20 @@ import wanakana from 'wanakana';
 import { toKana, isRomaji } from 'wanakana';
 ```
 
-## Usage
+## Documentation
+
+[Extended API reference](http://www.wanakana.com/docs/global.html)
+
+## Quick Reference
 
 ```javascript
-/*** OPTIONS ***/
-{
-  // Use obsolete kana characters, such as ゐ and ゑ.
-  useObsoleteKana: false,
-  // Pass through romaji when using toKatakana() or toHiragana()
-  passRomaji: false,
-  // Convert katakana to uppercase when using toRomaji()
-  upcaseKatakana: false,
-  // Convert characters from a text input while being typed.
-  IMEMode: false, // alternatives are: true, 'toHiragana', or 'toKatakana'
-  // Choose toRomaji() romanization map
-  romanization: 'hepburn' // (currently only hepburn)
-  // custom map will be merged with default conversion
-  customKanaMapping: {}
-  // toKana('wanikani', { customKanaMapping: { na: 'に', ka: 'bana' }) });
-  // => 'わにbanaに'
-  customRomajiMapping: {}
-  // toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' }) };
-  // => 'tuzigili'
-}
+/*** DOM HELPERS ***/
+// Automatically converts text using an eventListener on input
+// Sets option: { IMEMode: true } with toKana() as converter by default
+wanakana.bind(domElement [, options]);
+
+// Removes event listener
+wanakana.unbind(domElement);
 
 /*** TEXT CHECKING UTILITIES ***/
 wanakana.isJapanese('泣き虫。！〜２￥ｚｅｎｋａｋｕ')
@@ -109,21 +96,14 @@ wanakana.isKanji('切腹')
 wanakana.isRomaji('Tōkyō and Ōsaka')
 // => true
 
-/*
- * toKana notes:
- * Lowercase -> Hiragana.
- * Uppercase -> Katakana.
- * Non-romaji and _English_ punctuation is passed through: 123 @#$%
- * Limited Japanese equivalent punctuation is converted:
- * !?.:/,~-‘’“”[](){}
- * ！？。：・、〜ー「」『』［］（）｛｝
- */
 wanakana.toKana('ONAJI buttsuuji')
 // => 'オナジ ぶっつうじ'
 wanakana.toKana('座禅‘zazen’スタイル')
 // => '座禅「ざぜん」スタイル'
 wanakana.toKana('batsuge-mu')
 // => 'ばつげーむ'
+wanakana.toKana('wanikani', { customKanaMapping: { na: 'に', ka: 'bana' }) });
+// => 'わにbanaに'
 
 wanakana.toHiragana('toukyou, オオサカ')
 // => 'とうきょう、　おおさか'
@@ -143,7 +123,8 @@ wanakana.toRomaji('ひらがな　カタカナ')
 // => 'hiragana katakana'
 wanakana.toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
 // => 'hiragana KATAKANA'
-
+wanakana.toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' }) };
+// => 'tuzigili'
 
 /*** EXTRA UTILITIES ***/
 wanakana.stripOkurigana('お祝い')
@@ -152,18 +133,20 @@ wanakana.stripOkurigana('踏み込む')
 // => '踏み込'
 wanakana.stripOkurigana('踏み込む', { all: true })
 // => '踏込'
+wanakana.stripOkurigana('お祝い', { all: true })
+// => '祝'
 
 wanakana.tokenize('ふふフフ')
 // => ['ふふ', 'フフ']
-wanakana.tokenize('感じ')
-// => ['感', 'じ']
-wanakana.tokenize('I said "私は悲しい"')
-// => ['I said "','私', 'は', '悲', 'しい', '"']
+wanakana.tokenize('hello 田中さん')
+// => ['hello', ' ', '田中', 'さん']
+wanakana.tokenize('I said 私はすごく悲しい', { compact: true })
+// => [ 'I said ', '私はすごく悲しい']
 ```
 
 ## Important
 
-Only the browser build via unpkg or `wanakana/umd/*.js` include polyfills for older browsers.
+Only the browser build via unpkg or `wanakana/umd/*.js` includes full polyfills for older browsers.
 
 ## Contributing
 

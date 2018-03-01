@@ -33,7 +33,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * toRomaji() extends vowels for katakana chōonpu, IE: ゲーム => geemu, toHiragana() converts to hyphen => ge-mu
 * toKana() **without** IME mode converts lone 'n' => 'ん', 'nn' => 'んん' _if no other chars present_
 * isJapanese() now returns false for latin numbers (201) (still true for zenkaku ２０１)
-* tokenize() splits into finer categories, view tests for full examples
+* tokenize() splits into finer categories, view API documentation and tests for full details
 * rewrite of conversion methods to allow custom mapping adapters
 
 ### Added
