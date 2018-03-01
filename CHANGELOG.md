@@ -28,14 +28,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-* bind and unbind are now flat modules (wanakana/bind) rather than named exports from domUtils
-* domUtils moved to utils/dom
-* rewrite of conversion methods to allow custom mapping adapters
+* bind() now sets necessary attributes automatically (autocomplete, spellcheck etc)
 * toKana() no longer converts zenkaku latin toKana now: ('ｉｍｉ imi' => 'ｉｍｉ いみ')
 * toRomaji() extends vowels for katakana chōonpu, IE: ゲーム => geemu, toHiragana() converts to hyphen => ge-mu
 * toKana() **without** IME mode converts lone 'n' => 'ん', 'nn' => 'んん' _if no other chars present_
 * isJapanese() now returns false for latin numbers (201) (still true for zenkaku ２０１)
 * tokenize() splits into finer categories, view tests for full examples
+* rewrite of conversion methods to allow custom mapping adapters
 
 ### Added
 
