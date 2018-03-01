@@ -37,15 +37,19 @@ describe('character conversions', () => {
     describe('Hiragana input toRomaji()', () => {
       HIRA_KATA_TO_ROMA.forEach((item) => {
         const [hiragana, , romaji] = item;
-        const result = toRomaji(hiragana);
-        it(`${hiragana}`, () => expect(result).toBe(romaji));
+        if (hiragana) {
+          const result = toRomaji(hiragana);
+          it(`${hiragana}`, () => expect(result).toBe(romaji));
+        }
       });
     });
     describe('Katakana input toRomaji()', () => {
       HIRA_KATA_TO_ROMA.forEach((item) => {
         const [, katakana, romaji] = item;
-        const result = toRomaji(katakana);
-        it(`${katakana}`, () => expect(result).toBe(romaji));
+        if (katakana) {
+          const result = toRomaji(katakana);
+          it(`${katakana}`, () => expect(result).toBe(romaji));
+        }
       });
     });
   });

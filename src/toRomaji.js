@@ -42,7 +42,7 @@ function splitIntoRomaji(input, options) {
     map = customMapping;
   }
 
-  return applyMapping(katakanaToHiragana(input, toRomaji), map, !options.IMEMode);
+  return applyMapping(katakanaToHiragana(input, toRomaji, true), map, !options.IMEMode);
 }
 
 export default toRomaji;

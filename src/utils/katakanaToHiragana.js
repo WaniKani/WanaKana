@@ -15,7 +15,7 @@ const LONG_VOWELS = {
 };
 
 // inject toRomaji to avoid circular dependency between toRomaji <-> katakanaToHiragana
-function katakanaToHiragana(input = '', toRomaji) {
+function katakanaToHiragana(input = '', toRomaji, isDestinationRomaji) {
   let previousKana = '';
 
   return input
@@ -28,6 +28,10 @@ function katakanaToHiragana(input = '', toRomaji) {
       } else if (previousKana && isCharInnerLongDash(char, index)) {
         // Transform previousKana back to romaji, and slice off the vowel
         const romaji = toRomaji(previousKana).slice(-1);
+        // However, ensure 'オー' => 'おお' => 'oo' if this is a transform on the way to romaji
+        if (isCharKatakana(input[index - 1]) && romaji === 'o' && isDestinationRomaji) {
+          return hira.concat('お');
+        }
         return hira.concat(LONG_VOWELS[romaji]);
       } else if (!isCharLongDash(char) && isCharKatakana(char)) {
         // Shift charcode.
