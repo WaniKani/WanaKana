@@ -141,11 +141,15 @@ describe('binding & unbinding', () => {
 describe('default IME conversions', () => {
   before(() => {
     cy.get('#input').wkBind();
+    cy.get('#input2').wkBind({ IMEMode: wk.TO_KANA_METHODS.KATAKANA });
   });
 
   beforeEach(() => {
     cy
       .get('#input')
+      .clear()
+      .setRange(0, 0)
+      .get('#input2')
       .clear()
       .setRange(0, 0);
   });
@@ -156,19 +160,30 @@ describe('default IME conversions', () => {
       .type('ｈｉｒｏｉ')
       .should('have.value', 'ｈｉｒｏｉ')
       .type('hiroi')
-      .should('have.value', 'ｈｉｒｏｉひろい');
+      .should('have.value', 'ｈｉｒｏｉひろい')
+      .get('#input2')
+      .type('ｈｉｒｏｉ')
+      .should('have.value', 'ｈｉｒｏｉ')
+      .type('hiroi')
+      .should('have.value', 'ｈｉｒｏｉヒロイ');
   });
 
   it('double consonants', () => {
     cy
       .get('#input')
       .type('gakkounimacchanakatta')
-      .should('have.value', 'がっこうにまっちゃなかった');
+      .should('have.value', 'がっこうにまっちゃなかった')
+      .get('#input2')
+      .type('gakkounimacchanakatta')
+      .should('have.value', 'ガッコウニマッチャナカッタ');
   });
 
   it("solo n's are not transliterated.", () => {
     cy
       .get('#input')
+      .type('n')
+      .should('have.value', 'n')
+      .get('#input2')
       .type('n')
       .should('have.value', 'n');
   });
@@ -191,68 +206,112 @@ describe('default IME conversions', () => {
       .should('have.value', 'かnyaな')
       .setRange(4, 4)
       .trigger('input')
-      .should('have.value', 'かにゃな');
+      .should('have.value', 'かにゃな')
+      .get('#input2')
+      .type('kana')
+      .type('{leftArrow}n')
+      .should('have.value', 'カnナ')
+      .setRange(2, 2)
+      .trigger('input')
+      .should('have.value', 'カnナ')
+      .type('y')
+      .should('have.value', 'カnyナ')
+      .setRange(3, 3)
+      .trigger('input')
+      .should('have.value', 'カnyナ')
+      .type('a')
+      .should('have.value', 'カnyaナ')
+      .setRange(4, 4)
+      .trigger('input')
+      .should('have.value', 'カニャナ');
   });
 
   it("double n's are transliterated.", () => {
     cy
       .get('#input')
       .type('nn')
-      .should('have.value', 'ん');
+      .should('have.value', 'ん')
+      .get('#input2')
+      .type('nn')
+      .should('have.value', 'ン');
   });
 
   it('n + space are transliterated.', () => {
     cy
       .get('#input')
       .type('n ')
-      .should('have.value', 'ん');
+      .should('have.value', 'ん')
+      .get('#input2')
+      .type('n ')
+      .should('have.value', 'ン');
   });
 
   it("n + ' are transliterated.", () => {
     cy
       .get('#input')
       .type("n'")
-      .should('have.value', 'ん');
+      .should('have.value', 'ん')
+      .get('#input2')
+      .type("n'")
+      .should('have.value', 'ン');
   });
 
   it('ni.', () => {
     cy
       .get('#input')
       .type('ni')
-      .should('have.value', 'に');
+      .should('have.value', 'に')
+      .get('#input2')
+      .type('ni')
+      .should('have.value', 'ニ');
   });
 
   it('kan', () => {
     cy
       .get('#input')
       .type('kan')
-      .should('have.value', 'かn');
+      .should('have.value', 'かn')
+      .get('#input2')
+      .type('kan')
+      .should('have.value', 'カn');
   });
 
   it('kanp', () => {
     cy
       .get('#input')
       .type('kanp')
-      .should('have.value', 'かんp');
+      .should('have.value', 'かんp')
+      .get('#input2')
+      .type('kanp')
+      .should('have.value', 'カンp');
   });
 
   it('kanpai!', () => {
     cy
       .get('#input')
       .type('kanpai')
-      .should('have.value', 'かんぱい');
+      .should('have.value', 'かんぱい')
+      .get('#input2')
+      .type('kanpai')
+      .should('have.value', 'カンパイ');
   });
 
   it('nihongo', () => {
     cy
       .get('#input')
       .type('nihongo')
-      .should('have.value', 'にほんご');
+      .should('have.value', 'にほんご')
+      .get('#input2')
+      .type('nihongo')
+      .should('have.value', 'ニホンゴ');
   });
 
   it("y doesn't count as a consonant for IME", () => {
     cy
       .get('#input')
+      .type('ny')
+      .should('have.value', 'ny')
+      .get('#input2')
       .type('ny')
       .should('have.value', 'ny');
   });
@@ -261,21 +320,45 @@ describe('default IME conversions', () => {
     cy
       .get('#input')
       .type('nya')
-      .should('have.value', 'にゃ');
+      .should('have.value', 'にゃ')
+      .get('#input2')
+      .type('nya')
+      .should('have.value', 'ニャ');
   });
 
-  it("solo N's are not transliterated - katakana.", () => {
+  it("solo N's are not transliterated - uppercase -> katakana.", () => {
     cy
       .get('#input')
       .type('N')
       .should('have.value', 'N');
   });
 
-  it("double N's are transliterated - katakana.", () => {
+  it("double N's are transliterated - uppercase -> katakana.", () => {
     cy
       .get('#input')
       .type('NN')
       .should('have.value', 'ン');
+  });
+
+  it('NI - uppercase -> katakana.', () => {
+    cy
+      .get('#input')
+      .type('NI')
+      .should('have.value', 'ニ');
+  });
+
+  it('KAN - uppercase -> katakana', () => {
+    cy
+      .get('#input')
+      .type('KAN')
+      .should('have.value', 'カN');
+  });
+
+  it('NIHONGO - uppercase -> katakana', () => {
+    cy
+      .get('#input')
+      .type('NIHONGO')
+      .should('have.value', 'ニホンゴ');
   });
 
   it("doesn't apply toKatakana if mora are mixed case", () => {
@@ -283,27 +366,6 @@ describe('default IME conversions', () => {
       .get('#input')
       .type('KanA')
       .should('have.value', 'かな');
-  });
-
-  it('NI - katakana.', () => {
-    cy
-      .get('#input')
-      .type('NI')
-      .should('have.value', 'ニ');
-  });
-
-  it('KAN - katakana', () => {
-    cy
-      .get('#input')
-      .type('KAN')
-      .should('have.value', 'カN');
-  });
-
-  it('NIHONGO - katakana', () => {
-    cy
-      .get('#input')
-      .type('NIHONGO')
-      .should('have.value', 'ニホンゴ');
   });
 
   it('converts characters after cursor movement', () => {
@@ -315,7 +377,15 @@ describe('default IME conversions', () => {
       .should('have.value', 'わなshiかな')
       .setRange(5, 5)
       .trigger('input')
-      .should('have.value', 'わなしかな');
+      .should('have.value', 'わなしかな')
+      .get('#input2')
+      .type('wanakana')
+      .should('have.value', 'ワナカナ')
+      .type('{leftArrow}{leftArrow}shi')
+      .should('have.value', 'ワナshiカナ')
+      .setRange(5, 5)
+      .trigger('input')
+      .should('have.value', 'ワナシカナ');
   });
 
   it('converts correct partial when multiple similar tokens', () => {
@@ -327,12 +397,30 @@ describe('default IME conversions', () => {
       .should('have.value', 'こsこsoこsこ')
       .setRange(5, 5)
       .trigger('input')
-      .should('have.value', 'こsこそこsこ');
+      .should('have.value', 'こsこそこsこ')
+      .get('#input2')
+      .type('koskoskosko')
+      .should('have.value', 'コsコsコsコ')
+      .type('{leftArrow}{leftArrow}{leftArrow}o')
+      .should('have.value', 'コsコsoコsコ')
+      .setRange(5, 5)
+      .trigger('input')
+      .should('have.value', 'コsコソコsコ');
   });
 });
 
 describe('emulate device keyboards and IMEs', () => {
   describe("Doesn't interfere with Mobile Kana (flick/tap) Japanese IMEs", () => {
+    before(() => {
+      cy
+        .get('#input')
+        .clear()
+        .setRange(0, 0)
+        .get('#input2')
+        .clear()
+        .setRange(0, 0);
+    });
+
     beforeEach(() => {
       cy
         .get('#input')

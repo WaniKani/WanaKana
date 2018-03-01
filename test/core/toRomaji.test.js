@@ -23,7 +23,9 @@ describe('toRomaji()', () => {
     expect(toRomaji('ワニカニ', { upcaseKatakana: true })).toBe('WANIKANI'));
 
   it('Use the upcaseKatakana flag to preserve casing. Works for mixed kana.', () =>
-    expect(toRomaji('ワニカニ　が　すごい　だ', { upcaseKatakana: true })).toBe('WANIKANI ga sugoi da'));
+    expect(toRomaji('ワニカニ　が　すごい　だ', { upcaseKatakana: true })).toBe(
+      'WANIKANI ga sugoi da'
+    ));
 
   it("Converts long dash 'ー' in hiragana to hyphen", () =>
     expect(toRomaji('ばつげーむ')).toBe('batsuge-mu'));
@@ -34,6 +36,9 @@ describe('toRomaji()', () => {
   it("Converts long dash 'ー' (chōonpu) in katakana to long vowel", () =>
     expect(toRomaji('スーパー')).toBe('suupaa'));
 
+  it("Doesn't convert オー to 'ou' which occurs with hiragana", () =>
+    expect(toRomaji('缶コーヒー')).toBe('缶koohii'));
+
   it('Spaces must be manually entered', () =>
     expect(toRomaji('わにかにがすごいだ')).not.toBe('wanikani ga sugoi da'));
 
@@ -41,7 +46,9 @@ describe('toRomaji()', () => {
     it('Double and single n', () => expect(toRomaji('きんにくまん')).toBe('kinnikuman'));
     it('N extravaganza', () => expect(toRomaji('んんにんにんにゃんやん')).toBe("nnninninnyan'yan"));
     it('Double consonants', () =>
-      expect(toRomaji('かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ')).toBe('kappa tatta shusshu chatcha yattsu'));
+      expect(toRomaji('かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ')).toBe(
+        'kappa tatta shusshu chatcha yattsu'
+      ));
   });
 
   describe('Small kana', () => {
