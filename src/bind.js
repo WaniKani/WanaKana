@@ -11,32 +11,34 @@ const newId = () => {
 
 /**
  * Binds eventListener for 'input' events to an input field to automagically replace values with kana
- * Can pass { IMEMode: 'toHiragana' } or `'toKatakana'` as second param to enforce kana conversion type
- * @param  {HTMLElement} input textarea, input[type="text"] etc
+ * Can pass `{ IMEMode: 'toHiragana' || 'toKatakana' }` to enforce kana conversion type
+ * @param  {HTMLElement} element textarea, input[type="text"] etc
  * @param  {DefaultOptions} [options=defaultOptions] defaults to { IMEMode: true } using `toKana`
+ * @example
+ * bind(document.querySelector('#myInput'));
  */
-function bind(input = {}, options = {}, debug = false) {
-  if (!ELEMENTS.includes(input.nodeName)) {
+function bind(element = {}, options = {}, debug = false) {
+  if (!ELEMENTS.includes(element.nodeName)) {
     throw new Error(
       `Element provided to Wanakana bind() was not a valid input or textarea element.\n Received: (${JSON.stringify(
-        input
+        element
       )})`
     );
   }
   const onInput = makeOnInput(options);
   const id = newId();
-  input.setAttribute('data-wanakana-id', id);
-  input.setAttribute('lang', 'ja');
-  input.setAttribute('autoCapitalize', 'none');
-  input.setAttribute('autoCorrect', 'off');
-  input.setAttribute('autoComplete', 'off');
-  input.setAttribute('spellCheck', 'false');
-  input.addEventListener('input', onInput);
-  input.addEventListener('compositionupdate', onComposition);
-  input.addEventListener('compositionend', onComposition);
+  element.setAttribute('data-wanakana-id', id);
+  element.setAttribute('lang', 'ja');
+  element.setAttribute('autoCapitalize', 'none');
+  element.setAttribute('autoCorrect', 'off');
+  element.setAttribute('autoComplete', 'off');
+  element.setAttribute('spellCheck', 'false');
+  element.addEventListener('input', onInput);
+  element.addEventListener('compositionupdate', onComposition);
+  element.addEventListener('compositionend', onComposition);
   trackListeners(id, onInput, onComposition);
   if (debug === true) {
-    addDebugListeners(input);
+    addDebugListeners(element);
   }
 }
 

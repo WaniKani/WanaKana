@@ -10,7 +10,9 @@ export const ROMANIZATIONS = {
 };
 
 /**
- * @typedef {Object} DefaultOptions
+ * Default config for WanaKana, user passed options will be merged with these
+ * @type {DefaultOptions}
+ * @name defaultOptions
  * @property {Boolean} [useObsoleteKana=false] - Set to true to use obsolete characters, such as ゐ and ゑ.
  * @example
  * toHiragana('we', { useObsoleteKana: true })
@@ -23,8 +25,8 @@ export const ROMANIZATIONS = {
  * @example
  * toRomaji('ひらがな カタカナ', { upcaseKatakana: true })
  * // => "hiragana KATAKANA"
- * @property {Boolean} [IMEMode=false] - Set to true, 'toHiragana', or 'toKatakana' to handle conversion from a text input while it is being typed.
- * @property {String} [romanization='hepburn'] - choose toRomaji() romanization map (currently only hepburn)
+ * @property {Boolean|String} [IMEMode=false] - Set to true, 'toHiragana', or 'toKatakana' to handle conversion while it is being typed.
+ * @property {String} [romanization='hepburn'] - choose toRomaji() romanization map (currently only 'hepburn')
  * @property {Object} [customKanaMapping] - custom map will be merged with default conversion
  * @example
  * toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'Bana' }) };
@@ -33,12 +35,6 @@ export const ROMANIZATIONS = {
  * @example
  * toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' }) };
  * // => 'tuzigili'
- */
-
-/**
- * Default config for WanaKana, user passed options will be merged with this
- * @type {DefaultOptions}
- * @ignore
  */
 export const DEFAULT_OPTIONS = {
   useObsoleteKana: false,
@@ -101,12 +97,8 @@ export const JA_PUNCTUATION_RANGES = [
   ZENKAKU_SYMBOLS_CURRENCY,
 ];
 
-/**
- * All Japanese unicode start and end ranges
- * Includes kanji, full-width latin chars, punctuation, and number ranges.
- * @type {Array}
- * @ignore
- */
+// All Japanese unicode start and end ranges
+// Includes kanji, kana, zenkaku latin chars, punctuation, and number ranges.
 export const JAPANESE_RANGES = [
   ...KANA_RANGES,
   ...JA_PUNCTUATION_RANGES,

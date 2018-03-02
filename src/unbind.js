@@ -3,27 +3,27 @@ import { removeDebugListeners } from './utils/logInputEvents';
 
 /**
  * Unbinds eventListener from input field
- * @param  {HTMLElement} input <textarea>, <input>
+ * @param  {HTMLElement} element textarea, input
  */
-export function unbind(input, debug = false) {
-  const listeners = findListeners(input);
+export function unbind(element, debug = false) {
+  const listeners = findListeners(element);
   if (listeners == null) {
     throw new Error(
       `Element provided to Wanakana unbind() had no listener registered.\n Received: ${JSON.stringify(
-        input
+        element
       )}`
     );
   }
   const { inputHandler, compositionHandler } = listeners;
-  input.removeAttribute('data-wanakana-id');
-  input.removeAttribute('data-ignore-composition');
-  input.removeEventListener('input', inputHandler);
-  input.removeEventListener('compositionstart', compositionHandler);
-  input.removeEventListener('compositionupdate', compositionHandler);
-  input.removeEventListener('compositionend', compositionHandler);
+  element.removeAttribute('data-wanakana-id');
+  element.removeAttribute('data-ignore-composition');
+  element.removeEventListener('input', inputHandler);
+  element.removeEventListener('compositionstart', compositionHandler);
+  element.removeEventListener('compositionupdate', compositionHandler);
+  element.removeEventListener('compositionend', compositionHandler);
   untrackListeners(listeners);
   if (debug === true) {
-    removeDebugListeners(input);
+    removeDebugListeners(element);
   }
 }
 

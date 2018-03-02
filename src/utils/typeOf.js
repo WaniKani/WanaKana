@@ -1,6 +1,6 @@
 /**
  * Returns detailed type as string (instead of just 'object' for arrays etc)
- * @ignore
+ * @private
  * @param {any} value js value
  * @returns {String} type of value
  * @example

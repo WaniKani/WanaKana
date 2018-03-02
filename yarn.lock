@@ -1844,10 +1844,6 @@ dlv@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/dlv/-/dlv-1.1.0.tgz#fee1a7c43f63be75f3f679e85262da5f102764a7"
 
-docdash@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/docdash/-/docdash-0.4.0.tgz#05c3a50d83189981699ee0c076d3a3950db7ec00"
-
 doctrine@1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-1.5.0.tgz#379dce730f6166f76cefa4e6707a159b02c5a6fa"
@@ -3686,6 +3682,10 @@ js2xmlparser@~3.0.0:
 jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
+
+"jsdoc-template@https://github.com/braintree/jsdoc-template.git":
+  version "3.2.0"
+  resolved "https://github.com/braintree/jsdoc-template.git#9ac837f2a774610c3de55431454777ae2419ba11"
 
 jsdoc@3.5.5:
   version "3.5.5"

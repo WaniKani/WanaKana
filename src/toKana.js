@@ -55,10 +55,10 @@ export function toKana(input = '', options = {}, map) {
 
 /**
  *
+ * @private
  * @param {String} [input=''] input text
  * @param {Object} [options={}] toKana options
  * @returns {Array[]} [[start, end, token]]
- * @ignore
  * @example
  * splitIntoConvertedKana('buttsuuji')
  * // => [[0, 2, 'ぶ'], [2, 6, 'っつ'], [6, 7, 'う'], [7, 9, 'じ']]

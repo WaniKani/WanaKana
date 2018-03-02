@@ -7,7 +7,7 @@ let LISTENERS = [];
  * Automagically replaces input values with converted text to kana
  * @param  {defaultOptions} [options] user config overrides, default conversion is toKana()
  * @return {Function} event handler with bound options
- * @ignore
+ * @private
  */
 export function makeOnInput(options) {
   let prevInput;

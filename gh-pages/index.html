@@ -68,8 +68,7 @@ wanakana.bind(input);</code></pre>
 
           <section id="demo-kana-to-romaji">
             <form>
-              <textarea id="kana-to-romaji" placeholder="Kana string to romaji"
-                lang="ja">にほんごのテスト</textarea>
+              <textarea id="kana-to-romaji" placeholder="Kana string to romaji" lang="ja">にほんごのテスト</textarea>
             </form>
             <div id="kana-to-romaji-output" class="output">
               nihongonotesuto
@@ -88,8 +87,7 @@ wanakana.bind(input);</code></pre>
 
           <section id="demo-romaji-to-kana">
             <form>
-              <textarea id="romaji-to-kana" placeholder="Romaji string to kana"
-                lang="ja">TOFUGUnosushi</textarea>
+              <textarea id="romaji-to-kana" placeholder="Romaji string to kana" lang="ja">TOFUGUnosushi</textarea>
             </form>
             <div id="romaji-to-kana-output" class="output" lang="ja">
               トフグのすし
@@ -113,8 +111,7 @@ wanakana.bind(input);</code></pre>
 
           <section id="demo-romaji-to-hiragana">
             <form>
-              <textarea id="romaji-to-hiragana" placeholder="Kana string to romaji"
-                lang="ja">アメリカ</textarea>
+              <textarea id="romaji-to-hiragana" placeholder="Kana string to romaji" lang="ja">アメリカ</textarea>
             </form>
             <div id="romaji-to-hiragana-output" class="output" lang="ja">
               あめりか
@@ -133,8 +130,7 @@ wanakana.bind(input);</code></pre>
 
           <section id="demo-romaji-to-katakana">
             <form>
-              <textarea id="romaji-to-katakana" placeholder="Romaji string to kana"
-                lang="ja">わにかに</textarea>
+              <textarea id="romaji-to-katakana" placeholder="Romaji string to kana" lang="ja">わにかに</textarea>
             </form>
             <div id="romaji-to-katakana-output" class="output" lang="ja">
               ワニカニ
@@ -156,7 +152,16 @@ wanakana.bind(input);</code></pre>
     </div>
     <!-- secondary-functions -->
 
-    <h2>Quick Docs</h2>
+    <h2>Documentation</h2>
+    <div class="pure-g-r">
+      <div class="pure-u-1" style="font-size: .65em; text-align: center;">
+        View the extended
+        <a href="docs/global.html">API</a> including extra conversion and checking methods.
+      </div>
+    </div>
+
+
+    <h2>Quick Usage</h2>
 
     <div class="pure-g-r">
       <div class="pure-u-1">
@@ -226,6 +231,20 @@ wanakana.bind(input);</code></pre>
                 <td>Convert Kana to Romaji.</td>
               </tr>
               <tr>
+                <td>wanakana.stripOkurigana(
+                  <span class="type">string</span>
+                  <span class="options">[,
+                    <span class="type">options</span>]</span> )</td>
+                <td>Remove trailing kana.</td>
+              </tr>
+              <tr>
+                <td>wanakana.tokenize(
+                  <span class="type">string</span>
+                  <span class="options">[,
+                    <span class="type">options</span>]</span> )</td>
+                <td>Split text into language/kana tokens.</td>
+              </tr>
+              <tr>
                 <td>
                   <span class="type">options</span> = {
                   <br>
@@ -241,6 +260,8 @@ wanakana.bind(input);</code></pre>
                   <span class="indent">
                     upcaseKatakana: false,
                   </span>
+                  <span class="indent">customKanaMapping: {},</span>
+                  <span class="indent">customRomajiMapping: {}</span>
                   }
                 </td>
                 <td>
@@ -253,7 +274,8 @@ wanakana.bind(input);</code></pre>
                   </p>
                   <p>passRomaji: Pass through romaji when using toKatakana() or toHiragana()</p>
                   <p>upcaseKatakana: Convert katakana to uppercase when using toRomaji()</p>
-                  </p>
+                  <p>customKanaMapping: custom map to be merged with default in toKana()</p>
+                  <p>customRomajiMapping: custom map to be merged with default in toRomaji()</p>
                 </td>
               </tr>
             </tbody>
@@ -264,13 +286,6 @@ wanakana.bind(input);</code></pre>
       </div>
     </div>
 
-    <h2>Full Documentation</h2>
-    <div class="pure-g-r">
-      <div class="pure-u-1" style="font-size: .65em; text-align: center;">
-        View the extended
-        <a href="docs/global.html">API</a> including extra conversion and checking methods.
-      </div>
-    </div>
 
     <h2>Library Ports</h2>
 
