@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>
-      isKana.js - Documentation
+      unbind.js - Documentation
   </title>
 
   <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
@@ -78,7 +78,7 @@
   <div id="main">
     
       <h1 class="page-title">
-        isKana.js
+        unbind.js
       </h1>
     
 
@@ -87,31 +87,36 @@
 
 <section>
   <article>
-    <pre class="prettyprint source linenums"><code>import isEmpty from './utils/isEmpty';
-import isCharKana from './utils/isCharKana';
+    <pre class="prettyprint source linenums"><code>import { findListeners, untrackListeners } from './utils/dom';
+import { removeDebugListeners } from './utils/logInputEvents';
 
 /**
- * Test if `input` is [Kana](https://en.wikipedia.org/wiki/Kana) ([Katakana](https://en.wikipedia.org/wiki/Katakana) and/or [Hiragana](https://en.wikipedia.org/wiki/Hiragana))
- * @param  {String} [input=''] text
- * @return {Boolean} true if all [Kana](https://en.wikipedia.org/wiki/Kana)
- * @example
- * isKana('あ')
- * // => true
- * isKana('ア')
- * // => true
- * isKana('あーア')
- * // => true
- * isKana('A')
- * // => false
- * isKana('あAア')
- * // => false
+ * Unbinds eventListener from input field
+ * @param  {HTMLElement} element textarea, input
  */
-function isKana(input = '') {
-  if (isEmpty(input)) return false;
-  return [...input].every(isCharKana);
+export function unbind(element, debug = false) {
+  const listeners = findListeners(element);
+  if (listeners == null) {
+    throw new Error(
+      `Element provided to Wanakana unbind() had no listener registered.\n Received: ${JSON.stringify(
+        element
+      )}`
+    );
+  }
+  const { inputHandler, compositionHandler } = listeners;
+  element.removeAttribute('data-wanakana-id');
+  element.removeAttribute('data-ignore-composition');
+  element.removeEventListener('input', inputHandler);
+  element.removeEventListener('compositionstart', compositionHandler);
+  element.removeEventListener('compositionupdate', compositionHandler);
+  element.removeEventListener('compositionend', compositionHandler);
+  untrackListeners(listeners);
+  if (debug === true) {
+    removeDebugListeners(element);
+  }
 }
 
-export default isKana;
+export default unbind;
 </code></pre>
   </article>
 </section>

@@ -1,98 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Global - Documentation</title>
 
-    <script src="scripts/prettify/prettify.js"></script>
-    <script src="scripts/prettify/lang-css.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+      Global - Documentation
+  </title>
+
+  <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+
+  
+
+  <!-- start Mixpanel -->
+  <script type="text/javascript">(function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
+  0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+  for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
+  mixpanel.init("1919205b2da72e4da3b9b6639b444d59");</script>
+  <!-- end Mixpanel -->
 </head>
+
 <body>
+  <svg style="display: none;">
+    <defs>
+      <symbol id="linkIcon" fill="#706d77" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+      </symbol>
+    </defs>
+  </svg>
 
-<input type="checkbox" id="nav-trigger" class="nav-trigger" />
-<label for="nav-trigger" class="navicon-button x">
-  <div class="navicon"></div>
-</label>
+  <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+  <label for="nav-trigger" class="navicon-button x">
+    <div class="navicon"></div>
+  </label>
 
-<label for="nav-trigger" class="overlay"></label>
+  <label for="nav-trigger" class="overlay"></label>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#bind">bind</a></li><li><a href="global.html#unbind">unbind</a></li><li><a href="global.html#onCompositionUpdate">onCompositionUpdate</a></li><li><a href="global.html#isHiragana">isHiragana</a></li><li><a href="global.html#isJapanese">isJapanese</a></li><li><a href="global.html#isKana">isKana</a></li><li><a href="global.html#isKanji">isKanji</a></li><li><a href="global.html#isKatakana">isKatakana</a></li><li><a href="global.html#isMixed">isMixed</a></li><li><a href="global.html#isRomaji">isRomaji</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li><li><a href="global.html#toHiragana">toHiragana</a></li><li><a href="global.html#toKana">toKana</a></li><li><a href="global.html#toKatakana">toKatakana</a></li><li><a href="global.html#toRomaji">toRomaji</a></li><li><a href="global.html#tokenize">tokenize</a></li></ul>
-</nav>
+  <div class="top-nav-wrapper">
+    <ul>
+      <li >
+        <a href="index.html">
+          
+            <svg fill="#6D6D6D" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          
+          
+        </a>
+      </li>
 
-<div id="main">
+      
+
+    </ul>
+  </div>
+
+  <nav>
+    <h3 class="reference-title">
+      WanaKana
+    </h3>
+
+    <h3 id="global-nav">Global</h3><ul><li><a href="global.html#bind">bind</a></li><li><a href="global.html#defaultOptions">defaultOptions</a></li><li><a href="global.html#isHiragana">isHiragana</a></li><li><a href="global.html#isJapanese">isJapanese</a></li><li><a href="global.html#isKana">isKana</a></li><li><a href="global.html#isKanji">isKanji</a></li><li><a href="global.html#isKatakana">isKatakana</a></li><li><a href="global.html#isMixed">isMixed</a></li><li><a href="global.html#isRomaji">isRomaji</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li><li><a href="global.html#toHiragana">toHiragana</a></li><li><a href="global.html#toKana">toKana</a></li><li><a href="global.html#toKatakana">toKatakana</a></li><li><a href="global.html#tokenize">tokenize</a></li><li><a href="global.html#toRomaji">toRomaji</a></li><li><a href="global.html#unbind">unbind</a></li></ul>
+  </nav>
+
+  <div id="main">
     
-    <h1 class="page-title">Global</h1>
+      <h1 class="page-title">
+        Global
+      </h1>
     
 
     
-
-
-
 
 <section>
-
-<header>
+  <header>
     
-        <h2>
+      <h2>
         
-        </h2>
         
-    
-</header>
+        
+      </h2>
 
-<article>
+      
+    
+  </header>
+
+  <article>
     <div class="container-overview">
-    
+      
+        
+
         
 
 <dl class="details">
 
-    
+  
 
-    
+  
 
-    
+  
 
-    
+  
 
-    
+  
 
-    
+  
 
-    
+  
 
-    
+  
 
-    
+  
 
-    
+  
 
-    
+  
 
-    
+  
 
-    
+  
 
-    
+  
 
-    
+  
 
-    
+  
 </dl>
 
 
-
-
         
-
-        
-    
+      
     </div>
 
     
@@ -106,390 +153,640 @@
     
 
     
-
-    
-        <h3 class="subsection-title">Methods</h3>
+        <h3 class="subsection-title">Members</h3>
 
         
             
 
-    
-
-    <h4 class="name" id="bind"><span class="type-signature"></span>bind<span class="signature">(input, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
-
-    
+<h4 class="name" id="defaultOptions">
+  <span class="type-signature"></span>defaultOptions<span class="type-signature"> :DefaultOptions</span>
+</h4>
 
 
 
 
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="domUtils.js.html">domUtils.js</a>, <a href="domUtils.js.html#line23">line 23</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
+  <div class="description">
+    <p>Default config for WanaKana, user passed options will be merged with these</p>
+  </div>
 
 
 
 
+  <h5 class="subsection-title">Properties:</h5>
 
-<div class="description">
-    <p>Binds eventListener for 'input' events to an input field to automagically replace values with kana<br>Can pass { IMEMode: 'toHiragana' } or <code>'toKatakana'</code> as second param to enforce kana conversion type</p>
-</div>
+  
 
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
+<table class="props">
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
         <th>Attributes</th>
-        
+      
 
-        
+      
         <th>Default</th>
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
     
 
-        <tr>
-            
-                <td class="name"><code>input</code></td>
-            
+    <tr>
+      
+        <td class="name"><code>useObsoleteKana</code></td>
+      
 
-            <td class="type">
-            
-                
-<span class="param-type">HTMLElement</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>textarea, input[type=&quot;text&quot;] etc</p></td>
-        </tr>
+      <td class="type">
+        
+          
+    <span class="param-type">
+      Boolean
+    </span>
 
     
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#DefaultOptions">DefaultOptions</a></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>defaultOptions</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>defaults to { IMEMode: true } using <code>toKana</code></p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         
+      </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
             
 
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              false
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>Set to true to use obsolete characters, such as ゐ and ゑ.</p>
+          </td>
+    </tr>
+
+  
+
+    <tr>
+      
+        <td class="name"><code>passRomaji</code></td>
+      
+
+      <td class="type">
+        
+          
+    <span class="param-type">
+      Boolean
+    </span>
+
     
 
-    <h4 class="name" id="unbind"><span class="type-signature"></span>unbind<span class="signature">(input)</span><span class="type-signature"></span></h4>
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              false
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana()</p>
+          </td>
+    </tr>
+
+  
+
+    <tr>
+      
+        <td class="name"><code>upcaseKatakana</code></td>
+      
+
+      <td class="type">
+        
+          
+    <span class="param-type">
+      Boolean
+    </span>
 
     
+
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              false
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>Set to true to convert katakana to uppercase using toRomaji()</p>
+          </td>
+    </tr>
+
+  
+
+    <tr>
+      
+        <td class="name"><code>IMEMode</code></td>
+      
+
+      <td class="type">
+        
+          
+    <span class="param-type">
+      Boolean
+    </span>
+
+    |
+
+    <span class="param-type">
+      String
+    </span>
+
+    
+
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              false
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>Set to true, 'toHiragana', or 'toKatakana' to handle conversion while it is being typed.</p>
+          </td>
+    </tr>
+
+  
+
+    <tr>
+      
+        <td class="name"><code>romanization</code></td>
+      
+
+      <td class="type">
+        
+          
+    <span class="param-type">
+      String
+    </span>
+
+    
+
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              'hepburn'
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>choose toRomaji() romanization map (currently only 'hepburn')</p>
+          </td>
+    </tr>
+
+  
+
+    <tr>
+      
+        <td class="name"><code>customKanaMapping</code></td>
+      
+
+      <td class="type">
+        
+          
+    <span class="param-type">
+      Object
+    </span>
+
+    
+
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>custom map will be merged with default conversion</p>
+          </td>
+    </tr>
+
+  
+
+    <tr>
+      
+        <td class="name"><code>customRomajiMapping</code></td>
+      
+
+      <td class="type">
+        
+          
+    <span class="param-type">
+      Object
+    </span>
+
+    
+
+
+        
+      </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>custom map will be merged with default conversion</p>
+          </td>
+    </tr>
+
+  
+  </tbody>
+</table>
 
 
 
 
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="domUtils.js.html">domUtils.js</a>, <a href="domUtils.js.html#line43">line 43</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line12">line 12</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description">
-    <p>Unbinds eventListener from input field</p>
-</div>
+  <h5>Examples</h5>
+  
+
+  <pre class="prettyprint"><code>toHiragana('we', { useObsoleteKana: true })
+// => 'ゑ'</code></pre>
+
+
+  <pre class="prettyprint"><code>toHiragana('only convert the katakana: ヒラガナ', { passRomaji: true })
+// => "only convert the katakana: ひらがな"</code></pre>
+
+
+  <pre class="prettyprint"><code>toRomaji('ひらがな カタカナ', { upcaseKatakana: true })
+// => "hiragana KATAKANA"</code></pre>
+
+
+  <pre class="prettyprint"><code>toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'Bana' }) };
+// => 'わにBanaに'</code></pre>
+
+
+  <pre class="prettyprint"><code>toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' }) };
+// => 'tuzigili'</code></pre>
 
 
 
 
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
+          
+        
     
+
+    
+      <h3 class="subsection-title">Methods</h3>
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#bind">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="bind">
+      <span class="type-signature"></span>bind<span class="signature">(element, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Binds eventListener for 'input' events to an input field to automagically replace values with kana
+Can pass <code>{ IMEMode: 'toHiragana' || 'toKatakana' }</code> to enforce kana conversion type</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
+        <th>Attributes</th>
+      
 
-        
+      
+        <th>Default</th>
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>element</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      HTMLElement
+    </span>
+
     
 
-        <tr>
-            
-                <td class="name"><code>input</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">HTMLElement</span>
+          
+        </td>
 
-
-            
-            </td>
-
+        
+          <td class="attributes">
             
 
             
 
-            <td class="description last"><p>textarea, input[type=&quot;text&quot;] etc</p></td>
-        </tr>
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>textarea, input[type=&quot;text&quot;] etc</p>
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>options</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      DefaultOptions
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              defaultOptions
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>defaults to { IMEMode: true } using <code>toKana</code></p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="onCompositionUpdate"><span class="type-signature"></span>onCompositionUpdate<span class="signature">(event)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="domUtils.js.html">domUtils.js</a>, <a href="domUtils.js.html#line120">line 120</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="bind.js.html">bind.js</a>, <a href="bind.js.html#line20">line 20</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description">
-    <p>Sets a flag on compositionupdate for a once-off ignore in onInput<br>see https://github.com/WaniKani/WanaKana/issues/48</p>
-</div>
 
 
 
@@ -498,131 +795,45 @@
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#bind-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="bind-examples">Example</h5>
     
 
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
+  <pre class="prettyprint"><code>bind(document.querySelector('#myInput'));</code></pre>
 
-        <th>Type</th>
 
+  </div>
+
+
+      
         
 
-        
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+  
 
-    <tbody>
-    
+  <span class='name-container'>
+    <a class="link-icon" href="#isHiragana">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="isHiragana">
+      <span class="type-signature"></span>isHiragana<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span>
+    </h4>
+  </span>
 
-        <tr>
-            
-                <td class="name"><code>event</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>compositionupdate event</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
+  
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="isHiragana"><span class="type-signature"></span>isHiragana<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isHiragana.js.html">isHiragana.js</a>, <a href="isHiragana.js.html#line16">line 16</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
+  <div class="description">
     <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Hiragana">Hiragana</a></p>
-</div>
+  </div>
 
 
 
@@ -630,11 +841,150 @@
 
 
 
+  <h5>Parameters:</h5>
+  
 
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
 
-    <h5>Example</h5>
+      <th>Type</th>
+
+      
+        <th>Attributes</th>
+      
+
+      
+        <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
     
-    <pre class="prettyprint"><code>isHiragana('げーむ')
+      <tr>
+        
+          <td class="name"><code>input</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      String
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              ''
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>text</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="isHiragana.js.html">isHiragana.js</a>, <a href="isHiragana.js.html#line16">line 16</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#isHiragana-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="isHiragana-examples">Example</h5>
+    
+
+  <pre class="prettyprint"><code>isHiragana('げーむ')
 // => true
 isHiragana('A')
 // => false
@@ -642,172 +992,209 @@ isHiragana('あア')
 // => false</code></pre>
 
 
+  </div>
 
 
-    <h5>Parameters:</h5>
-    
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#isJapanese">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="isJapanese">
+      <span class="type-signature"></span>isJapanese<span class="signature">(input<span class="signature-attributes">opt</span>, allowed<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Test if <code>input</code> only includes <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a>, <a href="https://en.wikipedia.org/wiki/Kana">Kana</a>, zenkaku numbers, and JA punctuation/symbols.”</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
         <th>Attributes</th>
-        
+      
 
-        
+      
         <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>input</code></td>
         
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+        <td class="type">
+          
+            
+    <span class="param-type">
+      String
+    </span>
 
-    <tbody>
     
 
-        <tr>
+
+          
+        </td>
+
+        
+          <td class="attributes">
             
-                <td class="name"><code>input</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
+              &lt;optional><br>
             
 
             
-                <td class="default">
-                
-                    <code>''</code>
-                
-                </td>
-            
 
-            <td class="description last"><p>text</p></td>
-        </tr>
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              ''
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>text</p>
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>allowed</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Regexp
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>additional test allowed to pass for each char</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>true if all <a href="https://en.wikipedia.org/wiki/Hiragana">Hiragana</a></p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="isJapanese"><span class="type-signature"></span>isJapanese<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isJapanese.js.html">isJapanese.js</a>, <a href="isJapanese.js.html#line24">line 24</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="isJapanese.js.html">isJapanese.js</a>, <a href="isJapanese.js.html#line26">line 26</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description">
-    <p>Test if <code>input</code> only includes <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a>, <a href="https://en.wikipedia.org/wiki/Kana">Kana</a>, zenkaku punctuation, japanese symbols and numbers.”</p>
-</div>
 
 
 
@@ -816,191 +1203,191 @@ isHiragana('あア')
 
 
 
-
-    <h5>Example</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#isJapanese-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="isJapanese-examples">Example</h5>
     
-    <pre class="prettyprint"><code>isJapanese('泣き虫')
+
+  <pre class="prettyprint"><code>isJapanese('泣き虫')
 // => true
 isJapanese('あア')
 // => true
-isJapanese('２月1日') // Full and half-width numbers allowed
+isJapanese('２月') // Zenkaku numbers allowed
 // => true
-isJapanese('泣き虫。！〜＄')
+isJapanese('泣き虫。！〜＄') // Zenkaku/JA punctuation
 // => true
-isJapanese('泣き虫.!~$') // Half-width / Latin punctuation fails
+isJapanese('泣き虫.!~$') // Latin punctuation fails
 // => false
 isJapanese('A泣き虫')
 // => false
-isJapanese('A')
-// => false</code></pre>
+isJapanese('≪偽括弧≫', /[≪≫]/);
+// => true</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#isKana">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="isKana">
+      <span class="type-signature"></span>isKana<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Kana">Kana</a> (<a href="https://en.wikipedia.org/wiki/Katakana">Katakana</a> and/or <a href="https://en.wikipedia.org/wiki/Hiragana">Hiragana</a>)</p>
+  </div>
 
 
 
 
-    <h5>Parameters:</h5>
-    
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
         <th>Attributes</th>
-        
+      
 
-        
+      
         <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>input</code></td>
         
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+        <td class="type">
+          
+            
+    <span class="param-type">
+      String
+    </span>
 
-    <tbody>
     
 
-        <tr>
+
+          
+        </td>
+
+        
+          <td class="attributes">
             
-                <td class="name"><code>input</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
+              &lt;optional><br>
             
 
             
-                <td class="default">
-                
-                    <code>''</code>
-                
-                </td>
-            
 
-            <td class="description last"><p>text</p></td>
-        </tr>
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              ''
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>text</p>
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>true if passes checks</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="isKana"><span class="type-signature"></span>isKana<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isKana.js.html">isKana.js</a>, <a href="isKana.js.html#line20">line 20</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="isKana.js.html">isKana.js</a>, <a href="isKana.js.html#line20">line 20</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description">
-    <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Kana">Kana</a> (<a href="https://en.wikipedia.org/wiki/Katakana">Katakana</a> and/or <a href="https://en.wikipedia.org/wiki/Hiragana">Hiragana</a>)</p>
-</div>
 
 
 
@@ -1009,10 +1396,16 @@ isJapanese('A')
 
 
 
-
-    <h5>Example</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#isKana-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="isKana-examples">Example</h5>
     
-    <pre class="prettyprint"><code>isKana('あ')
+
+  <pre class="prettyprint"><code>isKana('あ')
 // => true
 isKana('ア')
 // => true
@@ -1024,172 +1417,166 @@ isKana('あAア')
 // => false</code></pre>
 
 
+  </div>
 
 
-    <h5>Parameters:</h5>
-    
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#isKanji">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="isKanji">
+      <span class="type-signature"></span>isKanji<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Tests if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a> (<a href="https://en.wikipedia.org/wiki/CJK_Unified_Ideographs">Japanese CJK ideographs</a>)</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
         <th>Attributes</th>
-        
+      
 
-        
+      
         <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>input</code></td>
         
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+        <td class="type">
+          
+            
+    <span class="param-type">
+      String
+    </span>
 
-    <tbody>
     
 
-        <tr>
+
+          
+        </td>
+
+        
+          <td class="attributes">
             
-                <td class="name"><code>input</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
+              &lt;optional><br>
             
 
             
-                <td class="default">
-                
-                    <code>''</code>
-                
-                </td>
-            
 
-            <td class="description last"><p>text</p></td>
-        </tr>
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              ''
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>text</p>
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>true if all <a href="https://en.wikipedia.org/wiki/Kana">Kana</a></p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="isKanji"><span class="type-signature"></span>isKanji<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isKanji.js.html">isKanji.js</a>, <a href="isKanji.js.html#line20">line 20</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="isKanji.js.html">isKanji.js</a>, <a href="isKanji.js.html#line20">line 20</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description">
-    <p>Tests if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a> (<a href="https://en.wikipedia.org/wiki/CJK_Unified_Ideographs">Japanese CJK ideographs</a>)</p>
-</div>
 
 
 
@@ -1198,10 +1585,16 @@ isKana('あAア')
 
 
 
-
-    <h5>Example</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#isKanji-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="isKanji-examples">Example</h5>
     
-    <pre class="prettyprint"><code>isKanji('刀')
+
+  <pre class="prettyprint"><code>isKanji('刀')
 // => true
 isKanji('切腹')
 // => true
@@ -1213,172 +1606,166 @@ isKanji('🐸')
 // => false</code></pre>
 
 
+  </div>
 
 
-    <h5>Parameters:</h5>
-    
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#isKatakana">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="isKatakana">
+      <span class="type-signature"></span>isKatakana<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Katakana">Katakana</a></p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
         <th>Attributes</th>
-        
+      
 
-        
+      
         <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>input</code></td>
         
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+        <td class="type">
+          
+            
+    <span class="param-type">
+      String
+    </span>
 
-    <tbody>
     
 
-        <tr>
+
+          
+        </td>
+
+        
+          <td class="attributes">
             
-                <td class="name"><code>input</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
+              &lt;optional><br>
             
 
             
-                <td class="default">
-                
-                    <code>''</code>
-                
-                </td>
-            
 
-            <td class="description last"><p>text</p></td>
-        </tr>
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              ''
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>text</p>
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>true if all <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a></p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="isKatakana"><span class="type-signature"></span>isKatakana<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isKatakana.js.html">isKatakana.js</a>, <a href="isKatakana.js.html#line18">line 18</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="isKatakana.js.html">isKatakana.js</a>, <a href="isKatakana.js.html#line18">line 18</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description">
-    <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Katakana">Katakana</a></p>
-</div>
 
 
 
@@ -1387,10 +1774,16 @@ isKanji('🐸')
 
 
 
-
-    <h5>Example</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#isKatakana-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="isKatakana-examples">Example</h5>
     
-    <pre class="prettyprint"><code>isKatakana('ゲーム')
+
+  <pre class="prettyprint"><code>isKatakana('ゲーム')
 // => true
 isKatakana('あ')
 // => false
@@ -1400,172 +1793,207 @@ isKatakana('あア')
 // => false</code></pre>
 
 
+  </div>
 
 
-    <h5>Parameters:</h5>
-    
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#isMixed">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="isMixed">
+      <span class="type-signature"></span>isMixed<span class="signature">(input, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Test if <code>input</code> contains a mix of <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a> <em>and</em> <a href="https://en.wikipedia.org/wiki/Kana">Kana</a>, defaults to pass through <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a></p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
         <th>Attributes</th>
-        
+      
 
-        
+      
         <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>input</code></td>
         
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+        <td class="type">
+          
+            
+    <span class="param-type">
+      String
+    </span>
 
-    <tbody>
     
 
-        <tr>
-            
-                <td class="name"><code>input</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
+          
+        </td>
 
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
+        
+          <td class="attributes">
             
 
             
-                <td class="default">
-                
-                    <code>''</code>
-                
-                </td>
-            
 
-            <td class="description last"><p>text</p></td>
-        </tr>
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>text</p>
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>options</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Object
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              { passKanji: true }
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>optional config to pass through kanji</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>true if all <a href="https://en.wikipedia.org/wiki/Katakana">Katakana</a></p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="isMixed"><span class="type-signature"></span>isMixed<span class="signature">(input, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isMixed.js.html">isMixed.js</a>, <a href="isMixed.js.html#line23">line 23</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="isMixed.js.html">isMixed.js</a>, <a href="isMixed.js.html#line23">line 23</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description">
-    <p>Test if <code>input</code> contains a mix of <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a> <em>and</em> <a href="https://en.wikipedia.org/wiki/Kana">Kana</a>, defaults to pass through <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a></p>
-</div>
 
 
 
@@ -1574,12 +2002,18 @@ isKatakana('あア')
 
 
 
-
-    <h5>Example</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#isMixed-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="isMixed-examples">Example</h5>
     
-    <pre class="prettyprint"><code>isMixed('Abあア'))
+
+  <pre class="prettyprint"><code>isMixed('Abあア'))
 // => true
-isMixed('お腹A'))
+isMixed('お腹A')) // ignores kanji by default
 // => true
 isMixed('お腹A', { passKanji: false }))
 // => false
@@ -1589,207 +2023,209 @@ isMixed('あア'))
 // => false</code></pre>
 
 
+  </div>
 
 
-    <h5>Parameters:</h5>
-    
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#isRomaji">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="isRomaji">
+      <span class="type-signature"></span>isRomaji<span class="signature">(input<span class="signature-attributes">opt</span>, allowed<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a> (allowing <a href="https://en.wikipedia.org/wiki/Hepburn_romanization">Hepburn romanisation</a>)</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
         <th>Attributes</th>
-        
+      
 
-        
+      
         <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>input</code></td>
         
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
+        <td class="type">
+          
             
-                <td class="name"><code>input</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>text</p></td>
-        </tr>
+    <span class="param-type">
+      String
+    </span>
 
     
 
-        <tr>
+
+          
+        </td>
+
+        
+          <td class="attributes">
             
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
+              &lt;optional><br>
             
 
             
-                <td class="default">
-                
-                    <code>{ passKanji: true }</code>
-                
-                </td>
-            
 
-            <td class="description last"><p>optional config to pass through kanji</p></td>
-        </tr>
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              ''
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>text</p>
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>allowed</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Regexp
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>additional test allowed to pass for each char</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>true if mixed</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="isRomaji"><span class="type-signature"></span>isRomaji<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isRomaji.js.html">isRomaji.js</a>, <a href="isRomaji.js.html#line20">line 20</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="isRomaji.js.html">isRomaji.js</a>, <a href="isRomaji.js.html#line24">line 24</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description">
-    <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a> (allowing <a href="https://en.wikipedia.org/wiki/Hepburn_romanization">Hepburn romanisation</a>)</p>
-</div>
 
 
 
@@ -1798,10 +2234,16 @@ isMixed('あア'))
 
 
 
-
-    <h5>Example</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#isRomaji-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="isRomaji-examples">Example</h5>
     
-    <pre class="prettyprint"><code>isRomaji('Tōkyō and Ōsaka')
+
+  <pre class="prettyprint"><code>isRomaji('Tōkyō and Ōsaka')
 // => true
 isRomaji('12a*b&amp;c-d')
 // => true
@@ -1809,176 +2251,213 @@ isRomaji('あアA')
 // => false
 isRomaji('お願い')
 // => false
-isRomaji('a！b&amp;cーd') // Full-width punctuation fails
-// => false</code></pre>
+isRomaji('a！b&amp;cーd') // Zenkaku punctuation fails
+// => false
+isRomaji('a！b&amp;cーd', /[！ー]/)
+// => true</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#stripOkurigana">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="stripOkurigana">
+      <span class="type-signature"></span>stripOkurigana<span class="signature">(input, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Strips trailing <a href="https://en.wikipedia.org/wiki/Okurigana">Okurigana</a> if <code>input</code> is a mix of <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a> and <a href="https://en.wikipedia.org/wiki/Kana">Kana</a></p>
+  </div>
 
 
 
 
-    <h5>Parameters:</h5>
-    
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
         <th>Attributes</th>
-        
+      
 
-        
+      
         <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>input</code></td>
         
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
+        <td class="type">
+          
+            
+    <span class="param-type">
+      String
+    </span>
 
-    <tbody>
     
 
-        <tr>
-            
-                <td class="name"><code>input</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
+          
+        </td>
 
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
+        
+          <td class="attributes">
             
 
             
-                <td class="default">
-                
-                    <code>''</code>
-                
-                </td>
-            
 
-            <td class="description last"><p>text</p></td>
-        </tr>
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>text</p>
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>options</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Object
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              { all: false }
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>config object specifying if <em>all</em> kana should be removed, not just trailing okurigana</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>true if <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a></p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="stripOkurigana"><span class="type-signature"></span>stripOkurigana<span class="signature">(input, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="stripOkurigana.js.html">stripOkurigana.js</a>, <a href="stripOkurigana.js.html#line25">line 25</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="stripOkurigana.js.html">stripOkurigana.js</a>, <a href="stripOkurigana.js.html#line25">line 25</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description">
-    <p>Strips trailing <a href="https://en.wikipedia.org/wiki/Okurigana">Okurigana</a> if <code>input</code> is a mix of <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a> and <a href="https://en.wikipedia.org/wiki/Kana">Kana</a></p>
-</div>
 
 
 
@@ -1987,10 +2466,16 @@ isRomaji('a！b&amp;cーd') // Full-width punctuation fails
 
 
 
-
-    <h5>Example</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#stripOkurigana-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="stripOkurigana-examples">Example</h5>
     
-    <pre class="prettyprint"><code>stripOkurigana('踏み込む')
+
+  <pre class="prettyprint"><code>stripOkurigana('踏み込む')
 // => '踏み込'
 stripOkurigana('粘り。')
 // => '粘。'
@@ -2002,207 +2487,211 @@ stripOkurigana('お祝い', { all: true })
 // => '祝'</code></pre>
 
 
+  </div>
 
 
-    <h5>Parameters:</h5>
-    
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#toHiragana">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="toHiragana">
+      <span class="type-signature"></span>toHiragana<span class="signature">(input<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Convert input to <a href="https://en.wikipedia.org/wiki/Hiragana">Hiragana</a></p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
         <th>Attributes</th>
-        
+      
 
-        
+      
         <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>input</code></td>
         
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
+        <td class="type">
+          
             
-                <td class="name"><code>input</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>text</p></td>
-        </tr>
+    <span class="param-type">
+      String
+    </span>
 
     
 
-        <tr>
+
+          
+        </td>
+
+        
+          <td class="attributes">
             
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
+              &lt;optional><br>
             
 
             
-                <td class="default">
-                
-                    <code>{ all: false }</code>
-                
-                </td>
-            
 
-            <td class="description last"><p>config object specifying if <em>all</em> kana should be removed, not just trailing okurigana</p></td>
-        </tr>
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              ''
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>text</p>
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>options</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      DefaultOptions
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              defaultOptions
+            
+          </td>
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>text with okurigana removed</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="toHiragana"><span class="type-signature"></span>toHiragana<span class="signature">(input<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="toHiragana.js.html">toHiragana.js</a>, <a href="toHiragana.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="toHiragana.js.html">toHiragana.js</a>, <a href="toHiragana.js.html#line24">line 24</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description">
-    <p>Convert input to <a href="https://en.wikipedia.org/wiki/Hiragana">Hiragana</a></p>
-</div>
 
 
 
@@ -2211,10 +2700,16 @@ stripOkurigana('お祝い', { all: true })
 
 
 
-
-    <h5>Example</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#toHiragana-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="toHiragana-examples">Example</h5>
     
-    <pre class="prettyprint"><code>toHiragana('toukyou, オオサカ')
+
+  <pre class="prettyprint"><code>toHiragana('toukyou, オオサカ')
 // => 'とうきょう、　おおさか'
 toHiragana('only カナ', { passRomaji: true })
 // => 'only かな'
@@ -2224,211 +2719,211 @@ toHiragana('wi', { useObsoleteKana: true })
 // => 'ゐ'</code></pre>
 
 
+  </div>
 
 
-    <h5>Parameters:</h5>
-    
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#toKana">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="toKana">
+      <span class="type-signature"></span>toKana<span class="signature">(input<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Convert <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a> to <a href="https://en.wikipedia.org/wiki/Kana">Kana</a>, lowercase text will result in <a href="https://en.wikipedia.org/wiki/Hiragana">Hiragana</a> and uppercase text will result in <a href="https://en.wikipedia.org/wiki/Katakana">Katakana</a>.</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
         <th>Attributes</th>
-        
+      
 
-        
+      
         <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>input</code></td>
         
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
+        <td class="type">
+          
             
-                <td class="name"><code>input</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>''</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>text</p></td>
-        </tr>
+    <span class="param-type">
+      String
+    </span>
 
     
 
-        <tr>
+
+          
+        </td>
+
+        
+          <td class="attributes">
             
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#DefaultOptions">DefaultOptions</a></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
+              &lt;optional><br>
             
 
             
-                <td class="default">
-                
-                    <code>defaultOptions</code>
-                
-                </td>
-            
 
-            <td class="description last"></td>
-        </tr>
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              ''
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>text</p>
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>options</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      DefaultOptions
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              defaultOptions
+            
+          </td>
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>converted text</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="toKana"><span class="type-signature"></span>toKana<span class="signature">(input<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="toKana.js.html">toKana.js</a>, <a href="toKana.js.html#line37">line 37</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="toKana.js.html">toKana.js</a>, <a href="toKana.js.html#line29">line 29</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description">
-    <p>Convert <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a> to <a href="https://en.wikipedia.org/wiki/Kana">Kana</a>, lowercase text will result in <a href="https://en.wikipedia.org/wiki/Hiragana">Hiragana</a> and uppercase text will result in <a href="https://en.wikipedia.org/wiki/Katakana">Katakana</a>.</p>
-</div>
 
 
 
@@ -2437,10 +2932,16 @@ toHiragana('wi', { useObsoleteKana: true })
 
 
 
-
-    <h5>Example</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#toKana-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="toKana-examples">Example</h5>
     
-    <pre class="prettyprint"><code>toKana('onaji BUTTSUUJI')
+
+  <pre class="prettyprint"><code>toKana('onaji BUTTSUUJI')
 // => 'おなじ ブッツウジ'
 toKana('ONAJI buttsuuji')
 // => 'オナジ ぶっつうじ'
@@ -2451,214 +2952,216 @@ toKana('batsuge-mu')
 toKana('!?.:/,~-‘’“”[](){}') // Punctuation conversion
 // => '！？。：・、〜ー「」『』［］（）｛｝'
 toKana('we', { useObsoleteKana: true })
-// => 'ゑ'</code></pre>
+// => 'ゑ'
+toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'bana' } });
+// => 'わにbanaに'</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#toKatakana">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="toKatakana">
+      <span class="type-signature"></span>toKatakana<span class="signature">(input<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Convert input to <a href="https://en.wikipedia.org/wiki/Katakana">Katakana</a></p>
+  </div>
 
 
 
 
-    <h5>Parameters:</h5>
-    
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
         <th>Attributes</th>
-        
+      
 
-        
+      
         <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>input</code></td>
         
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
+        <td class="type">
+          
             
-                <td class="name"><code>input</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>''</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>text</p></td>
-        </tr>
+    <span class="param-type">
+      String
+    </span>
 
     
 
-        <tr>
+
+          
+        </td>
+
+        
+          <td class="attributes">
             
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#DefaultOptions">DefaultOptions</a></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
+              &lt;optional><br>
             
 
             
-                <td class="default">
-                
-                    <code>defaultOptions</code>
-                
-                </td>
-            
 
-            <td class="description last"></td>
-        </tr>
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              ''
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>text</p>
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>options</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      DefaultOptions
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              defaultOptions
+            
+          </td>
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>converted text</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="toKatakana"><span class="type-signature"></span>toKatakana<span class="signature">(input<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
-
-    
-
-
-
-
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="toKatakana.js.html">toKatakana.js</a>, <a href="toKatakana.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="toKatakana.js.html">toKatakana.js</a>, <a href="toKatakana.js.html#line23">line 23</a>
+        </li>
+      </ul>
+    </dd>
+  
 
-    
+  
 
-    
+  
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+  
 </dl>
 
 
 
 
 
-<div class="description">
-    <p>Convert input to <a href="https://en.wikipedia.org/wiki/Katakana">Katakana</a></p>
-</div>
 
 
 
@@ -2667,10 +3170,16 @@ toKana('we', { useObsoleteKana: true })
 
 
 
-
-    <h5>Example</h5>
+  <div class="example-container">
+    <a class="link-icon" href="#toKatakana-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="toKatakana-examples">Example</h5>
     
-    <pre class="prettyprint"><code>toKatakana('toukyou, おおさか')
+
+  <pre class="prettyprint"><code>toKatakana('toukyou, おおさか')
 // => 'トウキョウ、　オオサカ'
 toKatakana('only かな', { passRomaji: true })
 // => 'only カナ'
@@ -2680,546 +3189,157 @@ toKatakana('wi', { useObsoleteKana: true })
 // => 'ヰ'</code></pre>
 
 
+  </div>
 
 
-    <h5>Parameters:</h5>
-    
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#tokenize">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="tokenize">
+      <span class="type-signature"></span>tokenize<span class="signature">(input, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String|Array.&lt;Object>}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Splits input into array of strings separated by opinionated token types
+<code>'en', 'ja', 'englishNumeral', 'japaneseNumeral','englishPunctuation', 'japanesePunctuation','kanji', 'hiragana', 'katakana', 'space', 'other'</code>.
+If <code>{ compact: true }</code> then many same-language tokens are combined (spaces + text, kanji + kana, numeral + punctuation).
+If <code>{ detailed: true }</code> then return array will contain <code>{ type, value }</code> instead of <code>'value'</code></p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
 
 <table class="params">
-    <thead>
+  <thead>
     <tr>
-        
+      
         <th>Name</th>
-        
+      
 
-        <th>Type</th>
+      <th>Type</th>
 
-        
+      
         <th>Attributes</th>
-        
+      
 
-        
+      
         <th>Default</th>
-        
+      
 
-        <th class="last">Description</th>
+      <th class="last">Description</th>
     </tr>
-    </thead>
+  </thead>
 
-    <tbody>
+  <tbody>
     
+      <tr>
+        
+          <td class="name"><code>input</code></td>
+        
 
-        <tr>
+        <td class="type">
+          
             
-                <td class="name"><code>input</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>''</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>text</p></td>
-        </tr>
+    <span class="param-type">
+      String
+    </span>
 
     
 
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
 
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#DefaultOptions">DefaultOptions</a></span>
+          
+        </td>
 
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
+        
+          <td class="attributes">
             
 
             
-                <td class="default">
-                
-                    <code>defaultOptions</code>
-                
-                </td>
-            
 
-            <td class="description last"></td>
-        </tr>
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>text</p>
+          
+        </td>
+      </tr>
 
     
-    </tbody>
+      <tr>
+        
+          <td class="name"><code>options</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Object
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              { compact: false, detailed: false}
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>options to modify output style</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
 </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>converted text</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="toRomaji"><span class="type-signature"></span>toRomaji<span class="signature">(kana, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="toRomaji.js.html">toRomaji.js</a>, <a href="toRomaji.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Convert kana to romaji</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>toRomaji('ひらがな　カタカナ')
-// => 'hiragana katakana'
-toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
-// => 'hiragana KATAKANA'</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>kana</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>text input</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#DefaultOptions">DefaultOptions</a></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>defaultOptions</code>
-                
-                </td>
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>converted text</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="tokenize"><span class="type-signature"></span>tokenize<span class="signature">(input)</span><span class="type-signature"> &rarr; {Array}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tokenize.js.html">tokenize.js</a>, <a href="tokenize.js.html#line33">line 33</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Splits input into array of <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a>, <a href="https://en.wikipedia.org/wiki/Hiragana">Hiragana</a>, <a href="https://en.wikipedia.org/wiki/Katakana">Katakana</a>, and <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a> tokens.<br>Does not split into parts of speech!</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>tokenize('ふふフフ')
-// => ['ふふ', 'フフ']
-tokenize('感じ')
-// => ['感', 'じ']
-tokenize('私は悲しい')
-// => ['私', 'は', '悲', 'しい']
-tokenize('what the...私は「悲しい」。')
-// => ['what the...', '私', 'は', '「', '悲', 'しい', '」。']</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>input</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>text</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>text split into tokens</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-    
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        
-                
-<h4 class="name" id="DefaultOptions">DefaultOptions</h4>
 
 
 
@@ -3227,278 +3347,522 @@ tokenize('what the...私は「悲しい」。')
 
 <dl class="details">
 
-    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>useObsoleteKana</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>false</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>Set to true to use obsolete characters, such as ゐ and ゑ.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>passRomaji</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>false</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana()</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>upcaseKatakana</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>false</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>Set to true to convert katakana to uppercase using toRomaji()</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>IMEMode</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>false</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>Set to true, 'toHiragana', or 'toKatakana' to handle conversion from a text input while it is being typed</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
+    <dd class="tag-source">
+      <ul class="dummy">
         <li>
-            
-<span class="param-type">Object</span>
-
-
+          <a href="tokenize.js.html">tokenize.js</a>, <a href="tokenize.js.html#line125">line 125</a>
         </li>
-    </ul>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
 
 
 
 
 
-    <h5>Examples</h5>
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#tokenize-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="tokenize-examples">Example</h5>
     
-    <pre class="prettyprint"><code>toHiragana('we', { useObsoleteKana: true })
-// => 'ゑ'</code></pre>
 
-    <pre class="prettyprint"><code>toHiragana('only convert the katakana: ヒラガナ', { passRomaji: true })
-// => "only convert the katakana: ひらがな"</code></pre>
+  <pre class="prettyprint"><code>tokenize('ふふフフ')
+// ['ふふ', 'フフ']
 
-    <pre class="prettyprint"><code>toRomaji('ひらがな カタカナ', { upcaseKatakana: true })
-// => "hiragana KATAKANA"</code></pre>
+tokenize('感じ')
+// ['感', 'じ']
+
+tokenize('truly 私は悲しい')
+// ['truly', ' ', '私', 'は', '悲', 'しい']
+
+tokenize('truly 私は悲しい', { compact: true })
+// ['truly ', '私は悲しい']
+
+tokenize('5romaji here...!?漢字ひらがな４カタ　カナ「ＳＨＩＯ」。！')
+// [ '5', 'romaji', ' ', 'here', '...!?', '漢字', 'ひらがな', 'カタ', '　', 'カナ', '４', '「', 'ＳＨＩＯ', '」。！']
+
+tokenize('5romaji here...!?漢字ひらがな４カタ　カナ「ＳＨＩＯ」。！', { compact: true })
+// [ '5', 'romaji here', '...!?', '漢字ひらがなカタ　カナ', '４「', 'ＳＨＩＯ', '」。！']
+
+tokenize('5romaji here...!?漢字ひらがなカタ　カナ４「ＳＨＩＯ」。！ لنذهب', { detailed: true })
+// [
+ { type: 'englishNumeral', value: '5' },
+ { type: 'en', value: 'romaji' },
+ { type: 'space', value: ' ' },
+ { type: 'en', value: 'here' },
+ { type: 'englishPunctuation', value: '...!?' },
+ { type: 'kanji', value: '漢字' },
+ { type: 'hiragana', value: 'ひらがな' },
+ { type: 'katakana', value: 'カタ' },
+ { type: 'space', value: '　' },
+ { type: 'katakana', value: 'カナ' },
+ { type: 'japaneseNumeral', value: '４' },
+ { type: 'japanesePunctuation', value: '「' },
+ { type: 'ja', value: 'ＳＨＩＯ' },
+ { type: 'japanesePunctuation', value: '」。！' },
+ { type: 'space', value: ' ' },
+ { type: 'other', value: 'لنذهب' },
+]
+
+tokenize('5romaji here...!?漢字ひらがなカタ　カナ４「ＳＨＩＯ」。！ لنذهب', { compact: true, detailed: true})
+// [
+ { type: 'other', value: '5' },
+ { type: 'en', value: 'romaji here' },
+ { type: 'other', value: '...!?' },
+ { type: 'ja', value: '漢字ひらがなカタ　カナ' },
+ { type: 'other', value: '４「' },
+ { type: 'ja', value: 'ＳＨＩＯ' },
+ { type: 'other', value: '」。！' },
+ { type: 'en', value: ' ' },
+ { type: 'other', value: 'لنذهب' },
+]</code></pre>
 
 
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#toRomaji">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="toRomaji">
+      <span class="type-signature"></span>toRomaji<span class="signature">(kana, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Convert kana to romaji</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+        <th>Attributes</th>
+      
+
+      
+        <th>Default</th>
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>kana</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      String
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
 
             
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>text input</p>
+          
+        </td>
+      </tr>
+
+    
+      <tr>
+        
+          <td class="name"><code>options</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      DefaultOptions
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+              defaultOptions
+            
+          </td>
+        
+
+        <td class="description last">
+          
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="toRomaji.js.html">toRomaji.js</a>, <a href="toRomaji.js.html#line22">line 22</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="example-container">
+    <a class="link-icon" href="#toRomaji-examples">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h5 id="toRomaji-examples">Example</h5>
+    
+
+  <pre class="prettyprint"><code>toRomaji('ひらがな　カタカナ')
+// => 'hiragana katakana'
+toRomaji('げーむ　ゲーム')
+// => 'ge-mu geemu'
+toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
+// => 'hiragana KATAKANA'
+toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' } });
+// => 'tuzigili'</code></pre>
+
+
+  </div>
+
+
+      
+        
+
+
+  
+
+  <span class='name-container'>
+    <a class="link-icon" href="#unbind">
+      <svg height="20" width="20" style="fill: black;">
+        <use xlink:href="#linkIcon"></use>
+      </svg>
+    </a>
+    <h4 class="name" id="unbind">
+      <span class="type-signature"></span>unbind<span class="signature">(element)</span><span class="type-signature"></span>
+    </h4>
+  </span>
+
+  
+
+
+
+  <div class="description">
+    <p>Unbinds eventListener from input field</p>
+  </div>
+
+
+
+
+
+
+
+  <h5>Parameters:</h5>
+  
+
+<table class="params">
+  <thead>
+    <tr>
+      
+        <th>Name</th>
+      
+
+      <th>Type</th>
+
+      
+
+      
+
+      <th class="last">Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+      <tr>
+        
+          <td class="name"><code>element</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      HTMLElement
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+
+        
+
+        <td class="description last">
+          <p>textarea, input</p>
+          
+        </td>
+      </tr>
+
+    
+  </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source">
+      <ul class="dummy">
+        <li>
+          <a href="unbind.js.html">unbind.js</a>, <a href="unbind.js.html#line8">line 8</a>
+        </li>
+      </ul>
+    </dd>
+  
+
+  
+
+  
+
+  
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
     
 
     
-</article>
 
+    
+  </article>
 </section>
 
 
 
 
-</div>
+  </div>
 
-<br class="clear">
+  <br class="clear">
 
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
-</footer>
+  <footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+  </footer>
 
-<script>prettyPrint();</script>
-<script src="scripts/linenumber.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/pagelocation.js"></script>
+
+  
+  
 </body>
 </html>

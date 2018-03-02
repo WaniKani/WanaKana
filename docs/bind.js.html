@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>
-      isKana.js - Documentation
+      bind.js - Documentation
   </title>
 
   <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
@@ -78,7 +78,7 @@
   <div id="main">
     
       <h1 class="page-title">
-        isKana.js
+        bind.js
       </h1>
     
 
@@ -87,31 +87,51 @@
 
 <section>
   <article>
-    <pre class="prettyprint source linenums"><code>import isEmpty from './utils/isEmpty';
-import isCharKana from './utils/isCharKana';
+    <pre class="prettyprint source linenums"><code>import { makeOnInput, onComposition, trackListeners } from './utils/dom';
+import { addDebugListeners } from './utils/logInputEvents';
+
+const ELEMENTS = ['TEXTAREA', 'INPUT'];
+
+let idCounter = 0;
+const newId = () => {
+  idCounter += 1;
+  return `${Date.now()}${idCounter}`;
+};
 
 /**
- * Test if `input` is [Kana](https://en.wikipedia.org/wiki/Kana) ([Katakana](https://en.wikipedia.org/wiki/Katakana) and/or [Hiragana](https://en.wikipedia.org/wiki/Hiragana))
- * @param  {String} [input=''] text
- * @return {Boolean} true if all [Kana](https://en.wikipedia.org/wiki/Kana)
+ * Binds eventListener for 'input' events to an input field to automagically replace values with kana
+ * Can pass `{ IMEMode: 'toHiragana' || 'toKatakana' }` to enforce kana conversion type
+ * @param  {HTMLElement} element textarea, input[type="text"] etc
+ * @param  {DefaultOptions} [options=defaultOptions] defaults to { IMEMode: true } using `toKana`
  * @example
- * isKana('あ')
- * // => true
- * isKana('ア')
- * // => true
- * isKana('あーア')
- * // => true
- * isKana('A')
- * // => false
- * isKana('あAア')
- * // => false
+ * bind(document.querySelector('#myInput'));
  */
-function isKana(input = '') {
-  if (isEmpty(input)) return false;
-  return [...input].every(isCharKana);
+function bind(element = {}, options = {}, debug = false) {
+  if (!ELEMENTS.includes(element.nodeName)) {
+    throw new Error(
+      `Element provided to Wanakana bind() was not a valid input or textarea element.\n Received: (${JSON.stringify(
+        element
+      )})`
+    );
+  }
+  const onInput = makeOnInput(options);
+  const id = newId();
+  element.setAttribute('data-wanakana-id', id);
+  element.setAttribute('lang', 'ja');
+  element.setAttribute('autoCapitalize', 'none');
+  element.setAttribute('autoCorrect', 'off');
+  element.setAttribute('autoComplete', 'off');
+  element.setAttribute('spellCheck', 'false');
+  element.addEventListener('input', onInput);
+  element.addEventListener('compositionupdate', onComposition);
+  element.addEventListener('compositionend', onComposition);
+  trackListeners(id, onInput, onComposition);
+  if (debug === true) {
+    addDebugListeners(element);
+  }
 }
 
-export default isKana;
+export default bind;
 </code></pre>
   </article>
 </section>
