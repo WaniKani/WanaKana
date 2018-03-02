@@ -1,9 +1,9 @@
 {
   "name": "wanakana",
-  "version": "2.3.4",
+  "version": "3.1.0-rc.4",
   "license": "MIT",
   "homepage": "http://www.wanakana.com",
-  "description": "Utility library for checking and converting between Kanji, Hiragana, Katakana, and Romaji",
+  "description": "Utility library for converting between Kanji, Hiragana, Katakana, and Romaji",
   "keywords": [
     "english",
     "japanese",
@@ -14,6 +14,7 @@
     "conversion",
     "transliteration",
     "input",
+    "ime",
     "wanikani"
   ],
   "repository": {
@@ -24,30 +25,41 @@
     "url": "https://github.com/WaniKani/WanaKana/issues"
   },
   "devEngines": {
-    "node": ">=8.9.1"
+    "node": ">=8"
   },
   "scripts": {
     "prebuild": "rimraf ./dist",
-    "build": "node ./scripts/buildDist.js",
-    "precommit": "lint-staged && npm run test",
-    "commit": "git-cz",
+    "build": "npm-run-all --parallel build:es build:rollup",
+    "build:es": "cross-env BABEL_ENV=es babel ./src -d ./dist/es",
+    "build:rollup": "rollup -c ./scripts/rollup.config.js",
+    "build:watch": "onchange './src/**/*.js' -- npm run build",
+    "precommit": "lint-staged",
+    "cz": "git-cz",
+    "cypress:server": "static-server -p 9080 -i './cypress/fixtures/test-input.html'",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --record",
+    "cypress:test": "npm-run-all build --parallel --race cypress:server cypress:run",
+    "cypress:watch": "npm-run-all --parallel --race build:watch cypress:server cypress:open",
     "predocs": "rimraf ./gh-pages/docs",
-    "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
+    "docs": "node_modules/.bin/jsdoc -c jsdoc.json --verbose",
     "docs:watch": "onchange './src/**/*.js' -- npm run docs",
-    "ghpages:publish": "gh-pages -d gh-pages",
+    "docs:view": "opn ./gh-pages/docs/index.html",
+    "demo:view": "npm run build && static-server ./gh-pages",
     "pretest": "rimraf ./coverage",
     "test": "jest",
-    "test:watch": "npm run test -- --watch",
+    "test:watch": "npm run test -- --watch --testNamePattern='^(?!.*Performance)'",
+    "test:coverage": "npm run test -- --coverage",
     "test:view": "opn ./coverage/lcov-report/index.html",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "release": "node ./scripts/release.js",
     "format": "prettier-eslint --write",
-    "lint": "eslint"
+    "lint": "eslint --color",
+    "lint:js": "npm run lint -- ./src/**/*.js"
   },
   "lint-staged": {
     "*.js": [
-      "npm run format",
-      "npm run lint",
+      "npm run format --",
+      "npm run lint --",
       "git add"
     ]
   },
@@ -57,7 +69,6 @@
     "testMatch": [
       "<rootDir>/test/**/*.test.js"
     ],
-    "collectCoverage": true,
     "coverageThreshold": {
       "global": {
         "branches": 95,
@@ -66,51 +77,65 @@
         "statements": 95
       }
     },
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
     "coverageDirectory": "./coverage",
     "collectCoverageFrom": [
       "src/**/*.js",
-      "!src/**/logInputEvents.js",
-      "!src/**/index.js",
       "!**/node_modules/**",
-      "!**/test/**"
+      "!**/test/**",
+      "!src/**/index.js",
+      "!src/**/bind.js",
+      "!src/**/unbind.js",
+      "!src/**/dom.js",
+      "!src/**/logInputEvents.js"
     ]
   },
   "devDependencies": {
-    "babel-cli": "6.24.1",
-    "babel-eslint": "7.2.3",
+    "babel-cli": "6.26.0",
+    "babel-core": "6",
+    "babel-eslint": "8.2.2",
+    "babel-jest": "22.4.1",
     "babel-plugin-external-helpers": "6.22.0",
-    "babel-preset-env": "1.5.2",
+    "babel-plugin-transform-es2017-object-entries": "0.0.4",
+    "babel-polyfill": "6.26.0",
+    "babel-preset-env": "1.6.1",
     "benchmark": "2.1.4",
     "commitizen": "2.9.6",
-    "coveralls": "2.13.1",
-    "cross-env": "5.0.1",
-    "cz-conventional-changelog": "2.0.0",
-    "docdash": "0.4.0",
-    "eslint": "3.19.0",
-    "eslint-config-airbnb": "15.0.1",
-    "eslint-plugin-import": "2.3.0",
-    "eslint-plugin-jsx-a11y": "5.0.3",
-    "eslint-plugin-react": "7.1.0",
-    "gh-pages": "1.0.0",
-    "http-server": "0.10.0",
-    "husky": "0.13.4",
-    "jest": "20.0.4",
+    "core-js": "2.5.3",
+    "coveralls": "3.0.0",
+    "cross-env": "5.1.3",
+    "cypress": "2.0.3",
+    "cz-conventional-changelog": "2.1.0",
+    "eslint": "4.18.1",
+    "eslint-config-airbnb": "16.1.0",
+    "eslint-plugin-cypress": "2.0.1",
+    "eslint-plugin-import": "2.9.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-react": "7.7.0",
+    "gh-pages": "1.1.0",
+    "husky": "0.14.3",
+    "jest": "22.4.2",
     "jsdoc": "3.5.5",
-    "jsdom-simulant": "1.1.2",
-    "lint-staged": "4.0.0",
-    "onchange": "3.2.1",
+    "lint-staged": "7.0.0",
+    "npm-run-all": "4.1.2",
+    "onchange": "3.3.0",
     "opn-cli": "3.1.0",
-    "prettier-eslint-cli": "4.4.0",
-    "readline-sync": "1.4.7",
-    "rimraf": "2.6.1",
-    "rollup": "0.43.0",
-    "rollup-plugin-babel": "2.7.1",
-    "rollup-plugin-commonjs": "8.0.2",
-    "rollup-plugin-node-resolve": "3.0.0",
-    "rollup-plugin-replace": "1.1.1",
-    "rollup-plugin-uglify": "2.0.1"
+    "prettier-eslint-cli": "4.7.1",
+    "readline-sync": "1.4.9",
+    "replace-in-file": "3.1.1",
+    "rimraf": "2.6.2",
+    "rollup": "0.56.2",
+    "rollup-plugin-babel": "3.0.3",
+    "rollup-plugin-commonjs": "8.3.0",
+    "rollup-plugin-node-resolve": "3.0.3",
+    "rollup-plugin-uglify": "3.0.0",
+    "static-server": "3.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "jsdoc-template": "https://github.com/braintree/jsdoc-template.git"
+  },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"

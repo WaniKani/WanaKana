@@ -1,34 +1,28 @@
 {
   "tags": {
-    "allowUnknownTags": true
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc"]
   },
   "source": {
-    "include": ["src"],
+    "include": ["src", "README.md"],
     "includePattern": ".js$",
     "excludePattern": "(node_modules|utils|__tests__)"
   },
-  "plugins": [
-    "plugins/markdown"
-  ],
-  "markdown": {
-    "parser": "gfm",
-    "hardwrap": true
-  },
+  "plugins": ["plugins/markdown"],
   "opts": {
-    "template": "node_modules/docdash/",
+    "template": "node_modules/jsdoc-template/",
     "encoding": "utf8",
     "destination": "gh-pages/docs/",
     "recurse": true,
-    "verbose": true
+    "verbose": true,
+    "private": false
   },
   "templates": {
+    "referenceTitle": "WanaKana",
     "cleverLinks": false,
     "monospaceLinks": false,
     "default": {
       "includeDate": false
     }
-  },
-  "docdash": {
-    "sort": false
   }
 }

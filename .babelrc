@@ -1,38 +1,21 @@
 {
-  "presets": [
-    ["env", {
-      "loose": false,
-      "modules": false,
-      "targets": {
-        "node": 7,
-        "browsers": [
-          "last 2 versions",
-          ">1%"
-        ]
-      }
-    }]
-  ],
   "env": {
     "test": {
-      "presets": [[ "env" ]]
+      "presets": ["env"]
     },
-    "cjs": {
+    "es": {
       "presets": [
-        ["env", {
-          "loose": false,
-          "targets": {
-            "node": 7,
-            "browsers": [
-              "last 2 versions",
-              ">1%"
-            ]
+        [
+          "env",
+          {
+            "loose": true,
+            "modules": false,
+            "useBuiltIns": "usage",
+            "targets": {
+              "node": true
+            }
           }
-        }]
-      ]
-    },
-    "rollup": {
-      "plugins": [
-        "external-helpers"
+        ]
       ]
     }
   }

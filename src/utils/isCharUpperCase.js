@@ -1,9 +1,6 @@
 import isEmpty from './isEmpty';
 import isCharInRange from './isCharInRange';
-import {
-  UPPERCASE_START,
-  UPPERCASE_END,
-} from '../constants';
+import { LATIN_UPPERCASE_START, LATIN_UPPERCASE_END } from '../constants';
 
 /**
  * Tests if char is in English unicode uppercase range
@@ -12,7 +9,7 @@ import {
  */
 function isCharUpperCase(char = '') {
   if (isEmpty(char)) return false;
-  return isCharInRange(char, UPPERCASE_START, UPPERCASE_END);
+  return isCharInRange(char, LATIN_UPPERCASE_START, LATIN_UPPERCASE_END);
 }
 
 export default isCharUpperCase;

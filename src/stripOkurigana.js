@@ -23,26 +23,26 @@ import isKanji from './isKanji';
  * // => '祝'
  */
 function stripOkurigana(input = '', options = { all: false }) {
-  if (isEmpty(input) || !isJapanese(input) || isKana(input)) return input;
+  if (isEmpty(input) || !isJapanese(input) || isKana(input)) {
+    return input;
+  }
   const chars = [...input];
 
   // strip every kana
-  if (options.all) return chars.filter((char) => !isCharKana(char)).join('');
+  if (options.all) {
+    return chars.filter((char) => !isCharKana(char)).join('');
+  }
 
   // strip trailing only
   const reverseChars = chars.reverse();
   for (let i = 0, len = reverseChars.length; i < len; i += 1) {
     const char = reverseChars[i];
     // pass if it's punctuation
-    if (isCharPunctuation(char)) {
-      continue; // eslint-disable-line no-continue
-    }
+    if (isCharPunctuation(char)) continue; // eslint-disable-line no-continue
     // blank out if not kanji
     if (!isKanji(char)) {
       reverseChars[i] = '';
-    } else {
-      break; // stop when we hit a kanji char
-    }
+    } else break; // stop when we hit a kanji char
   }
 
   return reverseChars.reverse().join('');

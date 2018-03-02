@@ -1,12 +1,8 @@
-import {
-  DEFAULT_OPTIONS,
-  TO_ROMAJI,
-} from './constants';
-
-import getChunkSize from './utils/getChunkSize';
-import getChunk from './utils/getChunk';
+import mergeWithDefaultOptions from './utils/mergeWithDefaultOptions';
 import katakanaToHiragana from './utils/katakanaToHiragana';
 import isKatakana from './isKatakana';
+import { getKanaToRomajiTree } from './utils/kanaToRomajiMap';
+import { applyMapping, mergeCustomMapping } from './utils/kanaMapping';
 
 /**
  * Convert kana to romaji
@@ -16,62 +12,37 @@ import isKatakana from './isKatakana';
  * @example
  * toRomaji('ひらがな　カタカナ')
  * // => 'hiragana katakana'
+ * toRomaji('げーむ　ゲーム')
+ * // => 'ge-mu geemu'
  * toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
  * // => 'hiragana KATAKANA'
+ * toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' } });
+ * // => 'tuzigili'
  */
-function toRomaji(kana = '', options = {}) {
-  const config = Object.assign({}, DEFAULT_OPTIONS, options);
-  const len = kana.length;
-  // Final output array
-  const roma = [];
-  // Position in the string that is being evaluated
-  let cursor = 0;
-  const maxChunk = 2;
-  let chunkSize = 2;
-  let chunk = '';
-  let romaChar = '';
-  let nextCharIsDoubleConsonant;
+export function toRomaji(input = '', options = {}) {
+  const mergedOptions = mergeWithDefaultOptions(options);
+  // just throw away the substring index information and just concatenate all the kana
+  return splitIntoRomaji(input, mergedOptions)
+    .map((romajiToken) => {
+      const [start, end, romaji] = romajiToken;
+      const makeUpperCase = options.upcaseKatakana && isKatakana(input.slice(start, end));
+      return makeUpperCase ? romaji.toUpperCase() : romaji;
+    })
+    .join('');
+}
 
-  while (cursor < len) {
-    chunkSize = getChunkSize(maxChunk, len - cursor);
-    let convertThisChunkToUppercase = false;
-    while (chunkSize > 0) {
-      chunk = getChunk(kana, cursor, cursor + chunkSize);
-      if (isKatakana(chunk)) {
-        convertThisChunkToUppercase = config.upcaseKatakana;
-        chunk = katakanaToHiragana(chunk);
-      }
-      // special case for small tsus
-      if (chunk.charAt(0) === 'っ' && chunkSize === 1 && cursor < (len - 1)) {
-        nextCharIsDoubleConsonant = true;
-        romaChar = '';
-        break;
-      }
+let customMapping = null;
+function splitIntoRomaji(input, options) {
+  let map = getKanaToRomajiTree(options);
 
-      romaChar = TO_ROMAJI[chunk];
-
-      if ((romaChar != null) && nextCharIsDoubleConsonant) {
-        romaChar = romaChar.charAt(0).concat(romaChar);
-        nextCharIsDoubleConsonant = false;
-      }
-      // console.log(`${cursor}x${chunkSize}:${chunk} => ${romaChar}`);
-      if (romaChar != null) {
-        break;
-      }
-      chunkSize -= 1;
+  if (options.customRomajiMapping) {
+    if (customMapping == null) {
+      customMapping = mergeCustomMapping(map, options.customRomajiMapping);
     }
-    if (romaChar == null) {
-      // Passthrough undefined values
-      romaChar = chunk;
-    }
-
-    if (convertThisChunkToUppercase) {
-      romaChar = romaChar.toUpperCase();
-    }
-    roma.push(romaChar);
-    cursor += chunkSize || 1;
+    map = customMapping;
   }
-  return roma.join('');
+
+  return applyMapping(katakanaToHiragana(input, toRomaji, true), map, !options.IMEMode);
 }
 
 export default toRomaji;

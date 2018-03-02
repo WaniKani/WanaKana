@@ -11,7 +11,7 @@ import isRomaji from './isRomaji';
  * @example
  * isMixed('Abあア'))
  * // => true
- * isMixed('お腹A'))
+ * isMixed('お腹A')) // ignores kanji by default
  * // => true
  * isMixed('お腹A', { passKanji: false }))
  * // => false

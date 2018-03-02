@@ -11,6 +11,9 @@
   <a href="https://coveralls.io/github/WaniKani/WanaKana">
     <img src="https://img.shields.io/coveralls/WaniKani/WanaKana.svg" alt="Test Coverage" />
   </a>
+  <a href="https://dashboard.cypress.io/#/projects/tmdhov/runs">
+    <img src="https://img.shields.io/badge/cypress-dashboard-brightgreen.svg" alt="Cypress Dashboard" />
+  </a>
 </div>
 
 <div align="center">
@@ -19,73 +22,63 @@
 </div>
 
 ## Demo
+
 Visit the [website](http://www.wanakana.com) to see WanaKana in action.
 
-## Documentation
-[Extended API reference](http://www.wanakana.com/docs/global.html)
+## Usage
 
-## Quick Start
-#### Install
-```shell
-yarn add wanakana
-# alternatively: npm install wanakana
-```
-#### Or to get the minified browser (umd) bundle
+### Browser
+
+#### Use the minified (UMD) bundle (with legacy browser polyfills)
+
 [https://unpkg.com/wanakana](https://unpkg.com/wanakana)
 
-#### HTML:
 ```html
-<input
-  type="text"
-  id="wanakana-input"
-  autocapitalize="none"
-  autocorrect="off"
-  autocomplete="off"
-  spellcheck="false"
-/>
-<script src="https://unpkg.com/wanakana"></script>
-<script>
-  const textInput = document.querySelector('#wanakana-input');
-  wanakana.bind(textInput); // uses IMEMode toKana() as default
-</script>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/wanakana"></script>
+</head>
+<body>
+  <input type="text" id="wanakana-input" />
+  <script>
+    var textInput = document.getElementById('wanakana-input');
+    wanakana.bind(textInput, /* options */); // uses IMEMode with toKana() as default
+    // to remove event listeners: wanakana.unbind(textInput);
+  </script>
+</body>
 ```
 
-#### JavaScript:
+### Node
+
+#### Install
+
+```shell
+npm install wanakana
+```
+
 ```javascript
-/* UMD/CommonJS */
-const wanakana = require('wanakana');
-
-/* ES modules */
 import wanakana from 'wanakana';
-// with destructuring
+// or
 import { toKana, isRomaji } from 'wanakana';
-// or directly reference single methods for smaller builds:
-import isKanji from 'wanakana/isKanji';
+```
 
-/*** DEFAULT OPTIONS ***/
-{
-  // Use obsolete kana characters, such as ゐ and ゑ.
-  useObsoleteKana: false,
-  // Pass through romaji when using toKatakana() or toHiragana()
-  passRomaji: false,
-  // Convert katakana to uppercase when using toRomaji()
-  upcaseKatakana: false,
-  // Convert characters from a text input while being typed.
-  IMEMode: false, // alternatives are: true, 'toHiragana', or 'toKatakana'
-}
+## Documentation
 
+[Extended API reference](http://www.wanakana.com/docs/global.html)
+
+## Quick Reference
+
+```javascript
 /*** DOM HELPERS ***/
 // Automatically converts text using an eventListener on input
-// bind() uses option: { IMEMode: true } with `toKana()` by default
-// Alternatives are: 'toHiragana' or 'toKatakana' to enforce kana type
+// Sets option: { IMEMode: true } with toKana() as converter by default
 wanakana.bind(domElement [, options]);
 
 // Removes event listener
 wanakana.unbind(domElement);
 
-
 /*** TEXT CHECKING UTILITIES ***/
-wanakana.isJapanese('泣き虫。！〜２￥')
+wanakana.isJapanese('泣き虫。！〜２￥ｚｅｎｋａｋｕ')
 // => true
 
 wanakana.isKana('あーア')
@@ -100,27 +93,17 @@ wanakana.isKatakana('ゲーム')
 wanakana.isKanji('切腹')
 // => true
 
-wanakana.isMixed('お腹A')
-// => true
-
 wanakana.isRomaji('Tōkyō and Ōsaka')
 // => true
 
-/*
- * toKana notes:
- * Lowercase -> Hiragana.
- * Uppercase -> Katakana.
- * Non-romaji and _English_ punctuation is passed through: 123 @#$%
- * Limited Japanese equivalent punctuation is converted:
- * !?.:/,~-‘’“”[](){}
- * ！？。：・、〜ー「」『』［］（）｛｝
- */
 wanakana.toKana('ONAJI buttsuuji')
 // => 'オナジ ぶっつうじ'
 wanakana.toKana('座禅‘zazen’スタイル')
 // => '座禅「ざぜん」スタイル'
 wanakana.toKana('batsuge-mu')
 // => 'ばつげーむ'
+wanakana.toKana('wanikani', { customKanaMapping: { na: 'に', ka: 'bana' }) });
+// => 'わにbanaに'
 
 wanakana.toHiragana('toukyou, オオサカ')
 // => 'とうきょう、　おおさか'
@@ -140,7 +123,8 @@ wanakana.toRomaji('ひらがな　カタカナ')
 // => 'hiragana katakana'
 wanakana.toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
 // => 'hiragana KATAKANA'
-
+wanakana.toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' }) };
+// => 'tuzigili'
 
 /*** EXTRA UTILITIES ***/
 wanakana.stripOkurigana('お祝い')
@@ -149,27 +133,38 @@ wanakana.stripOkurigana('踏み込む')
 // => '踏み込'
 wanakana.stripOkurigana('踏み込む', { all: true })
 // => '踏込'
+wanakana.stripOkurigana('お祝い', { all: true })
+// => '祝'
 
 wanakana.tokenize('ふふフフ')
 // => ['ふふ', 'フフ']
-wanakana.tokenize('感じ')
-// => ['感', 'じ']
-wanakana.tokenize('I said "私は悲しい"')
-// => ['I said "','私', 'は', '悲', 'しい', '"']
+wanakana.tokenize('hello 田中さん')
+// => ['hello', ' ', '田中', 'さん']
+wanakana.tokenize('I said 私はすごく悲しい', { compact: true })
+// => [ 'I said ', '私はすごく悲しい']
 ```
 
+## Important
+
+Only the browser build via unpkg or `wanakana/umd/*.js` includes full polyfills for older browsers.
+
 ## Contributing
+
 Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Contributors
-- [Mims H. Wright](https://github.com/mimshwright) – Author
-- [Duncan Bay](https://github.com/DJTB) – Author
-- [James McNamee](https://github.com/dotfold) – Contributor
+
+* [Mims H. Wright](https://github.com/mimshwright) – Author
+* [Duncan Bay](https://github.com/DJTB) – Author
+* [Geggles](https://github.com/geggles) – Contributor
+* [James McNamee](https://github.com/dotfold) – Contributor
 
 ## Credits
+
 Project sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wanikani.com)
 
 ## Ports
-  The following are ports created by the community:
-  - Java ([MasterKale/WanaKanaJava](https://github.com/MasterKale/WanaKanaJava))
-  - Rust ([PSeitz/wana_kana_rust](https://github.com/PSeitz/wana_kana_rust))
+
+The following are ports created by the community:
+
+* Java ([MasterKale/WanaKanaJava](https://github.com/MasterKale/WanaKanaJava))

@@ -1,15 +1,20 @@
 language: node_js
 
 node_js:
-  - 6
-  - 8
+  - 8 # LTS as of 2017
+  - node # latest
 
 script:
-  - npm run test
+  - npm run test:coverage
+  - npm run cypress:test
 
 notifications:
   email:
     on_failure: change
+
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y fonts-takao
 
 after_success: 'npm run coveralls'
 

@@ -1,7 +1,4 @@
-import {
-  KATAKANA_START,
-  HIRAGANA_START,
-} from '../constants';
+import { KATAKANA_START, HIRAGANA_START } from '../constants';
 
 import isCharLongDash from './isCharLongDash';
 import isCharSlashDot from './isCharSlashDot';
@@ -10,6 +7,7 @@ import isCharHiragana from './isCharHiragana';
 /**
  * Convert [Hiragana](https://en.wikipedia.org/wiki/Hiragana) to [Katakana](https://en.wikipedia.org/wiki/Katakana)
  * Passes through any non-hiragana chars
+ * @private
  * @param  {String} [input=''] text input
  * @return {String} converted text
  * @example
@@ -17,7 +15,6 @@ import isCharHiragana from './isCharHiragana';
  * // => "ヒラガナ"
  * hiraganaToKatakana('ひらがな is a type of kana')
  * // => "ヒラガナ is a type of kana"
- * @ignore
  */
 function hiraganaToKatakana(input = '') {
   const kata = [];

@@ -1,5 +1,8 @@
+import 'babel-polyfill';
+
 // IME event listener DOM helpers
-export { bind, unbind } from './domUtils';
+export { default as bind } from './bind';
+export { default as unbind } from './unbind';
 
 // Writing system checks
 export { default as isRomaji } from './isRomaji';
@@ -19,3 +22,5 @@ export { default as toKatakana } from './toKatakana';
 // Other utils
 export { default as stripOkurigana } from './stripOkurigana';
 export { default as tokenize } from './tokenize';
+
+export { VERSION, TO_KANA_METHODS, ROMANIZATIONS } from './constants';

@@ -1,8 +1,10 @@
-import { DEFAULT_OPTIONS } from './constants';
+import mergeWithDefaultOptions from './utils/mergeWithDefaultOptions';
 import katakanaToHiragana from './utils/katakanaToHiragana';
-import romajiToHiragana from './utils/romajiToHiragana';
+import isCharEnglishPunctuation from './utils/isCharEnglishPunctuation';
 import isRomaji from './isRomaji';
 import isMixed from './isMixed';
+import toKana from './toKana';
+import toRomaji from './toRomaji';
 
 /**
  * Convert input to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
@@ -18,16 +20,23 @@ import isMixed from './isMixed';
  * // => 'うぃ'
  * toHiragana('wi', { useObsoleteKana: true })
  * // => 'ゐ'
-*/
+ */
 function toHiragana(input = '', options = {}) {
-  const config = Object.assign({}, DEFAULT_OPTIONS, options);
-  if (config.passRomaji) return katakanaToHiragana(input);
-  if (isRomaji(input)) return romajiToHiragana(input, config);
-  if (isMixed(input, { passKanji: true })) {
-    const romaji = katakanaToHiragana(input);
-    return romajiToHiragana(romaji, config);
+  const config = mergeWithDefaultOptions(options);
+  if (config.passRomaji) {
+    return katakanaToHiragana(input, toRomaji);
   }
-  return katakanaToHiragana(input);
+
+  if (isMixed(input, { passKanji: true })) {
+    const convertedKatakana = katakanaToHiragana(input, toRomaji);
+    return toKana(convertedKatakana.toLowerCase(), config);
+  }
+
+  if (isRomaji(input) || isCharEnglishPunctuation(input)) {
+    return toKana(input.toLowerCase(), config);
+  }
+
+  return katakanaToHiragana(input, toRomaji);
 }
 
 export default toHiragana;

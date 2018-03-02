@@ -1,8 +1,11 @@
 const fs = require('fs');
 const path = require('path');
-const { exec, exit, cp, test } = require('shelljs');
+const {
+  exec, exit, cp, test,
+} = require('shelljs');
 const semver = require('semver');
 const readline = require('readline-sync');
+const replace = require('replace-in-file');
 const pick = require('lodash/pick');
 const buildSite = require('./buildSite');
 const ghpages = require('gh-pages');
@@ -10,14 +13,12 @@ const ghpages = require('gh-pages');
 const {
   BASE_PACKAGE,
   PACKAGE_NAME,
-  LIB_DIR,
+  SOURCE_DIR,
   OUT_DIR,
   SITE_DIR,
-  SITE_JS_DIR,
   log,
   logSuccess,
   logError,
-  execSuccess,
   execFail,
 } = require('./util');
 
@@ -33,25 +34,22 @@ const PACKAGE_JSON = {
     'bugs',
   ],
   extraFields: {
-    main: `${LIB_DIR}/wanakana.js`,
-    browser: `${LIB_DIR}/wanakana.min.js`,
-    unpkg: `${LIB_DIR}/wanakana.min.js`,
-    module: `${LIB_DIR}/wanakana.esm.js`,
+    engines: { node: '>=8' },
+    main: 'wanakana.js',
+    module: 'es/index.js',
+    browser: 'umd/wanakana.min.js',
+    unpkg: 'umd/wanakana.min.js',
   },
 };
 
 const writePackage = (outDir, packageData) =>
-  fs.writeFileSync(
-    path.resolve(outDir, 'package.json'),
-    JSON.stringify(packageData, null, 2)
-  );
+  fs.writeFileSync(path.resolve(outDir, 'package.json'), JSON.stringify(packageData, null, 2));
 
 try {
   log('Preparing release...');
   if (execFail(exec('git diff-files --quiet'))) {
     logError(
-      'You have unsaved changes in the working tree. ' +
-        'Commit or stash changes before releasing.'
+      'You have unsaved changes in the working tree. Commit or stash changes before releasing.'
     );
     exit(1);
   }
@@ -63,18 +61,51 @@ try {
   }
 
   log('Running tests...');
-  if (execFail(exec('npm run lint && npm test'))) {
+  if (execFail(exec('npm-run-all lint:js test'))) {
     logError('The test command did not exit cleanly. Aborting release.');
     exit(1);
   }
   logSuccess('Tests were successful.');
 
+  const versionLoc = path.resolve('VERSION');
+  const version = fs.readFileSync(versionLoc, 'utf8').trim();
+  let nextVersion = readline.question(
+    `Current version of ${PACKAGE_NAME} is ${version}.\nNext version (exclude dist-tags like '-beta.1'): `
+  );
+
+  const distTag = readline.question(
+    'Do you want to add an npm dist-tag other than latest (alpha.3, beta.0, rc.1)? Leave blank to skip: '
+  );
+
+  if (distTag) {
+    nextVersion = `${nextVersion}-${distTag}`;
+  }
+
+  while (!(!nextVersion || (semver.valid(nextVersion) && semver.gt(nextVersion, version)))) {
+    nextVersion = readline.question(
+      `Must provide a valid version that is greater than ${version}, or leave blank to skip: `
+    );
+  }
+
+  try {
+    replace.sync({
+      files: `${path.resolve(SOURCE_DIR, 'constants.js')}`,
+      from: /VERSION = '.*'/,
+      to: `VERSION = '${nextVersion}'`,
+    });
+    log('Updated VERSION in Wanakana constants');
+  } catch (error) {
+    logError('Error occurred replacing version:', error);
+    exit(1);
+  }
+
   log('Building dist files...');
   if (execFail(exec('npm run build'))) {
     logError('The build command did not exit cleanly. Aborting release.');
     exit(1);
+  } else {
+    log('Compilation was successful.');
   }
-  log('Compilation was successful.');
 
   log('Copying additional project files...');
   const additionalProjectFiles = ['README.md', 'CHANGELOG.md', 'package.json', 'LICENSE'];
@@ -88,22 +119,7 @@ try {
     cp('-Rf', src, path.resolve(OUT_DIR));
   });
 
-  const versionLoc = path.resolve('VERSION');
-  const version = fs.readFileSync(versionLoc, 'utf8').trim();
-  let nextVersion = readline.question(
-    `Next version of ${PACKAGE_NAME} (current version is ${version}): `
-  );
-
-  while (
-    !(!nextVersion || (semver.valid(nextVersion) && semver.gt(nextVersion, version)))
-  ) {
-    nextVersion = readline.question(
-      `Must provide a valid version that is greater than ${version}, ` +
-        'or leave blank to skip: '
-    );
-  }
-
-  log('Updating package.json...');
+  log('Updating release package.json...');
   const updatedPackage = Object.assign({}, BASE_PACKAGE, { version: nextVersion });
   const releasePackage = Object.assign(
     {},
@@ -120,7 +136,7 @@ try {
   }
 
   log('Publishing...');
-  if (execFail(exec(`cd ${OUT_DIR} && npm publish`))) {
+  if (execFail(exec(`cd ${OUT_DIR} && npm publish${distTag && ` --tag ${distTag}`}`))) {
     logError('Publish failed. Aborting release.');
     exit(1);
   }
@@ -128,12 +144,6 @@ try {
 
   log('Updating VERSION file...');
   fs.writeFileSync(versionLoc, `${nextVersion}\n`);
-
-  log('Copying dynamic version for demo site');
-  fs.writeFileSync(
-    path.resolve(SITE_JS_DIR, 'version.js'),
-    `document.querySelector('#wk-version').textContent = '${nextVersion}'`
-  );
 
   log('Updating repo package.json');
   writePackage(process.cwd(), updatedPackage);
@@ -147,29 +157,32 @@ try {
   log('Rebuilding demo site');
   buildSite(nextVersion);
 
-  log('Publishing github-pages demo & docs');
-  ghpages.publish(SITE_DIR, (err) => {
-    if (err) {
-      logError(err);
-      logError('Publish github pages failed.');
-      exit(1);
-    } else {
-      logSuccess('Published demo and docs to gh-pages branch');
-      exit(0);
-    }
-  });
+  if (!distTag) {
+    log('Publishing github-pages demo & docs');
+    ghpages.publish(SITE_DIR, (err) => {
+      if (err) {
+        logError(err);
+        logError('Publish github pages failed.');
+        exit(1);
+      } else {
+        logSuccess('Published demo and docs to gh-pages branch');
+        exit(0);
+      }
+    });
+  }
 
-  log('Committing changes...');
-  const newTagName = `${nextVersion}`;
-  exec(`git add ${versionLoc} package.json`);
-  exec(`git commit -m "Version ${newTagName}"`);
+  log('Committing version changes...');
+  exec(`git add ${versionLoc} package.json src/constants.js`);
+  exec(`git commit -m "Version ${nextVersion}"`);
 
-  log(`Tagging release... (${newTagName})`);
-  exec(`git tag ${newTagName}`);
+  if (!distTag) {
+    log(`Tagging release... (${nextVersion})`);
+    exec(`git tag ${nextVersion}`);
 
-  log('Pushing to GitHub...');
-  exec('git push');
-  exec('git push --tags');
+    log('Pushing to GitHub...');
+    exec('git push');
+    exec('git push --tags');
+  }
 
   logSuccess('Done.');
 } catch (error) {

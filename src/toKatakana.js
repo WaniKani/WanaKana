@@ -1,8 +1,9 @@
-import { DEFAULT_OPTIONS } from './constants';
+import mergeWithDefaultOptions from './utils/mergeWithDefaultOptions';
+import hiraganaToKatakana from './utils/hiraganaToKatakana';
+import isCharEnglishPunctuation from './utils/isCharEnglishPunctuation';
+import toKana from './toKana';
 import isRomaji from './isRomaji';
 import isMixed from './isMixed';
-import hiraganaToKatakana from './utils/hiraganaToKatakana';
-import romajiToHiragana from './utils/romajiToHiragana';
 
 /**
  * Convert input to [Katakana](https://en.wikipedia.org/wiki/Katakana)
@@ -18,14 +19,18 @@ import romajiToHiragana from './utils/romajiToHiragana';
  * // => 'ウィ'
  * toKatakana('wi', { useObsoleteKana: true })
  * // => 'ヰ'
-*/
+ */
 function toKatakana(input = '', options = {}) {
-  const config = Object.assign({}, DEFAULT_OPTIONS, options);
-  if (config.passRomaji) return hiraganaToKatakana(input);
-  if (isRomaji(input) || isMixed(input)) {
-    const romaji = romajiToHiragana(input, config);
-    return hiraganaToKatakana(romaji);
+  const mergedOptions = mergeWithDefaultOptions(options);
+  if (mergedOptions.passRomaji) {
+    return hiraganaToKatakana(input);
   }
+
+  if (isMixed(input) || isRomaji(input) || isCharEnglishPunctuation(input)) {
+    const hiragana = toKana(input.toLowerCase(), mergedOptions);
+    return hiraganaToKatakana(hiragana);
+  }
+
   return hiraganaToKatakana(input);
 }
 

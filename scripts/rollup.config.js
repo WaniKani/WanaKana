@@ -1,70 +1,92 @@
-const nodeResolve = require('rollup-plugin-node-resolve');
+const resolve = require('rollup-plugin-node-resolve');
 const babel = require('rollup-plugin-babel');
-const replace = require('rollup-plugin-replace');
 const commonjs = require('rollup-plugin-commonjs');
 const uglify = require('rollup-plugin-uglify');
 const util = require('./util');
-const {
-  SOURCE_DIR,
-  OUT_DIR,
-  LIB_DIR,
-  PACKAGE_NAME,
-} = util;
+const { SOURCE_DIR, OUT_DIR, PACKAGE_NAME } = util;
+
+const cjsConfig = {
+  presets: [
+    [
+      'env',
+      {
+        modules: false,
+        useBuiltIns: 'entry',
+        targets: {
+          node: '8',
+        },
+      },
+    ],
+  ],
+  plugins: ['external-helpers'],
+};
+
+const umdConfig = {
+  presets: [
+    [
+      'env',
+      {
+        modules: false,
+        useBuiltIns: 'entry',
+        targets: {
+          browsers: ['last 2 versions', '> 1%', 'not IE < 11'],
+        },
+      },
+    ],
+  ],
+  plugins: ['external-helpers'],
+};
 
 export default [
   {
-    entry: `${SOURCE_DIR}/index.js`,
-    moduleName: PACKAGE_NAME,
-    format: 'es',
-    dest: `${OUT_DIR}/${LIB_DIR}/${PACKAGE_NAME}.esm.js`,
+    input: `${SOURCE_DIR}/index.js`,
+    output: {
+      name: PACKAGE_NAME,
+      format: 'cjs',
+      file: `${OUT_DIR}/${PACKAGE_NAME}.js`,
+    },
     plugins: [
+      resolve(),
+      commonjs(),
       babel({
-        exclude: [
-          '**/node_modules/**',
-          '**/__tests__/**',
-        ],
+        babelrc: false,
+        exclude: 'node_modules/**',
+        ...cjsConfig,
       }),
     ],
   },
   {
-    entry: `${SOURCE_DIR}/index.js`,
-    moduleName: PACKAGE_NAME,
-    format: 'umd',
-    dest: `${OUT_DIR}/${LIB_DIR}/${PACKAGE_NAME}.js`,
+    input: `${SOURCE_DIR}/index.js`,
+    output: {
+      name: PACKAGE_NAME,
+      format: 'umd',
+      file: `${OUT_DIR}/umd/${PACKAGE_NAME}.js`,
+    },
     plugins: [
-      babel({
-        exclude: [
-          '**/node_modules/**',
-          '**/__tests__/**',
-        ],
-      }),
-      nodeResolve({
-        jsnext: true,
-      }),
+      resolve(),
       commonjs(),
-      replace({
-        'process.env.NODE_ENV': JSON.stringify('development'),
+      babel({
+        babelrc: false,
+        exclude: 'node_modules/**',
+        ...umdConfig,
       }),
     ],
   },
   {
-    entry: `${SOURCE_DIR}/index.js`,
-    moduleName: PACKAGE_NAME,
-    format: 'umd',
-    dest: `${OUT_DIR}/${LIB_DIR}/${PACKAGE_NAME}.min.js`,
+    input: `${SOURCE_DIR}/index.js`,
+    output: {
+      name: PACKAGE_NAME,
+      format: 'umd',
+      file: `${OUT_DIR}/umd/${PACKAGE_NAME}.min.js`,
+      sourcemap: true,
+    },
     plugins: [
-      babel({
-        exclude: [
-          '**/node_modules/**',
-          '**/__tests__/**',
-        ],
-      }),
-      nodeResolve({
-        jsnext: true,
-      }),
+      resolve(),
       commonjs(),
-      replace({
-        'process.env.NODE_ENV': JSON.stringify('production'),
+      babel({
+        babelrc: false,
+        exclude: 'node_modules/**',
+        ...umdConfig,
       }),
       uglify({
         compress: {
