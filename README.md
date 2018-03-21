@@ -131,10 +131,12 @@ wanakana.stripOkurigana('お祝い')
 // => 'お祝'
 wanakana.stripOkurigana('踏み込む')
 // => '踏み込'
-wanakana.stripOkurigana('踏み込む', { all: true })
-// => '踏込'
-wanakana.stripOkurigana('お祝い', { all: true })
-// => '祝'
+wanakana.stripOkurigana('お腹', { leading: true });
+// => '腹'
+wanakana.stripOkurigana('ふみこむ', { matchKanji: '踏み込む' });
+// => 'ふみこ'
+wanakana.stripOkurigana('おみまい', { matchKanji: 'お祝い', leading: true });
+// => 'みまい'
 
 wanakana.tokenize('ふふフフ')
 // => ['ふふ', 'フフ']
