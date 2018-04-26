@@ -50,11 +50,10 @@ export function convertInput(target, options, map, triggers, prevInput) {
   }
 }
 
-// navigator.platform is not 100% reliable, but for determining
-// *desktop Mac OS* it should be fine.
-const isMacOS = /Mac/.test((navigator && navigator.platform) || '');
-
 export function onComposition({ type, target, data }) {
+  // navigator.platform is not 100% reliable for singling out all OS,
+  // but for determining desktop "Mac OS" it is effective enough.
+  const isMacOS = /Mac/.test(window.navigator && window.navigator.platform);
   // We don't want to ignore on Android:
   // https://github.com/WaniKani/WanaKana/issues/82
   // But MacOS IME auto-closes if we don't ignore:
