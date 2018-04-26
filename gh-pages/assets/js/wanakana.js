@@ -692,17 +692,17 @@
 
 	var LIBRARY = ( _library$1 && _library ) || _library$1;
 
-	var require$$5 = ( _typed$1 && _typed ) || _typed$1;
+	var $typed = ( _typed$1 && _typed ) || _typed$1;
 
 	var redefineAll = ( _redefineAll$1 && _redefineAll ) || _redefineAll$1;
 
 	var anInstance = ( _anInstance$1 && _anInstance ) || _anInstance$1;
 
-	var require$$14 = ( _toIndex$1 && _toIndex ) || _toIndex$1;
+	var toIndex = ( _toIndex$1 && _toIndex ) || _toIndex$1;
 
 	var require$$0$6 = ( _objectGopn$1 && _objectGopn ) || _objectGopn$1;
 
-	var require$$35 = ( _arrayFill$1 && _arrayFill ) || _arrayFill$1;
+	var arrayFill = ( _arrayFill$1 && _arrayFill ) || _arrayFill$1;
 
 	var setToStringTag = ( _setToStringTag$1 && _setToStringTag ) || _setToStringTag$1;
 
@@ -845,7 +845,7 @@
 
 	function get(view, bytes, index, isLittleEndian) {
 	  var numIndex = +index;
-	  var intIndex = require$$14(numIndex);
+	  var intIndex = toIndex(numIndex);
 	  if (intIndex + bytes > view[$LENGTH]) throw RangeError(WRONG_INDEX);
 	  var store = view[$BUFFER]._b;
 	  var start = intIndex + view[$OFFSET];
@@ -854,7 +854,7 @@
 	}
 	function set(view, bytes, index, conversion, value, isLittleEndian) {
 	  var numIndex = +index;
-	  var intIndex = require$$14(numIndex);
+	  var intIndex = toIndex(numIndex);
 	  if (intIndex + bytes > view[$LENGTH]) throw RangeError(WRONG_INDEX);
 	  var store = view[$BUFFER]._b;
 	  var start = intIndex + view[$OFFSET];
@@ -862,11 +862,11 @@
 	  for (var i = 0; i < bytes; i++) store[start + i] = pack[isLittleEndian ? i : bytes - i - 1];
 	}
 
-	if (!require$$5.ABV) {
+	if (!$typed.ABV) {
 	  $ArrayBuffer = function ArrayBuffer(length) {
 	    anInstance(this, $ArrayBuffer, ARRAY_BUFFER);
-	    var byteLength = require$$14(length);
-	    this._b = require$$35.call(new Array(byteLength), 0);
+	    var byteLength = toIndex(length);
+	    this._b = arrayFill.call(new Array(byteLength), 0);
 	    this[$LENGTH] = byteLength;
 	  };
 
@@ -955,7 +955,7 @@
 	  })) {
 	    $ArrayBuffer = function ArrayBuffer(length) {
 	      anInstance(this, $ArrayBuffer);
-	      return new BaseBuffer(require$$14(length));
+	      return new BaseBuffer(toIndex(length));
 	    };
 	    var ArrayBufferProto = $ArrayBuffer[PROTOTYPE] = BaseBuffer[PROTOTYPE];
 	    for (var keys = gOPN(BaseBuffer), j = 0, key; keys.length > j;) {
@@ -979,7 +979,7 @@
 	}
 	setToStringTag($ArrayBuffer, ARRAY_BUFFER);
 	setToStringTag($DataView, DATA_VIEW);
-	require$$0$1($DataView[PROTOTYPE], require$$5.VIEW, true);
+	require$$0$1($DataView[PROTOTYPE], $typed.VIEW, true);
 	exports[ARRAY_BUFFER] = $ArrayBuffer;
 	exports[DATA_VIEW] = $DataView;
 	});
@@ -1031,14 +1031,14 @@
 
 	var $ArrayBuffer = require$$6.ArrayBuffer;
 	var $DataView = require$$6.DataView;
-	var $isView = require$$5.ABV && ArrayBuffer.isView;
+	var $isView = $typed.ABV && ArrayBuffer.isView;
 	var $slice = $ArrayBuffer.prototype.slice;
-	var VIEW$1 = require$$5.VIEW;
+	var VIEW$1 = $typed.VIEW;
 	var ARRAY_BUFFER = 'ArrayBuffer';
 
 	$export$1($export$1.G + $export$1.W + $export$1.F * (ArrayBuffer !== $ArrayBuffer), { ArrayBuffer: $ArrayBuffer });
 
-	$export$1($export$1.S + $export$1.F * !require$$5.CONSTR, ARRAY_BUFFER, {
+	$export$1($export$1.S + $export$1.F * !$typed.CONSTR, ARRAY_BUFFER, {
 	  // 24.1.3.1 ArrayBuffer.isView(arg)
 	  isView: function isView(it) {
 	    return $isView && $isView(it) || isObject(it) && VIEW$1 in it;
@@ -1589,7 +1589,7 @@
 	  var global = global$1;
 	  var fails = require$$1;
 	  var $export = $export$1;
-	  var $typed = require$$5;
+	  var $typed$$1 = $typed;
 	  var $buffer = require$$6;
 	  var ctx$$1 = ctx;
 	  var anInstance$$1 = anInstance;
@@ -1598,7 +1598,7 @@
 	  var redefineAll$$1 = redefineAll;
 	  var toInteger$$1 = toInteger;
 	  var toLength$$1 = toLength;
-	  var toIndex = require$$14;
+	  var toIndex$$1 = toIndex;
 	  var toAbsoluteIndex$$1 = toAbsoluteIndex;
 	  var toPrimitive$$1 = toPrimitive;
 	  var has$$1 = has;
@@ -1619,7 +1619,7 @@
 	  var Iterators$$1 = Iterators;
 	  var $iterDetect$$1 = $iterDetect;
 	  var setSpecies$$1 = setSpecies;
-	  var arrayFill = require$$35;
+	  var arrayFill$$1 = arrayFill;
 	  var arrayCopyWithin = require$$36;
 	  var $DP = dP$1;
 	  var $GOPD = require$$1$4;
@@ -1658,9 +1658,9 @@
 	  var TAG = wks('toStringTag');
 	  var TYPED_CONSTRUCTOR = uid$$1('typed_constructor');
 	  var DEF_CONSTRUCTOR = uid$$1('def_constructor');
-	  var ALL_CONSTRUCTORS = $typed.CONSTR;
-	  var TYPED_ARRAY = $typed.TYPED;
-	  var VIEW = $typed.VIEW;
+	  var ALL_CONSTRUCTORS = $typed$$1.CONSTR;
+	  var TYPED_ARRAY = $typed$$1.TYPED;
+	  var VIEW = $typed$$1.VIEW;
 	  var WRONG_LENGTH = 'Wrong length!';
 
 	  var $map = createArrayMethod$$1(1, function (O, length) {
@@ -1751,7 +1751,7 @@
 	      return arrayEvery(validate(this), callbackfn, arguments.length > 1 ? arguments[1] : undefined);
 	    },
 	    fill: function fill(value /* , start, end */) { // eslint-disable-line no-unused-vars
-	      return arrayFill.apply(validate(this), arguments);
+	      return arrayFill$$1.apply(validate(this), arguments);
 	    },
 	    filter: function filter(callbackfn /* , thisArg */) {
 	      return speciesFromList(this, arrayFilter(validate(this), callbackfn,
@@ -1915,7 +1915,7 @@
 	    var TypedArray = global[NAME];
 	    var Base = TypedArray || {};
 	    var TAC = TypedArray && getPrototypeOf$$1(TypedArray);
-	    var FORCED = !TypedArray || !$typed.ABV;
+	    var FORCED = !TypedArray || !$typed$$1.ABV;
 	    var O = {};
 	    var TypedArrayPrototype = TypedArray && TypedArray[PROTOTYPE];
 	    var getter = function (that, index) {
@@ -1945,7 +1945,7 @@
 	        var offset = 0;
 	        var buffer, byteLength, length, klass;
 	        if (!isObject$$1(data)) {
-	          length = toIndex(data);
+	          length = toIndex$$1(data);
 	          byteLength = length * BYTES;
 	          buffer = new $ArrayBuffer(byteLength);
 	        } else if (data instanceof $ArrayBuffer || (klass = classof$$1(data)) == ARRAY_BUFFER || klass == SHARED_BUFFER) {
@@ -1992,7 +1992,7 @@
 	        var klass;
 	        // `ws` module bug, temporarily remove validation length for Uint8Array
 	        // https://github.com/websockets/ws/pull/645
-	        if (!isObject$$1(data)) return new Base(toIndex(data));
+	        if (!isObject$$1(data)) return new Base(toIndex$$1(data));
 	        if (data instanceof $ArrayBuffer || (klass = classof$$1(data)) == ARRAY_BUFFER || klass == SHARED_BUFFER) {
 	          return $length !== undefined
 	            ? new Base(data, toOffset($offset, BYTES), $length)
@@ -4509,7 +4509,7 @@
 	// 22.1.3.6 Array.prototype.fill(value, start = 0, end = this.length)
 
 
-	$export$1($export$1.P, 'Array', { fill: require$$35 });
+	$export$1($export$1.P, 'Array', { fill: arrayFill });
 
 	require$$1$3('fill');
 
@@ -5907,7 +5907,7 @@
 	  return start <= code && code <= end;
 	}
 
-	var VERSION = '3.1.1';
+	var VERSION = '4.0.0';
 
 	var TO_KANA_METHODS = {
 	  HIRAGANA: 'toHiragana',
@@ -7595,66 +7595,6 @@
 	  });
 	}
 
-	/**
-	 * Tests a character. Returns true if the character is considered Japanese or English punctuation.
-	 * @param  {String} char character string to test
-	 * @return {Boolean}
-	 */
-	function isCharPunctuation() {
-	  var char = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
-	  if (isEmpty(char)) return false;
-	  return isCharEnglishPunctuation(char) || isCharJapanesePunctuation(char);
-	}
-
-	/**
-	 * Strips trailing [Okurigana](https://en.wikipedia.org/wiki/Okurigana) if `input` is a mix of [Kanji](https://en.wikipedia.org/wiki/Kanji) and [Kana](https://en.wikipedia.org/wiki/Kana)
-	 * @param  {String} input text
-	 * @param  {Object} [options={ all: false }] config object specifying if *all* kana should be removed, not just trailing okurigana
-	 * @return {String} text with okurigana removed
-	 * @example
-	 * stripOkurigana('踏み込む')
-	 * // => '踏み込'
-	 * stripOkurigana('粘り。')
-	 * // => '粘。'
-	 * stripOkurigana('お祝い')
-	 * // => 'お祝'
-	 * stripOkurigana('踏み込む', { all: true })
-	 * // => '踏込'
-	 * stripOkurigana('お祝い', { all: true })
-	 * // => '祝'
-	 */
-	function stripOkurigana() {
-	  var input = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-	  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { all: false };
-
-	  if (isEmpty(input) || !isJapanese(input) || isKana(input)) {
-	    return input;
-	  }
-	  var chars = [].concat(toConsumableArray(input));
-
-	  // strip every kana
-	  if (options.all) {
-	    return chars.filter(function (char) {
-	      return !isCharKana(char);
-	    }).join('');
-	  }
-
-	  // strip trailing only
-	  var reverseChars = chars.reverse();
-	  for (var i = 0, len = reverseChars.length; i < len; i += 1) {
-	    var char = reverseChars[i];
-	    // pass if it's punctuation
-	    if (isCharPunctuation(char)) continue; // eslint-disable-line no-continue
-	    // blank out if not kanji
-	    if (!isKanji(char)) {
-	      reverseChars[i] = '';
-	    } else break; // stop when we hit a kanji char
-	  }
-
-	  return reverseChars.reverse().join('');
-	}
-
 	var isCharEnSpace = function isCharEnSpace(x) {
 	  return x === ' ';
 	};
@@ -7839,6 +7779,51 @@
 	    return detailed ? tokens.concat({ type: currType, value: newValue }) : tokens.concat(newValue);
 	  }, [initial]);
 	  return result;
+	}
+
+	var leadingWithoutInitialKana = function leadingWithoutInitialKana(input, leading) {
+	  return leading && !isKana(input[0]);
+	};
+	var trailingWithoutFinalKana = function trailingWithoutFinalKana(input, leading) {
+	  return !leading && !isKana(input[input.length - 1]);
+	};
+	var inValidMatcher = function inValidMatcher(input, matchKanji) {
+	  return matchKanji && ![].concat(toConsumableArray(matchKanji)).some(isKanji) || !matchKanji && isKana(input);
+	};
+
+	/**
+	 * Strips [Okurigana](https://en.wikipedia.org/wiki/Okurigana)
+	 * @param  {String} input text
+	 * @param  {Object} [options={ leading: false, matchKanji: '' }] optional config
+	 * @return {String} text with okurigana removed
+	 * @example
+	 * stripOkurigana('踏み込む')
+	 * // => '踏み込'
+	 * stripOkurigana('お祝い')
+	 * // => 'お祝'
+	 * stripOkurigana('お腹', { leading: true });
+	 * // => '腹'
+	 * stripOkurigana('ふみこむ', { matchKanji: '踏み込む' });
+	 * // => 'ふみこ'
+	 * stripOkurigana('おみまい', { matchKanji: 'お祝い', leading: true });
+	 * // => 'みまい'
+	 */
+	function stripOkurigana() {
+	  var input = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+	  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+	      _ref$leading = _ref.leading,
+	      leading = _ref$leading === undefined ? false : _ref$leading,
+	      _ref$matchKanji = _ref.matchKanji,
+	      matchKanji = _ref$matchKanji === undefined ? '' : _ref$matchKanji;
+
+	  if (!isJapanese(input) || leadingWithoutInitialKana(input, leading) || trailingWithoutFinalKana(input, leading) || inValidMatcher(input, matchKanji)) {
+	    return input;
+	  }
+
+	  var chars = matchKanji || input;
+	  var toMatch = leading ? [].concat(toConsumableArray(chars)).reverse().join() : chars;
+	  return input.replace(tokenize(toMatch).pop(), '');
 	}
 
 	exports.bind = bind$1;
