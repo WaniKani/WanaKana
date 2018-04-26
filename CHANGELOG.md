@@ -24,6 +24,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
+## [4.0.0] - 2017-03-26
+
+### Changed
+
+* stripOkurigana() options are now `{ leading: Boolean, matchKanji: String }`
+
+### Removed
+
+* stripOkurigana() "all" option has been removed but can be easily reproduced via `[...text].filter(isKana)`
+
 ## [3.1.1] - 2017-03-26
 
 ### Fixed
