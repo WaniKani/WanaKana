@@ -2282,7 +2282,7 @@ isRomaji('a！b&amp;cーd', /[！ー]/)
 
 
   <div class="description">
-    <p>Strips trailing <a href="https://en.wikipedia.org/wiki/Okurigana">Okurigana</a> if <code>input</code> is a mix of <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a> and <a href="https://en.wikipedia.org/wiki/Kana">Kana</a></p>
+    <p>Strips <a href="https://en.wikipedia.org/wiki/Okurigana">Okurigana</a></p>
   </div>
 
 
@@ -2391,13 +2391,13 @@ isRomaji('a！b&amp;cーd', /[！ー]/)
         
           <td class="default">
             
-              { all: false }
+              { leading: false, matchKanji: '' }
             
           </td>
         
 
         <td class="description last">
-          <p>config object specifying if <em>all</em> kana should be removed, not just trailing okurigana</p>
+          <p>optional config</p>
           
         </td>
       </tr>
@@ -2441,7 +2441,7 @@ isRomaji('a！b&amp;cーd', /[！ー]/)
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="stripOkurigana.js.html">stripOkurigana.js</a>, <a href="stripOkurigana.js.html#line25">line 25</a>
+          <a href="stripOkurigana.js.html">stripOkurigana.js</a>, <a href="stripOkurigana.js.html#line28">line 28</a>
         </li>
       </ul>
     </dd>
@@ -2477,14 +2477,14 @@ isRomaji('a！b&amp;cーd', /[！ー]/)
 
   <pre class="prettyprint"><code>stripOkurigana('踏み込む')
 // => '踏み込'
-stripOkurigana('粘り。')
-// => '粘。'
 stripOkurigana('お祝い')
 // => 'お祝'
-stripOkurigana('踏み込む', { all: true })
-// => '踏込'
-stripOkurigana('お祝い', { all: true })
-// => '祝'</code></pre>
+stripOkurigana('お腹', { leading: true });
+// => '腹'
+stripOkurigana('ふみこむ', { matchKanji: '踏み込む' });
+// => 'ふみこ'
+stripOkurigana('おみまい', { matchKanji: 'お祝い', leading: true });
+// => 'みまい'</code></pre>
 
 
   </div>
