@@ -184,7 +184,8 @@ try {
     exec('git push --tags');
   }
 
-  logSuccess('Done.');
+  logSuccess('New release pushed to github.');
+  log('Finishing up...');
 } catch (error) {
   logError('Release failed due to an error', error);
 }
