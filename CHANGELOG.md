@@ -24,6 +24,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
+## [3.1.1] - 2017-03-26
+
+### Fixed
+
+* some versions of Android GBoard English keyboard entering 'n' followed by a consonant would block further conversion
+
 ## [3.1.0] - 2017-03-01
 
 ### Changed
@@ -179,6 +185,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * `isJapanese()` & `isRomaji()` check major punctuation.
 * `isRomaji()` allows hepburn romanisation long vowels. (IE. Tōkyō)
 
+[3.1.1]: https://github.com/WaniKani/WanaKana/compare/3.1.0...3.1.1
 [3.1.0]: https://github.com/WaniKani/WanaKana/compare/2.3.4...3.1.0
 [2.3.4]: https://github.com/WaniKani/WanaKana/compare/2.3.3...2.3.4
 [2.3.3]: https://github.com/WaniKani/WanaKana/compare/2.3.2...2.3.3
