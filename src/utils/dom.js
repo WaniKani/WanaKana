@@ -11,6 +11,7 @@ let LISTENERS = [];
  */
 export function makeOnInput(options) {
   let prevInput;
+  // Enforce IMEMode if not already specified
   const mergedConfig = Object.assign({}, mergeWithDefaultOptions(options), {
     IMEMode: options.IMEMode || true,
   });
@@ -30,29 +31,43 @@ export function makeOnInput(options) {
 export function convertInput(target, options, map, triggers, prevInput) {
   const [head, textToConvert, tail] = splitInput(target.value, target.selectionEnd, triggers);
   const convertedText = toKana(textToConvert, options, map);
+  const changed = textToConvert !== convertedText;
 
-  if (textToConvert !== convertedText) {
+  if (changed) {
     const newCursor = head.length + convertedText.length;
     const newValue = head + convertedText + tail;
     target.value = newValue;
     prevInput = newValue;
 
-    // push later on event loop (otherwise mid-text insertion can be 1 char too far to the right)
-    tail.length
-      ? setTimeout(() => target.setSelectionRange(newCursor, newCursor), 1)
-      : target.setSelectionRange(newCursor, newCursor);
+    if (tail.length) {
+      // push later on event loop (otherwise mid-text insertion can be 1 char too far to the right)
+      setTimeout(() => target.setSelectionRange(newCursor, newCursor), 1);
+    } else {
+      target.setSelectionRange(newCursor, newCursor);
+    }
   } else {
     prevInput = target.value;
   }
 }
 
-export function onComposition({ type, target, data }) {
-  if (type === 'compositionupdate' && isJapanese(data)) {
-    target.dataset.ignoreComposition = 'true';
-  }
+// navigator.platform is not 100% reliable, but for determining
+// *desktop Mac OS* it should be fine.
+const isMacOS = /Mac/.test((navigator && navigator.platform) || '');
 
-  if (type === 'compositionend') {
-    target.dataset.ignoreComposition = 'false';
+export function onComposition({ type, target, data }) {
+  // We don't want to ignore on Android:
+  // https://github.com/WaniKani/WanaKana/issues/82
+  // But MacOS IME auto-closes if we don't ignore:
+  // https://github.com/WaniKani/WanaKana/issues/71
+  // Other platform Japanese IMEs pass through happily
+  if (isMacOS) {
+    if (type === 'compositionupdate' && isJapanese(data)) {
+      target.dataset.ignoreComposition = 'true';
+    }
+
+    if (type === 'compositionend') {
+      target.dataset.ignoreComposition = 'false';
+    }
   }
 }
 
@@ -72,9 +87,9 @@ export function findListeners(el) {
   return el && LISTENERS.find(({ id }) => id === el.getAttribute('data-wanakana-id'));
 }
 
-// so we can handle non-terminal inserted input conversion:
+// Handle non-terminal inserted input conversion:
 // | -> わ| -> わび| -> わ|び -> わs|び -> わsh|び -> わshi|び -> わし|び
-// or multiple ambiguous positioning (IE select which "s" to work from)
+// or multiple ambiguous positioning (to select which "s" to work from)
 // こsこs|こsこ -> こsこso|こsこ -> こsこそ|こsこ
 export function splitInput(text = '', cursor = 0, triggers = []) {
   let head;
