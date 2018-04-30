@@ -24,7 +24,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
-## [4.0.0] - 2017-03-26
+## [4.0.1] - 2017-04-30
+
+### Fixed
+
+* stripOkurigana(): If the input has the same kana at different locations, such as '申し申し', the inner kana was stripped instead
+
+## [4.0.0] - 2017-04-26
 
 ### Changed
 
@@ -195,6 +201,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * `isJapanese()` & `isRomaji()` check major punctuation.
 * `isRomaji()` allows hepburn romanisation long vowels. (IE. Tōkyō)
 
+[4.0.1]: https://github.com/WaniKani/WanaKana/compare/4.0.0...4.0.1
+[4.0.0]: https://github.com/WaniKani/WanaKana/compare/3.1.1...4.0.0
 [3.1.1]: https://github.com/WaniKani/WanaKana/compare/3.1.0...3.1.1
 [3.1.0]: https://github.com/WaniKani/WanaKana/compare/2.3.4...3.1.0
 [2.3.4]: https://github.com/WaniKani/WanaKana/compare/2.3.3...2.3.4
