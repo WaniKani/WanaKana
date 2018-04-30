@@ -1,6 +1,6 @@
 import stripOkurigana from '../../src/stripOkurigana';
 
-describe('stripOkurigana', () => {
+describe.only('stripOkurigana', () => {
   it('sane defaults', () => {
     expect(stripOkurigana()).toBe('');
     expect(stripOkurigana('')).toBe('');
@@ -11,6 +11,8 @@ describe('stripOkurigana', () => {
 
   it('passes default parameter tests', () => {
     expect(stripOkurigana('踏み込む')).toBe('踏み込');
+    expect(stripOkurigana('使い方')).toBe('使い方');
+    expect(stripOkurigana('申し申し')).toBe('申し申');
     expect(stripOkurigana('お腹')).toBe('お腹');
     expect(stripOkurigana('お祝い')).toBe('お祝');
   });
