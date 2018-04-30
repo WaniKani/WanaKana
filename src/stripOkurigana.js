@@ -3,9 +3,9 @@ import isKana from './isKana';
 import isKanji from './isKanji';
 import tokenize from './tokenize';
 
-const leadingWithoutInitialKana = (input, leading) => leading && !isKana(input[0]);
-const trailingWithoutFinalKana = (input, leading) => !leading && !isKana(input[input.length - 1]);
-const inValidMatcher = (input, matchKanji) =>
+const isLeadingWithoutInitialKana = (input, leading) => leading && !isKana(input[0]);
+const isTrailingWithoutFinalKana = (input, leading) => !leading && !isKana(input[input.length - 1]);
+const isInvalidMatcher = (input, matchKanji) =>
   (matchKanji && ![...matchKanji].some(isKanji)) || (!matchKanji && isKana(input));
 
 /**
@@ -28,16 +28,18 @@ const inValidMatcher = (input, matchKanji) =>
 function stripOkurigana(input = '', { leading = false, matchKanji = '' } = {}) {
   if (
     !isJapanese(input) ||
-    leadingWithoutInitialKana(input, leading) ||
-    trailingWithoutFinalKana(input, leading) ||
-    inValidMatcher(input, matchKanji)
+    isLeadingWithoutInitialKana(input, leading) ||
+    isTrailingWithoutFinalKana(input, leading) ||
+    isInvalidMatcher(input, matchKanji)
   ) {
     return input;
   }
 
   const chars = matchKanji || input;
-  const toMatch = leading ? [...chars].reverse().join() : chars;
-  return input.replace(tokenize(toMatch).pop(), '');
+  const okuriganaRegex = new RegExp(
+    leading ? `^${tokenize(chars).shift()}` : `${tokenize(chars).pop()}$`
+  );
+  return input.replace(okuriganaRegex, '');
 }
 
 export default stripOkurigana;
