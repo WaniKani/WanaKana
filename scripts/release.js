@@ -34,11 +34,12 @@ const PACKAGE_JSON = {
     'bugs',
   ],
   extraFields: {
-    engines: { node: '>=8' },
-    main: 'wanakana.js',
-    module: 'es/index.js',
-    browser: 'umd/wanakana.min.js',
-    unpkg: 'umd/wanakana.min.js',
+    'engines': { node: '>=8' },
+    'main': 'wanakana.js',
+    'react-native': 'wanakana.js',
+    'module': 'es/index.js',
+    'browser': 'umd/wanakana.min.js',
+    'unpkg': 'umd/wanakana.min.js',
   },
 };
 
@@ -135,8 +136,14 @@ try {
     exit(0);
   }
 
+  const otp = readline.question('Enter NPM account Authenticator otp (blank to skip)');
+
   log('Publishing...');
-  if (execFail(exec(`cd ${OUT_DIR} && npm publish${distTag && ` --tag ${distTag}`}`))) {
+  if (
+    execFail(
+      exec(`cd ${OUT_DIR} && npm publish${otp && ` --otp=${otp}`}${distTag && ` --tag ${distTag}`}`)
+    )
+  ) {
     logError('Publish failed. Aborting release.');
     exit(1);
   }
