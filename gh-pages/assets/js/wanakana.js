@@ -2549,12 +2549,12 @@
 
 	var strong = ( _collectionStrong$1 && _collectionStrong ) || _collectionStrong$1;
 
-	var require$$1$5 = ( _collection$1 && _collection ) || _collection$1;
+	var require$$0$11 = ( _collection$1 && _collection ) || _collection$1;
 
 	var MAP = 'Map';
 
 	// 23.1 Map Objects
-	var es6_map = require$$1$5(MAP, function (get) {
+	var es6_map = require$$0$11(MAP, function (get) {
 	  return function Map() { return get(this, arguments.length > 0 ? arguments[0] : undefined); };
 	}, {
 	  // 23.1.3.6 Map.prototype.get(key)
@@ -2571,7 +2571,7 @@
 	var SET = 'Set';
 
 	// 23.2 Set Objects
-	var es6_set = require$$1$5(SET, function (get) {
+	var es6_set = require$$0$11(SET, function (get) {
 	  return function Set() { return get(this, arguments.length > 0 ? arguments[0] : undefined); };
 	}, {
 	  // 23.2.3.1 Set.prototype.add(value)
@@ -2728,7 +2728,7 @@
 		ufstore: _collectionWeak_3
 	});
 
-	var require$$0$11 = ( _objectAssign$1 && _objectAssign ) || _objectAssign$1;
+	var require$$0$12 = ( _objectAssign$1 && _objectAssign ) || _objectAssign$1;
 
 	var weak = ( _collectionWeak$1 && _collectionWeak ) || _collectionWeak$1;
 
@@ -2770,12 +2770,12 @@
 	};
 
 	// 23.3 WeakMap Objects
-	var $WeakMap = module.exports = require$$1$5(WEAK_MAP, wrapper, methods, weak, true, true);
+	var $WeakMap = module.exports = require$$0$11(WEAK_MAP, wrapper, methods, weak, true, true);
 
 	// IE11 WeakMap frozen keys fix
 	if (require$$1(function () { return new $WeakMap().set((Object.freeze || Object)(tmp), 7).get(tmp) != 7; })) {
 	  InternalMap = weak.getConstructor(wrapper, WEAK_MAP);
-	  require$$0$11(InternalMap.prototype, methods);
+	  require$$0$12(InternalMap.prototype, methods);
 	  require$$0$9.NEED = true;
 	  each(['delete', 'has', 'get', 'set'], function (key) {
 	    var proto = $WeakMap.prototype;
@@ -2796,7 +2796,7 @@
 	var WEAK_SET = 'WeakSet';
 
 	// 23.4 WeakSet Objects
-	require$$1$5(WEAK_SET, function (get) {
+	require$$0$11(WEAK_SET, function (get) {
 	  return function WeakSet() { return get(this, arguments.length > 0 ? arguments[0] : undefined); };
 	}, {
 	  // 23.4.3.1 WeakSet.prototype.add(value)
@@ -3203,9 +3203,9 @@
 		clear: _task_2
 	});
 
-	var require$$0$12 = ( _task$1 && _task ) || _task$1;
+	var require$$0$13 = ( _task$1 && _task ) || _task$1;
 
-	var macrotask = require$$0$12.set;
+	var macrotask = require$$0$13.set;
 	var Observer = global$1.MutationObserver || global$1.WebKitMutationObserver;
 	var process$1 = global$1.process;
 	var Promise$1 = global$1.Promise;
@@ -3335,14 +3335,14 @@
 		__moduleExports: _promiseResolve
 	});
 
-	var require$$1$6 = ( _microtask$1 && _microtask ) || _microtask$1;
+	var require$$1$5 = ( _microtask$1 && _microtask ) || _microtask$1;
 
 	var perform = ( _perform$1 && _perform ) || _perform$1;
 
 	var promiseResolve = ( _promiseResolve$1 && _promiseResolve ) || _promiseResolve$1;
 
-	var task = require$$0$12.set;
-	var microtask = require$$1$6();
+	var task = require$$0$13.set;
+	var microtask = require$$1$5();
 
 
 
@@ -3688,7 +3688,7 @@
 
 	var enumKeys = ( _enumKeys$1 && _enumKeys ) || _enumKeys$1;
 
-	var require$$1$7 = ( _objectGopnExt$1 && _objectGopnExt ) || _objectGopnExt$1;
+	var require$$1$6 = ( _objectGopnExt$1 && _objectGopnExt ) || _objectGopnExt$1;
 
 	// ECMAScript 6 symbols shim
 
@@ -3718,7 +3718,7 @@
 
 	var gOPD$2 = require$$1$4.f;
 	var dP$3 = dP$1.f;
-	var gOPN$1 = require$$1$7.f;
+	var gOPN$1 = require$$1$6.f;
 	var $Symbol = global$1.Symbol;
 	var $JSON = global$1.JSON;
 	var _stringify = $JSON && $JSON.stringify;
@@ -3838,7 +3838,7 @@
 
 	  require$$1$4.f = $getOwnPropertyDescriptor;
 	  dP$1.f = $defineProperty;
-	  require$$0$6.f = require$$1$7.f = $getOwnPropertyNames;
+	  require$$0$6.f = require$$1$6.f = $getOwnPropertyNames;
 	  require$$0$7.f = $propertyIsEnumerable;
 	  gOPS.f = $getOwnPropertySymbols;
 
@@ -3940,13 +3940,13 @@
 		__moduleExports: _objectSap
 	});
 
-	var require$$0$13 = ( _objectSap$1 && _objectSap ) || _objectSap$1;
+	var require$$0$14 = ( _objectSap$1 && _objectSap ) || _objectSap$1;
 
 	// 19.1.2.5 Object.freeze(O)
 
 	var meta = require$$0$9.onFreeze;
 
-	require$$0$13('freeze', function ($freeze) {
+	require$$0$14('freeze', function ($freeze) {
 	  return function freeze(it) {
 	    return $freeze && isObject(it) ? $freeze(meta(it)) : it;
 	  };
@@ -3956,7 +3956,7 @@
 
 	var meta$1 = require$$0$9.onFreeze;
 
-	require$$0$13('seal', function ($seal) {
+	require$$0$14('seal', function ($seal) {
 	  return function seal(it) {
 	    return $seal && isObject(it) ? $seal(meta$1(it)) : it;
 	  };
@@ -3966,7 +3966,7 @@
 
 	var meta$2 = require$$0$9.onFreeze;
 
-	require$$0$13('preventExtensions', function ($preventExtensions) {
+	require$$0$14('preventExtensions', function ($preventExtensions) {
 	  return function preventExtensions(it) {
 	    return $preventExtensions && isObject(it) ? $preventExtensions(meta$2(it)) : it;
 	  };
@@ -3975,7 +3975,7 @@
 	// 19.1.2.12 Object.isFrozen(O)
 
 
-	require$$0$13('isFrozen', function ($isFrozen) {
+	require$$0$14('isFrozen', function ($isFrozen) {
 	  return function isFrozen(it) {
 	    return isObject(it) ? $isFrozen ? $isFrozen(it) : false : true;
 	  };
@@ -3984,7 +3984,7 @@
 	// 19.1.2.13 Object.isSealed(O)
 
 
-	require$$0$13('isSealed', function ($isSealed) {
+	require$$0$14('isSealed', function ($isSealed) {
 	  return function isSealed(it) {
 	    return isObject(it) ? $isSealed ? $isSealed(it) : false : true;
 	  };
@@ -3993,7 +3993,7 @@
 	// 19.1.2.11 Object.isExtensible(O)
 
 
-	require$$0$13('isExtensible', function ($isExtensible) {
+	require$$0$14('isExtensible', function ($isExtensible) {
 	  return function isExtensible(it) {
 	    return isObject(it) ? $isExtensible ? $isExtensible(it) : true : false;
 	  };
@@ -4003,7 +4003,7 @@
 
 	var $getOwnPropertyDescriptor$1 = require$$1$4.f;
 
-	require$$0$13('getOwnPropertyDescriptor', function () {
+	require$$0$14('getOwnPropertyDescriptor', function () {
 	  return function getOwnPropertyDescriptor(it, key) {
 	    return $getOwnPropertyDescriptor$1(toIObject(it), key);
 	  };
@@ -4013,7 +4013,7 @@
 
 
 
-	require$$0$13('getPrototypeOf', function () {
+	require$$0$14('getPrototypeOf', function () {
 	  return function getPrototypeOf$$1(it) {
 	    return getPrototypeOf(toObject(it));
 	  };
@@ -4023,21 +4023,21 @@
 
 
 
-	require$$0$13('keys', function () {
+	require$$0$14('keys', function () {
 	  return function keys(it) {
 	    return getKeys(toObject(it));
 	  };
 	});
 
 	// 19.1.2.7 Object.getOwnPropertyNames(O)
-	require$$0$13('getOwnPropertyNames', function () {
-	  return require$$1$7.f;
+	require$$0$14('getOwnPropertyNames', function () {
+	  return require$$1$6.f;
 	});
 
 	// 19.1.3.1 Object.assign(target, source)
 
 
-	$export$1($export$1.S + $export$1.F, 'Object', { assign: require$$0$11 });
+	$export$1($export$1.S + $export$1.F, 'Object', { assign: require$$0$12 });
 
 	// 7.2.9 SameValue(x, y)
 	var _sameValue = Object.is || function is(x, y) {
@@ -4050,11 +4050,11 @@
 		__moduleExports: _sameValue
 	});
 
-	var require$$0$14 = ( _sameValue$1 && _sameValue ) || _sameValue$1;
+	var require$$0$15 = ( _sameValue$1 && _sameValue ) || _sameValue$1;
 
 	// 19.1.3.10 Object.is(value1, value2)
 
-	$export$1($export$1.S, 'Object', { is: require$$0$14 });
+	$export$1($export$1.S, 'Object', { is: require$$0$15 });
 
 	// 19.1.3.19 Object.setPrototypeOf(O, proto)
 
@@ -4135,9 +4135,9 @@
 		__moduleExports: _stringAt
 	});
 
-	var require$$0$15 = ( _stringAt$1 && _stringAt ) || _stringAt$1;
+	var require$$0$16 = ( _stringAt$1 && _stringAt ) || _stringAt$1;
 
-	var $at = require$$0$15(false);
+	var $at = require$$0$16(false);
 	$export$1($export$1.P, 'String', {
 	  // 21.1.3.3 String.prototype.codePointAt(pos)
 	  codePointAt: function codePointAt(pos) {
@@ -4216,12 +4216,12 @@
 
 	var context = ( _stringContext$1 && _stringContext ) || _stringContext$1;
 
-	var require$$0$16 = ( _failsIsRegexp$1 && _failsIsRegexp ) || _failsIsRegexp$1;
+	var require$$0$17 = ( _failsIsRegexp$1 && _failsIsRegexp ) || _failsIsRegexp$1;
 
 	var STARTS_WITH = 'startsWith';
 	var $startsWith = ''[STARTS_WITH];
 
-	$export$1($export$1.P + $export$1.F * require$$0$16(STARTS_WITH), 'String', {
+	$export$1($export$1.P + $export$1.F * require$$0$17(STARTS_WITH), 'String', {
 	  startsWith: function startsWith(searchString /* , position = 0 */) {
 	    var that = context(this, searchString, STARTS_WITH);
 	    var index = toLength(Math.min(arguments.length > 1 ? arguments[1] : undefined, that.length));
@@ -4235,7 +4235,7 @@
 	var ENDS_WITH = 'endsWith';
 	var $endsWith = ''[ENDS_WITH];
 
-	$export$1($export$1.P + $export$1.F * require$$0$16(ENDS_WITH), 'String', {
+	$export$1($export$1.P + $export$1.F * require$$0$17(ENDS_WITH), 'String', {
 	  endsWith: function endsWith(searchString /* , endPosition = @length */) {
 	    var that = context(this, searchString, ENDS_WITH);
 	    var endPosition = arguments.length > 1 ? arguments[1] : undefined;
@@ -4250,7 +4250,7 @@
 
 	var INCLUDES = 'includes';
 
-	$export$1($export$1.P + $export$1.F * require$$0$16(INCLUDES), 'String', {
+	$export$1($export$1.P + $export$1.F * require$$0$17(INCLUDES), 'String', {
 	  includes: function includes(searchString /* , position = 0 */) {
 	    return !!~context(this, searchString, INCLUDES)
 	      .indexOf(searchString, arguments.length > 1 ? arguments[1] : undefined);
@@ -4310,10 +4310,10 @@
 		__moduleExports: _fixReWks
 	});
 
-	var require$$0$17 = ( _fixReWks$1 && _fixReWks ) || _fixReWks$1;
+	var require$$0$18 = ( _fixReWks$1 && _fixReWks ) || _fixReWks$1;
 
 	// @@match logic
-	require$$0$17('match', 1, function (defined, MATCH, $match) {
+	require$$0$18('match', 1, function (defined, MATCH, $match) {
 	  // 21.1.3.11 String.prototype.match(regexp)
 	  return [function match(regexp) {
 	    var O = defined(this);
@@ -4323,7 +4323,7 @@
 	});
 
 	// @@replace logic
-	require$$0$17('replace', 2, function (defined, REPLACE, $replace) {
+	require$$0$18('replace', 2, function (defined, REPLACE, $replace) {
 	  // 21.1.3.14 String.prototype.replace(searchValue, replaceValue)
 	  return [function replace(searchValue, replaceValue) {
 	    var O = defined(this);
@@ -4335,7 +4335,7 @@
 	});
 
 	// @@split logic
-	require$$0$17('split', 2, function (defined, SPLIT, $split) {
+	require$$0$18('split', 2, function (defined, SPLIT, $split) {
 	  var isRegExp$$1 = isRegExp;
 	  var _split = $split;
 	  var $push = [].push;
@@ -4406,7 +4406,7 @@
 	});
 
 	// @@search logic
-	require$$0$17('search', 1, function (defined, SEARCH, $search) {
+	require$$0$18('search', 1, function (defined, SEARCH, $search) {
 	  // 21.1.3.15 String.prototype.search(regexp)
 	  return [function search(regexp) {
 	    var O = defined(this);
@@ -4588,7 +4588,7 @@
 		__moduleExports: _mathLog1p
 	});
 
-	var require$$0$18 = ( _mathLog1p$1 && _mathLog1p ) || _mathLog1p$1;
+	var require$$0$19 = ( _mathLog1p$1 && _mathLog1p ) || _mathLog1p$1;
 
 	// 20.2.2.3 Math.acosh(x)
 
@@ -4605,7 +4605,7 @@
 	  acosh: function acosh(x) {
 	    return (x = +x) < 1 ? NaN : x > 94906265.62425156
 	      ? Math.log(x) + Math.LN2
-	      : require$$0$18(x - 1 + sqrt(x - 1) * sqrt(x + 1));
+	      : require$$0$19(x - 1 + sqrt(x - 1) * sqrt(x + 1));
 	  }
 	});
 
@@ -4726,12 +4726,12 @@
 		__moduleExports: _mathFround
 	});
 
-	var require$$0$19 = ( _mathFround$1 && _mathFround ) || _mathFround$1;
+	var require$$0$20 = ( _mathFround$1 && _mathFround ) || _mathFround$1;
 
 	// 20.2.2.16 Math.fround(x)
 
 
-	$export$1($export$1.S, 'Math', { fround: require$$0$19 });
+	$export$1($export$1.S, 'Math', { fround: require$$0$20 });
 
 	// 20.2.2.17 Math.hypot([value1[, value2[, … ]]])
 
@@ -4780,7 +4780,7 @@
 	// 20.2.2.20 Math.log1p(x)
 
 
-	$export$1($export$1.S, 'Math', { log1p: require$$0$18 });
+	$export$1($export$1.S, 'Math', { log1p: require$$0$19 });
 
 	// 20.2.2.21 Math.log10(x)
 
@@ -4875,11 +4875,11 @@
 		__moduleExports: _objectToArray
 	});
 
-	var require$$0$20 = ( _objectToArray$1 && _objectToArray ) || _objectToArray$1;
+	var require$$0$21 = ( _objectToArray$1 && _objectToArray ) || _objectToArray$1;
 
 	// https://github.com/tc39/proposal-object-values-entries
 
-	var $values = require$$0$20(false);
+	var $values = require$$0$21(false);
 
 	$export$1($export$1.S, 'Object', {
 	  values: function values(it) {
@@ -4889,7 +4889,7 @@
 
 	// https://github.com/tc39/proposal-object-values-entries
 
-	var $entries = require$$0$20(true);
+	var $entries = require$$0$21(true);
 
 	$export$1($export$1.S, 'Object', {
 	  entries: function entries(it) {
@@ -5001,8 +5001,8 @@
 	});
 
 	$export$1($export$1.G + $export$1.B, {
-	  setImmediate: require$$0$12.set,
-	  clearImmediate: require$$0$12.clear
+	  setImmediate: require$$0$13.set,
+	  clearImmediate: require$$0$13.clear
 	});
 
 	var ITERATOR$4 = require$$0$5('iterator');
@@ -5907,7 +5907,7 @@
 	  return start <= code && code <= end;
 	}
 
-	var VERSION = '4.0.1';
+	var VERSION = '4.0.2';
 
 	var TO_KANA_METHODS = {
 	  HIRAGANA: 'toHiragana',
