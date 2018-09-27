@@ -18,7 +18,7 @@
 
 <div align="center">
 <h1>ワナカナ &lt;--&gt; WanaKana &lt;--&gt; わなかな</h1>
-<h4>Javascript utility library for checking and converting between Kanji, Hiragana, Katakana, and Romaji</h4>
+<h4>Javascript utility library for detecting and transliterating Hiragana, Katakana, and Romaji</h4>
 </div>
 
 ## Demo
