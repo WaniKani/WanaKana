@@ -84,7 +84,7 @@ wanakana.isJapanese('泣き虫。！〜２￥ｚｅｎｋａｋｕ')
 wanakana.isKana('あーア')
 // => true
 
-wanakana.isHiragana('げーむ')
+wanakana.isHiragana('すげー')
 // => true
 
 wanakana.isKatakana('ゲーム')
@@ -92,6 +92,8 @@ wanakana.isKatakana('ゲーム')
 
 wanakana.isKanji('切腹')
 // => true
+wanakana.isKanji('勢い')
+// => false
 
 wanakana.isRomaji('Tōkyō and Ōsaka')
 // => true
