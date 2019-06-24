@@ -171,6 +171,6 @@ Project sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wan
 
 The following are ports created by the community:
 
-* Python [Starwort/wanakana-py](https://github.com/Starwort/wanakana-py) on PyPI as `wanakana-python`
+* Python ([Starwort/wanakana-py](https://github.com/Starwort/wanakana-py)) on PyPI as `wanakana-python`
 * Java ([MasterKale/WanaKanaJava](https://github.com/MasterKale/WanaKanaJava))
 * Rust ([PSeitz/wana_kana_rust](https://github.com/PSeitz/wana_kana_rust))
