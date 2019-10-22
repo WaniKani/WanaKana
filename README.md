@@ -57,7 +57,7 @@ npm install wanakana
 ```
 
 ```javascript
-import wanakana from 'wanakana';
+import * as wanakana from 'wanakana';
 // or
 import { toKana, isRomaji } from 'wanakana';
 ```
