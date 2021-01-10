@@ -40,9 +40,9 @@ header {
 		span {
 			letter-spacing: -0.1em;
 		}
-  }
+	}
 	#download {
-		margin-top: 1em;
+		padding: 1em 0 0;
 		text-align: center;
 		small {
 			display: block;
@@ -50,7 +50,6 @@ header {
 			@include opacity(50);
 		}
 		.pure-button {
-      padding: .25em;
 			background-color: $green;
 			color: $greenDark;
 			font-weight: 400;
