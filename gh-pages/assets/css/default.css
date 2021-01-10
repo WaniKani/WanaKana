@@ -229,6 +229,11 @@ footer #footer-other-info {
   text-align: right;
 }
 
+#version {
+  margin-top: 1rem;
+  color: white;
+}
+
 #github {
   margin-top: 0.5em;
   color: white;
