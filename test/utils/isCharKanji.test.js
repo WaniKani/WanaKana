@@ -10,6 +10,7 @@ describe('isCharKanji', () => {
     expect(isCharKanji('腹')).toBe(true);
     expect(isCharKanji('一')).toBe(true); // kanji for いち・1 - not a long hyphen
     expect(isCharKanji('ー')).toBe(false); // long hyphen
+    expect(isCharKanji('々')).toBe(true); // kanji for iteration e.g. 人々
     expect(isCharKanji('は')).toBe(false);
     expect(isCharKanji('ナ')).toBe(false);
     expect(isCharKanji('n')).toBe(false);
