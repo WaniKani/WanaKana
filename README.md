@@ -175,3 +175,4 @@ The following ports have been created by the community:
 * Java ([MasterKale/WanaKanaJava](https://github.com/MasterKale/WanaKanaJava))
 * Rust ([PSeitz/wana_kana_rust](https://github.com/PSeitz/wana_kana_rust))
 * Swift ([profburke/WanaKanaSwift](https://github.com/profburke/WanaKanaSwift))
+* Kotlin ([esnaultdev/wanakana-kt](https://github.com/esnaultdev/wanakana-kt))
