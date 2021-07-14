@@ -60,6 +60,7 @@ export const UPPERCASE_ZENKAKU_END = 0xff3a;
 export const HIRAGANA_START = 0x3041;
 export const HIRAGANA_END = 0x3096;
 export const KATAKANA_START = 0x30a1;
+export const KANJI_ITERATION_MARK = 0x3005; // 々
 export const KATAKANA_END = 0x30fc;
 export const KANJI_START = 0x4e00;
 export const KANJI_END = 0x9faf;
@@ -84,7 +85,12 @@ const CJK_SYMBOLS_PUNCTUATION = [0x3000, 0x303f];
 const COMMON_CJK = [0x4e00, 0x9fff];
 const RARE_CJK = [0x3400, 0x4dbf];
 
-export const KANA_RANGES = [HIRAGANA_CHARS, KATAKANA_CHARS, KANA_PUNCTUATION, HANKAKU_KATAKANA];
+export const KANA_RANGES = [
+  HIRAGANA_CHARS,
+  KATAKANA_CHARS,
+  KANA_PUNCTUATION,
+  HANKAKU_KATAKANA,
+];
 
 export const JA_PUNCTUATION_RANGES = [
   CJK_SYMBOLS_PUNCTUATION,
