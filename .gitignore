@@ -44,6 +44,9 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+# VSCode
+.vscode
+
 # junk
 .DS_Store
 Thumbs.db
