@@ -127,6 +127,20 @@ const AIUEO_CONSTRUCTIONS = {
   f: 'ふ',
 };
 
+// Match other IME conversions
+// https://github.com/WaniKani/WanaKana/issues/126
+const K_CONSTRUCTIONS = {
+  kwi: 'くぃ',
+  kuxi: 'くぃ',
+  kuli: 'くぃ',
+  kwe: 'くぇ',
+  kuxe: 'くぇ',
+  kule: 'くぇ',
+  kwo: 'くぉ',
+  kuxo: 'くぉ',
+  kulo: 'くぉ',
+};
+
 /* eslint-enable */
 function createRomajiToKanaMap() {
   const kanaTree = transform(BASIC_KUNREI);
@@ -142,6 +156,10 @@ function createRomajiToKanaMap() {
   });
 
   Object.entries(SPECIAL_SYMBOLS).forEach(([symbol, jsymbol]) => {
+    subtreeOf(symbol)[''] = jsymbol;
+  });
+
+  Object.entries(K_CONSTRUCTIONS).forEach(([symbol, jsymbol]) => {
     subtreeOf(symbol)[''] = jsymbol;
   });
 
@@ -234,7 +252,10 @@ export function getRomajiToKanaTree() {
   return romajiToKanaMap;
 }
 
-export const USE_OBSOLETE_KANA_MAP = createCustomMapping({ wi: 'ゐ', we: 'ゑ' });
+export const USE_OBSOLETE_KANA_MAP = createCustomMapping({
+  wi: 'ゐ',
+  we: 'ゑ',
+});
 
 export function IME_MODE_MAP(map) {
   // in IME mode, we do not want to convert single ns
