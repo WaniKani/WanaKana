@@ -59,7 +59,19 @@ const SMALL_AIUEO = {
   ぇ: 'e',
   ぉ: 'o',
 };
-const YOON_KANA = ['き', 'に', 'ひ', 'み', 'り', 'ぎ', 'び', 'ぴ', 'ゔ', 'く', 'ふ'];
+const YOON_KANA = [
+  'き',
+  'に',
+  'ひ',
+  'み',
+  'り',
+  'ぎ',
+  'び',
+  'ぴ',
+  'ゔ',
+  'く',
+  'ふ',
+];
 const YOON_EXCEPTIONS = {
   し: 'sh',
   ち: 'ch',
@@ -108,10 +120,10 @@ function getKanaToHepburnTree() {
   return kanaToHepburnMap;
 }
 
-export function getKanaToRomajiTree(fullOptions) {
-  switch (fullOptions.romanization) {
+export function getKanaToRomajiTree(romanization) {
+  switch (romanization) {
     case ROMANIZATIONS.HEPBURN:
-      return getKanaToHepburnTree(fullOptions);
+      return getKanaToHepburnTree();
     default:
       return {};
   }
@@ -129,9 +141,11 @@ function createKanaToHepburnMap() {
     subtreeOf(jsymbol)[''] = symbol;
   });
 
-  [...Object.entries(SMALL_Y), ...Object.entries(SMALL_AIUEO)].forEach(([roma, kana]) => {
-    setTrans(roma, kana);
-  });
+  [...Object.entries(SMALL_Y), ...Object.entries(SMALL_AIUEO)].forEach(
+    ([roma, kana]) => {
+      setTrans(roma, kana);
+    }
+  );
 
   // きゃ -> kya
   YOON_KANA.forEach((kana) => {

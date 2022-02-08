@@ -33,6 +33,33 @@ describe('Test custom mappings options', () => {
     ).toBe('tuzigili');
   });
 
+  it('will replace previous custom mappings', () => {
+    expect(
+      toRomaji('つじぎり', {
+        customRomajiMapping: createCustomMapping({ じ: 'zi', つ: 'tu', り: 'li' }),
+      })
+    ).toBe('tuzigili');
+
+    expect(
+      toRomaji('つじぎり', {
+        customRomajiMapping: createCustomMapping({ じ: 'bi', つ: 'bu', り: 'bi' }),
+      })
+    ).toBe('bubigibi');
+
+    expect(
+      toKana('wanakana', {
+        customKanaMapping: createCustomMapping({ na: 'に', ka: 'Bana' }),
+      })
+    ).toBe('わにBanaに');
+
+    expect(
+      toKana('wanakana', {
+        customKanaMapping: createCustomMapping({ na: 'り', ka: 'Cabana' }),
+      })
+    ).toBe('わりCabanaり');
+  });
+
+
   it('will accept a plain object and merge it internally via createCustomMapping()', () => {
     expect(
       toKana('wanakana', {

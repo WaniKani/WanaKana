@@ -1,9 +1,33 @@
+import memoizeOne from 'memoize-one';
+import { dequal } from 'dequal';
+
 import { TO_KANA_METHODS } from './constants';
 import mergeWithDefaultOptions from './utils/mergeWithDefaultOptions';
-import { getRomajiToKanaTree, IME_MODE_MAP, USE_OBSOLETE_KANA_MAP } from './utils/romajiToKanaMap';
+import {
+  getRomajiToKanaTree,
+  IME_MODE_MAP,
+  USE_OBSOLETE_KANA_MAP,
+} from './utils/romajiToKanaMap';
 import { applyMapping, mergeCustomMapping } from './utils/kanaMapping';
 import isCharUpperCase from './utils/isCharUpperCase';
 import hiraganaToKatakana from './utils/hiraganaToKatakana';
+
+// memoize and deeply compare args so we only recreate when necessary
+export const createRomajiToKanaMap = memoizeOne(
+  (IMEMode, useObsoleteKana, customKanaMapping) => {
+    let map = getRomajiToKanaTree();
+
+    map = IMEMode ? IME_MODE_MAP(map) : map;
+    map = useObsoleteKana ? USE_OBSOLETE_KANA_MAP(map) : map;
+
+    if (customKanaMapping) {
+      map = mergeCustomMapping(map, customKanaMapping);
+    }
+
+    return map;
+  },
+  dequal
+);
 
 /**
  * Convert [Romaji](https://en.wikipedia.org/wiki/Romaji) to [Kana](https://en.wikipedia.org/wiki/Kana), lowercase text will result in [Hiragana](https://en.wikipedia.org/wiki/Hiragana) and uppercase text will result in [Katakana](https://en.wikipedia.org/wiki/Katakana).
@@ -30,7 +54,11 @@ export function toKana(input = '', options = {}, map) {
   let config;
   if (!map) {
     config = mergeWithDefaultOptions(options);
-    map = createRomajiToKanaMap(config);
+    map = createRomajiToKanaMap(
+      config.IMEMode,
+      config.useObsoleteKana,
+      config.customKanaMapping
+    );
   } else {
     config = options;
   }
@@ -48,7 +76,9 @@ export function toKana(input = '', options = {}, map) {
         config.IMEMode === TO_KANA_METHODS.KATAKANA ||
         [...input.slice(start, end)].every(isCharUpperCase);
 
-      return enforceHiragana || !enforceKatakana ? kana : hiraganaToKatakana(kana);
+      return enforceHiragana || !enforceKatakana
+        ? kana
+        : hiraganaToKatakana(kana);
     })
     .join('');
 }
@@ -57,34 +87,21 @@ export function toKana(input = '', options = {}, map) {
  *
  * @private
  * @param {String} [input=''] input text
- * @param {Object} [options={}] toKana options
+ * @param {DefaultOptions} [options=defaultOptions] toKana options
+ * @param {Object} [map] custom mapping
  * @returns {Array[]} [[start, end, token]]
  * @example
  * splitIntoConvertedKana('buttsuuji')
  * // => [[0, 2, 'ぶ'], [2, 6, 'っつ'], [6, 7, 'う'], [7, 9, 'じ']]
  */
 export function splitIntoConvertedKana(input = '', options = {}, map) {
+  const { IMEMode, useObsoleteKana, customKanaMapping } = options;
+
   if (!map) {
-    map = createRomajiToKanaMap(options);
-  }
-  return applyMapping(input.toLowerCase(), map, !options.IMEMode);
-}
-
-let customMapping = null;
-export function createRomajiToKanaMap(options = {}) {
-  let map = getRomajiToKanaTree();
-
-  map = options.IMEMode ? IME_MODE_MAP(map) : map;
-  map = options.useObsoleteKana ? USE_OBSOLETE_KANA_MAP(map) : map;
-
-  if (options.customKanaMapping) {
-    if (customMapping == null) {
-      customMapping = mergeCustomMapping(map, options.customKanaMapping);
-    }
-    map = customMapping;
+    map = createRomajiToKanaMap(IMEMode, useObsoleteKana, customKanaMapping);
   }
 
-  return map;
+  return applyMapping(input.toLowerCase(), map, !IMEMode);
 }
 
 export default toKana;
