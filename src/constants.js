@@ -21,6 +21,10 @@ export const ROMANIZATIONS = {
  * @example
  * toHiragana('only convert the katakana: ヒラガナ', { passRomaji: true })
  * // => "only convert the katakana: ひらがな"
+ * @property {Object} [convertLongVowelMark=true] - Set to false to prevent conversions of 'ー' to extended vowels with toHiragana()
+ * @example
+ * toHiragana('ラーメン', { convertLongVowelMark: false });
+ * // => 'らーめん
  * @property {Boolean} [upcaseKatakana=false] - Set to true to convert katakana to uppercase using toRomaji()
  * @example
  * toRomaji('ひらがな カタカナ', { upcaseKatakana: true })
@@ -42,6 +46,7 @@ export const DEFAULT_OPTIONS = {
   upcaseKatakana: false,
   ignoreCase: false,
   IMEMode: false,
+  convertLongVowelMark: true,
   romanization: ROMANIZATIONS.HEPBURN,
 };
 
@@ -84,7 +89,12 @@ const CJK_SYMBOLS_PUNCTUATION = [0x3000, 0x303f];
 const COMMON_CJK = [0x4e00, 0x9fff];
 const RARE_CJK = [0x3400, 0x4dbf];
 
-export const KANA_RANGES = [HIRAGANA_CHARS, KATAKANA_CHARS, KANA_PUNCTUATION, HANKAKU_KATAKANA];
+export const KANA_RANGES = [
+  HIRAGANA_CHARS,
+  KATAKANA_CHARS,
+  KANA_PUNCTUATION,
+  HANKAKU_KATAKANA,
+];
 
 export const JA_PUNCTUATION_RANGES = [
   CJK_SYMBOLS_PUNCTUATION,
