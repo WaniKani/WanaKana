@@ -1,41 +1,9 @@
-const resolve = require('rollup-plugin-node-resolve');
-const babel = require('rollup-plugin-babel');
-const commonjs = require('rollup-plugin-commonjs');
-const uglify = require('rollup-plugin-uglify');
+const resolve = require('@rollup/plugin-node-resolve');
+const babel = require('@rollup/plugin-babel');
+const commonjs = require('@rollup/plugin-commonjs');
+const terser = require('rollup-plugin-terser');
 const util = require('./util');
 const { SOURCE_DIR, OUT_DIR, PACKAGE_NAME } = util;
-
-const cjsConfig = {
-  presets: [
-    [
-      'env',
-      {
-        modules: false,
-        useBuiltIns: 'entry',
-        targets: {
-          node: '8',
-        },
-      },
-    ],
-  ],
-  plugins: ['external-helpers'],
-};
-
-const umdConfig = {
-  presets: [
-    [
-      'env',
-      {
-        modules: false,
-        useBuiltIns: 'entry',
-        targets: {
-          browsers: ['last 2 versions', '> 1%', 'not IE < 11'],
-        },
-      },
-    ],
-  ],
-  plugins: ['external-helpers'],
-};
 
 export default [
   {
@@ -49,9 +17,19 @@ export default [
       resolve(),
       commonjs(),
       babel({
-        babelrc: false,
-        exclude: 'node_modules/**',
-        ...cjsConfig,
+        babelHelpers: 'bundled',
+        presets: [
+          [
+            'env',
+            {
+              modules: false,
+              useBuiltIns: 'entry',
+              targets: {
+                node: '12',
+              },
+            },
+          ],
+        ],
       }),
     ],
   },
@@ -66,9 +44,19 @@ export default [
       resolve(),
       commonjs(),
       babel({
-        babelrc: false,
-        exclude: 'node_modules/**',
-        ...umdConfig,
+        babelHelpers: 'bundled',
+        presets: [
+          [
+            'env',
+            {
+              modules: false,
+              useBuiltIns: 'entry',
+              targets: {
+                browsers: ['last 2 versions', '> 1%'],
+              },
+            },
+          ],
+        ],
       }),
     ],
   },
@@ -84,18 +72,21 @@ export default [
       resolve(),
       commonjs(),
       babel({
-        babelrc: false,
-        exclude: 'node_modules/**',
-        ...umdConfig,
+        babelHelpers: 'bundled',
+        presets: [
+          [
+            'env',
+            {
+              modules: false,
+              useBuiltIns: 'entry',
+              targets: {
+                browsers: ['last 2 versions', '> 1%'],
+              },
+            },
+          ],
+        ],
       }),
-      uglify({
-        compress: {
-          pure_getters: true,
-          unsafe: true,
-          unsafe_comps: true,
-          warnings: false,
-        },
-      }),
+      terser(),
     ],
   },
 ];

@@ -10,9 +10,8 @@
           {
             "loose": true,
             "modules": false,
-            "useBuiltIns": "usage",
             "targets": {
-              "node": true
+              "node": "12"
             }
           }
         ]

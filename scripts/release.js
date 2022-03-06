@@ -34,7 +34,7 @@ const PACKAGE_JSON = {
     'bugs',
   ],
   extraFields: {
-    'engines': { node: '>=8' },
+    'engines': { node: '>=12' },
     'main': 'wanakana.js',
     'react-native': 'wanakana.js',
     'module': 'es/index.js',
