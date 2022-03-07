@@ -44,7 +44,6 @@ export const DEFAULT_OPTIONS = {
   useObsoleteKana: false,
   passRomaji: false,
   upcaseKatakana: false,
-  ignoreCase: false,
   IMEMode: false,
   convertLongVowelMark: true,
   romanization: ROMANIZATIONS.HEPBURN,
