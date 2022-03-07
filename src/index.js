@@ -1,5 +1,3 @@
-import 'babel-polyfill';
-
 // IME event listener DOM helpers
 export { default as bind } from './bind';
 export { default as unbind } from './unbind';
