@@ -1,6 +1,5 @@
-const wk = require('../../dist/umd/wanakana');
+const wk = require('../../dist/wanakana');
 
-/* eslint-disable no-sequences */
 Cypress.Commands.add('wkBind', { prevSubject: true }, ($el, options) => {
   wk.bind($el.get(0), options);
   return $el;
@@ -20,7 +19,6 @@ Cypress.Commands.add('setRange', { prevSubject: true }, ($el, start, end) => {
   $el.get(0).setSelectionRange(start, end);
   return $el;
 });
-/* eslint-enable no-sequences */
 
 describe('binding & unbinding', () => {
   before(() => {

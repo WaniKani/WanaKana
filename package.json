@@ -37,7 +37,7 @@
     "cz": "git-cz",
     "cypress:server": "static-server -p 9080 -i './cypress/fixtures/test-input.html'",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --record",
+    "cypress:run": "cypress run",
     "cypress:test": "npm-run-all build --parallel --race cypress:server cypress:run",
     "cypress:watch": "npm-run-all --parallel --race build:watch cypress:server cypress:open",
     "predocs": "rimraf ./gh-pages/docs",
