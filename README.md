@@ -25,13 +25,11 @@
 
 Visit the [website](http://www.wanakana.com) to see WanaKana in action.
 
-## Usage
+## Quick Start
 
 ### Browser
 
-#### Use the minified (UMD) bundle (with legacy browser polyfills)
-
-[https://unpkg.com/wanakana](https://unpkg.com/wanakana)
+#### UMD bundle available via unpkg: [https://unpkg.com/wanakana](https://unpkg.com/wanakana)
 
 ```html
 <head>
@@ -48,7 +46,7 @@ Visit the [website](http://www.wanakana.com) to see WanaKana in action.
 </body>
 ```
 
-### Node
+### App
 
 #### Install
 
@@ -57,7 +55,7 @@ npm install wanakana
 ```
 
 ```javascript
-import * as wanakana from 'wanakana';
+import wanakana from 'wanakana';
 // or
 import { toKana, isRomaji } from 'wanakana';
 ```
@@ -147,10 +145,6 @@ wanakana.tokenize('hello 田中さん')
 wanakana.tokenize('I said 私はすごく悲しい', { compact: true })
 // => [ 'I said ', '私はすごく悲しい']
 ```
-
-## Important
-
-Only the browser build via unpkg or `wanakana/umd/*.js` includes full polyfills for older browsers.
 
 ## Contributing
 
