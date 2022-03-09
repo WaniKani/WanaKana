@@ -27,9 +27,7 @@ Visit the [website](http://www.wanakana.com) to see WanaKana in action.
 
 ## Usage
 
-### Browser
-
-#### Use the minified (UMD) bundle (with browser polyfills)
+### In the browser without a build step, use the minified (UMD) bundle (with browser polyfills)
 
 [https://unpkg.com/wanakana](https://unpkg.com/wanakana)
 
@@ -48,7 +46,7 @@ Visit the [website](http://www.wanakana.com) to see WanaKana in action.
 </body>
 ```
 
-### Node
+### ES Modules or Node
 
 #### Install
 
@@ -56,10 +54,18 @@ Visit the [website](http://www.wanakana.com) to see WanaKana in action.
 npm install wanakana
 ```
 
+#### ES Modules
+
 ```javascript
 import * as wanakana from 'wanakana';
 // or
 import { toKana, isRomaji } from 'wanakana';
+```
+
+#### Node (>=12 supported)
+
+```javascript
+const wanakana = require('wanakana');
 ```
 
 ## Documentation
