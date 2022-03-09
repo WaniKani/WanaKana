@@ -15,7 +15,9 @@
     [
       "@babel/env",
       {
-        "modules": false
+        "modules": false,
+        "useBuiltIns": "entry",
+        "corejs": 3
       }
     ]
   ]
