@@ -29,7 +29,7 @@ Visit the [website](http://www.wanakana.com) to see WanaKana in action.
 
 ### Browser
 
-#### Use the minified (UMD) bundle (with legacy browser polyfills)
+#### Use the minified (UMD) bundle (with browser polyfills)
 
 [https://unpkg.com/wanakana](https://unpkg.com/wanakana)
 
@@ -150,7 +150,7 @@ wanakana.tokenize('I said 私はすごく悲しい', { compact: true })
 
 ## Important
 
-Only the browser build via unpkg or `wanakana/umd/*.js` includes full polyfills for older browsers.
+Only the browser build via unpkg or the root `wanakana.min.js` includes polyfills for older browsers.
 
 ## Contributing
 
