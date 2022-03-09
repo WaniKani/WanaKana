@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Wanakana Input Test Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="../../dist/wanakana.min.js"></script>
+    <style>
+      input,
+      textarea {
+        display: block;
+        height: 3rem;
+        width: 50vw;
+        min-width: 300px;
+        max-width: 100vw;
+        line-height: 3rem;
+        font-size: 2rem;
+        margin: 0.5rem;
+      }
+    </style>
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Wanakana Input Test Page</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="../../dist/wanakana.js"></script>
-  <style>
-    input,
-    textarea {
-      display: block;
-      height: 3rem;
-      width: 50vw;
-      min-width: 300px;
-      max-width: 100vw;
-      line-height: 3rem;
-      font-size: 2rem;
-      margin: .5rem;
-    }
-  </style>
-</head>
-
-<body>
-  <form>
-    <input id="input" type="text" />
-    <input id="input2" type="text" />
-    <textarea id="textarea"></textarea>
-  </form>
-  <script>
-    // This is not used in cypress tests, this is just here as a shortcut
-    // if you want to open this page and pop wkbind() in devtools console
-    // to enable the inputs without having to write this out each page refresh.
-    wkbind = () => {
-      wanakana.bind(document.getElementById('input'), {}, true);
-      wanakana.bind(document.getElementById('input2'), { IMEMode: 'toKatakana' }, true);
-      wanakana.bind(document.getElementById('textarea'), {}, true);
-    }
-  </script>
-</body>
-
+  <body>
+    <form>
+      <input id="input" type="text" />
+      <input id="input2" type="text" />
+      <textarea id="textarea"></textarea>
+    </form>
+    <script>
+      // This is not used in cypress tests, this is just here as a shortcut
+      // if you want to open this page and pop wkbind() in devtools console
+      // to enable the inputs without having to write this out each page refresh.
+      wkbind = () => {
+        wanakana.bind(document.getElementById("input"), {}, true);
+        wanakana.bind(
+          document.getElementById("input2"),
+          { IMEMode: "toKatakana" },
+          true
+        );
+        wanakana.bind(document.getElementById("textarea"), {}, true);
+      };
+    </script>
+  </body>
 </html>

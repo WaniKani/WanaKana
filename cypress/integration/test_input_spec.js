@@ -1,4 +1,4 @@
-const wk = require('../../dist/wanakana');
+const wk = require('../../dist/wanakana.min');
 
 Cypress.Commands.add('wkBind', { prevSubject: true }, ($el, options) => {
   wk.bind($el.get(0), options);
