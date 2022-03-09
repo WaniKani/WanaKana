@@ -1,5 +1,5 @@
-# Browsers that we support
+# Environments that we support in the UMD build
 
 defaults
-not IE 11
+not dead
 maintained node versions
