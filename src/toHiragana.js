@@ -24,11 +24,11 @@ import toRomaji from './toRomaji';
 function toHiragana(input = '', options = {}) {
   const config = mergeWithDefaultOptions(options);
   if (config.passRomaji) {
-    return katakanaToHiragana(input, toRomaji);
+    return katakanaToHiragana(input, toRomaji, config);
   }
 
   if (isMixed(input, { passKanji: true })) {
-    const convertedKatakana = katakanaToHiragana(input, toRomaji);
+    const convertedKatakana = katakanaToHiragana(input, toRomaji, config);
     return toKana(convertedKatakana.toLowerCase(), config);
   }
 
@@ -36,7 +36,7 @@ function toHiragana(input = '', options = {}) {
     return toKana(input.toLowerCase(), config);
   }
 
-  return katakanaToHiragana(input, toRomaji);
+  return katakanaToHiragana(input, toRomaji, config);
 }
 
 export default toHiragana;

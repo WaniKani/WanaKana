@@ -51,8 +51,7 @@ export function toRomaji(input = '', options = {}, map) {
   return splitIntoRomaji(input, config, map)
     .map((romajiToken) => {
       const [start, end, romaji] = romajiToken;
-      const makeUpperCase =
-        config.upcaseKatakana && isKatakana(input.slice(start, end));
+      const makeUpperCase = config.upcaseKatakana && isKatakana(input.slice(start, end));
       return makeUpperCase ? romaji.toUpperCase() : romaji;
     })
     .join('');
@@ -67,7 +66,10 @@ function splitIntoRomaji(input, options, map) {
   }
 
   return applyMapping(
-    katakanaToHiragana(input, toRomaji, true),
+    katakanaToHiragana(input, toRomaji, {
+      isDestinationRomaji: true,
+      ...options,
+    }),
     map,
     !options.IMEMode
   );

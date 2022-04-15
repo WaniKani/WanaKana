@@ -46,10 +46,14 @@ describe('toHiragana()', () => {
     });
   });
 
-  describe('katakana choōnpu', () => {
-    it('converts to hiragana long vowels', () => {
+  describe('convertLongVowelMark', () => {
+    it('when true (default) it converts to hiragana long vowels', () => {
       expect(toHiragana('スーパー')).toEqual('すうぱあ');
       expect(toHiragana('バンゴー')).toEqual('ばんごう');
+    });
+
+    it('when false it prevents conversion to hiragana long vowels', () => {
+      expect(toHiragana('ラーメン', { convertLongVowelMark: false })).toEqual('らーめん');
     });
   });
 
