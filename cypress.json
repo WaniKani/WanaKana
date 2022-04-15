@@ -1,3 +1,5 @@
 {
-  "projectId": "tmdhov"
+  "projectId": "tmdhov",
+  "baseUrl": "http://localhost:9080",
+  "videoUploadOnPasses": false
 }

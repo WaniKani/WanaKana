@@ -1,11 +1,5 @@
-const wk = require('../../dist/umd/wanakana');
+const wk = require('../../dist/wanakana.min');
 
-Cypress.config({
-  baseUrl: 'http://localhost:9080',
-  videoUploadOnPasses: false,
-});
-
-/* eslint-disable no-sequences */
 Cypress.Commands.add('wkBind', { prevSubject: true }, ($el, options) => {
   wk.bind($el.get(0), options);
   return $el;
@@ -25,7 +19,6 @@ Cypress.Commands.add('setRange', { prevSubject: true }, ($el, start, end) => {
   $el.get(0).setSelectionRange(start, end);
   return $el;
 });
-/* eslint-enable no-sequences */
 
 describe('binding & unbinding', () => {
   before(() => {
@@ -33,17 +26,17 @@ describe('binding & unbinding', () => {
   });
   it('throws if invalid element passed to bind()', () => {
     cy.get('form').then(($el) => {
-      expect(() => wk.bind('nah')).throws(Error);
-      expect(() => wk.bind([])).throws(Error);
-      expect(() => wk.bind($el.get(0))).throws(Error);
+      expect(() => wk.bind('nah')).throws();
+      expect(() => wk.bind([])).throws();
+      expect(() => wk.bind($el.get(0))).throws();
     });
   });
 
   it('throws if invalid element passed to unbind()', () => {
     cy.get('#input').then(($el) => {
-      expect(() => wk.unbind('nah')).throws(Error);
-      expect(() => wk.unbind([])).throws(Error);
-      expect(() => wk.unbind($el.get(0))).throws(Error);
+      expect(() => wk.unbind('nah')).throws();
+      expect(() => wk.unbind([])).throws();
+      expect(() => wk.unbind($el.get(0))).throws();
     });
   });
 
@@ -203,7 +196,6 @@ describe('default IME conversions', () => {
       .trigger('input')
       .should('have.value', 'かnyな')
       .type('a')
-      .should('have.value', 'かnyaな')
       .setRange(4, 4)
       .trigger('input')
       .should('have.value', 'かにゃな')
@@ -220,7 +212,6 @@ describe('default IME conversions', () => {
       .trigger('input')
       .should('have.value', 'カnyナ')
       .type('a')
-      .should('have.value', 'カnyaナ')
       .setRange(4, 4)
       .trigger('input')
       .should('have.value', 'カニャナ');
@@ -374,7 +365,6 @@ describe('default IME conversions', () => {
       .type('wanakana')
       .should('have.value', 'わなかな')
       .type('{leftArrow}{leftArrow}shi')
-      .should('have.value', 'わなshiかな')
       .setRange(5, 5)
       .trigger('input')
       .should('have.value', 'わなしかな')
@@ -382,7 +372,6 @@ describe('default IME conversions', () => {
       .type('wanakana')
       .should('have.value', 'ワナカナ')
       .type('{leftArrow}{leftArrow}shi')
-      .should('have.value', 'ワナshiカナ')
       .setRange(5, 5)
       .trigger('input')
       .should('have.value', 'ワナシカナ');
@@ -394,7 +383,6 @@ describe('default IME conversions', () => {
       .type('koskoskosko')
       .should('have.value', 'こsこsこsこ')
       .type('{leftArrow}{leftArrow}{leftArrow}o')
-      .should('have.value', 'こsこsoこsこ')
       .setRange(5, 5)
       .trigger('input')
       .should('have.value', 'こsこそこsこ')
@@ -402,7 +390,6 @@ describe('default IME conversions', () => {
       .type('koskoskosko')
       .should('have.value', 'コsコsコsコ')
       .type('{leftArrow}{leftArrow}{leftArrow}o')
-      .should('have.value', 'コsコsoコsコ')
       .setRange(5, 5)
       .trigger('input')
       .should('have.value', 'コsコソコsコ');

@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - 8 # LTS as of 2017
+  - 12 # LTS as of 2022
 
 script:
   - npm run test:coverage

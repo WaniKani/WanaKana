@@ -1,6 +1,5 @@
 const path = require('path');
 const chalk = require('chalk');
-const { flowRight: compose } = require('lodash');
 
 const BASE_PACKAGE = require('../package.json');
 const PACKAGE_NAME = process.env.npm_package_name;
@@ -10,10 +9,9 @@ const OUT_DIR = path.resolve('./dist');
 const SITE_DIR = path.resolve('./gh-pages');
 const SITE_JS_DIR = path.resolve(SITE_DIR, 'assets', 'js');
 
-const consoleLog = console.log.bind(console); // eslint-disable-line no-console
-const log = compose(consoleLog, chalk.bold);
-const logSuccess = compose(consoleLog, chalk.green.bold);
-const logError = compose(consoleLog, chalk.red.bold);
+const log = (message) => console.log(chalk.bold(message));
+const logSuccess = (message) => console.log(chalk.green.bold(message));
+const logError = (message) => console.log(chalk.red.bold(message));
 
 const execSuccess = ({ code }) => code === 0;
 const execFail = (result) => !execSuccess(result);

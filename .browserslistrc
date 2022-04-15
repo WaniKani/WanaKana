@@ -1,0 +1,5 @@
+# Environments that we support in the UMD build
+
+defaults
+not dead
+maintained node versions

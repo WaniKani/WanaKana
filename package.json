@@ -25,43 +25,75 @@
     "url": "https://github.com/WaniKani/WanaKana/issues"
   },
   "devEngines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "scripts": {
     "prebuild": "rimraf ./dist",
-    "build": "npm-run-all --parallel build:es build:rollup",
-    "build:es": "cross-env BABEL_ENV=es babel ./src -d ./dist/es",
-    "build:rollup": "rollup -c ./scripts/rollup.config.js",
+    "build": "rollup -c",
     "build:watch": "onchange './src/**/*.js' -- npm run build",
     "precommit": "lint-staged",
     "cz": "git-cz",
     "cypress:server": "static-server -p 9080 -i './cypress/fixtures/test-input.html'",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --record",
+    "cypress:run": "cypress run",
     "cypress:test": "npm-run-all build --parallel --race cypress:server cypress:run",
     "cypress:watch": "npm-run-all --parallel --race build:watch cypress:server cypress:open",
     "predocs": "rimraf ./gh-pages/docs",
     "docs": "node_modules/.bin/jsdoc -c jsdoc.json --verbose",
     "docs:watch": "onchange './src/**/*.js' -- npm run docs",
-    "docs:view": "opn ./gh-pages/docs/index.html",
+    "docs:view": "open ./gh-pages/docs/index.html",
     "demo:view": "npm run build && static-server ./gh-pages",
     "pretest": "rimraf ./coverage",
     "test": "jest",
     "test:fast": "npm run test -- --testNamePattern='^(?!.*Performance)'",
     "test:watch": "npm run test:fast -- --watch",
     "test:coverage": "npm run test -- --coverage",
-    "test:view": "opn ./coverage/lcov-report/index.html",
+    "test:view": "open ./coverage/lcov-report/index.html",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "release": "node ./scripts/release.js",
     "format": "prettier-eslint --write",
     "lint": "eslint --color",
     "lint:js": "npm run lint -- ./src/**/*.js"
   },
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "benchmark": "^2.1.4",
+    "commitizen": "^4.2.4",
+    "core-js": "3",
+    "coveralls": "^3.1.1",
+    "cross-env": "^7.0.3",
+    "cypress": "^9.5.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "^2.25.4",
+    "gh-pages": "^3.2.3",
+    "husky": "^7.0.4",
+    "jest": "^27.5.1",
+    "jsdoc": "^3.6.10",
+    "jsdoc-template": "https://github.com/braintree/jsdoc-template.git",
+    "just-pick": "^4.0.1",
+    "lint-staged": "^12.3.5",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0",
+    "open-cli": "^7.0.1",
+    "prettier-eslint-cli": "^5.0.1",
+    "readline-sync": "^1.4.10",
+    "replace-in-file": "^6.3.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.70.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "shelljs": "^0.8.5",
+    "static-server": "^3.0.0"
+  },
   "lint-staged": {
     "src/**/*.js": [
       "npm run format --",
-      "npm run lint --",
-      "git add"
+      "npm run lint --"
     ]
   },
   "jest": {
@@ -78,9 +110,6 @@
         "statements": 95
       }
     },
-    "transform": {
-      "^.+\\.js$": "babel-jest"
-    },
     "coverageDirectory": "./coverage",
     "collectCoverageFrom": [
       "src/**/*.js",
@@ -92,50 +121,6 @@
       "!src/**/dom.js",
       "!src/**/logInputEvents.js"
     ]
-  },
-  "devDependencies": {
-    "babel-cli": "6.26.0",
-    "babel-core": "6.26.3",
-    "babel-eslint": "8.2.3",
-    "babel-jest": "22.4.3",
-    "babel-plugin-external-helpers": "6.22.0",
-    "babel-plugin-transform-es2017-object-entries": "0.0.4",
-    "babel-polyfill": "6.26.0",
-    "babel-preset-env": "1.6.1",
-    "benchmark": "2.1.4",
-    "commitizen": "2.9.6",
-    "core-js": "2.5.5",
-    "coveralls": "3.0.0",
-    "cross-env": "5.1.4",
-    "cypress": "2.1.0",
-    "cz-conventional-changelog": "2.1.0",
-    "eslint": "4.19.1",
-    "eslint-config-airbnb": "16.1.0",
-    "eslint-plugin-cypress": "2.0.1",
-    "eslint-plugin-import": "2.11.0",
-    "eslint-plugin-jsx-a11y": "6.0.3",
-    "eslint-plugin-react": "7.7.0",
-    "gh-pages": "1.1.0",
-    "husky": "0.14.3",
-    "jest": "22.4.3",
-    "jsdoc": "3.5.5",
-    "lint-staged": "7.0.5",
-    "npm-run-all": "4.1.2",
-    "onchange": "3.3.0",
-    "opn-cli": "3.1.0",
-    "prettier-eslint-cli": "4.7.1",
-    "readline-sync": "1.4.9",
-    "replace-in-file": "3.4.0",
-    "rimraf": "2.6.2",
-    "rollup": "0.58.2",
-    "rollup-plugin-babel": "3.0.4",
-    "rollup-plugin-commonjs": "9.1.2",
-    "rollup-plugin-node-resolve": "3.3.0",
-    "rollup-plugin-uglify": "3.0.0",
-    "static-server": "3.0.0"
-  },
-  "dependencies": {
-    "jsdoc-template": "https://github.com/braintree/jsdoc-template.git"
   },
   "config": {
     "commitizen": {

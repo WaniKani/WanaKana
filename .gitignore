@@ -1,5 +1,8 @@
 ## Repo specific
 dist
+cypress/videos
+cypress/screenshots
+
 # too many merge conflicts, always rebuilt before release/gh-pages publish anyway
 gh-pages/assets/js/wanakana*.*
 gh-pages/docs/

@@ -6,9 +6,9 @@ const {
 const semver = require('semver');
 const readline = require('readline-sync');
 const replace = require('replace-in-file');
-const pick = require('lodash/pick');
-const buildSite = require('./buildSite');
+const pick = require('just-pick');
 const ghpages = require('gh-pages');
+const buildSite = require('./buildSite');
 
 const {
   BASE_PACKAGE,
@@ -33,18 +33,20 @@ const PACKAGE_JSON = {
     'keywords',
     'bugs',
   ],
-  extraFields: {
-    'engines': { node: '>=8' },
-    'main': 'wanakana.js',
-    'react-native': 'wanakana.js',
-    'module': 'es/index.js',
-    'browser': 'umd/wanakana.min.js',
-    'unpkg': 'umd/wanakana.min.js',
+  addFields: {
+    'main': 'cjs/index.js',
+    'react-native': 'cjs/index.js',
+    'module': 'esm/index.js',
+    'engines': {
+      node: '>=12',
+    },
   },
 };
 
-const writePackage = (outDir, packageData) =>
-  fs.writeFileSync(path.resolve(outDir, 'package.json'), JSON.stringify(packageData, null, 2));
+const writePackage = (outDir, packageData) => fs.writeFileSync(
+  path.resolve(outDir, 'package.json'),
+  JSON.stringify(packageData, null, 2)
+);
 
 try {
   log('Preparing release...');
@@ -82,7 +84,9 @@ try {
     nextVersion = `${nextVersion}-${distTag}`;
   }
 
-  while (!(!nextVersion || (semver.valid(nextVersion) && semver.gt(nextVersion, version)))) {
+  while (
+    !(!nextVersion || (semver.valid(nextVersion) && semver.gt(nextVersion, version)))
+  ) {
     nextVersion = readline.question(
       `Must provide a valid version that is greater than ${version}, or leave blank to skip: `
     );
@@ -109,23 +113,29 @@ try {
   }
 
   log('Copying additional project files...');
-  const additionalProjectFiles = ['README.md', 'CHANGELOG.md', 'package.json', 'LICENSE'];
+
+  const additionalProjectFiles = [
+    'README.md',
+    'CHANGELOG.md',
+    'package.json',
+    'LICENSE',
+  ];
 
   additionalProjectFiles.forEach((filename) => {
-    const src = path.resolve(process.cwd(), filename);
-    if (!test('-e', src)) {
-      logError(`Unable to resolve ${src}`);
+    const file = path.resolve(process.cwd(), filename);
+    if (!test('-e', file)) {
+      logError(`Unable to resolve ${file}`);
       exit(1);
     }
-    cp('-Rf', src, path.resolve(OUT_DIR));
+    cp('-Rf', file, path.resolve(OUT_DIR));
   });
 
   log('Updating release package.json...');
-  const updatedPackage = Object.assign({}, BASE_PACKAGE, { version: nextVersion });
+  const updatedPackage = Object.assign(BASE_PACKAGE, { version: nextVersion });
+
   const releasePackage = Object.assign(
-    {},
     pick(updatedPackage, PACKAGE_JSON.keepFields),
-    PACKAGE_JSON.extraFields
+    PACKAGE_JSON.addFields
   );
 
   writePackage(OUT_DIR, releasePackage);
@@ -136,12 +146,17 @@ try {
     exit(0);
   }
 
-  const otp = readline.question('Enter NPM account Authenticator otp (blank to skip)');
+  const otp = readline.question(
+    'Enter NPM account Authenticator otp (blank to skip)'
+  );
 
   log('Publishing...');
   if (
     execFail(
-      exec(`cd ${OUT_DIR} && npm publish${otp && ` --otp=${otp}`}${distTag && ` --tag ${distTag}`}`)
+      exec(
+        `cd ${OUT_DIR} && npm publish${otp && ` --otp=${otp}`}${distTag
+          && ` --tag ${distTag}`}`
+      )
     )
   ) {
     logError('Publish failed. Aborting release.');
