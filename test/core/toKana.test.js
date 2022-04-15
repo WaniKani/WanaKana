@@ -22,6 +22,12 @@ describe('toKana()', () => {
   it('WaniKani -> わにかに - Mixed case returns hiragana (katakana only if all letters of mora are uppercased).', () =>
     expect(toKana('WaniKani')).toBe('わにかに'));
 
+  it('Converts Ryukyuan / earlier japanese k constructions', () => {
+    expect(toKana('kwi kuxi kuli kwe kuxe kule kwo kuxo kulo')).toBe(
+      'くぃ くぃ くぃ くぇ くぇ くぇ くぉ くぉ くぉ'
+    );
+  });
+
   it('Non-romaji will be passed through.', () =>
     expect(toKana('ワニカニ AiUeO 鰐蟹 12345 @#$%')).toBe('ワニカニ アいウえオ 鰐蟹 12345 @#$%'));
 
