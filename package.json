@@ -90,6 +90,10 @@
     "shelljs": "^0.8.5",
     "static-server": "^3.0.0"
   },
+   "dependencies": {
+    "dequal": "^2.0.2",
+    "memoize-one": "^6.0.0"
+  },
   "lint-staged": {
     "src/**/*.js": [
       "npm run format --",
