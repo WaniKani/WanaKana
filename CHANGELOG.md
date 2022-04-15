@@ -24,6 +24,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
+## [5.0.0] - 2022-04-15
+
+### Fixed
+
+- When a custom mapping was provided in options and then a different one was given, we only replaced the mapping with the new one when a previous one did not exist. Now we will always replace the custom mapping when it changes. https://github.com/WaniKani/WanaKana/pull/132
+
+### Added
+
+- Support for converting some k-- constructions. https://github.com/WaniKani/WanaKana/issues/126
+- Allow user to ignore converting long vowel mark in toHiragana. https://github.com/WaniKani/WanaKana/issues/128
+
+
+### Changed
+
+- The UMD build now only includes polyfills for browserslist defaults (> 0.5%, last 2 versions, Firefox ESR, not dead - at time of writing) which drops support for IE.
+- Node support is now 12+ (though likely would continue to work fine on older versions)
+
+
 ## [4.0.2] - 2018-04-30
 
 ### Added
