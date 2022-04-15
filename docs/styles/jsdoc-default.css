@@ -359,7 +359,8 @@ nav>ul>li>a {
 }
 
 nav ul ul {
-    margin-bottom: 10px padding-left: 0;
+    margin-bottom: 10px;
+    padding-left: 0;
 }
 
 nav ul ul a {
@@ -465,14 +466,9 @@ footer {
 }
 
 .details ul {
-    margin: 0
+    list-style-type: none;
+    margin: 0;
 }
-
-.details ul {
-    list-style-type: none
-}
-
-.details li {}
 
 .details pre.prettyprint {
     margin: 0

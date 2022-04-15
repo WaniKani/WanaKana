@@ -259,6 +259,9 @@ wanakana.bind(input);</code></pre>
                   <span class="indent">
                     upcaseKatakana: false,
                   </span>
+                  <span class="indent">
+                    convertLongVowelMark: true,
+                  </span>
                   <span class="indent">customKanaMapping: {},</span>
                   <span class="indent">customRomajiMapping: {}</span>
                   }
@@ -273,6 +276,7 @@ wanakana.bind(input);</code></pre>
                   </p>
                   <p>passRomaji: Pass through romaji when using toKatakana() or toHiragana()</p>
                   <p>upcaseKatakana: Convert katakana to uppercase when using toRomaji()</p>
+                  <p>convertLongVowelMark: Convert 'ー' (e.g. スー to すう) with toHiragana()</p>
                   <p>customKanaMapping: custom map to be merged with default in toKana()</p>
                   <p>customRomajiMapping: custom map to be merged with default in toRomaji()</p>
                 </td>
@@ -324,6 +328,12 @@ wanakana.bind(input);</code></pre>
                   <a href="https://github.com/profburke/WanaKanaSwift" title="View WanaKanaSwift">WanaKanaSwift</a>
                 </td>
               </tr>
+              <tr>
+                <td>Kotlin</td>
+                <td>
+                  <a href="https://github.com/esnaultdev/wanakana-kt" title="View WanaKanaKotlin">WanaKanaKotlin</a>
+                </td>
+              </tr>
             </tbody>
           </table>
 
@@ -362,7 +372,6 @@ wanakana.bind(input);</code></pre>
   </div>
   <!-- content -->
 
-  <script src="assets/js/version.js" type="text/javascript"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="assets/js/jquery.autosize.min.js" type="text/javascript"></script>
   <script src="assets/js/rainbow.min.js" type="text/javascript"></script>

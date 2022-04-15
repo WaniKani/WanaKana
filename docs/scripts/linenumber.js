@@ -1,6 +1,5 @@
 'use strict';
 
-/* global document */
 (function () {
   var lineId, lines, totalLines, anchorHash;
   var source = document.getElementsByClassName('prettyprint source linenums');

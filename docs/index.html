@@ -18,6 +18,7 @@
 
   <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
   <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+  
 
   
 
@@ -70,6 +71,8 @@
       WanaKana
     </h3>
 
+    
+
     <h3 id="global-nav">Global</h3><ul><li><a href="global.html#bind">bind</a></li><li><a href="global.html#defaultOptions">defaultOptions</a></li><li><a href="global.html#isHiragana">isHiragana</a></li><li><a href="global.html#isJapanese">isJapanese</a></li><li><a href="global.html#isKana">isKana</a></li><li><a href="global.html#isKanji">isKanji</a></li><li><a href="global.html#isKatakana">isKatakana</a></li><li><a href="global.html#isMixed">isMixed</a></li><li><a href="global.html#isRomaji">isRomaji</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li><li><a href="global.html#toHiragana">toHiragana</a></li><li><a href="global.html#toKana">toKana</a></li><li><a href="global.html#toKatakana">toKatakana</a></li><li><a href="global.html#tokenize">tokenize</a></li><li><a href="global.html#toRomaji">toRomaji</a></li><li><a href="global.html#unbind">unbind</a></li></ul>
   </nav>
 
@@ -105,14 +108,15 @@
     <img src="https://img.shields.io/badge/cypress-dashboard-brightgreen.svg" alt="Cypress Dashboard" />
   </a>
 </div>
-
 <div align="center">
 <h1>ワナカナ &lt;--&gt; WanaKana &lt;--&gt; わなかな</h1>
 <h4>Javascript utility library for detecting and transliterating Hiragana, Katakana, and Romaji</h4>
 </div>
-
-<h2>Demo</h2><p>Visit the <a href="http://www.wanakana.com">website</a> to see WanaKana in action.</p>
-<h2>Usage</h2><h3>Browser</h3><h4>Use the minified (UMD) bundle (with legacy browser polyfills)</h4><p><a href="https://unpkg.com/wanakana">https://unpkg.com/wanakana</a></p>
+<h2>Demo</h2>
+<p>Visit the <a href="http://www.wanakana.com">website</a> to see WanaKana in action.</p>
+<h2>Usage</h2>
+<h3>In the browser without a build step, use the minified (UMD) bundle (with browser polyfills)</h3>
+<p><a href="https://unpkg.com/wanakana">https://unpkg.com/wanakana</a></p>
 <pre class="prettyprint source lang-html"><code>&lt;head>
   &lt;meta charset=&quot;UTF-8&quot;>
   &lt;script src=&quot;https://unpkg.com/wanakana&quot;>&lt;/script>
@@ -124,10 +128,24 @@
     wanakana.bind(textInput, /* options */); // uses IMEMode with toKana() as default
     // to remove event listeners: wanakana.unbind(textInput);
   &lt;/script>
-&lt;/body></code></pre><h3>Node</h3><h4>Install</h4><pre class="prettyprint source lang-shell"><code>npm install wanakana</code></pre><pre class="prettyprint source lang-javascript"><code>import * as wanakana from 'wanakana';
+&lt;/body>
+</code></pre>
+<h3>ES Modules or Node</h3>
+<h4>Install</h4>
+<pre class="prettyprint source lang-shell"><code>npm install wanakana
+</code></pre>
+<h4>ES Modules</h4>
+<pre class="prettyprint source lang-javascript"><code>import * as wanakana from 'wanakana';
 // or
-import { toKana, isRomaji } from 'wanakana';</code></pre><h2>Documentation</h2><p><a href="http://www.wanakana.com/docs/global.html">Extended API reference</a></p>
-<h2>Quick Reference</h2><pre class="prettyprint source lang-javascript"><code>/*** DOM HELPERS ***/
+import { toKana, isRomaji } from 'wanakana';
+</code></pre>
+<h4>Node (&gt;=12 supported)</h4>
+<pre class="prettyprint source lang-javascript"><code>const wanakana = require('wanakana');
+</code></pre>
+<h2>Documentation</h2>
+<p><a href="http://www.wanakana.com/docs/global.html">Extended API reference</a></p>
+<h2>Quick Reference</h2>
+<pre class="prettyprint source lang-javascript"><code>/*** DOM HELPERS ***/
 // Automatically converts text using an eventListener on input
 // Sets option: { IMEMode: true } with toKana() as converter by default
 wanakana.bind(domElement [, options]);
@@ -203,21 +221,29 @@ wanakana.tokenize('ふふフフ')
 wanakana.tokenize('hello 田中さん')
 // => ['hello', ' ', '田中', 'さん']
 wanakana.tokenize('I said 私はすごく悲しい', { compact: true })
-// => [ 'I said ', '私はすごく悲しい']</code></pre><h2>Important</h2><p>Only the browser build via unpkg or <code>wanakana/umd/*.js</code> includes full polyfills for older browsers.</p>
-<h2>Contributing</h2><p>Please see <a href="CONTRIBUTING.md">CONTRIBUTING.md</a></p>
-<h2>Contributors</h2><ul>
+// => [ 'I said ', '私はすごく悲しい']
+</code></pre>
+<h2>Important</h2>
+<p>Only the browser build via unpkg or the root <code>wanakana.min.js</code> includes polyfills for older browsers.</p>
+<h2>Contributing</h2>
+<p>Please see <a href="CONTRIBUTING.md">CONTRIBUTING.md</a></p>
+<h2>Contributors</h2>
+<ul>
 <li><a href="https://github.com/mimshwright">Mims H. Wright</a> – Author</li>
 <li><a href="https://github.com/DJTB">Duncan Bay</a> – Author</li>
 <li><a href="https://github.com/geggles">Geggles</a> – Contributor</li>
 <li><a href="https://github.com/dotfold">James McNamee</a> – Contributor</li>
 </ul>
-<h2>Credits</h2><p>Project sponsored by <a href="http://www.tofugu.com">Tofugu</a> &amp; <a href="http://www.wanikani.com">WaniKani</a></p>
-<h2>Ports</h2><p>The following ports have been created by the community:</p>
+<h2>Credits</h2>
+<p>Project sponsored by <a href="http://www.tofugu.com">Tofugu</a> &amp; <a href="http://www.wanikani.com">WaniKani</a></p>
+<h2>Ports</h2>
+<p>The following ports have been created by the community:</p>
 <ul>
 <li>Python (<a href="https://github.com/Starwort/wanakana-py">Starwort/wanakana-py</a>) on PyPI as <code>wanakana-python</code></li>
 <li>Java (<a href="https://github.com/MasterKale/WanaKanaJava">MasterKale/WanaKanaJava</a>)</li>
 <li>Rust (<a href="https://github.com/PSeitz/wana_kana_rust">PSeitz/wana_kana_rust</a>)</li>
 <li>Swift (<a href="https://github.com/profburke/WanaKanaSwift">profburke/WanaKanaSwift</a>)</li>
+<li>Kotlin (<a href="https://github.com/esnaultdev/wanakana-kt">esnaultdev/wanakana-kt</a>)</li>
 </ul>
     </article>
   </section>
@@ -231,13 +257,13 @@ wanakana.tokenize('I said 私はすごく悲しい', { compact: true })
   <br class="clear">
 
   <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a>
   </footer>
 
   <script src="scripts/linenumber.js"></script>
   <script src="scripts/pagelocation.js"></script>
 
   
-  
+
 </body>
 </html>
