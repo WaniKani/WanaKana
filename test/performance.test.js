@@ -17,16 +17,16 @@ describe('Performance', () => {
   const log = (bench) => {
     // eslint-disable-next-line no-console
     console.log(
-      `20 chars ${bench.name}\n` +
-        `Executed ${bench.count * bench.stats.sample.length} times\n` +
-        `Iterations per second: ${bench.hz}\n` +
-        `Mean: ${(bench.stats.mean * 1000).toFixed(2)} ms`
+      `20 chars ${bench.name}\n`
+        + `Executed ${bench.count * bench.stats.sample.length} times\n`
+        + `Iterations per second: ${bench.hz}\n`
+        + `Mean: ${(bench.stats.mean * 1000).toFixed(2)} ms`
     );
   };
 
   it(
     'mean romaji toKana as hiragana speed < 1ms',
-    async (done) => {
+    (done) => {
       const bench = Benchmark(
         'lowercase romaji toKana',
         () => toKana('aiueosashisusesonaninunenokakikukeko'),
@@ -45,7 +45,7 @@ describe('Performance', () => {
 
   it(
     'mean romaji toKana as katakana speed < 1ms',
-    async (done) => {
+    (done) => {
       const bench = Benchmark(
         'uppercase romaji toKana',
         () => toKana('AIUEOSASHISUSESONANINUNENOKAKIKUKEKO'),
@@ -64,7 +64,7 @@ describe('Performance', () => {
 
   it(
     'mean romaji toHiragana speed < 1ms',
-    async (done) => {
+    (done) => {
       const bench = Benchmark(
         'romaji toHiragana',
         () => toHiragana('aiueosashisusesonaninunenokakikukeko'),
@@ -83,7 +83,7 @@ describe('Performance', () => {
 
   it(
     'mean katakana toHiragana speed < 1ms',
-    async (done) => {
+    (done) => {
       const bench = Benchmark(
         'katakana toHiragana',
         () => toHiragana('アイウエオサシスセソナニヌネノカキクケコ'),
@@ -102,7 +102,7 @@ describe('Performance', () => {
 
   it(
     'mean romaji toKatakana speed < 1ms',
-    async (done) => {
+    (done) => {
       const bench = Benchmark(
         'romaji toKatakana',
         () => toKatakana('aiueosashisusesonaninunenokakikukeko'),
@@ -121,7 +121,7 @@ describe('Performance', () => {
 
   it(
     'mean hiragana toKatakana speed < 1ms',
-    async (done) => {
+    (done) => {
       const bench = Benchmark(
         'hiragana toKatakana',
         () => toKatakana('あいうえおさしすせそなにぬねのかきくけこ'),
@@ -140,7 +140,7 @@ describe('Performance', () => {
 
   it(
     'mean hiragana ToRomaji speed < 1ms',
-    async (done) => {
+    (done) => {
       const bench = Benchmark(
         'hiragana toRomaji',
         () => toRomaji('あいうえおさしすせそなにぬねのかきくけこ'),
@@ -159,7 +159,7 @@ describe('Performance', () => {
 
   it(
     'mean katakana ToRomaji speed < 1ms',
-    async (done) => {
+    (done) => {
       const bench = Benchmark(
         'katakana ToRomaji',
         () => toRomaji('アイウエオサシスセソナニヌネノカキクケコ'),
