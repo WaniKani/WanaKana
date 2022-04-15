@@ -65,11 +65,10 @@ function splitIntoRomaji(input, options, map) {
     );
   }
 
+  const config = Object.assign({}, { isDestinationRomaji: true }, options);
+
   return applyMapping(
-    katakanaToHiragana(input, toRomaji, {
-      isDestinationRomaji: true,
-      ...options,
-    }),
+    katakanaToHiragana(input, toRomaji, config),
     map,
     !options.IMEMode
   );
