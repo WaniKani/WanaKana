@@ -189,8 +189,7 @@ function createRomajiToKanaMap() {
 
   function getAlternatives(string) {
     return [...Object.entries(ALIASES), ...[['c', 'k']]].reduce(
-      (list, [alt, roma]) =>
-        (string.startsWith(roma) ? list.concat(string.replace(roma, alt)) : list),
+      (list, [alt, roma]) => (string.startsWith(roma) ? list.concat(string.replace(roma, alt)) : list),
       []
     );
   }
