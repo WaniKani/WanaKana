@@ -37,6 +37,7 @@ const PACKAGE_JSON = {
     'main': 'cjs/index.js',
     'react-native': 'cjs/index.js',
     'module': 'esm/index.js',
+    'unpkg': 'wanakana.min.js',
     'engines': {
       node: '>=12',
     },
