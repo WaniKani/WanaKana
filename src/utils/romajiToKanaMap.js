@@ -131,14 +131,8 @@ const AIUEO_CONSTRUCTIONS = {
 // https://github.com/WaniKani/WanaKana/issues/126
 const K_CONSTRUCTIONS = {
   kwi: 'くぃ',
-  kuxi: 'くぃ',
-  kuli: 'くぃ',
   kwe: 'くぇ',
-  kuxe: 'くぇ',
-  kule: 'くぇ',
   kwo: 'くぉ',
-  kuxo: 'くぉ',
-  kulo: 'くぉ',
 };
 
 /* eslint-enable */
