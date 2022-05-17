@@ -22,21 +22,30 @@ export function makeOnInput(options) {
   ];
 
   return function onInput({ target }) {
-    if (target.value !== prevInput && target.dataset.ignoreComposition !== 'true') {
+    if (
+      target.value !== prevInput
+      && target.dataset.ignoreComposition !== 'true'
+    ) {
       convertInput(target, mergedConfig, preConfiguredMap, triggers, prevInput);
     }
   };
 }
 
 export function convertInput(target, options, map, triggers, prevInput) {
-  const [head, textToConvert, tail] = splitInput(target.value, target.selectionEnd, triggers);
+  const [head, textToConvert, tail] = splitInput(
+    target.value,
+    target.selectionEnd,
+    triggers
+  );
   const convertedText = toKana(textToConvert, options, map);
   const changed = textToConvert !== convertedText;
 
   if (changed) {
     const newCursor = head.length + convertedText.length;
     const newValue = head + convertedText + tail;
+    // eslint-disable-next-line no-param-reassign
     target.value = newValue;
+    // eslint-disable-next-line no-param-reassign
     prevInput = newValue;
 
     if (tail.length) {
@@ -46,6 +55,7 @@ export function convertInput(target, options, map, triggers, prevInput) {
       target.setSelectionRange(newCursor, newCursor);
     }
   } else {
+    // eslint-disable-next-line no-param-reassign
     prevInput = target.value;
   }
 }
@@ -61,10 +71,12 @@ export function onComposition({ type, target, data }) {
   // Other platform Japanese IMEs pass through happily
   if (isMacOS) {
     if (type === 'compositionupdate' && isJapanese(data)) {
+      // eslint-disable-next-line no-param-reassign
       target.dataset.ignoreComposition = 'true';
     }
 
     if (type === 'compositionend') {
+      // eslint-disable-next-line no-param-reassign
       target.dataset.ignoreComposition = 'false';
     }
   }
@@ -83,7 +95,9 @@ export function untrackListeners({ id: targetId }) {
 }
 
 export function findListeners(el) {
-  return el && LISTENERS.find(({ id }) => id === el.getAttribute('data-wanakana-id'));
+  return (
+    el && LISTENERS.find(({ id }) => id === el.getAttribute('data-wanakana-id'))
+  );
 }
 
 // Handle non-terminal inserted input conversion:
@@ -100,8 +114,14 @@ export function splitInput(text = '', cursor = 0, triggers = []) {
   } else if (cursor > 0) {
     [head, toConvert, tail] = workBackwards(text, cursor);
   } else {
-    [head, toConvert] = takeWhileAndSlice(text, (char) => !triggers.includes(char));
-    [toConvert, tail] = takeWhileAndSlice(toConvert, (char) => !isJapanese(char));
+    [head, toConvert] = takeWhileAndSlice(
+      text,
+      (char) => !triggers.includes(char)
+    );
+    [toConvert, tail] = takeWhileAndSlice(
+      toConvert,
+      (char) => !isJapanese(char)
+    );
   }
 
   return [head, toConvert, tail];

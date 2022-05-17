@@ -37,13 +37,17 @@ export function applyMapping(string, mapping, convertEnding) {
     }
 
     if (Object.keys(tree).length === 1) {
-      return [[lastCursor, currentCursor, tree['']]].concat(newChunk(remaining, currentCursor));
+      return [[lastCursor, currentCursor, tree['']]].concat(
+        newChunk(remaining, currentCursor)
+      );
     }
 
     const subtree = nextSubtree(tree, remaining.charAt(0));
 
     if (subtree === undefined) {
-      return [[lastCursor, currentCursor, tree['']]].concat(newChunk(remaining, currentCursor));
+      return [[lastCursor, currentCursor, tree['']]].concat(
+        newChunk(remaining, currentCursor)
+      );
     }
     // continue current branch
     return parse(subtree, remaining.slice(1), lastCursor, currentCursor + 1);
@@ -57,6 +61,7 @@ export function applyMapping(string, mapping, convertEnding) {
 export function transform(tree) {
   return Object.entries(tree).reduce((map, [char, subtree]) => {
     const endOfBranch = typeOf(subtree) === 'string';
+    // eslint-disable-next-line no-param-reassign
     map[char] = endOfBranch ? { '': subtree } : transform(subtree);
     return map;
   }, {});
@@ -65,6 +70,7 @@ export function transform(tree) {
 export function getSubTreeOf(tree, string) {
   return string.split('').reduce((correctSubTree, char) => {
     if (correctSubTree[char] === undefined) {
+      // eslint-disable-next-line no-param-reassign
       correctSubTree[char] = {};
     }
     return correctSubTree[char];
@@ -105,10 +111,14 @@ export function createCustomMapping(customMap = {}) {
       if (mapSubtree === undefined || typeOf(mapSubtree) === 'string') {
         return customSubtree;
       }
-      return Object.entries(customSubtree).reduce((newSubtree, [char, subtree]) => {
-        newSubtree[char] = transformMap(mapSubtree[char], subtree);
-        return newSubtree;
-      }, mapSubtree);
+      return Object.entries(customSubtree).reduce(
+        (newSubtree, [char, subtree]) => {
+          // eslint-disable-next-line no-param-reassign
+          newSubtree[char] = transformMap(mapSubtree[char], subtree);
+          return newSubtree;
+        },
+        mapSubtree
+      );
     }
 
     return transformMap(mapCopy, customTree);

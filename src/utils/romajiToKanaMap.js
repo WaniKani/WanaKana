@@ -217,9 +217,11 @@ function createRomajiToKanaMap() {
     return Object.entries(tree).reduce((tsuTree, [key, value]) => {
       if (!key) {
         // we have reached the bottom of this branch
+        // eslint-disable-next-line no-param-reassign
         tsuTree[key] = `っ${value}`;
       } else {
         // more subtrees
+        // eslint-disable-next-line no-param-reassign
         tsuTree[key] = addTsu(value);
       }
       return tsuTree;

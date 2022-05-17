@@ -198,11 +198,13 @@ function resolveTsu(tree) {
     if (!key) {
       // we have reached the bottom of this branch
       const consonant = value.charAt(0);
+      // eslint-disable-next-line no-param-reassign
       tsuTree[key] = Object.keys(SOKUON_WHITELIST).includes(consonant)
         ? SOKUON_WHITELIST[consonant] + value
         : value;
     } else {
       // more subtrees
+      // eslint-disable-next-line no-param-reassign
       tsuTree[key] = resolveTsu(value);
     }
     return tsuTree;
