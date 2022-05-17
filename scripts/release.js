@@ -65,8 +65,8 @@ try {
   }
 
   log('Running tests...');
-  if (execFail(exec('npm-run-all lint:js test'))) {
-    logError('The test command did not exit cleanly. Aborting release.');
+  if (execFail(exec('npm-run-all lint:js test cypress:test'))) {
+    logError('The tests did not exit cleanly. Aborting release.');
     exit(1);
   }
   logSuccess('Tests were successful.');
