@@ -72,9 +72,8 @@ export function toKana(input = '', options = {}, map) {
         return input.slice(start);
       }
       const enforceHiragana = config.IMEMode === TO_KANA_METHODS.HIRAGANA;
-      const enforceKatakana =
-        config.IMEMode === TO_KANA_METHODS.KATAKANA ||
-        [...input.slice(start, end)].every(isCharUpperCase);
+      const enforceKatakana = config.IMEMode === TO_KANA_METHODS.KATAKANA
+        || [...input.slice(start, end)].every(isCharUpperCase);
 
       return enforceHiragana || !enforceKatakana
         ? kana

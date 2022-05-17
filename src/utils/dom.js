@@ -11,25 +11,39 @@ let LISTENERS = [];
  */
 export function makeOnInput(options) {
   let prevInput;
+
   // Enforce IMEMode if not already specified
   const mergedConfig = Object.assign({}, mergeWithDefaultOptions(options), {
     IMEMode: options.IMEMode || true,
   });
-  const preConfiguredMap = createRomajiToKanaMap(mergedConfig);
+
+  const preConfiguredMap = createRomajiToKanaMap(
+    mergedConfig.IMEMode,
+    mergedConfig.useObsoleteKana,
+    mergedConfig.customKanaMapping
+  );
+
   const triggers = [
     ...Object.keys(preConfiguredMap),
     ...Object.keys(preConfiguredMap).map((char) => char.toUpperCase()),
   ];
 
   return function onInput({ target }) {
-    if (target.value !== prevInput && target.dataset.ignoreComposition !== 'true') {
+    if (
+      target.value !== prevInput
+      && target.dataset.ignoreComposition !== 'true'
+    ) {
       convertInput(target, mergedConfig, preConfiguredMap, triggers, prevInput);
     }
   };
 }
 
 export function convertInput(target, options, map, triggers, prevInput) {
-  const [head, textToConvert, tail] = splitInput(target.value, target.selectionEnd, triggers);
+  const [head, textToConvert, tail] = splitInput(
+    target.value,
+    target.selectionEnd,
+    triggers
+  );
   const convertedText = toKana(textToConvert, options, map);
   const changed = textToConvert !== convertedText;
 
@@ -83,7 +97,9 @@ export function untrackListeners({ id: targetId }) {
 }
 
 export function findListeners(el) {
-  return el && LISTENERS.find(({ id }) => id === el.getAttribute('data-wanakana-id'));
+  return (
+    el && LISTENERS.find(({ id }) => id === el.getAttribute('data-wanakana-id'))
+  );
 }
 
 // Handle non-terminal inserted input conversion:
@@ -100,8 +116,14 @@ export function splitInput(text = '', cursor = 0, triggers = []) {
   } else if (cursor > 0) {
     [head, toConvert, tail] = workBackwards(text, cursor);
   } else {
-    [head, toConvert] = takeWhileAndSlice(text, (char) => !triggers.includes(char));
-    [toConvert, tail] = takeWhileAndSlice(toConvert, (char) => !isJapanese(char));
+    [head, toConvert] = takeWhileAndSlice(
+      text,
+      (char) => !triggers.includes(char)
+    );
+    [toConvert, tail] = takeWhileAndSlice(
+      toConvert,
+      (char) => !isJapanese(char)
+    );
   }
 
   return [head, toConvert, tail];
