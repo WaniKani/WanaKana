@@ -26,6 +26,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
+## [5.0.2] - 2022-05-17
+
+### Fixed
+
+- `bind()` was ignoring useObsoleteKana & customKanaMapping options
+- `ku` not converting immediately with `IMEMode`
+
 ## [5.0.!] - 2022-04-15
 
 ### Fixed
