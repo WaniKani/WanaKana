@@ -114,6 +114,7 @@ const SPECIAL_CASES = {
 
 const AIUEO_CONSTRUCTIONS = {
   wh: 'う',
+  kw: 'く',
   qw: 'く',
   q: 'く',
   gw: 'ぐ',
@@ -125,20 +126,6 @@ const AIUEO_CONSTRUCTIONS = {
   dw: 'ど',
   fw: 'ふ',
   f: 'ふ',
-};
-
-// Match other IME conversions
-// https://github.com/WaniKani/WanaKana/issues/126
-const K_CONSTRUCTIONS = {
-  kwi: 'くぃ',
-  kuxi: 'くぃ',
-  kuli: 'くぃ',
-  kwe: 'くぇ',
-  kuxe: 'くぇ',
-  kule: 'くぇ',
-  kwo: 'くぉ',
-  kuxo: 'くぉ',
-  kulo: 'くぉ',
 };
 
 /* eslint-enable */
@@ -156,10 +143,6 @@ function createRomajiToKanaMap() {
   });
 
   Object.entries(SPECIAL_SYMBOLS).forEach(([symbol, jsymbol]) => {
-    subtreeOf(symbol)[''] = jsymbol;
-  });
-
-  Object.entries(K_CONSTRUCTIONS).forEach(([symbol, jsymbol]) => {
     subtreeOf(symbol)[''] = jsymbol;
   });
 
@@ -223,9 +206,11 @@ function createRomajiToKanaMap() {
     return Object.entries(tree).reduce((tsuTree, [key, value]) => {
       if (!key) {
         // we have reached the bottom of this branch
+        // eslint-disable-next-line no-param-reassign
         tsuTree[key] = `っ${value}`;
       } else {
         // more subtrees
+        // eslint-disable-next-line no-param-reassign
         tsuTree[key] = addTsu(value);
       }
       return tsuTree;

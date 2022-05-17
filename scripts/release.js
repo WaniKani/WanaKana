@@ -71,13 +71,6 @@ try {
   }
   log('Looks good!');
 
-  log('Compiling build for testing...');
-  if (execFail(exec('npm run build'))) {
-    logError('The build command did not exit cleanly. Aborting release.');
-    exit(1);
-  }
-  log('Looks great!');
-
   log('Running tests...');
   if (execFail(exec('npm-run-all test cypress:test'))) {
     logError('The tests did not exit cleanly. Aborting release.');

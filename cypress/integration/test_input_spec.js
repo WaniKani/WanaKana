@@ -1,4 +1,5 @@
 const wk = require('../../dist/wanakana.min');
+const { ROMA_TO_HIRA_KATA } = require('../../test/helpers/conversionTables');
 
 Cypress.Commands.add('wkBind', { prevSubject: true }, ($el, options) => {
   wk.bind($el.get(0), options);
@@ -615,6 +616,46 @@ describe('emulate device keyboards and IMEs', () => {
         .trigger('compositionend')
         .trigger('input')
         .should('have.value', '買った');
+    });
+  });
+
+  describe('test every conversion table char (maybe go get a coffee...)', () => {
+    before(() => {
+      cy.get('#input').wkBind();
+      cy.get('#input2').wkBind({ IMEMode: wk.TO_KANA_METHODS.KATAKANA });
+    });
+
+    beforeEach(() => {
+      cy
+        .get('#input')
+        .clear()
+        .setRange(0, 0)
+        .get('#input2')
+        .clear()
+        .setRange(0, 0);
+    });
+
+    // NOTE: the table is created for non-ime mode; modify specific entries here
+    const IME_MODE_EXPECTATIONS = { n: ['n', 'n'], nn: ['ん', 'ン'], nanna: ['なんあ', 'ナンア'] };
+
+    ROMA_TO_HIRA_KATA.forEach((item) => {
+      const [romaji] = item;
+      const hasDifferentImeModeResult = IME_MODE_EXPECTATIONS[romaji];
+      let [, hiragana, katakana] = item;
+
+      if (hasDifferentImeModeResult) {
+        ([hiragana, katakana] = hasDifferentImeModeResult);
+      }
+
+      it(`${romaji} -> ${hiragana} & ${katakana} `, () => {
+        cy
+          .get('#input')
+          .type(romaji)
+          .should('have.value', hiragana)
+          .get('#input2')
+          .type(romaji)
+          .should('have.value', katakana);
+      });
     });
   });
 });

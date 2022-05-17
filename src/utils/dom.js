@@ -50,7 +50,9 @@ export function convertInput(target, options, map, triggers, prevInput) {
   if (changed) {
     const newCursor = head.length + convertedText.length;
     const newValue = head + convertedText + tail;
+    // eslint-disable-next-line no-param-reassign
     target.value = newValue;
+    // eslint-disable-next-line no-param-reassign
     prevInput = newValue;
 
     if (tail.length) {
@@ -60,6 +62,7 @@ export function convertInput(target, options, map, triggers, prevInput) {
       target.setSelectionRange(newCursor, newCursor);
     }
   } else {
+    // eslint-disable-next-line no-param-reassign
     prevInput = target.value;
   }
 }
@@ -75,10 +78,12 @@ export function onComposition({ type, target, data }) {
   // Other platform Japanese IMEs pass through happily
   if (isMacOS) {
     if (type === 'compositionupdate' && isJapanese(data)) {
+      // eslint-disable-next-line no-param-reassign
       target.dataset.ignoreComposition = 'true';
     }
 
     if (type === 'compositionend') {
+      // eslint-disable-next-line no-param-reassign
       target.dataset.ignoreComposition = 'false';
     }
   }
