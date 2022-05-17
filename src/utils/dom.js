@@ -11,11 +11,18 @@ let LISTENERS = [];
  */
 export function makeOnInput(options) {
   let prevInput;
+
   // Enforce IMEMode if not already specified
   const mergedConfig = Object.assign({}, mergeWithDefaultOptions(options), {
     IMEMode: options.IMEMode || true,
   });
-  const preConfiguredMap = createRomajiToKanaMap(mergedConfig);
+
+  const preConfiguredMap = createRomajiToKanaMap(
+    mergedConfig.IMEMode,
+    mergedConfig.useObsoleteKana,
+    mergedConfig.customKanaMapping
+  );
+
   const triggers = [
     ...Object.keys(preConfiguredMap),
     ...Object.keys(preConfiguredMap).map((char) => char.toUpperCase()),

@@ -60,16 +60,30 @@ try {
 
   log('Have you updated the changelog?');
   if (!readline.keyInYN('Yes I have!')) {
-    log('OK. Do that, then try again!');
+    log("OK, you're forgiven. But go do that now, then try again.");
     exit(0);
   }
 
-  log('Running tests...');
-  if (execFail(exec('npm-run-all lint:js test'))) {
-    logError('The test command did not exit cleanly. Aborting release.');
+  log('Smoke-test code...');
+  if (execFail(exec('npm run lint:js'))) {
+    logError('The lint command did not exit cleanly. Aborting release.');
     exit(1);
   }
-  logSuccess('Tests were successful.');
+  log('Looks good!');
+
+  log('Compiling build for testing...');
+  if (execFail(exec('npm run build'))) {
+    logError('The build command did not exit cleanly. Aborting release.');
+    exit(1);
+  }
+  log('Looks great!');
+
+  log('Running tests...');
+  if (execFail(exec('npm-run-all test cypress:test'))) {
+    logError('The tests did not exit cleanly. Aborting release.');
+    exit(1);
+  }
+  logSuccess('Kicking wickets!');
 
   const versionLoc = path.resolve('VERSION');
   const version = fs.readFileSync(versionLoc, 'utf8').trim();
@@ -105,7 +119,7 @@ try {
     exit(1);
   }
 
-  log('Building dist files...');
+  log('Building final dist files with updated version...');
   if (execFail(exec('npm run build'))) {
     logError('The build command did not exit cleanly. Aborting release.');
     exit(1);
