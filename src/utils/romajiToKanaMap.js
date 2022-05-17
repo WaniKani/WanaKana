@@ -114,6 +114,7 @@ const SPECIAL_CASES = {
 
 const AIUEO_CONSTRUCTIONS = {
   wh: 'う',
+  kw: 'く',
   qw: 'く',
   q: 'く',
   gw: 'ぐ',
@@ -125,14 +126,6 @@ const AIUEO_CONSTRUCTIONS = {
   dw: 'ど',
   fw: 'ふ',
   f: 'ふ',
-};
-
-// Match other IME conversions
-// https://github.com/WaniKani/WanaKana/issues/126
-const K_CONSTRUCTIONS = {
-  kwi: 'くぃ',
-  kwe: 'くぇ',
-  kwo: 'くぉ',
 };
 
 /* eslint-enable */
@@ -150,10 +143,6 @@ function createRomajiToKanaMap() {
   });
 
   Object.entries(SPECIAL_SYMBOLS).forEach(([symbol, jsymbol]) => {
-    subtreeOf(symbol)[''] = jsymbol;
-  });
-
-  Object.entries(K_CONSTRUCTIONS).forEach(([symbol, jsymbol]) => {
     subtreeOf(symbol)[''] = jsymbol;
   });
 
