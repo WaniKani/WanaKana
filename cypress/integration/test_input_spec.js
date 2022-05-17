@@ -1,4 +1,5 @@
 const wk = require('../../dist/wanakana.min');
+const { ROMA_TO_HIRA_KATA } = require('../../test/helpers/conversionTables');
 
 Cypress.Commands.add('wkBind', { prevSubject: true }, ($el, options) => {
   wk.bind($el.get(0), options);
@@ -128,6 +129,37 @@ describe('binding & unbinding', () => {
       .should('have.value', 'わにばなに')
       .wkUnbind()
       .clear();
+  });
+});
+
+describe('test every conversion table char', () => {
+  before(() => {
+    cy.get('#input').wkBind();
+    cy.get('#input2').wkBind({ IMEMode: wk.TO_KANA_METHODS.KATAKANA });
+  });
+
+  beforeEach(() => {
+    cy
+      .get('#input')
+      .clear()
+      .setRange(0, 0)
+      .get('#input2')
+      .clear()
+      .setRange(0, 0);
+  });
+
+  ROMA_TO_HIRA_KATA.forEach((item) => {
+    const [romaji, hiragana, katakana] = item;
+
+    it(`${romaji} -> ${hiragana}`, () => {
+      cy
+        .get('#input')
+        .type(romaji)
+        .should('have.value', hiragana)
+        .get('#input2')
+        .type(romaji)
+        .should('have.value', katakana);
+    });
   });
 });
 
