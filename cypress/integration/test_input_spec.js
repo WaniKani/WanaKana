@@ -67,6 +67,20 @@ describe('binding & unbinding', () => {
       .clear();
   });
 
+  it('should not bind already bound inputs', () => {
+    cy
+      .get('#input')
+      .wkBind()
+      .wkBind()
+      .type('wanakana')
+      .should('have.value', 'わなかな')
+      .wkUnbind()
+      .clear()
+      .type('wanakana')
+      .should('have.value', 'wanakana')
+      .clear();
+  });
+
   it('should handle concurrent separate bindings', () => {
     const [sel1, sel2, sel3] = ['#input', '#input2', '#textarea'];
     cy

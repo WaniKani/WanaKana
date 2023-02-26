@@ -25,6 +25,9 @@ function bind(element = {}, options = {}, debug = false) {
       )})`
     );
   }
+  if (element.hasAttribute('data-wanakana-id')) {
+    return;
+  }
   const onInput = makeOnInput(options);
   const id = newId();
   element.setAttribute('data-wanakana-id', id);
