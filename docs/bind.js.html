@@ -117,14 +117,25 @@ function bind(element = {}, options = {}, debug = false) {
       )})`
     );
   }
+  if (element.hasAttribute('data-wanakana-id')) {
+    return;
+  }
   const onInput = makeOnInput(options);
   const id = newId();
-  element.setAttribute('data-wanakana-id', id);
-  element.setAttribute('lang', 'ja');
-  element.setAttribute('autoCapitalize', 'none');
-  element.setAttribute('autoCorrect', 'off');
-  element.setAttribute('autoComplete', 'off');
-  element.setAttribute('spellCheck', 'false');
+  const attributes = [
+    { name: 'data-wanakana-id', value: id },
+    { name: 'lang', value: 'ja' },
+    { name: 'autoCapitalize', value: 'none' },
+    { name: 'autoCorrect', value: 'off' },
+    { name: 'autoComplete', value: 'off' },
+    { name: 'spellCheck', value: 'false' },
+  ];
+  const previousAttributes = {};
+  attributes.forEach((attribute) => {
+    previousAttributes[attribute.name] = element.getAttribute(attribute.name);
+    element.setAttribute(attribute.name, attribute.value);
+  });
+  element.dataset.previousAttributes = JSON.stringify(previousAttributes);
   element.addEventListener('input', onInput);
   element.addEventListener('compositionupdate', onComposition);
   element.addEventListener('compositionend', onComposition);
