@@ -15,7 +15,15 @@ export function unbind(element, debug = false) {
     );
   }
   const { inputHandler, compositionHandler } = listeners;
-  element.removeAttribute('data-wanakana-id');
+  const attributes = JSON.parse(element.dataset.previousAttributes);
+  Object.keys(attributes).forEach((key) => {
+    if (attributes[key]) {
+      element.setAttribute(key, attributes[key]);
+    } else {
+      element.removeAttribute(key);
+    }
+  });
+  element.removeAttribute('data-previous-attributes');
   element.removeAttribute('data-ignore-composition');
   element.removeEventListener('input', inputHandler);
   element.removeEventListener('compositionstart', compositionHandler);

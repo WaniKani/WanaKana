@@ -81,6 +81,49 @@ describe('binding & unbinding', () => {
       .clear();
   });
 
+  it('should remove added html attributes when unbound', () => {
+    cy
+      .get('#input')
+      .wkBind()
+      .should('have.attr', 'lang', 'ja')
+      .and('have.attr', 'autoCapitalize', 'none')
+      .and('have.attr', 'autoCorrect', 'off')
+      .and('have.attr', 'autoComplete', 'off')
+      .and('have.attr', 'spellCheck', 'false')
+      .wkUnbind()
+      .then((input) => {
+        expect(input[0].hasAttribute('lang')).to.be.false;
+        expect(input[0].hasAttribute('autoCapitalize')).to.be.false;
+        expect(input[0].hasAttribute('autoCorrect')).to.be.false;
+        expect(input[0].hasAttribute('autoComplete')).to.be.false;
+        expect(input[0].hasAttribute('spellCheck')).to.be.false;
+      });
+  });
+
+  it('should replace added html attributes when unbound', () => {
+    cy
+      .get('#input')
+      .then((input) => {
+        input[0].setAttribute('lang', 'de');
+        input[0].setAttribute('autoCapitalize', 'words');
+        input[0].setAttribute('autoComplete', 'name');
+        input[0].setAttribute('autoCorrect', 'on');
+        input[0].setAttribute('spellCheck', 'true');
+      })
+      .wkBind()
+      .should('have.attr', 'lang', 'ja')
+      .and('have.attr', 'autoCapitalize', 'none')
+      .and('have.attr', 'autoCorrect', 'off')
+      .and('have.attr', 'autoComplete', 'off')
+      .and('have.attr', 'spellCheck', 'false')
+      .wkUnbind()
+      .should('have.attr', 'lang', 'de')
+      .and('have.attr', 'autoCapitalize', 'words')
+      .and('have.attr', 'autoComplete', 'name')
+      .and('have.attr', 'autoCorrect', 'on')
+      .and('have.attr', 'spellCheck', 'true');
+  });
+
   it('should handle concurrent separate bindings', () => {
     const [sel1, sel2, sel3] = ['#input', '#input2', '#textarea'];
     cy
