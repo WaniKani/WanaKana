@@ -26,6 +26,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
+## [5.1.0] - 2023-02-03
+
+### Fixed
+
+- `bind()` could be used on the same element multiple times
+- `unbind()` now returns an element to its previous state (attributes etc)
+
+### Changed
+
+- `unbind()` removes the attributes that were added by Wanakana
+
 ## [5.0.2] - 2022-05-17
 
 ### Fixed
