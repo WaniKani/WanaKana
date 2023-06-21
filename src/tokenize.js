@@ -83,10 +83,10 @@ export function getType(input, compact = false) {
  * tokenize('truly 私は悲しい', { compact: true })
  * // ['truly ', '私は悲しい']
  *
- * tokenize('5romaji here...!?漢字ひらがな４カタ　カナ「ＳＨＩＯ」。！')
+ * tokenize('5romaji here...!?漢字ひらがなカタ　カナ４「ＳＨＩＯ」。！')
  * // [ '5', 'romaji', ' ', 'here', '...!?', '漢字', 'ひらがな', 'カタ', '　', 'カナ', '４', '「', 'ＳＨＩＯ', '」。！']
  *
- * tokenize('5romaji here...!?漢字ひらがな４カタ　カナ「ＳＨＩＯ」。！', { compact: true })
+ * tokenize('5romaji here...!?漢字ひらがなカタ　カナ４「ＳＨＩＯ」。！', { compact: true })
  * // [ '5', 'romaji here', '...!?', '漢字ひらがなカタ　カナ', '４「', 'ＳＨＩＯ', '」。！']
  *
  * tokenize('5romaji here...!?漢字ひらがなカタ　カナ４「ＳＨＩＯ」。！ لنذهب', { detailed: true })
