@@ -114,14 +114,14 @@ wanakana.toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'bana' }) });
 // => 'わにbanaに'
 
 wanakana.toHiragana('toukyou, オオサカ')
-// => 'とうきょう、　おおさか'
+// => 'とうきょう、 おおさか'
 wanakana.toHiragana('only カナ', { passRomaji: true })
 // => 'only かな'
 wanakana.toHiragana('wi', { useObsoleteKana: true })
 // => 'ゐ'
 
 wanakana.toKatakana('toukyou, おおさか')
-// => 'トウキョウ、　オオサカ'
+// => 'トウキョウ、 オオサカ'
 wanakana.toKatakana('only かな', { passRomaji: true })
 // => 'only カナ'
 wanakana.toKatakana('wi', { useObsoleteKana: true })
