@@ -183,3 +183,4 @@ The following ports have been created by the community:
 * Swift ([profburke/WanaKanaSwift](https://github.com/profburke/WanaKanaSwift))
 * Kotlin ([esnaultdev/wanakana-kt](https://github.com/esnaultdev/wanakana-kt))
 * C# ([kmoroz/WanaKanaShaapu](https://github.com/kmoroz/WanaKanaShaapu))
+* Go ([deelawn/wanakana](https://github.com/deelawn/wanakana))
