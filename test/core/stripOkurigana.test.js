@@ -13,6 +13,7 @@ describe.only('stripOkurigana', () => {
     expect(stripOkurigana('踏み込む')).toBe('踏み込');
     expect(stripOkurigana('使い方')).toBe('使い方');
     expect(stripOkurigana('申し申し')).toBe('申し申');
+    expect(stripOkurigana('人々')).toBe('人々');
     expect(stripOkurigana('お腹')).toBe('お腹');
     expect(stripOkurigana('お祝い')).toBe('お祝');
   });
