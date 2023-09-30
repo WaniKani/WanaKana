@@ -90,7 +90,7 @@
 
 <section>
   <article>
-    <pre class="prettyprint source linenums"><code>export const VERSION = '5.1.0';
+    <pre class="prettyprint source linenums"><code>export const VERSION = '5.2.0';
 
 export const TO_KANA_METHODS = {
   HIRAGANA: 'toHiragana',
@@ -159,8 +159,10 @@ export const KATAKANA_START = 0x30a1;
 export const KATAKANA_END = 0x30fc;
 export const KANJI_START = 0x4e00;
 export const KANJI_END = 0x9faf;
-export const PROLONGED_SOUND_MARK = 0x30fc;
-export const KANA_SLASH_DOT = 0x30fb;
+
+export const KANJI_ITERATION_MARK = 0x3005; // 々
+export const PROLONGED_SOUND_MARK = 0x30fc; // ー
+export const KANA_SLASH_DOT = 0x30fb; // ・
 
 const ZENKAKU_NUMBERS = [0xff10, 0xff19];
 const ZENKAKU_UPPERCASE = [UPPERCASE_ZENKAKU_START, UPPERCASE_ZENKAKU_END];
