@@ -26,6 +26,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
+## [5.2.0] - 2023-09-30
+
+### Fixed
+
+The iteration mark `々` was considered punctuation due to where it lies in unicode (alongside other punctuation). This caused some oddities in Wanakana when splitting characters. Since `々` acts like a kanji character in words, it is no longer considered punctuation in Wanakana. See #163 for further discussion.
+
+- `isKanji()` now returns true for `々`
+- `isPunctuation()` now returns false for `々`
+- `tokenize()` no longer splits on `々`
+- `stripOkurigana()` no longer splits on `々`
+
 ## [5.1.0] - 2023-02-03
 
 ### Fixed

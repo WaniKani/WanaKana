@@ -77,26 +77,29 @@ export function getType(input, compact = false) {
  * tokenize('感じ')
  * // ['感', 'じ']
  *
+ * tokenize('人々')
+ * // ['人々']
+ *
  * tokenize('truly 私は悲しい')
  * // ['truly', ' ', '私', 'は', '悲', 'しい']
  *
  * tokenize('truly 私は悲しい', { compact: true })
  * // ['truly ', '私は悲しい']
  *
- * tokenize('5romaji here...!?漢字ひらがな４カタ　カナ「ＳＨＩＯ」。！')
- * // [ '5', 'romaji', ' ', 'here', '...!?', '漢字', 'ひらがな', 'カタ', '　', 'カナ', '４', '「', 'ＳＨＩＯ', '」。！']
+ * tokenize('5romaji here...!?人々漢字ひらがなカタ　カナ４「ＳＨＩＯ」。！')
+ * // [ '5', 'romaji', ' ', 'here', '...!?', '人々漢字', 'ひらがな', 'カタ', '　', 'カナ', '４', '「', 'ＳＨＩＯ', '」。！']
  *
- * tokenize('5romaji here...!?漢字ひらがな４カタ　カナ「ＳＨＩＯ」。！', { compact: true })
- * // [ '5', 'romaji here', '...!?', '漢字ひらがなカタ　カナ', '４「', 'ＳＨＩＯ', '」。！']
+ * tokenize('5romaji here...!?人々漢字ひらがなカタ　カナ４「ＳＨＩＯ」。！', { compact: true })
+ * // [ '5', 'romaji here', '...!?', '人々漢字ひらがなカタ　カナ', '４「', 'ＳＨＩＯ', '」。！']
  *
- * tokenize('5romaji here...!?漢字ひらがなカタ　カナ４「ＳＨＩＯ」。！ لنذهب', { detailed: true })
+ * tokenize('5romaji here...!?人々漢字ひらがなカタ　カナ４「ＳＨＩＯ」。！ لنذهب', { detailed: true })
  * // [
  *  { type: 'englishNumeral', value: '5' },
  *  { type: 'en', value: 'romaji' },
  *  { type: 'space', value: ' ' },
  *  { type: 'en', value: 'here' },
  *  { type: 'englishPunctuation', value: '...!?' },
- *  { type: 'kanji', value: '漢字' },
+ *  { type: 'kanji', value: '人々漢字' },
  *  { type: 'hiragana', value: 'ひらがな' },
  *  { type: 'katakana', value: 'カタ' },
  *  { type: 'space', value: '　' },
@@ -109,12 +112,12 @@ export function getType(input, compact = false) {
  *  { type: 'other', value: 'لنذهب' },
  * ]
  *
- * tokenize('5romaji here...!?漢字ひらがなカタ　カナ４「ＳＨＩＯ」。！ لنذهب', { compact: true, detailed: true})
+ * tokenize('5romaji here...!?人々漢字ひらがなカタ　カナ４「ＳＨＩＯ」。！ لنذهب', { compact: true, detailed: true})
  * // [
  *  { type: 'other', value: '5' },
  *  { type: 'en', value: 'romaji here' },
  *  { type: 'other', value: '...!?' },
- *  { type: 'ja', value: '漢字ひらがなカタ　カナ' },
+ *  { type: 'ja', value: '人々漢字ひらがなカタ　カナ' },
  *  { type: 'other', value: '４「' },
  *  { type: 'ja', value: 'ＳＨＩＯ' },
  *  { type: 'other', value: '」。！' },

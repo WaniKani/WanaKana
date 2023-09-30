@@ -14,6 +14,7 @@ describe('isCharPunctuation', () => {
     expect(isCharPunctuation('a')).toBe(false);
     expect(isCharPunctuation('ふ')).toBe(false);
     expect(isCharPunctuation('字')).toBe(false);
+    expect(isCharPunctuation('々')).toBe(false);
     expect(isCharPunctuation('')).toBe(false);
   });
 });

@@ -7,6 +7,7 @@ describe('isKanji()', () => {
   });
   it('切腹 is kanji', () => expect(isKanji('切腹')).toBe(true));
   it('刀 is kanji', () => expect(isKanji('刀')).toBe(true));
+  it('人々 is kanji', () => expect(isKanji('人々')).toBe(true));
   it('emoji are not kanji', () => expect(isKanji('🐸')).toBe(false));
   it('あ is not kanji', () => expect(isKanji('あ')).toBe(false));
   it('ア is not kanji', () => expect(isKanji('ア')).toBe(false));
