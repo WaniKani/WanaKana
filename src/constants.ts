@@ -1,51 +1,64 @@
 export const VERSION = '5.2.0';
 
-export const TO_KANA_METHODS = {
+export const TO_KANA_METHODS: {
+  HIRAGANA: 'toHiragana',
+  KATAKANA: 'toKatakana',
+} = {
   HIRAGANA: 'toHiragana',
   KATAKANA: 'toKatakana',
 };
 
-export const ROMANIZATIONS = {
+export const ROMANIZATIONS: { HEPBURN: 'hepburn' } = {
   HEPBURN: 'hepburn',
 };
+
+export type DefaultOptions = {
+  useObsoleteKana?: boolean,
+  passRomaji?: boolean,
+  convertLongVowelMark?: boolean,
+  upcaseKatakana?: boolean,
+  IMEMode?: boolean | 'toHiragana' | 'toKatakana',
+  romanization?: 'hepburn',
+  customKanaMapping?: { [index: string]: string }
+  customRomajiMapping?: { [index: string]: string }
+}
 
 /**
  * Default config for WanaKana, user passed options will be merged with these
  * @type {DefaultOptions}
- * @name defaultOptions
- * @property {Boolean} [useObsoleteKana=false] - Set to true to use obsolete characters, such as ゐ and ゑ.
+ * @property {boolean} [useObsoleteKana=false] - Set to true to use obsolete characters, such as ゐ and ゑ.
  * @example
  * toHiragana('we', { useObsoleteKana: true })
  * // => 'ゑ'
- * @property {Boolean} [passRomaji=false] - Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana()
+ * @property {boolean} [passRomaji=false] - Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana()
  * @example
  * toHiragana('only convert the katakana: ヒラガナ', { passRomaji: true })
  * // => "only convert the katakana: ひらがな"
- * @property {Object} [convertLongVowelMark=true] - Set to false to prevent conversions of 'ー' to extended vowels with toHiragana()
+ * @property {boolean} [convertLongVowelMark=true] - Set to false to prevent conversions of 'ー' to extended vowels with toHiragana()
  * @example
  * toHiragana('ラーメン', { convertLongVowelMark: false });
  * // => 'らーめん
- * @property {Boolean} [upcaseKatakana=false] - Set to true to convert katakana to uppercase using toRomaji()
+ * @property {boolean} [upcaseKatakana=false] - Set to true to convert katakana to uppercase using toRomaji()
  * @example
  * toRomaji('ひらがな カタカナ', { upcaseKatakana: true })
  * // => "hiragana KATAKANA"
- * @property {Boolean|String} [IMEMode=false] - Set to true, 'toHiragana', or 'toKatakana' to handle conversion while it is being typed.
- * @property {String} [romanization='hepburn'] - choose toRomaji() romanization map (currently only 'hepburn')
- * @property {Object} [customKanaMapping] - custom map will be merged with default conversion
+ * @property {boolean | 'toHiragana' | 'toKatakana'} [IMEMode=false] - Set to true, 'toHiragana', or 'toKatakana' to handle conversion while it is being typed.
+ * @property {'hepburn'} [romanization='hepburn'] - choose toRomaji() romanization map (currently only 'hepburn')
+ * @property {{ [index: string]: string }} [customKanaMapping] - custom map will be merged with default conversion
  * @example
  * toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'Bana' }) };
  * // => 'わにBanaに'
- * @property {Object} [customRomajiMapping] - custom map will be merged with default conversion
+ * @property {{ [index: string]: string }} [customRomajiMapping] - custom map will be merged with default conversion
  * @example
  * toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' }) };
  * // => 'tuzigili'
  */
-export const DEFAULT_OPTIONS = {
+export const DEFAULT_OPTIONS: DefaultOptions = {
   useObsoleteKana: false,
   passRomaji: false,
+  convertLongVowelMark: true,
   upcaseKatakana: false,
   IMEMode: false,
-  convertLongVowelMark: true,
   romanization: ROMANIZATIONS.HEPBURN,
 };
 

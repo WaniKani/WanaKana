@@ -33,6 +33,7 @@ export const createRomajiToKanaMap = memoizeOne(
  * Convert [Romaji](https://en.wikipedia.org/wiki/Romaji) to [Kana](https://en.wikipedia.org/wiki/Kana), lowercase text will result in [Hiragana](https://en.wikipedia.org/wiki/Hiragana) and uppercase text will result in [Katakana](https://en.wikipedia.org/wiki/Katakana).
  * @param  {String} [input=''] text
  * @param  {DefaultOptions} [options=defaultOptions]
+ * @param  {{ [index: string]: string }} [map] custom mapping
  * @return {String} converted text
  * @example
  * toKana('onaji BUTTSUUJI')
