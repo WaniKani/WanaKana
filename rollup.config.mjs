@@ -37,14 +37,14 @@ export default [
     })],
     output: [
       {
-        dir: 'dist/cjs',
-        format: 'cjs',
+        dir: 'dist/esm',
+        format: 'esm',
         exports: 'named',
         sourcemap: true,
       },
       {
-        dir: 'dist/esm',
-        format: 'esm',
+        dir: 'dist/cjs',
+        format: 'cjs',
         exports: 'named',
         sourcemap: true,
       },
