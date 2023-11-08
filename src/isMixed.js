@@ -5,9 +5,9 @@ import isRomaji from './isRomaji';
 
 /**
  * Test if `input` contains a mix of [Romaji](https://en.wikipedia.org/wiki/Romaji) *and* [Kana](https://en.wikipedia.org/wiki/Kana), defaults to pass through [Kanji](https://en.wikipedia.org/wiki/Kanji)
- * @param  {string} input text
- * @param  {{ passKanji: boolean}} [options={ passKanji: true }] optional config to pass through kanji
- * @return {boolean} true if mixed
+ * @param  {String} input text
+ * @param  {{ passKanji: Boolean}} [options={ passKanji: true }] optional config to pass through kanji
+ * @return {Boolean} true if mixed
  * @example
  * isMixed('Abあア'))
  * // => true

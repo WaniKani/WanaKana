@@ -21,34 +21,35 @@ export type DefaultOptions = {
   romanization?: 'hepburn',
   customKanaMapping?: { [index: string]: string }
   customRomajiMapping?: { [index: string]: string }
-}
+};
 
 /**
  * Default config for WanaKana, user passed options will be merged with these
  * @type {DefaultOptions}
- * @property {boolean} [useObsoleteKana=false] - Set to true to use obsolete characters, such as ゐ and ゑ.
+ * @name defaultOptions
+ * @property {Boolean} [useObsoleteKana=false] - Set to true to use obsolete characters, such as ゐ and ゑ.
  * @example
  * toHiragana('we', { useObsoleteKana: true })
  * // => 'ゑ'
- * @property {boolean} [passRomaji=false] - Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana()
+ * @property {Boolean} [passRomaji=false] - Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana()
  * @example
  * toHiragana('only convert the katakana: ヒラガナ', { passRomaji: true })
  * // => "only convert the katakana: ひらがな"
- * @property {boolean} [convertLongVowelMark=true] - Set to false to prevent conversions of 'ー' to extended vowels with toHiragana()
+ * @property {Boolean} [convertLongVowelMark=true] - Set to false to prevent conversions of 'ー' to extended vowels with toHiragana()
  * @example
  * toHiragana('ラーメン', { convertLongVowelMark: false });
  * // => 'らーめん
- * @property {boolean} [upcaseKatakana=false] - Set to true to convert katakana to uppercase using toRomaji()
+ * @property {Boolean} [upcaseKatakana=false] - Set to true to convert katakana to uppercase using toRomaji()
  * @example
  * toRomaji('ひらがな カタカナ', { upcaseKatakana: true })
  * // => "hiragana KATAKANA"
- * @property {boolean | 'toHiragana' | 'toKatakana'} [IMEMode=false] - Set to true, 'toHiragana', or 'toKatakana' to handle conversion while it is being typed.
+ * @property {Boolean | 'toHiragana' | 'toKatakana'} [IMEMode=false] - Set to true, 'toHiragana', or 'toKatakana' to handle conversion while it is being typed.
  * @property {'hepburn'} [romanization='hepburn'] - choose toRomaji() romanization map (currently only 'hepburn')
- * @property {{ [index: string]: string }} [customKanaMapping] - custom map will be merged with default conversion
+ * @property {Object.<String, String>} [customKanaMapping] - custom map will be merged with default conversion
  * @example
  * toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'Bana' }) };
  * // => 'わにBanaに'
- * @property {{ [index: string]: string }} [customRomajiMapping] - custom map will be merged with default conversion
+ * @property {Object.<String, String>} [customRomajiMapping] - custom map will be merged with default conversion
  * @example
  * toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li' }) };
  * // => 'tuzigili'

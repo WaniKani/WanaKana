@@ -62,7 +62,9 @@
     "@babel/preset-typescript": "^7.23.2",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
     "benchmark": "^2.1.4",
+    "better-docs": "^2.7.2",
     "commitizen": "^4.2.4",
     "core-js": "3",
     "coveralls": "^3.1.1",
@@ -94,7 +96,6 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@rollup/plugin-terser": "^0.4.4",
     "dequal": "^2.0.2",
     "memoize-one": "^6.0.0"
   },

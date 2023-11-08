@@ -10,9 +10,9 @@ const isInvalidMatcher = (input, matchKanji) =>
 
 /**
  * Strips [Okurigana](https://en.wikipedia.org/wiki/Okurigana)
- * @param  {string} input text
- * @param  {{ leading?: boolean, matchKanji?: string }} [options={ leading: false, matchKanji: '' }] optional config
- * @return {string} text with okurigana removed
+ * @param  {String} input text
+ * @param  {{ leading: Boolean | undefined, matchKanji: string | undefined }} [options={ leading: false, matchKanji: '' }] optional config
+ * @return {String} text with okurigana removed
  * @example
  * stripOkurigana('踏み込む')
  * // => '踏み込'
