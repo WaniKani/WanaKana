@@ -30,7 +30,7 @@
   "scripts": {
     "prebuild": "rimraf ./dist",
     "build": "rollup -c",
-    "build:watch": "onchange './src/**/*.js' -- npm run build",
+    "build:watch": "onchange './src/**/*.(js|ts)' -- npm run build",
     "precommit": "lint-staged",
     "cz": "git-cz",
     "cypress:server": "static-server -p 9080 -i './cypress/fixtures/test-input.html'",
@@ -40,7 +40,7 @@
     "cypress:watch": "npm-run-all --parallel --race build:watch cypress:server cypress:open",
     "predocs": "rimraf ./gh-pages/docs",
     "docs": "node_modules/.bin/jsdoc -c jsdoc.json --verbose",
-    "docs:watch": "onchange './src/**/*.js' -- npm run docs",
+    "docs:watch": "onchange './src/**/*.(js|ts)' -- npm run docs",
     "docs:view": "open ./gh-pages/docs/index.html",
     "demo:view": "npm run build && static-server ./gh-pages",
     "pretest": "rimraf ./coverage",
