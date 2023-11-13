@@ -26,7 +26,7 @@ export type DefaultOptions = {
 /**
  * Default config for WanaKana, user passed options will be merged with these
  * @type {DefaultOptions}
- * @name defaultOptions
+ * @name DefaultOptions
  * @property {Boolean} [useObsoleteKana=false] - Set to true to use obsolete characters, such as ゐ and ゑ.
  * @example
  * toHiragana('we', { useObsoleteKana: true })
