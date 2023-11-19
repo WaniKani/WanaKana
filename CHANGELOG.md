@@ -26,6 +26,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
+## [5.3.0] - 2023-11-19
+
+### Added
+
+Typescript definitions have been added 🎉
+
 ## [5.2.0] - 2023-09-30
 
 ### Fixed

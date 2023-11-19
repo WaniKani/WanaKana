@@ -12,7 +12,7 @@ const isCharJaSpace = (x) => x === '　';
 const isCharJaNum = (x) => /[０-９]/.test(x);
 const isCharEnNum = (x) => /[0-9]/.test(x);
 
-export const TOKEN_TYPES = {
+const TOKEN_TYPES = {
   EN: 'en',
   JA: 'ja',
   EN_NUM: 'englishNumeral',
@@ -68,8 +68,8 @@ export function getType(input, compact = false) {
  * If `{ compact: true }` then many same-language tokens are combined (spaces + text, kanji + kana, numeral + punctuation).
  * If `{ detailed: true }` then return array will contain `{ type, value }` instead of `'value'`
  * @param  {String} input text
- * @param  {Object} [options={ compact: false, detailed: false}] options to modify output style
- * @return {String|Object[]} text split into tokens containing values, or detailed object
+ * @param  {{compact: Boolean | undefined, detailed: Boolean | undefined}} [options={ compact: false, detailed: false}] options to modify output style
+ * @return {(String[]|Array.<{type: String, value: String}>)} text split into tokens containing values, or detailed object
  * @example
  * tokenize('ふふフフ')
  * // ['ふふ', 'フフ']

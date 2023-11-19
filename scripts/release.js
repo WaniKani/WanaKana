@@ -35,6 +35,7 @@ const PACKAGE_JSON = {
   ],
   addFields: {
     'main': 'cjs/index.js',
+    'types': 'cjs/index.d.ts',
     'react-native': 'cjs/index.js',
     'module': 'esm/index.js',
     'unpkg': 'wanakana.min.js',
@@ -163,7 +164,7 @@ try {
     execFail(
       exec(
         `cd ${OUT_DIR} && npm publish${otp && ` --otp=${otp}`}${distTag
-          && ` --tag ${distTag}`}`
+        && ` --tag ${distTag}`}`
       )
     )
   ) {
