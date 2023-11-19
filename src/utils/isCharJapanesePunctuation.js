@@ -1,5 +1,5 @@
 import isEmpty from './isEmpty';
-import { JA_PUNCTUATION_RANGES } from '../constants';
+import { JA_PUNCTUATION_RANGES } from '../constants.ts';
 import isCharInRange from './isCharInRange';
 import isCharIterationMark from './isCharIterationMark';
 

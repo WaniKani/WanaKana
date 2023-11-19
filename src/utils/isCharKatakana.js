@@ -1,7 +1,7 @@
 import {
   KATAKANA_START,
   KATAKANA_END,
-} from '../constants';
+} from '../constants.ts';
 
 import isCharInRange from './isCharInRange';
 

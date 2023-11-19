@@ -1,4 +1,4 @@
-import { KANJI_START, KANJI_END } from '../constants';
+import { KANJI_START, KANJI_END } from '../constants.ts';
 
 import isCharInRange from './isCharInRange';
 import isCharIterationMark from './isCharIterationMark';

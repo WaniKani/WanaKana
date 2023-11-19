@@ -1,4 +1,4 @@
-import { DEFAULT_OPTIONS } from '../constants';
+import { DEFAULT_OPTIONS } from '../constants.ts';
 /**
  * Easy re-use of merging with default options
  * @param {Object} opts user options

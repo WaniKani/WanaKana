@@ -1,5 +1,5 @@
 import isEmpty from './isEmpty';
-import { KANA_SLASH_DOT } from '../constants';
+import { KANA_SLASH_DOT } from '../constants.ts';
 
 /**
  * Tests if char is '・'

@@ -1,5 +1,5 @@
 import isEmpty from './isEmpty';
-import { PROLONGED_SOUND_MARK } from '../constants';
+import { PROLONGED_SOUND_MARK } from '../constants.ts';
 
 /**
  * Returns true if char is 'ー'

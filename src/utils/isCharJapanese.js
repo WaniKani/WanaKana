@@ -1,5 +1,5 @@
 import isCharInRange from './isCharInRange';
-import { JAPANESE_RANGES } from '../constants';
+import { JAPANESE_RANGES } from '../constants.ts';
 
 /**
  * Tests a character. Returns true if the character is [Katakana](https://en.wikipedia.org/wiki/Katakana).

@@ -1,5 +1,5 @@
 import isEmpty from './isEmpty';
-import { EN_PUNCTUATION_RANGES } from '../constants';
+import { EN_PUNCTUATION_RANGES } from '../constants.ts';
 import isCharInRange from './isCharInRange';
 
 /**

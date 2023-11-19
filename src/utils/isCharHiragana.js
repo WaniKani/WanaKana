@@ -4,7 +4,7 @@ import isCharInRange from './isCharInRange';
 import {
   HIRAGANA_START,
   HIRAGANA_END,
-} from '../constants';
+} from '../constants.ts';
 
 /**
  * Tests a character. Returns true if the character is [Hiragana](https://en.wikipedia.org/wiki/Hiragana).

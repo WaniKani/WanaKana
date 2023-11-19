@@ -1,5 +1,5 @@
 import { transform, getSubTreeOf } from './kanaMapping';
-import { ROMANIZATIONS } from '../constants';
+import { ROMANIZATIONS } from '../constants.ts';
 
 let kanaToHepburnMap = null;
 

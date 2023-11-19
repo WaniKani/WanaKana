@@ -1,6 +1,6 @@
 import isEmpty from './isEmpty';
 import isCharInRange from './isCharInRange';
-import { LATIN_UPPERCASE_START, LATIN_UPPERCASE_END } from '../constants';
+import { LATIN_UPPERCASE_START, LATIN_UPPERCASE_END } from '../constants.ts';
 
 /**
  * Tests if char is in English unicode uppercase range

@@ -1,5 +1,5 @@
 import isEmpty from './isEmpty';
-import { KANJI_ITERATION_MARK } from '../constants';
+import { KANJI_ITERATION_MARK } from '../constants.ts';
 
 /**
  * Returns true if char is '々'

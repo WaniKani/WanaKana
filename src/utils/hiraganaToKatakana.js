@@ -1,4 +1,4 @@
-import { KATAKANA_START, HIRAGANA_START } from '../constants';
+import { KATAKANA_START, HIRAGANA_START } from '../constants.ts';
 
 import isCharLongDash from './isCharLongDash';
 import isCharSlashDot from './isCharSlashDot';
