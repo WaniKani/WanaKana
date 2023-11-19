@@ -5,7 +5,7 @@ import isCharJapanese from './utils/isCharJapanese';
 /**
  * Test if `input` only includes [Kanji](https://en.wikipedia.org/wiki/Kanji), [Kana](https://en.wikipedia.org/wiki/Kana), zenkaku numbers, and JA punctuation/symbols.”
  * @param  {String} [input=''] text
- * @param  {Regexp} [allowed] additional test allowed to pass for each char
+ * @param  {RegExp} [allowed] additional test allowed to pass for each char
  * @return {Boolean} true if passes checks
  * @example
  * isJapanese('泣き虫')

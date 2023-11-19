@@ -12,7 +12,7 @@ const newId = () => {
 /**
  * Binds eventListener for 'input' events to an input field to automagically replace values with kana
  * Can pass `{ IMEMode: 'toHiragana' || 'toKatakana' }` to enforce kana conversion type
- * @param  {HTMLElement} element textarea, input[type="text"] etc
+ * @param  {HTMLInputElement | HTMLTextAreaElement} element textarea, input[type="text"] etc
  * @param  {DefaultOptions} [options=defaultOptions] defaults to { IMEMode: true } using `toKana`
  * @example
  * bind(document.querySelector('#myInput'));

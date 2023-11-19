@@ -1,9 +1,10 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import babel from '@rollup/plugin-babel';
-import pkg from './package.json';
+import pkg from './package.json' assert { type: "json" };
+import ts from "rollup-plugin-ts";
 
-const input = ['src/index.js'];
+const input = ['src/index.ts'];
 
 export default [
   // UMD
@@ -15,6 +16,9 @@ export default [
         babelHelpers: 'bundled',
       }),
       terser(),
+      ts({
+        transpiler: "babel"
+      }),
     ],
     output: {
       file: `dist/${pkg.name}.min.js`,
@@ -28,7 +32,9 @@ export default [
   // ESM and CJS
   {
     input,
-    plugins: [nodeResolve()],
+    plugins: [nodeResolve(), ts({
+      browserslist: false
+    })],
     output: [
       {
         dir: 'dist/esm',

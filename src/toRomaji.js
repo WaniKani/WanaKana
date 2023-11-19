@@ -25,7 +25,7 @@ export const createKanaToRomajiMap = memoizeOne(
  * Convert kana to romaji
  * @param  {String} kana text input
  * @param  {DefaultOptions} [options=defaultOptions]
- * @param  {Object} map custom mapping
+ * @param  {Object.<string, string>} [map] custom mapping
  * @return {String} converted text
  * @example
  * toRomaji('ひらがな　カタカナ')
