@@ -73,7 +73,7 @@
 
     
 
-    <h3 id="global-nav">Global</h3><ul><li><a href="global.html#bind">bind</a></li><li><a href="global.html#defaultOptions">defaultOptions</a></li><li><a href="global.html#isHiragana">isHiragana</a></li><li><a href="global.html#isJapanese">isJapanese</a></li><li><a href="global.html#isKana">isKana</a></li><li><a href="global.html#isKanji">isKanji</a></li><li><a href="global.html#isKatakana">isKatakana</a></li><li><a href="global.html#isMixed">isMixed</a></li><li><a href="global.html#isRomaji">isRomaji</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li><li><a href="global.html#toHiragana">toHiragana</a></li><li><a href="global.html#toKana">toKana</a></li><li><a href="global.html#toKatakana">toKatakana</a></li><li><a href="global.html#tokenize">tokenize</a></li><li><a href="global.html#toRomaji">toRomaji</a></li><li><a href="global.html#unbind">unbind</a></li></ul>
+    <h3 id="global-nav">Global</h3><ul><li><a href="global.html#bind">bind</a></li><li><a href="global.html#DefaultOptions">DefaultOptions</a></li><li><a href="global.html#isHiragana">isHiragana</a></li><li><a href="global.html#isJapanese">isJapanese</a></li><li><a href="global.html#isKana">isKana</a></li><li><a href="global.html#isKanji">isKanji</a></li><li><a href="global.html#isKatakana">isKatakana</a></li><li><a href="global.html#isMixed">isMixed</a></li><li><a href="global.html#isRomaji">isRomaji</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li><li><a href="global.html#toHiragana">toHiragana</a></li><li><a href="global.html#toKana">toKana</a></li><li><a href="global.html#toKatakana">toKatakana</a></li><li><a href="global.html#tokenize">tokenize</a></li><li><a href="global.html#toRomaji">toRomaji</a></li><li><a href="global.html#unbind">unbind</a></li></ul>
   </nav>
 
   <div id="main">
@@ -161,8 +161,8 @@
         
             
 
-<h4 class="name" id="defaultOptions">
-  <span class="type-signature"></span>defaultOptions<span class="type-signature"> :DefaultOptions</span>
+<h4 class="name" id="DefaultOptions">
+  <span class="type-signature"></span>DefaultOptions<span class="type-signature"> :<a href="global.html#DefaultOptions">DefaultOptions</a></span>
 </h4>
 
 
@@ -298,7 +298,7 @@
         
           
     <span class="param-type">
-      Object
+      Boolean
     </span>
 
     
@@ -390,7 +390,13 @@
     |
 
     <span class="param-type">
-      String
+      'toHiragana'
+    </span>
+
+    |
+
+    <span class="param-type">
+      'toKatakana'
     </span>
 
     
@@ -433,7 +439,7 @@
         
           
     <span class="param-type">
-      String
+      'hepburn'
     </span>
 
     
@@ -476,7 +482,7 @@
         
           
     <span class="param-type">
-      Object
+      Object.&lt;String, String>
     </span>
 
     
@@ -517,7 +523,7 @@
         
           
     <span class="param-type">
-      Object
+      Object.&lt;String, String>
     </span>
 
     
@@ -585,7 +591,7 @@
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line12">line 12</a>
+          <a href="constants.ts.html">constants.ts</a>, <a href="constants.ts.html#line10">line 10</a>
         </li>
       </ul>
     </dd>
@@ -705,7 +711,13 @@ Can pass <code>{ IMEMode: 'toHiragana' || 'toKatakana' }</code> to enforce kana 
           
             
     <span class="param-type">
-      HTMLElement
+      HTMLInputElement
+    </span>
+
+    |
+
+    <span class="param-type">
+      HTMLTextAreaElement
     </span>
 
     
@@ -746,7 +758,7 @@ Can pass <code>{ IMEMode: 'toHiragana' || 'toKatakana' }</code> to enforce kana 
           
             
     <span class="param-type">
-      DefaultOptions
+      <a href="global.html#DefaultOptions">DefaultOptions</a>
     </span>
 
     
@@ -1156,7 +1168,7 @@ isHiragana('あア')
           
             
     <span class="param-type">
-      Regexp
+      RegExp
     </span>
 
     
@@ -2187,7 +2199,7 @@ isMixed('あア'))
           
             
     <span class="param-type">
-      Regexp
+      RegExp
     </span>
 
     
@@ -2651,7 +2663,7 @@ stripOkurigana('おみまい', { matchKanji: 'お祝い', leading: true });
           
             
     <span class="param-type">
-      DefaultOptions
+      <a href="global.html#DefaultOptions">DefaultOptions</a>
     </span>
 
     
@@ -2785,7 +2797,7 @@ toHiragana('wi', { useObsoleteKana: true })
       </svg>
     </a>
     <h4 class="name" id="toKana">
-      <span class="type-signature"></span>toKana<span class="signature">(input<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span>
+      <span class="type-signature"></span>toKana<span class="signature">(input<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>, map<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span>
     </h4>
   </span>
 
@@ -2883,7 +2895,7 @@ toHiragana('wi', { useObsoleteKana: true })
           
             
     <span class="param-type">
-      DefaultOptions
+      <a href="global.html#DefaultOptions">DefaultOptions</a>
     </span>
 
     
@@ -2914,6 +2926,49 @@ toHiragana('wi', { useObsoleteKana: true })
 
         <td class="description last">
           
+          
+        </td>
+      </tr>
+
+    
+      <tr>
+        
+          <td class="name"><code>map</code></td>
+        
+
+        <td class="type">
+          
+            
+    <span class="param-type">
+      Object.&lt;string, string>
+    </span>
+
+    
+
+
+          
+        </td>
+
+        
+          <td class="attributes">
+            
+              &lt;optional><br>
+            
+
+            
+
+            
+          </td>
+        
+
+        
+          <td class="default">
+            
+          </td>
+        
+
+        <td class="description last">
+          <p>custom mapping</p>
           
         </td>
       </tr>
@@ -2957,7 +3012,7 @@ toHiragana('wi', { useObsoleteKana: true })
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="toKana.js.html">toKana.js</a>, <a href="toKana.js.html#line53">line 53</a>
+          <a href="toKana.js.html">toKana.js</a>, <a href="toKana.js.html#line54">line 54</a>
         </li>
       </ul>
     </dd>
@@ -3121,7 +3176,7 @@ toKana('wanakana', { customKanaMapping: { na: 'に', ka: 'bana' } });
           
             
     <span class="param-type">
-      DefaultOptions
+      <a href="global.html#DefaultOptions">DefaultOptions</a>
     </span>
 
     
@@ -3255,7 +3310,7 @@ toKatakana('wi', { useObsoleteKana: true })
       </svg>
     </a>
     <h4 class="name" id="tokenize">
-      <span class="type-signature"></span>tokenize<span class="signature">(input, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String|Array.&lt;Object>}</span>
+      <span class="type-signature"></span>tokenize<span class="signature">(input, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Array.&lt;String>|Array.&lt;{type: String, value: String}>}</span>
     </h4>
   </span>
 
@@ -3531,7 +3586,7 @@ tokenize('5romaji here...!?人々漢字ひらがなカタ　カナ４「ＳＨ�
       </svg>
     </a>
     <h4 class="name" id="toRomaji">
-      <span class="type-signature"></span>toRomaji<span class="signature">(kana, options<span class="signature-attributes">opt</span>, map)</span><span class="type-signature"> &rarr; {String}</span>
+      <span class="type-signature"></span>toRomaji<span class="signature">(kana, options<span class="signature-attributes">opt</span>, map<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span>
     </h4>
   </span>
 
@@ -3625,7 +3680,7 @@ tokenize('5romaji here...!?人々漢字ひらがなカタ　カナ４「ＳＨ�
           
             
     <span class="param-type">
-      DefaultOptions
+      <a href="global.html#DefaultOptions">DefaultOptions</a>
     </span>
 
     
@@ -3670,7 +3725,7 @@ tokenize('5romaji here...!?人々漢字ひらがなカタ　カナ４「ＳＨ�
           
             
     <span class="param-type">
-      Object
+      Object.&lt;string, string>
     </span>
 
     
@@ -3681,6 +3736,8 @@ tokenize('5romaji here...!?人々漢字ひらがなカタ　カナ４「ＳＨ�
 
         
           <td class="attributes">
+            
+              &lt;optional><br>
             
 
             
@@ -3849,7 +3906,13 @@ toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li
           
             
     <span class="param-type">
-      HTMLElement
+      HTMLInputElement
+    </span>
+
+    |
+
+    <span class="param-type">
+      HTMLTextAreaElement
     </span>
 
     
@@ -3950,7 +4013,7 @@ toRomaji('つじぎり', { customRomajiMapping: { じ: 'zi', つ: 'tu', り: 'li
   <br class="clear">
 
   <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a>
   </footer>
 
   <script src="scripts/linenumber.js"></script>
