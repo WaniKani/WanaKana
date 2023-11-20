@@ -1,4 +1,4 @@
-export const VERSION = '5.3.0';
+export const VERSION = '5.3.1';
 
 export const TO_KANA_METHODS: {
   HIRAGANA: 'toHiragana',
