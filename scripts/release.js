@@ -103,7 +103,7 @@ try {
 
   try {
     replace.sync({
-      files: `${path.resolve(SOURCE_DIR, 'constants.js')}`,
+      files: `${path.resolve(SOURCE_DIR, 'constants.ts')}`,
       from: /VERSION = '.*'/,
       to: `VERSION = '${nextVersion}'`,
     });
@@ -203,7 +203,7 @@ try {
   }
 
   log('Committing version changes...');
-  exec(`git add ${versionLoc} package.json src/constants.js`);
+  exec(`git add ${versionLoc} package.json src/constants.ts`);
   exec(`git commit -m "Version ${nextVersion}"`);
 
   if (!distTag) {
