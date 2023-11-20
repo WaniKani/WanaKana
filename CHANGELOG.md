@@ -26,6 +26,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 
+## [5.3.1] - 2023-11-20
+
+### Fixed
+
+Wanakana will now report its version correctly, this was briefly incorrect in version `5.3.0`.
+
 ## [5.3.0] - 2023-11-19
 
 ### Added
