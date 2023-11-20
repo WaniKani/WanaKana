@@ -31,7 +31,7 @@ Update CHANGELOG.md with any changes, following the format provided.
 
 ## Publishing new versions
 
-If you have NPM Publish authority for the project you can run `npm run release` (yarn has an issue with npm auth) and follow the prompts. This will lint, test, build packages, docs, demo website, publish to npm, update tags as new release on github, as well as push the website/docs with updated bundle to gh-pages branch.
+If you have NPM Publish authority for the project you can run `npm run release` (yarn has an issue with npm auth) and follow the prompts. This will lint, test, build packages, docs, demo website, publish to npm, update tags as new release on github, as well as push the website/docs with updated bundle to gh-pages branch. Afterwards, you can generate release notes on github by drafting a new release using the newly added version tag.
 
 ## Using the issue tracker
 
