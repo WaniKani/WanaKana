@@ -22,7 +22,7 @@ const BASIC_ROMAJI = {
   だ:'da',   ぢ:'ji',  づ:'zu',  で:'de',   ど:'do',
   ば:'ba',   び:'bi',  ぶ:'bu',  べ:'be',   ぼ:'bo',
   ぱ:'pa',   ぴ:'pi',  ぷ:'pu',  ぺ:'pe',   ぽ:'po',
-  ゔぁ:'va', ゔぃ:'vi', ゔ:'vu',  ゔぇ:'ve', ゔぉ:'vo',
+  ゔ:'vu',
 };
 /* eslint-enable  */
 
@@ -167,6 +167,12 @@ function createKanaToHepburnMap() {
     // じぃ -> jyi, じぇ -> je
     setTrans(`${kana}ぃ`, `${roma}yi`);
     setTrans(`${kana}ぇ`, `${roma}e`);
+  });
+
+  // ゔぁ -> va, ゔぃ -> vi, ゔぇ -> ve, ゔぉ -> vo
+  // (ゔ is a YOON_KANA, so the pass above sets ゔぃ -> vyi / ゔぇ -> vye; override here)
+  Object.entries(SMALL_AIUEO).forEach(([kana, roma]) => {
+    setTrans(`ゔ${kana}`, `v${roma}`);
   });
 
   romajiTree['っ'] = resolveTsu(romajiTree);
