@@ -68,8 +68,8 @@ export function getType(input, compact = false) {
  * If `{ compact: true }` then many same-language tokens are combined (spaces + text, kanji + kana, numeral + punctuation).
  * If `{ detailed: true }` then return array will contain `{ type, value }` instead of `'value'`
  * @param  {String} input text
- * @param  {{compact: Boolean | undefined, detailed: Boolean | undefined}} [options={ compact: false, detailed: false}] options to modify output style
- * @return {(String[]|Array.<{type: String, value: String}>)} text split into tokens containing values, or detailed object
+ * @param  {{compact?: Boolean, detailed?: Boolean}} [options={ compact: false, detailed: false}] options to modify output style
+ * @return {(String[]|{type: String, value: String}[])} text split into tokens containing values, or detailed object
  * @example
  * tokenize('ふふフフ')
  * // ['ふふ', 'フフ']
