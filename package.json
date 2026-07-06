@@ -75,7 +75,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-import": "2.29.0",
-    "gh-pages": "^3.2.3",
+    "gh-pages": "^5.0.0",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "jsdoc": "^3.6.10",
