@@ -33,12 +33,12 @@ export function makeOnInput(options) {
       target.value !== prevInput
       && target.dataset.ignoreComposition !== 'true'
     ) {
-      convertInput(target, mergedConfig, preConfiguredMap, triggers, prevInput);
+      prevInput = convertInput(target, mergedConfig, preConfiguredMap, triggers);
     }
   };
 }
 
-export function convertInput(target, options, map, triggers, prevInput) {
+export function convertInput(target, options, map, triggers) {
   const [head, textToConvert, tail] = splitInput(
     target.value,
     target.selectionEnd,
@@ -52,8 +52,6 @@ export function convertInput(target, options, map, triggers, prevInput) {
     const newValue = head + convertedText + tail;
     // eslint-disable-next-line no-param-reassign
     target.value = newValue;
-    // eslint-disable-next-line no-param-reassign
-    prevInput = newValue;
 
     if (tail.length) {
       // push later on event loop (otherwise mid-text insertion can be 1 char too far to the right)
@@ -61,10 +59,11 @@ export function convertInput(target, options, map, triggers, prevInput) {
     } else {
       target.setSelectionRange(newCursor, newCursor);
     }
-  } else {
-    // eslint-disable-next-line no-param-reassign
-    prevInput = target.value;
+
+    return newValue;
   }
+
+  return target.value;
 }
 
 export function onComposition({ type, target, data }) {

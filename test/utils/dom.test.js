@@ -1,5 +1,44 @@
-import { splitInput } from '../../src/utils/dom';
+import { makeOnInput, splitInput } from '../../src/utils/dom';
 import { createRomajiToKanaMap } from '../../src/toKana';
+import * as toKanaModule from '../../src/toKana';
+
+function createFakeInput(initialValue) {
+  return {
+    value: initialValue,
+    selectionEnd: initialValue.length,
+    dataset: {},
+    setSelectionRange(start) {
+      this.selectionEnd = start;
+    },
+  };
+}
+
+describe('makeOnInput', () => {
+  it('skips reprocessing when a duplicate "input" event fires with an unchanged value', () => {
+    // Regression test for a dead-store bug: convertInput() used to reassign its local
+    // `prevInput` parameter instead of the `prevInput` closed over by makeOnInput(), so the
+    // dedup guard (`target.value !== prevInput`) never actually recorded what was already
+    // processed. Every "input" event - including a redundant/duplicate one some hardware
+    // keyboard + browser combinations fire for a single keystroke - was reprocessed from
+    // scratch, which is one way an already-converted kana character could get reprocessed
+    // and duplicated.
+    const toKanaSpy = jest.spyOn(toKanaModule, 'default');
+    const onInput = makeOnInput({ IMEMode: true });
+    const target = createFakeInput('ka');
+
+    onInput({ target });
+    expect(target.value).toBe('か');
+    expect(toKanaSpy).toHaveBeenCalledTimes(1);
+
+    // Duplicate "input" event for the same value - nothing new was typed.
+    onInput({ target });
+
+    expect(target.value).toBe('か');
+    expect(toKanaSpy).toHaveBeenCalledTimes(1);
+
+    toKanaSpy.mockRestore();
+  });
+});
 
 describe('splitInput', () => {
   const preConfiguredMap = createRomajiToKanaMap(true /* IMEMode */);
