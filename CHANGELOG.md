@@ -23,6 +23,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 <!--
 ## [Unreleased]
+
+### Fixed
+
+- `toRomaji` now respects katakana keys in `customRomajiMapping` ([#180](https://github.com/wanikani/wanakana/issues/180))
+
 ### Add any unpublished changes here as they are made, for easy reference come release time.
 -->
 

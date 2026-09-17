@@ -33,6 +33,14 @@ describe('Test custom mappings options', () => {
     ).toBe('tuzigili');
   });
 
+  it('applies customRomajiMapping with katakana keys', () => {
+    expect(
+      toRomaji('ツジギリ', {
+        customRomajiMapping: { ジ: 'zi', ツ: 'tu', リ: 'li' },
+      })
+    ).toBe('tuzigili');
+  });
+
   it('will replace previous custom mappings', () => {
     expect(
       toRomaji('つじぎり', {

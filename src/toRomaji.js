@@ -13,13 +13,25 @@ export const createKanaToRomajiMap = memoizeOne(
     let map = getKanaToRomajiTree(romanization);
 
     if (customRomajiMapping) {
-      map = mergeCustomMapping(map, customRomajiMapping);
+      map = mergeCustomMapping(map, normalizeKanaKeys(customRomajiMapping));
     }
 
     return map;
   },
   dequal
 );
+
+// Input is converted to hiragana before the mapping is applied, so katakana
+// keys in customRomajiMapping would never match. Normalize them as well.
+function normalizeKanaKeys(customRomajiMapping) {
+  if (typeof customRomajiMapping === 'function') {
+    return customRomajiMapping;
+  }
+  return Object.entries(customRomajiMapping).reduce((acc, [key, value]) => {
+    acc[katakanaToHiragana(key)] = value;
+    return acc;
+  }, {});
+}
 
 /**
  * Convert kana to romaji
