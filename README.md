@@ -4,8 +4,8 @@
     <img src="https://img.shields.io/npm/v/wanakana.svg" alt="NPM package" />
   </a>
   <!-- Build Status -->
-  <a href="https://travis-ci.org/WaniKani/WanaKana">
-    <img src="https://img.shields.io/travis/WaniKani/WanaKana.svg" alt="Build Status" />
+  <a href="https://github.com/WaniKani/WanaKana/actions/workflows/ci.yml">
+    <img src="https://github.com/WaniKani/WanaKana/actions/workflows/ci.yml/badge.svg" alt="Build Status" />
   </a>
   <!-- Test Coverage -->
   <a href="https://coveralls.io/github/WaniKani/WanaKana">
@@ -62,7 +62,7 @@ import * as wanakana from 'wanakana';
 import { toKana, isRomaji } from 'wanakana';
 ```
 
-#### Node (>=12 supported)
+#### Node (>=16 supported)
 
 ```javascript
 const wanakana = require('wanakana');
